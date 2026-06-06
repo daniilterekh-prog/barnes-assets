@@ -23,3 +23,7 @@ Generated: 2026-06-06T16:48:23.150Z
 - ./images/manhattan-club-house-lounge.webp -> https://daniilterekh-prog.github.io/barnes-assets/manhattan/images/manhattan-club-house-lounge.webp (copied-to-barnes-assets, 318290 bytes)
 - ./images/manhattan-club-house-panoramic-view.webp -> https://daniilterekh-prog.github.io/barnes-assets/manhattan/images/manhattan-club-house-panoramic-view.webp (copied-to-barnes-assets, 273978 bytes)
 - ./images/manhattan-club-house-penthouse-terrace.webp -> https://daniilterekh-prog.github.io/barnes-assets/manhattan/images/manhattan-club-house-penthouse-terrace.webp (copied-to-barnes-assets, 587348 bytes)
+
+## Favicon manifest extras
+- ./assets/favicon/favicon-192x192.png -> https://daniilterekh-prog.github.io/barnes-assets/manhattan/assets/favicon/favicon-192x192.png
+- ./assets/favicon/favicon-512x512.png -> https://daniilterekh-prog.github.io/barnes-assets/manhattan/assets/favicon/favicon-512x512.png
