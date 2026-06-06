@@ -1,0 +1,21 @@
+{
+  "name": "ГК Репин | BARNES Saint Petersburg",
+  "short_name": "Репин",
+  "lang": "ru-RU",
+  "start_url": "/repin/",
+  "display": "standalone",
+  "background_color": "#F8F7F4",
+  "theme_color": "#F8F7F4",
+  "icons": [
+    {
+      "src": "/repin/assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/repin/assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
