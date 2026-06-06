@@ -1,0 +1,36 @@
+<!-- T123 / 00I / GitHub Pages image links template -->
+<script>
+(function(){
+  var base = "https://USERNAME.github.io/barnes-assets/moscow-new";
+  window.BX_IMAGES = Object.assign({}, window.BX_IMAGES || {}, {
+    "heroBuilding": base + "/hero-building.webp",
+    "atlasMap": base + "/atlas-map.webp",
+    "indexMockup": base + "/index-mockup.webp",
+    "finalCta": base + "/final-cta.webp",
+    "residenceBadaevsky": base + "/residence-badaevsky.webp",
+    "residenceFrunzenskaya": base + "/residence-frunzenskaya.webp",
+    "residenceLuzhniki": base + "/residence-luzhniki.webp",
+    "residenceNicole": base + "/residence-luzhniki.webp",
+    "residenceTishinsky": base + "/residence-tishinsky.webp",
+    "residenceShift": base + "/residence-shift.webp",
+    "scenarioLive": base + "/scenario-live.webp"
+  });
+
+  function applyBarnesImages(){
+    document.querySelectorAll("[data-image-key]").forEach(function(image){
+      var src = window.BX_IMAGES && window.BX_IMAGES[image.dataset.imageKey];
+      if (!src || image.tagName !== "IMG") return;
+      image.src = src;
+      image.decoding = "async";
+      if (!image.hasAttribute("loading")) image.loading = "lazy";
+    });
+  }
+
+  window.BX_APPLY_IMAGES = applyBarnesImages;
+  applyBarnesImages();
+  document.addEventListener("DOMContentLoaded", applyBarnesImages);
+  window.addEventListener("load", applyBarnesImages);
+  setTimeout(applyBarnesImages, 300);
+  setTimeout(applyBarnesImages, 1200);
+})();
+</script>
