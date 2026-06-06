@@ -1,0 +1,18 @@
+# Vavilova 64 Asset Map
+
+Date: 2026-06-07
+
+| role | source | optimized | size KB | final URL | alt |
+|---|---|---|---:|---|---|
+| hero | `/Users/ritaterekh/Documents/вавилова/assets/vavilova-hero.png` | `/Users/ritaterekh/Documents/вавилова/assets/optimized/vavilova-64-hero.webp` | 227.4 | https://daniilterekh-prog.github.io/barnes-assets/vavilova-64/vavilova-64-hero.webp | Фасад проекта Вавилова 64 |
+| facade | `/Users/ritaterekh/Documents/вавилова/assets/vavilova-64-fasad.webp` | `/Users/ritaterekh/Documents/вавилова/assets/optimized/vavilova-64-facade.webp` | 154.8 | https://daniilterekh-prog.github.io/barnes-assets/vavilova-64/vavilova-64-facade.webp | Фасад проекта Вавилова 64 |
+| lobby | `/Users/ritaterekh/Documents/вавилова/assets/vavilova-64-lobby.webp` | `/Users/ritaterekh/Documents/вавилова/assets/optimized/vavilova-64-lobby.webp` | 139.2 | https://daniilterekh-prog.github.io/barnes-assets/vavilova-64/vavilova-64-lobby.webp | Гранд-лобби проекта Вавилова 64 |
+| apartment | `/Users/ritaterekh/Documents/вавилова/assets/vavilova-64-apartment.webp` | `/Users/ritaterekh/Documents/вавилова/assets/optimized/vavilova-64-apartment.webp` | 71.7 | https://daniilterekh-prog.github.io/barnes-assets/vavilova-64/vavilova-64-apartment.webp | Интерьер квартиры в проекте Вавилова 64 |
+| facade-detail | `/Users/ritaterekh/Documents/вавилова/assets/vavilova-facade-detail.jpg` | `/Users/ritaterekh/Documents/вавилова/assets/optimized/vavilova-64-facade-detail.webp` | 68.1 | https://daniilterekh-prog.github.io/barnes-assets/vavilova-64/vavilova-64-facade-detail.webp | Фасад проекта Вавилова 64 |
+| elevator | `/Users/ritaterekh/Documents/вавилова/assets/vavilova-source-18.jpg` | `/Users/ritaterekh/Documents/вавилова/assets/optimized/vavilova-64-elevator-hall.webp` | 62.0 | https://daniilterekh-prog.github.io/barnes-assets/vavilova-64/vavilova-64-elevator-hall.webp | Лифтовой холл проекта Вавилова 64 |
+| living | `/Users/ritaterekh/Documents/вавилова/assets/vavilova-living.png` | `/Users/ritaterekh/Documents/вавилова/assets/optimized/vavilova-64-living.webp` | 105.8 | https://daniilterekh-prog.github.io/barnes-assets/vavilova-64/vavilova-64-living.webp | Интерьер квартиры в проекте Вавилова 64 |
+| upper-floor | `/Users/ritaterekh/Documents/вавилова/assets/vavilova-living-double-height.png` | `/Users/ritaterekh/Documents/вавилова/assets/optimized/vavilova-64-upper-floor.webp` | 74.6 | https://daniilterekh-prog.github.io/barnes-assets/vavilova-64/vavilova-64-upper-floor.webp | Квартира на верхнем этаже проекта Вавилова 64 |
+| expert | `/Users/ritaterekh/Documents/вавилова/assets/ruslan-pruss-expert.jpg` | `/Users/ritaterekh/Documents/вавилова/assets/optimized/ruslan-pruss-expert.webp` | 102.5 | https://daniilterekh-prog.github.io/barnes-assets/vavilova-64/ruslan-pruss-expert.webp | Руслан Прусс, эксперт BARNES Moscow |
+| logo-white | `/Users/ritaterekh/Documents/вавилова/assets/barnes-logo-white-crop.png` | `/Users/ritaterekh/Documents/вавилова/assets/optimized/barnes-logo-white.webp` | 4.0 | https://daniilterekh-prog.github.io/barnes-assets/vavilova-64/barnes-logo-white.webp | BARNES Moscow |
+| logo-black | `/Users/ritaterekh/Documents/вавилова/assets/barnes-logo-black-crop.png` | `/Users/ritaterekh/Documents/вавилова/assets/optimized/barnes-logo-black.webp` | 4.4 | https://daniilterekh-prog.github.io/barnes-assets/vavilova-64/barnes-logo-black.webp | BARNES Moscow |
+| map | `/Users/ritaterekh/Documents/вавилова/assets/vavilovo64-yandex-map-source.png` | `/Users/ritaterekh/Documents/вавилова/assets/optimized/vavilova-64-map-barnes-light.webp` | 157.3 | https://daniilterekh-prog.github.io/barnes-assets/vavilova-64/vavilova-64-map-barnes-light.webp | Карта окружения проекта Вавилова 64 |
