@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="BARNES Saint Petersburg">
+  <rect width="512" height="512" fill="#111111"/>
+  <rect x="40" y="40" width="432" height="432" fill="none" stroke="#F8F7F4" stroke-width="10"/>
+  <text x="256" y="302" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="188" font-weight="400" letter-spacing="8" fill="#F8F7F4">B</text>
+  <text x="256" y="360" text-anchor="middle" font-family="Arial, sans-serif" font-size="38" font-weight="400" letter-spacing="10" fill="#D8D4CC">SPB</text>
+</svg>
