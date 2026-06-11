@@ -21,3 +21,6 @@
 | favicon-32x32.png | favicon-32x32.webp | favicon | 1.1 | 0.5 | https://daniilterekh-prog.github.io/barnes-assets/spb-catalog/favicon-32x32.webp |
 | logo-spb.svg | logo-spb.svg | logo | 17.7 | 17.7 | https://daniilterekh-prog.github.io/barnes-assets/spb-catalog/logo-spb.svg |
 | favicon.svg | favicon.svg | favicon | 0.4 | 0.4 | https://daniilterekh-prog.github.io/barnes-assets/spb-catalog/favicon.svg |
+| icon-192.png | icon-192.webp | manifest icon | - | 5.4 | https://daniilterekh-prog.github.io/barnes-assets/spb-catalog/icon-192.webp |
+| icon-512.png | icon-512.webp | manifest icon | - | 27.7 | https://daniilterekh-prog.github.io/barnes-assets/spb-catalog/icon-512.webp |
+| site.webmanifest | site.webmanifest | web app manifest | - | 0.5 | https://daniilterekh-prog.github.io/barnes-assets/spb-catalog/site.webmanifest |
