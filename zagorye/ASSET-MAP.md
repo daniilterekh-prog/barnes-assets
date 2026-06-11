@@ -10,6 +10,10 @@ Base URL:
 - `zagorye-chalet-interior.webp`
 - `zagorye-panoramic-living-room.webp`
 - `zagorye-altay-resort-evening.webp`
+- `zagorye-altay-morning.webp`
+- `zagorye-altay-day.webp`
+- `zagorye-altay-evening.webp`
+- `zagorye-altay-winter.webp`
 - `zagorye-location-map.webp`
 - `zagorye-map-lake.webp`
 - `zagorye-map-spa.webp`
