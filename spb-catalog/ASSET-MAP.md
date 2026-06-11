@@ -24,3 +24,4 @@
 | icon-192.png | icon-192.webp | manifest icon | - | 5.4 | https://daniilterekh-prog.github.io/barnes-assets/spb-catalog/icon-192.webp |
 | icon-512.png | icon-512.webp | manifest icon | - | 27.7 | https://daniilterekh-prog.github.io/barnes-assets/spb-catalog/icon-512.webp |
 | site.webmanifest | site.webmanifest | web app manifest | - | 0.5 | https://daniilterekh-prog.github.io/barnes-assets/spb-catalog/site.webmanifest |
+| barnes-spb-catalog.min.js | barnes-spb-catalog.min.js | Tilda external script | - | 93.2 | https://daniilterekh-prog.github.io/barnes-assets/spb-catalog/barnes-spb-catalog.min.js |
