@@ -1,0 +1,2543 @@
+(function () {
+  window.BX_METRIKA_ID = window.BX_METRIKA_ID || 88281896;
+
+  const BX = {
+    metrikaId: window.BX_METRIKA_ID || null,
+    webhookUrl: "https://barnes-moscow.com/api/app/form/tilda/lead/callback/",
+    popupHref: "#bx-request-popup",
+    state: {
+      scenario: null,
+      budget: null,
+      district: null,
+      format: null,
+      project: null,
+      sourceBlock: null,
+      preferredContactMethod: "phone_call",
+      name: "",
+      phone: "",
+      contactLogin: ""
+    },
+    contactMethods: {
+      phone_call: {
+        label: "Позвонить",
+        parameter: "PHONE_CALL",
+        field: "phone",
+        inputLabel: "Телефон",
+        placeholder: "+7"
+      },
+      whatsapp: {
+        label: "WhatsApp",
+        parameter: "WHATSAPP_PHONE",
+        field: "phone",
+        inputLabel: "Телефон для WhatsApp",
+        placeholder: "+7"
+      },
+      telegram: {
+        label: "Telegram",
+        parameter: "TELEGRAM_LOGIN",
+        field: "login",
+        inputLabel: "Логин Telegram",
+        placeholder: "@username",
+        loginLabel: "Ник в Telegram"
+      },
+      max: {
+        label: "MAX",
+        parameter: "MAX_LOGIN",
+        field: "login",
+        inputLabel: "Логин MAX",
+        placeholder: "логин или ссылка",
+        loginLabel: "Ник в MAX"
+      }
+    },
+    onboarding: {
+      step: 0,
+      steps: []
+    },
+    data: {},
+
+    init() {
+      this.initPreloader();
+      this.injectColorFix();
+      this.prepareData();
+      this.cache();
+      this.applyImageConfig();
+      this.setupMotionPreferences();
+      this.initHeader();
+      this.initSmoothAnchors();
+      this.initScrollReveal();
+      this.initOnboarding();
+      this.initAtlas();
+      this.initIndexContentsScroll();
+      this.initResidences();
+      this.initMatrix();
+      this.initScenarios();
+      this.initFAQ();
+      this.initForms();
+      this.initCustomRequestPopup();
+      this.initProcess();
+      this.initUTM();
+      this.initClientIds();
+      this.initScrollDepth();
+      this.initMobileCTA();
+      this.initFloatingLeadPopup();
+      this.bindTrackingLinks();
+      this.initTildaPopupMode();
+      this.initLuxuryAtlasLayer();
+      window.addEventListener("load", () => this.injectColorFix(true));
+      window.addEventListener("load", () => this.initTildaPopupMode());
+      window.setTimeout(() => this.injectColorFix(true), 600);
+      window.setTimeout(() => this.injectColorFix(true), 1800);
+      window.setTimeout(() => this.initTildaPopupMode(), 600);
+      window.setTimeout(() => this.initTildaPopupMode(), 1800);
+    },
+
+    initPreloader() {
+      const preloader = document.querySelector("[data-bx-preloader]");
+      if (!preloader) return;
+      const startedAt = window.performance?.now ? window.performance.now() : Date.now();
+      let closed = false;
+      const close = () => {
+        if (closed) return;
+        closed = true;
+        const now = window.performance?.now ? window.performance.now() : Date.now();
+        const delay = Math.max(0, 1700 - (now - startedAt));
+        window.setTimeout(() => {
+          preloader.classList.add("is-hidden");
+          window.setTimeout(() => preloader.remove(), 950);
+        }, delay);
+      };
+      if (document.readyState === "complete") {
+        close();
+      } else {
+        window.addEventListener("load", close, { once: true });
+      }
+      window.setTimeout(close, 3500);
+    },
+
+    setupMotionPreferences() {
+      this.reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      document.documentElement.classList.toggle("bx-reduced-motion", this.reducedMotion);
+    },
+
+    injectColorFix(force = false) {
+      const existing = document.getElementById("bx-color-fix");
+      if (existing && !force) return;
+      if (existing) existing.remove();
+
+      const style = document.createElement("style");
+      style.id = "bx-color-fix";
+      style.textContent = `
+        html body .bx-page,
+        html body .bx-page * {
+          --c-burgundy: #8a1232 !important;
+          --c-burgundy-dark: #6f0e28 !important;
+        }
+
+        html body .bx-page a:not(.bx-btn):not(.bx-mobile-cta__icon),
+        html body .bx-page button:not(.bx-btn):not(.bx-mobile-cta__icon):not(.bx-scenario__tab):not(.bx-atlas__item):not(.bx-atlas__district),
+        html body .bx-page .bx-header__nav a,
+        html body .bx-page .bx-header__phone,
+        html body .bx-page .bx-faq__question,
+        html body .bx-page .bx-scenario__tab:not([aria-selected="true"]),
+        html body .bx-page .bx-atlas__item:not(.is-active),
+        html body .bx-page .bx-atlas__item:not(.is-active) strong,
+        html body .bx-page .bx-residence-card__cta,
+        html body .bx-page [data-project-request],
+        html body .bx-page [data-source] {
+          color: #111111 !important;
+          -webkit-text-fill-color: #111111 !important;
+        }
+
+        html body .bx-page .bx-faq__question *,
+        html body .bx-page .bx-scenario__tab:not([aria-selected="true"]) {
+          color: #111111 !important;
+          -webkit-text-fill-color: #111111 !important;
+        }
+
+        html body .bx-page .bx-atlas__item:not(.is-active) span {
+          color: #5f6368 !important;
+          -webkit-text-fill-color: #5f6368 !important;
+        }
+
+        html body .bx-page .bx-mobile-cta__icon,
+        html body .bx-page .bx-residence-card__cta {
+          color: #111111 !important;
+          -webkit-text-fill-color: #111111 !important;
+        }
+
+        html body .bx-page .bx-btn,
+        html body .bx-page a.bx-btn,
+        html body .bx-page button.bx-btn {
+          text-decoration: none !important;
+        }
+
+        html body .bx-page .bx-btn--dark,
+        html body .bx-page a.bx-btn--dark,
+        html body .bx-page button.bx-btn--dark {
+          background: #111111 !important;
+          border-color: #111111 !important;
+          color: #ffffff !important;
+          -webkit-text-fill-color: #ffffff !important;
+        }
+
+        html body .bx-page .bx-btn--light,
+        html body .bx-page a.bx-btn--light,
+        html body .bx-page button.bx-btn--light {
+          background: transparent !important;
+          border-color: #111111 !important;
+          color: #111111 !important;
+          -webkit-text-fill-color: #111111 !important;
+        }
+
+        html body .bx-page .bx-hero .bx-btn,
+        html body .bx-page .bx-onboarding .bx-btn,
+        html body .bx-page .bx-atlas .bx-btn,
+        html body .bx-page .bx-index .bx-btn,
+        html body .bx-page .bx-matrix .bx-btn,
+        html body .bx-page .bx-scenario .bx-btn,
+        html body .bx-page .bx-advisor .bx-btn,
+        html body .bx-page .bx-expert .bx-btn,
+        html body .bx-page .bx-process .bx-btn,
+        html body .bx-page .bx-faq .bx-btn,
+        html body .bx-page .bx-postfaq-cta .bx-btn,
+        html body .bx-page .bx-mobile-cta .bx-btn {
+          background: #8a1232 !important;
+          border-color: #8a1232 !important;
+          color: #ffffff !important;
+          -webkit-text-fill-color: #ffffff !important;
+        }
+
+        html body .bx-page .bx-hero .bx-btn:hover,
+        html body .bx-page .bx-onboarding .bx-btn:hover,
+        html body .bx-page .bx-atlas .bx-btn:hover,
+        html body .bx-page .bx-index .bx-btn:hover,
+        html body .bx-page .bx-matrix .bx-btn:hover,
+        html body .bx-page .bx-scenario .bx-btn:hover,
+        html body .bx-page .bx-advisor .bx-btn:hover,
+        html body .bx-page .bx-expert .bx-btn:hover,
+        html body .bx-page .bx-process .bx-btn:hover,
+        html body .bx-page .bx-faq .bx-btn:hover,
+        html body .bx-page .bx-postfaq-cta .bx-btn:hover,
+        html body .bx-page .bx-mobile-cta .bx-btn:hover {
+          background: #6f0e28 !important;
+          border-color: #6f0e28 !important;
+          color: #ffffff !important;
+          -webkit-text-fill-color: #ffffff !important;
+        }
+
+        html body .bx-page .bx-header .bx-btn,
+        html body .bx-page .bx-header .bx-btn:hover {
+          background: #111111 !important;
+          border-color: #111111 !important;
+          color: #ffffff !important;
+          -webkit-text-fill-color: #ffffff !important;
+        }
+
+        html body .bx-page button.bx-scenario__tab[aria-selected="true"]:not(.bx-btn):not(.bx-mobile-cta__icon),
+        html body .bx-page button.bx-atlas__item.is-active:not(.bx-btn):not(.bx-mobile-cta__icon),
+        html body .bx-page button.bx-atlas__district.is-active:not(.bx-btn):not(.bx-mobile-cta__icon),
+        html body .bx-page .bx-scenario__tab[aria-selected="true"],
+        html body .bx-page .bx-scenario__tab[aria-selected="true"] *,
+        html body .bx-page .bx-atlas__item.is-active,
+        html body .bx-page .bx-atlas__item.is-active *,
+        html body .bx-page .bx-atlas__district.is-active {
+          color: #ffffff !important;
+          -webkit-text-fill-color: #ffffff !important;
+        }
+
+        html body .bx-page .bx-btn--dark:hover,
+        html body .bx-page a.bx-btn--dark:hover,
+        html body .bx-page button.bx-btn--dark:hover,
+        html body .bx-page .bx-btn--light:hover,
+        html body .bx-page a.bx-btn--light:hover,
+        html body .bx-page button.bx-btn--light:hover {
+          background: #2a2a2a !important;
+          border-color: #2a2a2a !important;
+          color: #ffffff !important;
+          -webkit-text-fill-color: #ffffff !important;
+        }
+
+        html body .bx-page .bx-request,
+        html body .bx-page .bx-request h2,
+        html body .bx-page .bx-request li,
+        html body .bx-page .bx-request__proof span,
+        html body .bx-page .bx-residence-card__content,
+        html body .bx-page .bx-residence-card__content *,
+        html body .bx-page .bx-residence-card__overlay,
+        html body .bx-page .bx-residence-card__overlay * {
+          color: #ffffff !important;
+          -webkit-text-fill-color: #ffffff !important;
+        }
+
+        html body .bx-page .bx-request .bx-label,
+        html body .bx-page .bx-request .bx-text,
+        html body .bx-page .bx-request__proof span,
+        html body .bx-page .bx-checklist li {
+          color: #d0d0d0 !important;
+          -webkit-text-fill-color: #d0d0d0 !important;
+        }
+
+        html body .bx-page .bx-form__privacy,
+        html body .bx-page .bx-form__message {
+          color: #5f6368 !important;
+          -webkit-text-fill-color: #5f6368 !important;
+        }
+
+        html body .bx-page .bx-footer,
+        html body .bx-page .bx-footer *,
+        html body .bx-page .bx-footer a,
+        html body .bx-page .bx-footer a:hover {
+          color: rgba(255, 255, 255, 0.78) !important;
+          -webkit-text-fill-color: rgba(255, 255, 255, 0.78) !important;
+        }
+
+        html body .bx-page .bx-footer a:hover {
+          color: #ffffff !important;
+          -webkit-text-fill-color: #ffffff !important;
+        }
+
+        html body .bx-page button.bx-scenario__tab[aria-selected="true"]:not(.bx-btn):not(.bx-mobile-cta__icon),
+        html body .bx-page .bx-scenario__tab[aria-selected="true"],
+        html body .bx-page .bx-scenario__tab[aria-selected="true"] * {
+          background: #1e1e1e !important;
+          color: #ffffff !important;
+          -webkit-text-fill-color: #ffffff !important;
+        }
+
+        html body .bx-page button.bx-scenario__tab:hover:not(.bx-btn):not(.bx-mobile-cta__icon),
+        html body .bx-page button.bx-scenario__tab[aria-selected="true"]:not(.bx-btn):not(.bx-mobile-cta__icon),
+        html body .bx-page button.bx-atlas__item:hover:not(.bx-btn):not(.bx-mobile-cta__icon),
+        html body .bx-page button.bx-atlas__item.is-active:not(.bx-btn):not(.bx-mobile-cta__icon) {
+          background: #1e1e1e !important;
+          border-color: #1e1e1e !important;
+          color: #ffffff !important;
+          -webkit-text-fill-color: #ffffff !important;
+        }
+
+        html body .bx-page .bx-scenario__tab:hover *,
+        html body .bx-page .bx-scenario__tab[aria-selected="true"] *,
+        html body .bx-page .bx-atlas__item:hover *,
+        html body .bx-page .bx-atlas__item.is-active * {
+          color: #ffffff !important;
+          -webkit-text-fill-color: #ffffff !important;
+        }
+
+        html body .bx-page button.bx-atlas__district:hover:not(.bx-btn):not(.bx-mobile-cta__icon),
+        html body .bx-page button.bx-atlas__district.is-active:not(.bx-btn):not(.bx-mobile-cta__icon) {
+          background: #111111 !important;
+          border-color: #111111 !important;
+          color: #ffffff !important;
+          -webkit-text-fill-color: #ffffff !important;
+        }
+
+        html body .bx-page .bx-atlas__shape.is-active {
+          fill: rgba(123, 31, 43, 0.18) !important;
+          stroke: rgba(123, 31, 43, 0.72) !important;
+        }
+
+        html body .bx-page .bx-form,
+        html body .bx-page .bx-form * {
+          -webkit-text-fill-color: currentColor !important;
+        }
+      `;
+      document.head.appendChild(style);
+    },
+
+    cache() {
+      this.nodes = {
+        header: document.querySelector(".bx-header"),
+        burger: document.querySelector(".bx-header__burger"),
+        nav: document.querySelector(".bx-header__nav"),
+        forms: document.querySelectorAll(".bx-form"),
+        mobileCTA: document.querySelector("[data-mobile-cta]")
+      };
+    },
+
+    getImage(key) {
+      return (window.BX_IMAGES && window.BX_IMAGES[key]) || "";
+    },
+
+    applyImageConfig() {
+      document.querySelectorAll("[data-image-key]").forEach((image) => {
+        const src = this.getImage(image.dataset.imageKey);
+        if (src) image.src = src;
+      });
+    },
+
+    prepareData() {
+      this.data.districts = [
+        {
+          id: "central",
+          title: "Центральный",
+          visual: "residenceFontanka",
+          scenario: "статус · исторический контекст · редкие адреса",
+          character: "Для статуса, исторического контекста и редких адресов в центре города.",
+          suitable: "Подходит для покупки с фокусом на культурный контекст, приватность и долгосрочную ценность адреса.",
+          projects: ["Фонтанка 130", "Миръ", "Моисеенко 10"],
+          cta: "Скачать каталог"
+        },
+        {
+          id: "petrogradsky",
+          title: "Петроградский",
+          visual: "residenceLdm",
+          scenario: "городская жизнь · инфраструктура · ликвидность",
+          character: "Для насыщенной городской жизни, сильной инфраструктуры и устойчивого интереса к району.",
+          suitable: "Сценарий для клиентов, которым важны статус района, культура, рестораны и удобная повседневная логистика.",
+          projects: ["Коллекционер", "Визионер", "ЛДМ", "17/33"],
+          cta: "Скачать каталог"
+        },
+        {
+          id: "vasileostrovsky",
+          title: "Василеостровский",
+          visual: "residenceManhattan",
+          scenario: "вода · новые кластеры · семья",
+          character: "Для жизни у воды, новых премиальных кластеров и семейных сценариев.",
+          suitable: "Сильный выбор для семейной покупки, видовых квартир и нового формата премиальной среды.",
+          projects: ["Аристократ", "Легенда Васильевского", "Манхэттен"],
+          cta: "Скачать каталог"
+        },
+        {
+          id: "admiralteysky",
+          title: "Адмиралтейский",
+          visual: "residenceOstrov",
+          scenario: "центр · вода · архитектура",
+          character: "Для тех, кто ценит центр, воду, архитектуру и близость культурных маршрутов.",
+          suitable: "Сценарий для жизни рядом с историческими маршрутами Петербурга и сильными видовыми параметрами.",
+          projects: ["Остров Первых"],
+          cta: "Скачать каталог"
+        },
+        {
+          id: "moskovsky",
+          title: "Московский",
+          visual: "heroBuilding",
+          scenario: "логистика · инфраструктура · спокойный ритм",
+          character: "Для покупателей, которым важны транспортная логика, инфраструктура и спокойный городской сценарий.",
+          suitable: "Подходит для клиентов, которым нужен понятный маршрут, практичность и комфортная городская среда.",
+          projects: ["Шепилевский", "19/19"],
+          cta: "Скачать каталог"
+        }
+      ];
+
+      this.data.residences = [
+        {
+          id: "fontanka-130",
+          title: "Фонтанка 130",
+          district: "Исторический центр / набережная",
+          className: "Клубный дом",
+          deadline: "I квартал 2029",
+          price: "от 30 млн ₽",
+          priceFrom: "от 30 млн ₽",
+          meterage: "39–152 м²",
+          terms: "индивидуальные условия",
+          accent: "набережная Фонтанки, 130А",
+          area: "клубный дом",
+          imageKey: "residenceFontanka",
+          thesis: "Клубный формат для тех, кто выбирает редкий петербургский адрес, приватность и статусную городскую среду.",
+          why: ["клубный дом", "центр", "редкий адрес", "видовой потенциал"],
+          facts: ["110 резиденций", "39–152 м²", "95 мест паркинга"],
+          suitable: "статус · приватность · центр",
+          cta: "Получить подборку по Фонтанке 130",
+          backText: "Клубный формат для тех, кто выбирает редкий петербургский адрес, приватность и статусную городскую среду."
+        },
+        {
+          id: "manhattan",
+          title: "Манхэттен",
+          district: "Василеостровский",
+          className: "Премиум",
+          deadline: "сдан",
+          price: "цена по запросу",
+          priceFrom: "по запросу",
+          meterage: "квартиры и пентхаусы",
+          terms: "индивидуальные условия",
+          accent: "13-я линия В.О., 50",
+          area: "квартиры",
+          imageKey: "residenceManhattan",
+          thesis: "Современный городской проект для покупателей, которым важны инфраструктура, архитектура и удобный ежедневный сценарий.",
+          why: ["городская жизнь", "инфраструктура", "современная архитектура"],
+          facts: ["55 резиденций", "Васильевский остров", "пентхаусы"],
+          suitable: "жизнь · инфраструктура · архитектура",
+          cta: "Получить подборку по Манхэттену",
+          backText: "Современный городской проект для покупателей, которым важны инфраструктура, архитектура и удобный ежедневный сценарий."
+        },
+        {
+          id: "ldm",
+          title: "ЛДМ",
+          district: "Петроградская сторона",
+          className: "Премиум",
+          deadline: "IV квартал 2027",
+          price: "цена по запросу",
+          priceFrom: "по запросу",
+          meterage: "41,9–428,5 м²",
+          terms: "индивидуальные условия",
+          accent: "Профессора Попова, 47",
+          area: "городские резиденции",
+          imageKey: "residenceLdm",
+          thesis: "Проект с сильным городским контекстом для тех, кто ценит статус района, культуру и насыщенную среду.",
+          why: ["Петроградская сторона", "статус района", "культурный контекст"],
+          facts: ["7 корпусов", "463 квартиры", "Аптекарский остров"],
+          suitable: "город · культура · район",
+          cta: "Получить подборку по ЛДМ",
+          backText: "Проект с сильным городским контекстом для тех, кто ценит статус района, культуру и насыщенную среду."
+        },
+        {
+          id: "kollektsioner",
+          title: "Коллекционер",
+          district: "Петроградский",
+          className: "Камерный проект",
+          deadline: "IV квартал 2028",
+          price: "от 35,23 млн ₽",
+          priceFrom: "от 35,23 млн ₽",
+          meterage: "42,8–222 м²",
+          terms: "индивидуальные условия",
+          accent: "ул. Чапыгина, 4",
+          area: "редкие форматы",
+          imageKey: "residenceKollektsioner",
+          thesis: "Камерный проект для покупателей, которым важны адресность, приватность и ощущение коллекционной ценности.",
+          why: ["камерный формат", "приватность", "редкость"],
+          facts: ["69 резиденций", "8 этажей", "потолки 3–3,2 м"],
+          suitable: "камерность · адрес · редкость",
+          cta: "Получить подборку по Коллекционеру",
+          backText: "Камерный проект для покупателей, которым важны адресность, приватность и ощущение коллекционной ценности."
+        },
+        {
+          id: "aristocrat",
+          title: "Аристократ",
+          district: "Василеостровский",
+          className: "Премиум",
+          deadline: "II кв. 2029 — IV кв. 2030",
+          price: "от 14,9 млн ₽",
+          priceFrom: "от 14,9 млн ₽",
+          meterage: "от 24 м²",
+          terms: "индивидуальные условия",
+          accent: "26-я линия В.О., 1",
+          area: "семейные форматы",
+          imageKey: "residenceAristocrat",
+          thesis: "Сдержанный премиальный проект для спокойного сценария жизни, приватности и семейной покупки.",
+          why: ["статус", "семья", "приватность"],
+          facts: ["94 квартиры", "Васильевский остров", "метро Горный институт"],
+          suitable: "семья · приватность · спокойствие",
+          cta: "Получить подборку по Аристократу",
+          backText: "Сдержанный премиальный проект для спокойного сценария жизни, приватности и семейной покупки."
+        },
+        {
+          id: "ostrov-pervyh",
+          title: "Остров Первых",
+          district: "Адмиралтейский",
+          className: "Премиум",
+          deadline: "2028–2029",
+          price: "от 15,24 млн ₽",
+          priceFrom: "от 15,24 млн ₽",
+          meterage: "форматы квартир по запросу",
+          terms: "рассрочка до 6 лет",
+          accent: "Матисов остров",
+          area: "видовые форматы",
+          imageKey: "residenceOstrov",
+          thesis: "Проект для покупателей, которым важны вода, воздух, приватность и новый сценарий премиальной жизни в Петербурге.",
+          why: ["у воды", "приватность", "семейный сценарий", "видовые форматы"],
+          facts: ["1 348 квартир", "3 жилых корпуса", "Матисов остров"],
+          suitable: "вода · семья · приватность",
+          cta: "Получить подборку по Острову Первых",
+          backText: "Проект для покупателей, которым важны вода, воздух, приватность и новый сценарий премиальной жизни в Петербурге."
+        },
+        {
+          id: "visioner",
+          title: "Визионер",
+          district: "Петроградский",
+          className: "Современный проект",
+          deadline: "III квартал 2028",
+          price: "от 31,74 млн ₽",
+          priceFrom: "от 31,74 млн ₽",
+          meterage: "32–147 м²",
+          terms: "индивидуальные условия",
+          accent: "Средняя Колтовская, 9–11",
+          area: "квартиры",
+          imageKey: "residenceVisioner",
+          thesis: "Современный проект для тех, кто оценивает архитектуру, технологичность и долгосрочную ликвидность.",
+          why: ["современный проект", "архитектура", "инвестиционный интерес"],
+          facts: ["225 квартир", "62 квартиры в продаже", "метро Чкаловская"],
+          suitable: "архитектура · технологии · ликвидность",
+          cta: "Получить подборку по Визионеру",
+          backText: "Современный проект для тех, кто оценивает архитектуру, технологичность и долгосрочную ликвидность."
+        },
+        {
+          id: "17-33",
+          title: "17/33",
+          district: "Петроградский",
+          className: "Камерный формат",
+          deadline: "IV кв. 2026 — III кв. 2027",
+          price: "от 15,92 млн ₽",
+          priceFrom: "от 15,92 млн ₽",
+          meterage: "от 20,72 м²",
+          terms: "индивидуальные условия",
+          accent: "Ремесленная, 17",
+          area: "редкий формат",
+          imageKey: "residence1733",
+          thesis: "Редкий формат для тех, кто выбирает камерность, адресность и сдержанную премиальную эстетику.",
+          why: ["редкий формат", "камерность", "премиальный адрес"],
+          facts: ["5–8 этажей", "Петровский остров", "рядом с Малой Невой"],
+          suitable: "камерность · адресность · эстетика",
+          cta: "Получить подборку по 17/33",
+          backText: "Редкий формат для тех, кто выбирает камерность, адресность и сдержанную премиальную эстетику."
+        }
+      ];
+
+      this.data.matrix = [
+        { criterion: "Адрес", description: "Оцениваем статус локации, окружение, транспортную доступность, дефицит предложения и долгосрочную привлекательность адреса.", values: { life: 3, family: 2, investment: 3, status: 3 } },
+        { criterion: "Архитектура", description: "Оцениваем выразительность проекта, качество концепции, материалы и соответствие ожиданиям премиального сегмента.", values: { life: 2, family: 2, investment: 2, status: 3 } },
+        { criterion: "Приватность", description: "Учитываем камерность, плотность, закрытые пространства, сценарии входа и ощущение защищённой среды.", values: { life: 3, family: 3, investment: 2, status: 3 } },
+        { criterion: "Исторический и культурный контекст", description: "Для Петербурга важно, как проект встроен в городскую ткань, архитектурное окружение и культурный маршрут района.", values: { life: 2, family: 2, investment: 2, status: 3 } },
+        { criterion: "Видовые характеристики", description: "Оцениваем виды на воду, историческую застройку, зелёные зоны и редкость таких параметров на рынке.", values: { life: 2, family: 2, investment: 3, status: 3 } },
+        { criterion: "Инфраструктура", description: "Смотрим на ежедневную логистику, школы, рестораны, сервисы, прогулочные маршруты и транспорт.", values: { life: 3, family: 3, investment: 2, status: 2 } },
+        { criterion: "Ликвидность", description: "Оцениваем сочетание адреса, формата, архитектуры, редкости предложения и понятного спроса в будущем.", values: { life: 2, family: 2, investment: 3, status: 3 } },
+        { criterion: "Редкость предложения", description: "Учитываем ограниченность предложения, малое количество аналогов и ценность формата для конкретного сценария покупки.", values: { life: 2, family: 2, investment: 3, status: 3 } }
+      ];
+
+      this.data.scenarios = {
+        live: {
+          label: "Для жизни",
+          title: "Для жизни",
+          text: "Подборка для тех, кто выбирает квартиру как основное городское пространство: ежедневный комфорт, транспортная логика, инфраструктура, приватность и качество среды.",
+          districts: ["Петроградский", "Центральный", "Василеостровский", "Адмиралтейский"],
+          projects: ["ЛДМ", "Аристократ", "Остров Первых"],
+          cta: "Получить подборку для жизни",
+          imageKey: "scenarioLive"
+        },
+        family: {
+          label: "Для семьи",
+          title: "Для семьи",
+          text: "Подборка для покупателей, которым важны спокойная среда, прогулочные пространства, близость воды, школы, безопасность и удобный ежедневный маршрут.",
+          districts: ["Василеостровский", "Адмиралтейский"],
+          projects: ["Остров Первых", "Аристократ", "Манхэттен"],
+          cta: "Получить семейную подборку",
+          imageKey: "scenarioFamily"
+        },
+        invest: {
+          label: "Для инвестиций",
+          title: "Для инвестиций",
+          text: "Подборка для тех, кто оценивает проект с точки зрения ликвидности, ограниченности предложения, архитектуры, перспективы района и потенциала сохранения капитала.",
+          districts: ["Центральные локации", "Водные локации", "Новые премиальные кластеры Санкт-Петербурга"],
+          projects: ["Фонтанка 130", "Визионер", "17/33", "Коллекционер"],
+          cta: "Сравнить проекты как инвестицию",
+          imageKey: "scenarioInvest"
+        },
+        capital: {
+          label: "Для капитала / статуса",
+          title: "Для капитала / статуса",
+          text: "Подборка для покупателей, которым важны редкий адрес, приватность, архитектурная ценность, исторический или культурный контекст и долгосрочная репутация объекта.",
+          districts: ["Исторический центр", "Петроградская сторона", "Камерные адреса у воды"],
+          projects: ["Фонтанка 130", "Коллекционер", "ЛДМ", "17/33"],
+          cta: "Получить статусную подборку",
+          imageKey: "scenarioCapital"
+        }
+      };
+
+      this.data.faq = [
+        { q: "Каталог бесплатный?", a: "Да. Каталог можно получить после заявки. Эксперт также может подготовить индивидуальную подборку под ваш запрос." },
+        { q: "Можно ли получить подборку без звонка?", a: "Да. Укажите удобный формат связи в заявке. Мы можем начать с сообщения и уточнить детали письменно." },
+        { q: "Есть ли закрытые предложения?", a: "В отдельных проектах могут быть лоты или условия, которые уточняются индивидуально. Эксперт проверит доступность после запроса." },
+        { q: "Можно ли сравнить проекты из каталога?", a: "Да. Мы можем сравнить Фонтанку 130, Манхэттен, ЛДМ, Коллекционер, Аристократ, Остров Первых, Визионер и 17/33 по ключевым критериям." },
+        { q: "Можно ли подобрать проекты для семьи?", a: "Да. Для семейного сценария в приоритете Василеостровский и Адмиралтейский районы, а также проекты с подходящей средой, инфраструктурой и форматом планировок." },
+        { q: "Можно ли оценить проекты как инвестицию?", a: "Да. Мы смотрим на ликвидность, редкость предложения, архитектуру, локацию, формат лота и перспективу района." },
+        { q: "Как сохраняется конфиденциальность?", a: "Заявка передаётся напрямую команде BARNES. Мы не используем массовую рассылку и не передаём запрос в общий поток." }
+      ];
+
+      this.data.process = [
+        { title: "Запрос", text: "Вы оставляете заявку и указываете базовые параметры: бюджет, район, проект и сценарий покупки." },
+        { title: "Уточнение задачи", text: "Эксперт связывается с вами, чтобы понять приоритеты, ограничения и формат коммуникации." },
+        { title: "Подборка", text: "Команда формирует короткий список проектов и лотов, которые соответствуют вашему запросу." },
+        { title: "Сравнение", text: "Проекты сравниваются по адресу, архитектуре, приватности, ликвидности и сценарию жизни." },
+        { title: "Приватный просмотр", text: "Организуем просмотр, уточняем условия и сопровождаем дальнейшие переговоры." }
+      ];
+
+      this.onboarding.steps = [
+        {
+          key: "scenario",
+          label: "Задача",
+          title: "Какой сценарий покупки главный?",
+          hint: "Выберите ближайшую мотивацию. Эксперт сможет уточнить детали позже.",
+          options: [
+            { id: "life", title: "Для жизни", description: "Ежедневный комфорт, инфраструктура и качество среды." },
+            { id: "family", title: "Для семьи", description: "Школы, прогулочные пространства, безопасность и спокойный ритм." },
+            { id: "investment", title: "Для инвестиций", description: "Ликвидность, редкость предложения и сохранение капитала." },
+            { id: "status", title: "Для статуса", description: "Редкий адрес, приватность и архитектурная ценность." }
+          ]
+        },
+        { key: "budget", label: "Бюджет", title: "Какой бюджет рассматриваете?", hint: "Это поможет убрать нерелевантные проекты и оставить точный диапазон.", options: ["до 50 млн ₽", "50–100 млн ₽", "100–250 млн ₽", "250+ млн ₽", "Пока не определён"] },
+        { key: "district", label: "Район", title: "Какие районы интересны?", hint: "Можно выбрать район или оставить пространство для рекомендации.", options: ["Центральный", "Петроградский", "Василеостровский", "Адмиралтейский", "Московский", "Пока не выбрано"] },
+        { key: "project", label: "Проект", title: "Есть интересующий проект?", hint: "Выберите проект из каталога или оставьте пространство для рекомендации.", options: ["Фонтанка 130", "Манхэттен", "ЛДМ", "Коллекционер", "Аристократ", "Остров Первых", "Визионер", "17/33", "Пока не выбрано"] },
+        { key: "format", label: "Формат", title: "Какой формат ближе?", hint: "Формат помогает точнее собрать shortlist под ваш сценарий покупки.", options: ["Клубный дом", "Пентхаус", "Квартира с террасой", "Резиденция у воды", "Семейная квартира", "Инвестиционный лот", "Пока не выбрано"] }
+      ];
+    },
+
+    initHeader() {
+      const header = this.nodes.header;
+      if (!header) return;
+      const onScroll = () => header.classList.toggle("is-scrolled", window.scrollY > 20);
+      const closeMenu = () => {
+        header.classList.remove("is-open");
+        document.body.classList.remove("bx-menu-lock");
+        this.nodes.burger?.setAttribute("aria-expanded", "false");
+      };
+      const openMenu = () => {
+        header.classList.add("is-open");
+        document.body.classList.add("bx-menu-lock");
+        this.nodes.burger?.setAttribute("aria-expanded", "true");
+      };
+      onScroll();
+      window.addEventListener("scroll", onScroll, { passive: true });
+
+      if (this.nodes.burger) {
+        this.nodes.burger.addEventListener("click", (event) => {
+          event.stopPropagation();
+          if (header.classList.contains("is-open")) {
+            closeMenu();
+          } else {
+            openMenu();
+          }
+        });
+      }
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") closeMenu();
+      });
+
+      document.addEventListener("click", (event) => {
+        if (!header.classList.contains("is-open")) return;
+        if (!header.contains(event.target)) closeMenu();
+      });
+
+      header.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+          closeMenu();
+        });
+      });
+    },
+
+    initScrollReveal() {
+      const items = document.querySelectorAll("[data-reveal], [data-mask]");
+      if (!items.length) return;
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.18 });
+
+      items.forEach((item) => {
+        if (item.dataset.delay) item.style.transitionDelay = `${Number(item.dataset.delay) || 0}ms`;
+        observer.observe(item);
+      });
+    },
+
+    initLuxuryAtlasLayer() {
+      this.enhanceSections();
+      this.initHeroLuxuryReveal();
+      this.initChapterTransitions();
+      this.initScoreCounters();
+      this.initActiveNavigation();
+      this.initMethodologyFunnel();
+      this.initFormStates();
+    },
+
+    enhanceSections() {
+      const chapterMap = [
+        ["hero", "Chapter 01 / Обложка", "bm-hero"],
+        ["shortlist", "Chapter 02 / Персональный запрос", "bm-personal-selection"],
+        ["atlas", "Chapter 03 / Районы", "bm-districts"],
+        ["inside", "Chapter 04 / Что внутри", "bm-overview-includes"],
+        ["projects", "Chapter 05 / Проекты", "bm-projects"],
+        ["methodology", "Chapter 06 / Методология", "bm-methodology"],
+        ["scenario-title", "Chapter 07 / Сценарии покупки", "bm-scenarios"],
+        ["advisor-title", "Chapter 08 / Private Advisory", "bm-advisor"],
+        ["request", "Chapter 09 / Запрос каталога", "bm-request"],
+        ["expert", "Chapter 10 / Эксперт", "bm-expert"]
+      ];
+
+      chapterMap.forEach(([target, chapter, className]) => {
+        const section = target.endsWith("-title")
+          ? document.getElementById(target)?.closest("section")
+          : document.getElementById(target);
+        if (!section) return;
+        section.classList.add(className, "bm-chapter-section");
+        section.dataset.chapter = chapter;
+        if (section.querySelector(".bm-chapter-label")) return;
+        const head = section.querySelector(".bx-section-head, .bx-hero__content, .bx-request__content, .bx-expert__content, .bx-footer__grid");
+        if (!head) return;
+        const label = document.createElement("div");
+        label.className = "bm-chapter-label";
+        label.innerHTML = `<span>${this.escape(chapter)}</span><i aria-hidden="true"></i>`;
+        head.prepend(label);
+      });
+    },
+
+    initHeroLuxuryReveal() {
+      const hero = document.querySelector(".bx-hero");
+      if (!hero) return;
+      hero.classList.add("bm-hero-ready");
+      if (this.reducedMotion) {
+        hero.classList.add("bm-hero-visible");
+        return;
+      }
+      requestAnimationFrame(() => {
+        window.setTimeout(() => hero.classList.add("bm-hero-visible"), 80);
+      });
+    },
+
+    initChapterTransitions() {
+      const sections = document.querySelectorAll(".bm-chapter-section");
+      if (!sections.length) return;
+      if (this.reducedMotion) {
+        sections.forEach((section) => section.classList.add("is-active"));
+        return;
+      }
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) entry.target.classList.add("is-active");
+        });
+      }, { threshold: 0.18, rootMargin: "0px 0px -12% 0px" });
+      sections.forEach((section) => observer.observe(section));
+    },
+
+    initScoreCounters() {
+      const score = document.querySelector(".bx-hero__score");
+      if (!score) return;
+      const hints = {
+        "Адрес": "Статус адреса, окружение, транспорт и дефицит предложения.",
+        "Архитектура": "Архитектурная ценность, качество проекта и долговечность визуального языка.",
+        "Приватность": "Камерность, закрытые дворы, приватность входных групп и плотность среды.",
+        "Ликвидность": "Сочетание адреса, девелопера, планировок, сроков и ограниченности предложения.",
+        "Среда": "Инфраструктура, культурный контекст, сервисы и повседневный сценарий жизни."
+      };
+      score.querySelectorAll("dl div").forEach((item) => {
+        const label = item.querySelector("dt")?.textContent.trim() || "";
+        const value = item.querySelector("dd");
+        if (!value) return;
+        const target = parseFloat(value.textContent.replace(",", "."));
+        item.tabIndex = 0;
+        item.setAttribute("role", "button");
+        item.setAttribute("aria-label", `${label}: ${target}. ${hints[label] || ""}`);
+        item.dataset.scoreTarget = String(target);
+        if (!item.querySelector(".bx-score-tip")) {
+          const tip = document.createElement("span");
+          tip.className = "bx-score-tip";
+          tip.textContent = hints[label] || "";
+          item.appendChild(tip);
+        }
+      });
+
+      const run = () => {
+        if (score.dataset.counted === "true") return;
+        score.dataset.counted = "true";
+        score.querySelectorAll("[data-score-target]").forEach((item) => {
+          const value = item.querySelector("dd");
+          const target = parseFloat(item.dataset.scoreTarget || "0");
+          if (!value || !Number.isFinite(target)) return;
+          if (this.reducedMotion) {
+            value.textContent = target.toFixed(1);
+            return;
+          }
+          const start = performance.now();
+          const duration = 900;
+          const tick = (now) => {
+            const progress = Math.min(1, (now - start) / duration);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            value.textContent = (target * eased).toFixed(1);
+            if (progress < 1) requestAnimationFrame(tick);
+          };
+          requestAnimationFrame(tick);
+        });
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          run();
+          observer.disconnect();
+        }
+      }, { threshold: 0.35 });
+      observer.observe(score);
+    },
+
+    initActiveNavigation() {
+      const links = Array.from(document.querySelectorAll(".bx-header__nav a[href^='#']"));
+      if (!links.length) return;
+      const sections = links
+        .map((link) => document.querySelector(link.getAttribute("href")))
+        .filter(Boolean);
+      if (!sections.length) return;
+      const setActive = (id) => {
+        links.forEach((link) => link.classList.toggle("is-active", link.getAttribute("href") === `#${id}`));
+      };
+      const observer = new IntersectionObserver((entries) => {
+        const active = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (active?.target?.id) setActive(active.target.id);
+      }, { threshold: [0.18, 0.32, 0.52], rootMargin: "-22% 0px -55% 0px" });
+      sections.forEach((section) => observer.observe(section));
+    },
+
+    initSmoothAnchors() {
+      document.addEventListener("click", (event) => {
+        const link = event.target.closest('a[href^="#"]');
+        if (!link) return;
+        const hash = link.getAttribute("href");
+        if (!hash || hash === "#") return;
+        const target = document.querySelector(hash);
+        if (!target) return;
+        event.preventDefault();
+        const headerHeight = this.nodes?.header?.offsetHeight || 76;
+        const top = target.getBoundingClientRect().top + window.scrollY - headerHeight - 18;
+        window.scrollTo({ top: Math.max(0, top), behavior: this.reducedMotion ? "auto" : "smooth" });
+        history.pushState(null, "", hash);
+      });
+    },
+
+    initMethodologyFunnel() {
+      const section = document.querySelector(".bx-matrix");
+      const shell = section?.querySelector(".bx-matrix__shell");
+      if (!section || !shell || section.querySelector(".bm-funnel")) return;
+      const data = [
+        ["40+", "проектов рынка"],
+        ["20+", "проверены по критериям"],
+        ["8", "проектов в каталоге"],
+        ["Short-list", "под задачу клиента"]
+      ];
+      const funnel = document.createElement("div");
+      funnel.className = "bm-funnel";
+      funnel.setAttribute("aria-label", "Воронка отбора проектов BARNES");
+      funnel.innerHTML = data.map(([value, label], index) => `
+        <div class="bm-funnel__step" style="--i:${index}">
+          <strong>${this.escape(value)}</strong>
+          <span>${this.escape(label)}</span>
+        </div>
+      `).join("");
+      shell.before(funnel);
+
+      const observer = new IntersectionObserver((entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          funnel.classList.add("is-visible");
+          observer.disconnect();
+        }
+      }, { threshold: 0.35 });
+      observer.observe(funnel);
+    },
+
+    initFormStates() {
+      document.querySelectorAll(".bx-form input, .bx-form select").forEach((field) => {
+        const update = () => field.classList.toggle("has-value", Boolean(field.value));
+        field.addEventListener("input", update);
+        field.addEventListener("change", update);
+        update();
+      });
+    },
+
+    initOnboarding() {
+      this.onboarding.viewport = document.querySelector("[data-onboarding-viewport]");
+      this.onboarding.counter = document.querySelector("[data-onboarding-counter]");
+      this.onboarding.label = document.querySelector("[data-onboarding-label]");
+      this.onboarding.progress = document.querySelector("[data-onboarding-progress]");
+      this.onboarding.summary = document.querySelector("[data-onboarding-summary]");
+      this.onboarding.prev = document.querySelector("[data-onboarding-prev]");
+      this.onboarding.next = document.querySelector("[data-onboarding-next]");
+      if (!this.onboarding.viewport) return;
+
+      this.onboarding.prev?.addEventListener("click", () => this.goToStep(this.onboarding.step - 1));
+      this.onboarding.next?.addEventListener("click", () => {
+        if (!this.validateCurrentStep()) return;
+        if (this.onboarding.step === this.onboarding.steps.length - 1) {
+          this.submitOnboarding();
+          return;
+        }
+        this.goToStep(this.onboarding.step + 1);
+      });
+
+      this.goToStep(0);
+      this.updateSummary();
+      this.track("onboarding_start");
+      this.trackBarnesEvent({ interaction_type: "quiz_start" });
+    },
+
+    goToStep(index) {
+      const max = this.onboarding.steps.length - 1;
+      this.onboarding.step = Math.max(0, Math.min(index, max));
+      const step = this.onboarding.steps[this.onboarding.step];
+      this.renderOnboardingStep(step);
+      this.updateProgress();
+      this.updateSummary();
+      this.track(`onboarding_step_${this.onboarding.step + 1}`);
+    },
+
+    renderOnboardingStep(step) {
+      const isКонтакт = step.key === "contact";
+      const options = step.options.map((option) => {
+        const value = typeof option === "string" ? option : option.id;
+        const title = typeof option === "string" ? option : option.title;
+        const description = typeof option === "string" ? "" : option.description;
+        const selected = this.state[step.key] === value;
+        return `
+          <button class="bx-option${selected ? " is-selected" : ""}" type="button" data-option-key="${step.key}" data-option-value="${this.escape(value)}">
+            <strong>${this.escape(title)}</strong>
+            ${description ? `<span>${this.escape(description)}</span>` : ""}
+          </button>
+        `;
+      }).join("");
+
+      this.onboarding.viewport.innerHTML = `
+        <div class="bx-step bx-step--motion">
+          <div>
+            <h3 class="bx-step__title">${this.escape(step.title)}</h3>
+            <p class="bx-step__hint">${this.escape(step.hint)}</p>
+          </div>
+          ${isКонтакт ? this.renderКонтактStep() : `<div class="bx-option-grid">${options}</div>`}
+        </div>
+      `;
+
+      this.onboarding.viewport.querySelectorAll("[data-option-key]").forEach((button) => {
+        button.addEventListener("click", () => {
+          this.selectOption(button.dataset.optionKey, button.dataset.optionValue);
+        });
+      });
+
+      this.onboarding.viewport.querySelectorAll("input, select").forEach((field) => {
+        field.addEventListener("input", () => {
+          this.state[field.name] = field.value;
+          this.updateSummary();
+        });
+      });
+
+      const isLastStep = this.onboarding.step === this.onboarding.steps.length - 1;
+      if (this.onboarding.prev) this.onboarding.prev.disabled = this.onboarding.step === 0;
+      if (this.onboarding.next) this.onboarding.next.textContent = isLastStep ? "Получить персональную подборку" : "Далее";
+    },
+
+    renderКонтактStep() {
+      return `
+        <div class="bx-contact-grid">
+          <div class="bx-form__field">
+            <label for="onboarding-name">Имя</label>
+            <input id="onboarding-name" name="name" type="text" autocomplete="name" required value="${this.escape(this.state.name || "")}" />
+          </div>
+          <div class="bx-form__field">
+            <label for="onboarding-phone">Контакт для связи</label>
+            <input id="onboarding-phone" name="phone" type="tel" autocomplete="tel" required value="${this.escape(this.state.phone || "")}" />
+          </div>
+        </div>
+      `;
+    },
+
+    selectOption(key, value) {
+      this.state[key] = value;
+      const label = this.getStateLabel(key, value) || value;
+      this.syncHiddenField(`selected_${key}`, label);
+      this.renderOnboardingStep(this.onboarding.steps[this.onboarding.step]);
+      this.updateSummary();
+      this.trackBarnesEvent({ interaction_type: "quiz_step_complete", step: key, value });
+    },
+
+    updateProgress() {
+      const step = this.onboarding.step + 1;
+      const total = this.onboarding.steps.length;
+      const current = this.onboarding.steps[this.onboarding.step];
+      if (this.onboarding.counter) this.onboarding.counter.textContent = `${String(step).padStart(2, "0")} / ${String(total).padStart(2, "0")}`;
+      if (this.onboarding.label) this.onboarding.label.textContent = current.label;
+      if (this.onboarding.progress) this.onboarding.progress.style.width = `${(step / total) * 100}%`;
+    },
+
+    updateSummary() {
+      if (!this.onboarding.summary) return;
+      const labels = [
+        ["scenario", "Сценарий"],
+        ["budget", "Бюджет"],
+        ["district", "Район"],
+        ["project", "Проект"],
+        ["format", "Формат"]
+      ];
+      this.onboarding.summary.innerHTML = labels.map(([key, label]) => `
+        <div>
+          <dt>${label}</dt>
+          <dd>${this.escape(this.getStateLabel(key, this.state[key]) || "Не выбрано")}</dd>
+        </div>
+      `).join("");
+    },
+
+    validateCurrentStep() {
+      const step = this.onboarding.steps[this.onboarding.step];
+      if (step.key !== "contact") {
+        return Boolean(this.state[step.key]);
+      }
+
+      const fields = Array.from(this.onboarding.viewport.querySelectorAll("input[required]"));
+      let valid = true;
+      fields.forEach((field) => {
+        const fieldValid = field.value.trim().length > 1;
+        field.closest(".bx-form__field")?.classList.toggle("has-error", !fieldValid);
+        field.setAttribute("aria-invalid", String(!fieldValid));
+        valid = valid && fieldValid;
+      });
+      return valid;
+    },
+
+    submitOnboarding() {
+      this.prepareRequestForm("onboarding");
+      this.track("onboarding_complete", { ...this.state });
+      this.track("lead_shortlist", { ...this.state });
+      this.trackBarnesEvent({ interaction_type: "quiz_complete", ...this.state });
+      this.openCatalogPopup("onboarding");
+    },
+
+    initAtlas() {
+      const list = document.querySelector("[data-atlas-list]");
+      if (!list) return;
+
+      list.innerHTML = this.data.districts.map((district) => `
+        <button class="bx-atlas__item" type="button" data-district="${district.id}">
+          <span class="bx-atlas__thumb" aria-hidden="true">
+            <img src="${this.escape(this.getImage(district.visual))}" alt="" loading="lazy" decoding="async">
+          </span>
+          <span class="bx-atlas__copy">
+            <strong>${this.escape(district.title)}</strong>
+            <span>${this.escape(district.scenario)}</span>
+          </span>
+        </button>
+      `).join("");
+
+      document.querySelectorAll("[data-district]").forEach((item) => {
+        item.addEventListener("mouseenter", () => {
+          this.setActiveРайон(item.dataset.district, false);
+          this.track("atlas_hover", { district: item.dataset.district });
+        });
+        item.addEventListener("focus", () => this.setActiveРайон(item.dataset.district, false));
+        item.addEventListener("click", () => this.setActiveРайон(item.dataset.district));
+      });
+
+      this.setActiveРайон("central", false);
+    },
+
+    setActiveРайон(id, shouldTrack = true) {
+      const district = this.data.districts.find((item) => item.id === id);
+      if (!district) return;
+      this.state.district = district.title;
+      this.syncHiddenField("selected_district", district.title);
+
+      document.querySelectorAll("[data-district]").forEach((item) => {
+        const isActive = item.dataset.district === id;
+        item.classList.toggle("is-active", isActive);
+        if (item.tagName === "BUTTON") item.setAttribute("aria-pressed", String(isActive));
+      });
+
+      const activeListItem = document.querySelector(`.bx-atlas__list [data-district="${id}"]`);
+      activeListItem?.scrollIntoView({ block: "nearest", behavior: "smooth" });
+
+      this.renderРайонCard(district);
+      if (shouldTrack) this.track("atlas_click", { district: id });
+      if (shouldTrack) this.trackBarnesEvent({ interaction_type: "district_select", district: district.title });
+    },
+
+    renderРайонCard(district) {
+      const card = document.querySelector("[data-atlas-card]");
+      if (!card) return;
+      card.scrollTop = 0;
+      card.innerHTML = `
+        <p class="bx-label">${this.escape(district.scenario)}</p>
+        <h3>${this.escape(district.title)}</h3>
+        <p>${this.escape(district.character)}</p>
+        <p>${this.escape(district.suitable)}</p>
+        <ul>${district.projects.map((project) => `<li>${this.escape(project)}</li>`).join("")}</ul>
+        <a class="bx-btn bx-btn--dark" href="${this.popupHref}" data-district-cta="${district.id}">${this.escape(district.cta)}</a>
+      `;
+      card.querySelector("[data-district-cta]")?.addEventListener("click", () => {
+        this.prepareRequestForm("atlas", { district: district.title });
+        this.track("lead_district", { district: district.id });
+        this.trackBarnesEvent({ interaction_type: "district_cta_click", district: district.title });
+      });
+    },
+
+    initIndexContentsScroll() {
+      const items = document.querySelectorAll("[data-index-item]");
+      if (!items.length) return;
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) entry.target.classList.add("is-active");
+        });
+      }, { threshold: 0.72 });
+      items.forEach((item) => observer.observe(item));
+    },
+
+    initResidences() {
+      const grid = document.querySelector("[data-residences-grid]");
+      if (!grid) return;
+      grid.innerHTML = this.data.residences.map((item) => `
+        <article class="bx-residence-card" data-reveal data-project="${this.escape(item.id)}" tabindex="0" aria-expanded="false" aria-label="${this.escape(item.title)}. Нажмите, чтобы открыть детали проекта.">
+          <div class="bx-residence-card__inner">
+            <div class="bx-residence-card__face bx-residence-card__front">
+              <figure class="bx-residence-card__image">
+                <img src="${this.escape(this.getImage(item.imageKey))}" data-image-key="${this.escape(item.imageKey)}" alt="Премиальный жилой проект ${this.escape(item.title)} в Санкт-Петербурге" loading="lazy" decoding="async" />
+              </figure>
+              <div class="bx-residence-card__content">
+                <h3>${this.escape(item.title)}</h3>
+                <div class="bx-residence-card__meta">
+                  <span>${this.escape(item.district)}</span>
+                  <span>${this.escape(item.className)}</span>
+                  <span>${this.escape(item.deadline)}</span>
+                </div>
+                <p>${this.escape(item.thesis)}</p>
+                <div class="bx-residence-card__price">
+                  <span>${this.escape(item.priceFrom || item.price)}</span>
+                  <span>${this.escape(item.meterage || item.area)}</span>
+                </div>
+                <span class="bx-residence-card__hint">Подробнее</span>
+              </div>
+            </div>
+            <div class="bx-residence-card__face bx-residence-card__back">
+              <div class="bx-residence-card__overlay">
+                <div class="bx-residence-card__back-top">
+                  <p class="bx-label">Почему в обзоре</p>
+                  <span class="bx-residence-card__badge">${this.escape(item.terms || "индивидуальные условия")}</span>
+                </div>
+                <h3>${this.escape(item.title)}</h3>
+                <div class="bx-residence-card__stats">
+                  <div><span>Цена от</span><strong>${this.escape(item.priceFrom || item.price || "по запросу")}</strong></div>
+                  <div><span>Метраж</span><strong>${this.escape(item.meterage || "по запросу")}</strong></div>
+                  <div><span>Срок</span><strong>${this.escape(item.deadline || "по запросу")}</strong></div>
+                </div>
+                <dl class="bx-residence-card__params">
+                  <div><dt>Район</dt><dd>${this.escape(item.district)}</dd></div>
+                  <div><dt>Класс</dt><dd>${this.escape(item.className)}</dd></div>
+                  <div><dt>Адрес</dt><dd>${this.escape(item.accent || item.district)}</dd></div>
+                  <div><dt>Формат</dt><dd>${this.escape(item.area)}</dd></div>
+                </dl>
+                <ul>${(item.facts || item.why).map((tag) => `<li>${this.escape(tag)}</li>`).join("")}</ul>
+                <a class="bx-btn bx-btn--light bx-residence-card__cta" href="${this.popupHref}" data-project-request="${this.escape(item.id)}">${this.escape(item.cta || "Получить подборку по проекту")}</a>
+              </div>
+            </div>
+          </div>
+        </article>
+      `).join("");
+
+      grid.querySelectorAll("[data-project]").forEach((card) => {
+        card.addEventListener("mouseenter", () => this.track("project_hover", { project: card.dataset.project }));
+        card.addEventListener("click", (event) => {
+          if (!window.matchMedia("(hover: none), (pointer: coarse), (max-width: 768px)").matches) return;
+          if (event.target.closest("a, button")) return;
+          const isFlipped = card.classList.toggle("is-flipped");
+          card.setAttribute("aria-expanded", String(isFlipped));
+        });
+        card.addEventListener("keydown", (event) => {
+          if (event.key !== "Enter" && event.key !== " ") return;
+          if (event.target.closest("a, button")) return;
+          event.preventDefault();
+          const isFlipped = card.classList.toggle("is-flipped");
+          card.setAttribute("aria-expanded", String(isFlipped));
+        });
+      });
+
+      grid.querySelectorAll("[data-project-request]").forEach((link) => {
+        link.addEventListener("click", () => {
+          const projectId = link.dataset.projectRequest;
+          const project = this.data.residences.find((item) => item.id === projectId)?.title || projectId;
+          this.prepareRequestForm("project_card", { project });
+          this.track("project_request", { project });
+          this.track("lead_project_plan", { project });
+          this.trackBarnesEvent({ interaction_type: "project_details_click", project });
+        });
+      });
+
+      this.initScrollReveal();
+    },
+
+    initMatrix() {
+      const table = document.querySelector("[data-matrix-table]");
+      if (!table) return;
+      const columns = [
+        ["life", "Жизнь"],
+        ["family", "Семья"],
+        ["investment", "Инвестиции"],
+        ["status", "Статус"]
+      ];
+
+      table.innerHTML = `
+        <div class="bx-matrix__row">
+          <div class="bx-matrix__cell bx-matrix__cell--head">Критерий</div>
+          ${columns.map(([, label]) => `<div class="bx-matrix__cell bx-matrix__cell--head">${label}</div>`).join("")}
+        </div>
+        ${this.data.matrix.map((row, index) => `
+          <button class="bx-matrix__row" type="button" data-matrix-row="${index}">
+            <span class="bx-matrix__cell">${this.escape(row.criterion)}</span>
+            <span class="bx-matrix__description">${this.escape(row.description)}</span>
+            ${columns.map(([key, label]) => `
+              <span class="bx-matrix__cell" data-matrix-column="${key}">
+                <span class="bx-matrix-mobile-label">${label}</span>
+                ${this.renderBars(row.values[key])}
+              </span>
+            `).join("")}
+          </button>
+        `).join("")}
+      `;
+
+      table.querySelectorAll("[data-matrix-row]").forEach((row) => {
+        row.addEventListener("mouseenter", () => this.showCriterionInfo(Number(row.dataset.matrixRow)));
+        row.addEventListener("focus", () => this.showCriterionInfo(Number(row.dataset.matrixRow)));
+        row.addEventListener("click", () => this.showCriterionInfo(Number(row.dataset.matrixRow)));
+      });
+
+      this.showCriterionInfo(0);
+    },
+
+    renderBars(value) {
+      return `<span class="bx-bars" aria-label="${value} из 3">${[1, 2, 3].map((item) => `<i class="${item <= value ? "is-filled" : ""}"></i>`).join("")}</span>`;
+    },
+
+    showCriterionInfo(index) {
+      const row = this.data.matrix[index];
+      const info = document.querySelector("[data-matrix-info]");
+      if (!row || !info) return;
+      document.querySelectorAll("[data-matrix-row]").forEach((item, itemIndex) => {
+        item.classList.toggle("is-active", itemIndex === index);
+      });
+      info.innerHTML = `
+        <p class="bx-label">Критерий</p>
+        <h3>${this.escape(row.criterion)}</h3>
+        <p>${this.escape(row.description)}</p>
+      `;
+    },
+
+    initScenarios() {
+      const tabs = document.querySelector("[data-scenario-tabs]");
+      if (!tabs) return;
+      tabs.innerHTML = Object.entries(this.data.scenarios).map(([key, scenario]) => `
+        <button class="bx-scenario__tab" type="button" role="tab" aria-selected="false" aria-controls="scenario-panel" id="scenario-tab-${key}" data-scenario="${key}">
+          ${this.escape(scenario.label)}
+        </button>
+      `).join("");
+
+      tabs.querySelectorAll("[data-scenario]").forEach((tab) => {
+        tab.addEventListener("click", () => this.setActiveScenario(tab.dataset.scenario));
+        tab.addEventListener("keydown", (event) => {
+          if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") return;
+          event.preventDefault();
+          const all = Array.from(tabs.querySelectorAll("[data-scenario]"));
+          const current = all.indexOf(tab);
+          const next = event.key === "ArrowRight" ? all[current + 1] || all[0] : all[current - 1] || all[all.length - 1];
+          next.focus();
+          this.setActiveScenario(next.dataset.scenario);
+        });
+      });
+
+      this.setActiveScenario("live", false);
+    },
+
+    setActiveScenario(key, shouldTrack = true) {
+      const scenario = this.data.scenarios[key];
+      const panel = document.querySelector("[data-scenario-panel]");
+      const image = document.querySelector("[data-scenario-image]");
+      if (!scenario || !panel) return;
+      this.state.scenario = scenario.title;
+      this.syncHiddenField("selected_scenario", scenario.title);
+
+      document.querySelectorAll("[data-scenario]").forEach((tab) => {
+        const active = tab.dataset.scenario === key;
+        tab.setAttribute("aria-selected", String(active));
+        tab.tabIndex = active ? 0 : -1;
+      });
+
+      panel.classList.remove("is-visible");
+      panel.innerHTML = `
+        <h3>${this.escape(scenario.title)}</h3>
+        <p>${this.escape(scenario.text)}</p>
+        <dl>
+          <div><dt>Районы</dt><dd>${scenario.districts.map(this.escape).join(" · ")}</dd></div>
+          <div><dt>Проекты</dt><dd>${scenario.projects.map(this.escape).join(" · ")}</dd></div>
+        </dl>
+        <a class="bx-btn bx-btn--dark" href="${this.popupHref}" data-scenario-cta="${key}">${this.escape(scenario.cta)}</a>
+      `;
+      panel.id = "scenario-panel";
+      panel.setAttribute("role", "tabpanel");
+      panel.setAttribute("aria-labelledby", `scenario-tab-${key}`);
+      requestAnimationFrame(() => panel.classList.add("is-visible"));
+
+      if (image) {
+        image.src = this.getImage(scenario.imageKey) || image.src;
+        image.dataset.imageKey = scenario.imageKey;
+        image.alt = `Сценарий покупки: ${scenario.title}`;
+      }
+
+      panel.querySelector("[data-scenario-cta]")?.addEventListener("click", () => {
+        this.prepareRequestForm("scenario", { scenario: scenario.title });
+        this.trackBarnesEvent({ interaction_type: "scenario_cta_click", scenario: scenario.title });
+      });
+
+      if (shouldTrack) {
+        this.track("scenario_click", { scenario: key });
+        this.trackBarnesEvent({ interaction_type: "scenario_select", scenario: scenario.title });
+      }
+    },
+
+    initFAQ() {
+      const list = document.querySelector("[data-faq-list]");
+      if (!list) return;
+      list.innerHTML = this.data.faq.map((item, index) => `
+        <article class="bx-faq__item">
+          <button class="bx-faq__question" type="button" aria-expanded="false" aria-controls="faq-${index}">
+            <span>${this.escape(item.q)}</span>
+            <span aria-hidden="true"></span>
+          </button>
+          <div class="bx-faq__answer" id="faq-${index}">
+            <p>${this.escape(item.a)}</p>
+          </div>
+        </article>
+      `).join("");
+
+      list.querySelectorAll(".bx-faq__question").forEach((button) => {
+        button.addEventListener("click", () => {
+          const expanded = button.getAttribute("aria-expanded") === "true";
+          button.setAttribute("aria-expanded", String(!expanded));
+          const answer = document.getElementById(button.getAttribute("aria-controls"));
+          if (answer) answer.style.maxHeight = expanded ? "0px" : `${answer.scrollHeight}px`;
+        });
+      });
+    },
+
+    initForms() {
+      this.nodes.forms.forEach((form) => {
+        form.addEventListener("focusin", () => this.track("form_start", { form: form.dataset.form || "request" }), { once: true });
+        form.addEventListener("submit", async (event) => {
+          event.preventDefault();
+          this.captureFormSelections(form);
+          this.prepareRequestForm(form.dataset.form || "request");
+          this.trackBarnesEvent({ interaction_type: "form_submit_attempt", form: form.dataset.form || "request" });
+          if (!this.validateForm(form)) return;
+          const message = form.querySelector(".bx-form__message");
+          const submit = form.querySelector('[type="submit"]');
+          if (submit) submit.disabled = true;
+          const sent = await this.sendLead(form);
+          if (message) {
+            message.textContent = sent
+              ? "Запрос принят. Эксперт BARNES свяжется с вами и подготовит персональную подборку по вашему сценарию покупки."
+              : "Не удалось отправить заявку автоматически. Попробуйте ещё раз или выберите другой способ связи.";
+            message.classList.toggle("is-success", sent);
+          }
+          if (submit) submit.disabled = false;
+          if (!sent) return;
+          this.showInlineSuccess(form);
+          this.track("form_submit", { form: form.dataset.form || "request", ...this.state });
+          this.track("lead_index", { scenario: this.state.scenario, budget: this.state.budget, district: this.state.district });
+          this.trackBarnesEvent({ interaction_type: "form_submit_success", form: form.dataset.form || "request" });
+        });
+      });
+    },
+
+    initCustomRequestPopup() {
+      const popup = document.querySelector("[data-bx-request-popup]");
+      if (!popup) return;
+      const form = popup.querySelector("[data-bx-custom-form]");
+      if (!form) return;
+
+      popup.querySelectorAll("[data-bx-popup-close]").forEach((item) => {
+        item.addEventListener("click", () => this.closeRequestPopup());
+      });
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && !popup.hidden) this.closeRequestPopup();
+      });
+
+      form.querySelectorAll('[name="preferred_contact_method"]').forEach((field) => {
+        field.addEventListener("change", () => {
+          this.state.preferredContactMethod = field.value;
+          this.updatePopupContactField(form);
+        });
+      });
+
+      form.querySelector("[data-popup-next]")?.addEventListener("click", () => {
+        if (!this.validatePopupStep(form, 1)) return;
+        this.state.budget = form.querySelector('[name="budget"]')?.value || this.state.budget;
+        this.state.scenario = form.querySelector('[name="scenario"]')?.value || this.state.scenario;
+        this.trackBarnesEvent({ interaction_type: "quiz_step_complete", form: "request_popup", step: 1 });
+        this.setPopupStep(form, 2);
+        form.querySelector('[name="name"]')?.focus();
+      });
+
+      form.querySelector("[data-popup-back]")?.addEventListener("click", () => {
+        this.setPopupStep(form, 1);
+      });
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        if (!this.validatePopupStep(form, 2)) return;
+
+        const submit = form.querySelector('[type="submit"]');
+        if (submit) submit.disabled = true;
+        const data = new FormData(form);
+        const methodRaw = data.get("preferred_contact_method") || this.state.preferredContactMethod || "phone_call";
+        const method = this.contactMethods[methodRaw] ? methodRaw : "phone_call";
+        data.set("preferred_contact_method", method);
+        const meta = this.getContactMeta(method);
+        const contactValue = String(data.get("preferred_contact_value") || "").trim();
+        const contactLogin = meta.field === "login" ? String(data.get("contact_login") || "").trim() : "";
+        data.set("preferred_contact_parameter", meta.parameter);
+        data.set("phone", contactValue);
+        data.set("preferred_contact_value", contactValue);
+        data.set("contact_login", contactLogin);
+        data.set("district", this.state.district || data.get("district") || "");
+        data.set("format", this.state.format || data.get("format") || "");
+        data.set("project", this.state.project || data.get("project") || "");
+        data.set("source_block", this.state.sourceBlock || data.get("source_block") || "request_popup");
+        data.set("form_source", "request_popup");
+        data.set("lead_type", this.state.sourceBlock === "onboarding" ? "quiz" : "request");
+
+        const message = form.querySelector(".bx-popup-form__message");
+        if (message) {
+          message.textContent = "";
+          message.classList.remove("is-success");
+        }
+        const sent = await this.sendLeadData(data, { form: "request_popup" });
+        if (message) {
+          message.textContent = sent
+            ? ""
+            : "Не удалось отправить заявку автоматически. Попробуйте ещё раз или выберите другой способ связи.";
+          message.classList.toggle("is-success", sent);
+        }
+        if (submit) submit.disabled = false;
+        if (sent) {
+          this.showPopupSuccess(form);
+          this.trackBarnesEvent({ interaction_type: "quiz_complete", form: "request_popup" });
+        }
+      });
+
+      this.updatePopupContactField(form);
+      this.handlePopupHash();
+      window.addEventListener("hashchange", () => this.handlePopupHash());
+    },
+
+    openRequestPopup(sourceBlock = "cta", extra = {}) {
+      const popup = document.querySelector("[data-bx-request-popup]");
+      const form = popup?.querySelector("[data-bx-custom-form]");
+      if (!popup || !form) return false;
+      this.prepareRequestForm(sourceBlock, extra);
+      if (extra.preferredContactMethod) this.state.preferredContactMethod = extra.preferredContactMethod;
+      this.syncPopupForm(form);
+      this.resetPopupSuccess(form);
+      this.setPopupStep(form, 1);
+      popup.hidden = false;
+      popup.setAttribute("aria-hidden", "false");
+      document.body.classList.add("bx-popup-lock");
+      window.setTimeout(() => popup.classList.add("is-open"), 20);
+      window.setTimeout(() => form.querySelector('[name="preferred_contact_method"]:checked')?.focus(), 80);
+      this.track("popup_open", { source_block: sourceBlock });
+      this.trackBarnesEvent({ interaction_type: "popup_open", form: "request_popup", source_block: sourceBlock });
+      return true;
+    },
+
+    closeRequestPopup() {
+      const popup = document.querySelector("[data-bx-request-popup]");
+      if (!popup) return;
+      popup.classList.remove("is-open");
+      popup.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("bx-popup-lock");
+      window.setTimeout(() => {
+        popup.hidden = true;
+      }, 220);
+      if (["#bx-request-popup", "#popup:barnes-request", "#popup:catalog2026"].includes(window.location.hash)) {
+        history.replaceState(null, document.title, `${window.location.pathname}${window.location.search}`);
+      }
+    },
+
+    handlePopupHash() {
+      if (["#bx-request-popup", "#popup:barnes-request", "#popup:catalog2026"].includes(window.location.hash)) {
+        this.openRequestPopup("hash");
+      }
+    },
+
+    syncPopupForm(form) {
+      const method = this.contactMethods[this.state.preferredContactMethod] ? this.state.preferredContactMethod : "phone_call";
+      this.state.preferredContactMethod = method;
+      const methodField = form.querySelector(`[name="preferred_contact_method"][value="${method}"]`);
+      if (methodField) methodField.checked = true;
+      this.syncPopupControl(form, "budget", this.state.budget);
+      this.syncPopupControl(form, "scenario", this.getStateLabel("scenario", this.state.scenario) || this.state.scenario);
+      this.setTildaRelayField(form, ["district"], this.state.district || "");
+      this.setTildaRelayField(form, ["format"], this.state.format || "");
+      this.setTildaRelayField(form, ["project"], this.state.project || "");
+      this.setTildaRelayField(form, ["selected_district"], this.state.district || "");
+      this.setTildaRelayField(form, ["selected_format"], this.state.format || "");
+      this.setTildaRelayField(form, ["selected_project"], this.state.project || "");
+      this.setTildaRelayField(form, ["selected_project_id"], this.getProjectId(this.state.project || ""));
+      this.setTildaRelayField(form, ["quiz_summary"], this.buildLeadComment({
+        scenario: this.state.scenario || "",
+        budget: this.state.budget || "",
+        district: this.state.district || "",
+        format: this.state.format || "",
+        project: this.state.project || "",
+        source_block: this.state.sourceBlock || "request_popup",
+        preferred_contact_method: method
+      }));
+      this.setTildaRelayField(form, ["source_block"], this.state.sourceBlock || "request_popup");
+      this.setTildaRelayField(form, ["form_source"], "request_popup");
+      this.setTildaRelayField(form, ["page_url"], window.location.href);
+      this.setTildaRelayField(form, ["page_title"], document.title || "");
+      this.setTildaRelayField(form, ["client_id"], this.getClientId());
+      if (this.ymClientId) this.setTildaRelayField(form, ["ym_client_id"], this.ymClientId);
+      this.updatePopupContactField(form);
+    },
+
+    syncPopupControl(form, name, value) {
+      if (!value) return;
+      const field = form.querySelector(`[name="${name}"]`);
+      if (!field) return;
+      if (field.tagName === "SELECT") {
+        const match = Array.from(field.options).find((option) => option.value === value || option.textContent.trim() === value);
+        if (!match) return;
+        field.value = match.value || match.textContent.trim();
+      } else {
+        field.value = value;
+      }
+    },
+
+    updatePopupContactField(form) {
+      const methodRaw = form.querySelector('[name="preferred_contact_method"]:checked')?.value || this.state.preferredContactMethod || "phone_call";
+      const method = this.contactMethods[methodRaw] ? methodRaw : "phone_call";
+      const meta = this.getContactMeta(method);
+      const label = form.querySelector("[data-popup-contact-label]");
+      const input = form.querySelector("[data-popup-contact-input]");
+      const loginField = form.querySelector("[data-popup-login-field]");
+      const loginLabel = form.querySelector("[data-popup-login-label]");
+      const loginInput = form.querySelector("[data-popup-login-input]");
+      const needsLogin = meta.field === "login";
+      this.state.preferredContactMethod = method;
+      if (label) label.textContent = method === "whatsapp" ? "Телефон для WhatsApp" : "Телефон";
+      if (input) {
+        input.type = "tel";
+        input.autocomplete = "tel";
+        input.inputMode = "tel";
+        input.placeholder = "+7";
+      }
+      if (loginField) loginField.hidden = !needsLogin;
+      if (loginLabel) loginLabel.textContent = meta.loginLabel || meta.inputLabel || "Ник в мессенджере";
+      if (loginInput) {
+        loginInput.required = needsLogin;
+        loginInput.placeholder = needsLogin ? meta.placeholder : "";
+        if (!needsLogin) loginInput.value = "";
+      }
+      this.setTildaRelayField(form, ["preferred_contact_parameter"], meta.parameter);
+    },
+
+    setPopupStep(form, step) {
+      form.querySelectorAll("[data-popup-step]").forEach((item) => {
+        const active = item.dataset.popupStep === String(step);
+        item.hidden = !active;
+        item.classList.toggle("is-active", active);
+      });
+      const message = form.querySelector(".bx-popup-form__message");
+      if (message) message.textContent = "";
+    },
+
+    resetPopupSuccess(form) {
+      if (!form) return;
+      form.hidden = false;
+      form.classList.remove("is-success");
+      form.querySelector(".bx-popup-form__message")?.classList.remove("is-success");
+      const success = form.closest(".bx-request-popup__panel")?.querySelector("[data-bx-popup-success]");
+      if (success) success.hidden = true;
+    },
+
+    showPopupSuccess(form) {
+      const panel = form?.closest(".bx-request-popup__panel");
+      if (!form || !panel) return;
+      let success = panel.querySelector("[data-bx-popup-success]");
+      if (!success) {
+        success = document.createElement("div");
+        success.className = "bx-popup-success";
+        success.setAttribute("data-bx-popup-success", "");
+        success.setAttribute("role", "status");
+        success.setAttribute("aria-live", "polite");
+        panel.appendChild(success);
+      }
+      success.innerHTML = `
+        <span>Запрос принят</span>
+        <h3>Эксперт BARNES получил ваш запрос</h3>
+        <p>Мы сверим бюджет, сценарий покупки, интересующий проект и удобный способ связи. Следующий шаг — короткое уточнение деталей и персональная подборка.</p>
+        <button class="bx-btn bx-btn--dark" type="button" data-bx-popup-close>Хорошо</button>
+      `;
+      form.hidden = true;
+      form.classList.add("is-success");
+      success.hidden = false;
+      success.querySelector("[data-bx-popup-close]")?.addEventListener("click", () => this.closeRequestPopup(), { once: true });
+      success.querySelector("button")?.focus();
+    },
+
+    showInlineSuccess(form) {
+      if (!form) return;
+      let success = form.querySelector("[data-bx-form-success]");
+      if (!success) {
+        success = document.createElement("div");
+        success.className = "bx-form-success";
+        success.setAttribute("data-bx-form-success", "");
+        success.setAttribute("role", "status");
+        success.setAttribute("aria-live", "polite");
+        form.appendChild(success);
+      }
+      success.innerHTML = `
+        <span>Запрос принят</span>
+        <strong>Эксперт BARNES свяжется с вами и подготовит персональную подборку.</strong>
+        <p>Данные переданы напрямую команде BARNES Saint Petersburg. Мы уточним детали индивидуально, без массовой рассылки.</p>
+      `;
+      form.classList.add("is-success");
+    },
+
+    validatePopupStep(form, step) {
+      const message = form.querySelector(".bx-popup-form__message");
+      const setError = (field, hasError) => {
+        field?.closest(".bx-popup-form__field, .bx-contact-methods")?.classList.toggle("has-error", hasError);
+        field?.setAttribute("aria-invalid", String(hasError));
+      };
+      let valid = true;
+
+      if (step === 1) {
+        const method = form.querySelector('[name="preferred_contact_method"]:checked');
+        const budget = form.querySelector('[name="budget"]');
+        const scenario = form.querySelector('[name="scenario"]');
+        valid = Boolean(method && budget?.value && scenario?.value);
+        setError(budget, !budget?.value);
+        setError(scenario, !scenario?.value);
+        form.querySelector(".bx-contact-methods")?.classList.toggle("has-error", !method);
+      } else {
+        const name = form.querySelector('[name="name"]');
+        const contact = form.querySelector("[data-popup-contact-input]");
+        const login = form.querySelector("[data-popup-login-input]");
+        const methodRaw = form.querySelector('[name="preferred_contact_method"]:checked')?.value || "phone_call";
+        const method = this.contactMethods[methodRaw] ? methodRaw : "phone_call";
+        const meta = this.getContactMeta(method);
+        const contactValue = contact?.value.trim() || "";
+        const loginValue = login?.value.trim() || "";
+        const phoneOk = contactValue.replace(/\D/g, "").length >= 7 && !this.isFakePhone(contactValue);
+        const loginOk = meta.field !== "login" || loginValue.length > 1;
+        const nameOk = Boolean(name?.value.trim());
+        valid = nameOk && phoneOk && loginOk;
+        setError(name, !nameOk);
+        setError(contact, !phoneOk);
+        setError(login, !loginOk);
+      }
+
+      if (!valid && message) {
+        message.textContent = "Проверьте имя и контакт — кажется, не хватает данных.";
+        message.classList.remove("is-success");
+      }
+      return valid;
+    },
+
+    captureFormSelections(form) {
+      const budget = form.querySelector('[name="budget"]')?.value;
+      const scenario = form.querySelector('[name="scenario"]')?.value;
+      const district = form.querySelector('[name="district"]')?.value;
+      const project = form.querySelector('[name="project"]')?.value;
+      const format = form.querySelector('[name="format"]')?.value;
+      if (budget) this.state.budget = budget;
+      if (scenario) this.state.scenario = scenario;
+      if (district) this.state.district = district;
+      if (project) this.state.project = project;
+      if (format) this.state.format = format;
+    },
+
+    async sendLead(form) {
+      const data = new FormData(form);
+      const scenario = this.getStateLabel("scenario", this.state.scenario) || this.state.scenario || data.get("scenario") || "";
+      data.set("scenario", scenario);
+      data.set("budget", this.state.budget || data.get("budget") || "");
+      data.set("district", this.state.district || data.get("district") || "");
+      data.set("project", this.state.project || data.get("project") || "");
+      data.set("format", this.state.format || data.get("format") || "");
+      data.set("page_url", window.location.href);
+      data.set("selected_scenario", scenario);
+      data.set("selected_budget", this.state.budget || data.get("budget") || "");
+      data.set("selected_district", this.state.district || data.get("district") || "");
+      data.set("selected_format", this.state.format || data.get("format") || "");
+      data.set("selected_project", this.state.project || data.get("project") || "");
+      data.set("source_block", this.state.sourceBlock || form.dataset.form || "request");
+      data.set("lead_type", data.get("lead_type") || "request");
+      return this.sendLeadData(data, { form: form.dataset.form || "request" });
+    },
+
+    sendOnboardingLead() {
+      const data = new FormData();
+      data.set("name", this.state.name || "");
+      data.set("phone", this.state.phone || "");
+      data.set("scenario", this.getStateLabel("scenario", this.state.scenario) || this.state.scenario || "");
+      data.set("budget", this.state.budget || "");
+      data.set("district", this.getStateLabel("district", this.state.district) || this.state.district || "");
+      data.set("project", this.state.project || "");
+      data.set("format", this.state.format || "");
+      data.set("page_url", window.location.href);
+      data.set("selected_scenario", this.getStateLabel("scenario", this.state.scenario) || this.state.scenario || "");
+      data.set("selected_budget", this.state.budget || "");
+      data.set("selected_district", this.getStateLabel("district", this.state.district) || this.state.district || "");
+      data.set("selected_format", this.state.format || "");
+      data.set("selected_project", this.state.project || "");
+      data.set("source_block", "onboarding");
+      data.set("lead_type", "quiz");
+      this.sendLeadData(data, { form: "onboarding", leadType: "quiz" });
+    },
+
+    async sendLeadData(data, options = {}) {
+      const payload = this.prepareLeadPayload(data, options);
+      this.preparePopupPayload(Object.fromEntries(payload.entries()));
+      this.trackBarnesEvent({
+        interaction_type: "form_submit_attempt",
+        form: options.form || payload.get("form_source") || "request_popup"
+      });
+      const sent = await this.postLeadPayload(payload);
+      if (sent) {
+        const formName = options.form || payload.get("form_source") || "request_popup";
+        this.track("form_submit", { form: formName, source_block: payload.get("source_block") });
+        this.track("form_submit_success", { form: formName, source_block: payload.get("source_block") });
+        this.trackBarnesEvent({ interaction_type: "form_submit_success", form: formName });
+        if (payload.get("lead_type") === "quiz") {
+          this.trackBarnesEvent({ interaction_type: "quiz_complete", form: formName });
+        }
+      }
+      return sent;
+    },
+
+    prepareLeadPayload(data, options = {}) {
+      const incoming = data instanceof FormData || data instanceof URLSearchParams ? data : new FormData();
+      if (!(data instanceof FormData) && !(data instanceof URLSearchParams) && data && typeof data === "object") {
+        Object.entries(data).forEach(([key, value]) => incoming.set(key, value ?? ""));
+      }
+      const get = (key) => String(incoming.get(key) || "").trim();
+      const payload = new URLSearchParams();
+      const set = (key, value) => payload.set(key, String(value ?? ""));
+      const params = new URLSearchParams(window.location.search);
+
+      const sourceBlock = options.sourceBlock || get("source_block") || this.state.sourceBlock || "request_popup";
+      const formSource = options.form || get("form_source") || sourceBlock || "request_popup";
+      const methodRaw = get("preferred_contact_method") || this.state.preferredContactMethod || "phone_call";
+      const method = this.contactMethods[methodRaw] ? methodRaw : "phone_call";
+      const contactMeta = this.getContactMeta(method);
+      const scenario = get("scenario") || this.getStateLabel("scenario", this.state.scenario) || this.state.scenario || "";
+      const budget = get("budget") || this.state.budget || "";
+      const district = get("district") || this.state.district || "";
+      const format = get("format") || this.state.format || "";
+      const project = get("project") || this.state.project || "";
+      const preferredValue = get("preferred_contact_value") || get("phone") || "";
+      const phone = preferredValue;
+      const contactLogin = contactMeta.field === "login" ? get("contact_login") : "";
+      const leadType = options.leadType || get("lead_type") || (sourceBlock === "onboarding" ? "quiz" : "request");
+
+      set("name", get("name") || this.state.name || "");
+      set("phone", phone);
+      set("contact_login", contactLogin);
+      set("preferred_contact_method", method);
+      set("preferred_contact_value", preferredValue);
+      set("preferred_contact_parameter", contactMeta.parameter);
+      set("scenario", scenario);
+      set("budget", budget);
+      set("district", district);
+      set("format", format);
+      set("project", project);
+      set("selected_scenario", get("selected_scenario") || scenario);
+      set("selected_budget", get("selected_budget") || budget);
+      set("selected_district", get("selected_district") || district);
+      set("selected_format", get("selected_format") || format);
+      set("selected_project", get("selected_project") || project);
+      set("selected_project_id", get("selected_project_id") || this.getProjectId(project));
+      set("lead_type", leadType);
+      set("source_block", sourceBlock);
+      set("form_source", formSource);
+      set("page_url", get("page_url") || window.location.href);
+      set("page_title", get("page_title") || document.title || "");
+      set("submitted_at", new Date().toISOString());
+      ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "yclid", "rsya_placement", "rsya_source_type", "rsya_position_type"].forEach((key) => {
+        set(key, get(key) || params.get(key) || "");
+      });
+      set("ym_client_id", get("ym_client_id") || this.ymClientId || "");
+      set("client_id", get("client_id") || this.getClientId());
+
+      const values = Object.fromEntries(payload.entries());
+      const comment = this.buildLeadComment(values);
+      set("quiz_summary", get("quiz_summary") || comment);
+      set("comment", comment);
+      set("COMMENTS", comment);
+      return payload;
+    },
+
+    async postLeadPayload(payload) {
+      const body = payload.toString();
+      try {
+        const response = await fetch(this.webhookUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
+          },
+          body,
+          mode: "cors",
+          keepalive: true
+        });
+        if (!response.ok && response.type !== "opaque") {
+          throw new Error(`Webhook status ${response.status}`);
+        }
+        return true;
+      } catch (error) {
+        this.debugRelay("webhook_fetch_error", { message: error?.message || String(error) });
+        return this.submitWebhookIframe(payload);
+      }
+    },
+
+    submitWebhookIframe(payload) {
+      try {
+        const iframeName = "bx-webhook-frame";
+        let iframe = document.querySelector(`iframe[name="${iframeName}"]`);
+        if (!iframe) {
+          iframe = document.createElement("iframe");
+          iframe.name = iframeName;
+          iframe.hidden = true;
+          iframe.style.display = "none";
+          iframe.setAttribute("aria-hidden", "true");
+          document.body.appendChild(iframe);
+        }
+
+        const form = document.createElement("form");
+        form.method = "POST";
+        form.action = this.webhookUrl;
+        form.target = iframeName;
+        form.enctype = "application/x-www-form-urlencoded";
+        form.style.display = "none";
+        payload.forEach((value, key) => {
+          const input = document.createElement("input");
+          input.type = "hidden";
+          input.name = key;
+          input.value = value;
+          form.appendChild(input);
+        });
+
+        document.body.appendChild(form);
+        form.submit();
+        window.setTimeout(() => form.remove(), 1800);
+        this.debugRelay("webhook_iframe_submit", { fields: Array.from(payload.keys()) });
+        return true;
+      } catch (error) {
+        this.debugRelay("webhook_iframe_error", { message: error?.message || String(error) });
+        return false;
+      }
+    },
+
+    submitTildaRelayForm(data) {
+      const form = this.findTildaRelayForm();
+      this.debugRelay("found_form", {
+        found: Boolean(form),
+        forms: document.querySelectorAll("form.t-form, form.js-form-proccess").length
+      });
+      if (!form) return false;
+
+      const values = Object.fromEntries(data.entries());
+      const fieldMap = {
+        name: ["name", "Name", "NAME", "Имя"],
+        phone: ["phone", "Phone", "PHONE", "Телефон", "Контакт для связи", "tel"],
+        budget: ["budget", "Budget", "Бюджет"],
+        scenario: ["scenario", "Scenario", "Сценарий"],
+        district: ["district", "District", "Район"],
+        project: ["project", "Project", "Проект"],
+        format: ["format", "Format", "Формат"],
+        page_url: ["page_url", "Page URL", "URL"],
+        utm_source: ["utm_source"],
+        utm_medium: ["utm_medium"],
+        utm_campaign: ["utm_campaign"],
+        utm_content: ["utm_content"],
+        utm_term: ["utm_term"],
+        selected_scenario: ["selected_scenario"],
+        selected_budget: ["selected_budget"],
+        selected_district: ["selected_district"],
+        selected_format: ["selected_format"],
+        selected_project: ["selected_project"],
+        selected_project_id: ["selected_project_id"],
+        source_block: ["source_block"],
+        lead_type: ["lead_type"],
+        preferred_contact_method: ["preferred_contact_method"],
+        preferred_contact_value: ["preferred_contact_value"],
+        preferred_contact_parameter: ["preferred_contact_parameter"],
+        contact_login: ["contact_login"],
+        comment: ["comment"],
+        COMMENTS: ["COMMENTS"]
+      };
+
+      Object.entries(values).forEach(([key, value]) => {
+        this.setTildaRelayField(form, fieldMap[key] || [key], value);
+      });
+      const comment = this.buildLeadComment(values);
+      this.setTildaRelayField(form, ["comment"], comment);
+      this.setTildaRelayField(form, ["COMMENTS"], comment);
+      this.setTildaRelayField(form, ["comments", "Comments", "Комментарий"], comment);
+
+      form.dataset.bxRelaySubmitting = "true";
+      this.debugRelay("prepared_form", {
+        action: form.getAttribute("action") || "https://forms.tildacdn.com/procces/",
+        method: form.getAttribute("method") || "POST",
+        fields: Array.from(new FormData(form).keys()),
+        hasFormservices: Array.from(new FormData(form).keys()).some((key) => key.indexOf("formservices") !== -1)
+      });
+
+      const nativeSubmitted = this.submitTildaNative(form);
+      window.setTimeout(() => this.submitTildaRelayIframe(form), nativeSubmitted ? 900 : 0);
+      window.setTimeout(() => delete form.dataset.bxRelaySubmitting, 1800);
+      return true;
+
+      const submit = form.querySelector('button[type="submit"], input[type="submit"], .t-submit');
+      if (submit) {
+        submit.click();
+      } else if (typeof form.requestSubmit === "function") {
+        form.requestSubmit();
+      } else {
+        form.submit();
+      }
+      window.setTimeout(() => delete form.dataset.bxRelaySubmitting, 1200);
+      return true;
+    },
+
+    submitTildaNative(form) {
+      try {
+        const block = form.closest(".t-rec, .r, section, .t-container") || form.parentElement || form;
+        const wasAutoHidden = block.classList.contains("bx-tilda-relay--auto");
+        block.classList.add("bx-tilda-relay-active-submit");
+        block.classList.remove("bx-tilda-relay--auto");
+        form.classList.remove("bx-tilda-relay--auto");
+
+        if (window.jQuery) {
+          window.jQuery(form).trigger("submit");
+          window.setTimeout(() => this.hideTildaRelayBlocks(), 300);
+          this.trackBarnesEvent({ interaction_type: "tilda_native_jquery_submit" });
+          this.debugRelay("native_jquery_submit");
+          return true;
+        }
+
+        if (typeof window.t_submitForm === "function") {
+          window.t_submitForm(form);
+          window.setTimeout(() => this.hideTildaRelayBlocks(), 300);
+          this.trackBarnesEvent({ interaction_type: "tilda_native_submit" });
+          this.debugRelay("native_t_submitForm");
+          return true;
+        }
+
+        const submitEvent = new Event("submit", { bubbles: true, cancelable: true });
+        form.dispatchEvent(submitEvent);
+        if (submitEvent.defaultPrevented) {
+          window.setTimeout(() => this.hideTildaRelayBlocks(), 300);
+          this.trackBarnesEvent({ interaction_type: "tilda_native_dispatch_submit" });
+          this.debugRelay("native_dispatch_submit");
+          return true;
+        }
+
+        const submit = form.querySelector('button[type="submit"], input[type="submit"], .t-submit');
+        if (submit) {
+          submit.click();
+          window.setTimeout(() => this.hideTildaRelayBlocks(), 300);
+          this.trackBarnesEvent({ interaction_type: "tilda_native_click" });
+          this.debugRelay("native_button_click");
+          return true;
+        }
+
+        if (wasAutoHidden) this.hideTildaRelayBlocks();
+        return false;
+      } catch (error) {
+        this.trackBarnesEvent({ interaction_type: "tilda_native_error" });
+        return false;
+      }
+    },
+
+    submitTildaRelayIframe(form) {
+      const action = form.getAttribute("action") || "https://forms.tildacdn.com/procces/";
+      const method = form.getAttribute("method") || "POST";
+      if (!action) return false;
+
+      try {
+        const iframeName = "bx-tilda-relay-frame";
+        let iframe = document.querySelector(`iframe[name="${iframeName}"]`);
+        if (!iframe) {
+          iframe = document.createElement("iframe");
+          iframe.name = iframeName;
+          iframe.style.display = "none";
+          iframe.setAttribute("aria-hidden", "true");
+          document.body.appendChild(iframe);
+        }
+
+        const relay = document.createElement("form");
+        relay.method = method;
+        relay.action = action;
+        relay.target = iframeName;
+        relay.style.display = "none";
+
+        new FormData(form).forEach((value, key) => {
+          const input = document.createElement("input");
+          input.type = "hidden";
+          input.name = key;
+          input.value = String(value ?? "");
+          relay.appendChild(input);
+        });
+
+        document.body.appendChild(relay);
+        relay.submit();
+        window.setTimeout(() => relay.remove(), 1500);
+        this.trackBarnesEvent({ interaction_type: "tilda_relay_iframe_submit" });
+        this.debugRelay("iframe_submit", {
+          action,
+          fields: Array.from(new FormData(relay).keys())
+        });
+        return true;
+      } catch (error) {
+        this.trackBarnesEvent({ interaction_type: "tilda_relay_error" });
+        this.debugRelay("iframe_error", { message: error?.message || String(error) });
+        return false;
+      }
+    },
+
+    debugRelay(stage, payload = {}) {
+      window.BX_RELAY_DEBUG = window.BX_RELAY_DEBUG || [];
+      window.BX_RELAY_DEBUG.push({ stage, payload, time: new Date().toISOString() });
+      if (window.BX_DEBUG_RELAY || window.location.search.includes("bx_debug=1")) {
+        console.log("[BARNES relay]", stage, payload);
+      }
+    },
+
+    getContactMeta(method) {
+      return this.contactMethods[method] || this.contactMethods.phone_call;
+    },
+
+    getContactMethodFromSource(sourceBlock = "") {
+      if (sourceBlock.includes("whatsapp")) return "whatsapp";
+      if (sourceBlock.includes("telegram")) return "telegram";
+      if (sourceBlock.includes("max")) return "max";
+      if (sourceBlock.includes("call") || sourceBlock.includes("phone")) return "phone_call";
+      return "";
+    },
+
+    isFakePhone(value) {
+      const digits = String(value || "").replace(/\D/g, "");
+      if (digits.length < 7) return true;
+      const normalized = digits.replace(/^7|^8/, "");
+      return /^(\d)\1{6,}$/.test(normalized);
+    },
+
+    initClientIds() {
+      const clientId = this.getClientId();
+      this.syncHiddenField("client_id", clientId);
+      if (window.ym && this.metrikaId) {
+        try {
+          window.ym(this.metrikaId, "getClientID", (id) => {
+            this.ymClientId = id || "";
+            this.syncHiddenField("ym_client_id", this.ymClientId);
+          });
+        } catch (error) {
+          this.ymClientId = "";
+        }
+      }
+    },
+
+    getClientId() {
+      const key = "bx_client_id";
+      try {
+        let id = window.localStorage?.getItem(key);
+        if (!id) {
+          id = `bx_${Date.now()}_${Math.random().toString(16).slice(2)}`;
+          window.localStorage?.setItem(key, id);
+        }
+        return id || "";
+      } catch (error) {
+        return `bx_${Date.now()}`;
+      }
+    },
+
+    getProjectId(project) {
+      const map = {
+        "Фонтанка 130": "fontanka-130",
+        "Манхэттен": "manhattan",
+        "ЛДМ": "ldm",
+        "Коллекционер": "kollektsioner",
+        "Аристократ": "aristokrat",
+        "Остров Первых": "ostrov-pervyh",
+        "Визионер": "vizioner",
+        "17/33": "17-33",
+        "Репин": "repin"
+      };
+      if (map[project]) return map[project];
+      return String(project || "")
+        .trim()
+        .toLowerCase()
+        .replace(/\s+/g, "-")
+        .replace(/[^a-zа-я0-9-]/gi, "");
+    },
+
+    buildLeadComment(values) {
+      const methodMeta = this.getContactMeta(values.preferred_contact_method || "phone_call");
+      const leadTitle = values.lead_type === "quiz" ? "Квиз: персональная подборка" : "Запрос каталога";
+      return [
+        `Тип заявки: ${leadTitle}`,
+        `Сценарий: ${values.scenario || values.selected_scenario || ""}`,
+        `Бюджет: ${values.budget || values.selected_budget || ""}`,
+        `Район: ${values.district || values.selected_district || ""}`,
+        `Формат: ${values.format || values.selected_format || ""}`,
+        `Проект: ${values.project || values.selected_project || ""}`,
+        `Способ связи: ${methodMeta.label}`,
+        `Телефон: ${values.phone || values.preferred_contact_value || ""}`,
+        `Ник в мессенджере: ${values.contact_login || ""}`,
+        `Технический параметр связи: ${values.preferred_contact_parameter || methodMeta.parameter}`,
+        `Источник блока: ${values.source_block || ""}`,
+        `Страница: ${values.page_url || window.location.href || ""}`,
+        `UTM source: ${values.utm_source || ""}`,
+        `UTM medium: ${values.utm_medium || ""}`,
+        `UTM campaign: ${values.utm_campaign || ""}`,
+        `UTM content: ${values.utm_content || ""}`,
+        `UTM term: ${values.utm_term || ""}`,
+        `YCLID: ${values.yclid || ""}`,
+        `YM Client ID: ${values.ym_client_id || ""}`,
+        `Client ID: ${values.client_id || ""}`
+      ].filter((line) => !line.endsWith(": ")).join("\n");
+    },
+
+    findTildaRelayForm() {
+      const candidates = Array.from(document.querySelectorAll([
+        "form[data-bx-tilda-relay]",
+        "[data-bx-tilda-relay] form",
+        "#bx-tilda-relay form",
+        ".bx-tilda-relay form",
+        ".uc-bx-tilda-relay form",
+        "form.t-form",
+        "form.js-form-proccess"
+      ].join(",")));
+
+      return candidates.find((form) => {
+        if (form.classList.contains("bx-form")) return false;
+        if (form.dataset.bxRelaySubmitting === "true") return false;
+        return true;
+      }) || null;
+    },
+
+    setTildaRelayField(form, names, value) {
+      const escapedNames = names.map((name) => {
+        if (window.CSS?.escape) return `[name="${CSS.escape(name)}"]`;
+        return `[name="${String(name).replace(/"/g, '\\"')}"]`;
+      });
+      let field = form.querySelector(escapedNames.join(","));
+
+      if (!field) {
+        field = document.createElement("input");
+        field.type = "hidden";
+        field.name = names[0];
+        form.appendChild(field);
+      }
+
+      field.value = String(value ?? "");
+      field.dispatchEvent(new Event("input", { bubbles: true }));
+      field.dispatchEvent(new Event("change", { bubbles: true }));
+    },
+
+    hideTildaRelayBlocks() {
+      document.querySelectorAll([
+        "form[data-bx-tilda-relay]",
+        "[data-bx-tilda-relay] form",
+        "#bx-tilda-relay form",
+        ".bx-tilda-relay form",
+        ".uc-bx-tilda-relay form",
+        "form.t-form",
+        "form.js-form-proccess"
+      ].join(",")).forEach((form) => {
+        if (form.classList.contains("bx-form")) return;
+        if (form.closest(".bx-page")) return;
+        const block = form.closest(".t-rec, .r, section, .t-container") || form.parentElement || form;
+        block.classList.remove("bx-tilda-relay-active-submit");
+        form.classList.add("bx-tilda-relay--auto");
+        block.classList.add("bx-tilda-relay--auto");
+        block.setAttribute("aria-hidden", "true");
+      });
+    },
+
+    validateForm(form) {
+      let valid = true;
+      form.querySelectorAll("[required]").forEach((field) => {
+        const ok = field.value.trim().length > 1;
+        field.closest(".bx-form__field")?.classList.toggle("has-error", !ok);
+        field.setAttribute("aria-invalid", String(!ok));
+        valid = valid && ok;
+      });
+      const message = form.querySelector(".bx-form__message");
+      if (!valid && message) {
+        message.textContent = "Проверьте имя и контакт — кажется, не хватает данных.";
+        message.classList.remove("is-success");
+      }
+      return valid;
+    },
+
+    initProcess() {
+      const track = document.querySelector("[data-process-track]");
+      if (!track) return;
+      track.innerHTML = this.data.process.map((item, index) => `
+        <article class="bx-process-step" data-reveal>
+          <span>${String(index + 1).padStart(2, "0")}</span>
+          <h3>${this.escape(item.title)}</h3>
+          <p>${this.escape(item.text)}</p>
+        </article>
+      `).join("");
+      this.initScrollReveal();
+    },
+
+    initUTM() {
+      const params = new URLSearchParams(window.location.search);
+      ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "yclid", "rsya_placement", "rsya_source_type", "rsya_position_type"].forEach((key) => {
+        this.syncHiddenField(key, params.get(key) || "");
+      });
+      this.syncHiddenField("page_url", window.location.href);
+      this.syncHiddenField("page_title", document.title || "");
+    },
+
+    initScrollDepth() {
+      const marks = [50, 75, 90];
+      const reached = new Set();
+      window.addEventListener("scroll", () => {
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        if (docHeight <= 0) return;
+        const progress = Math.round((window.scrollY / docHeight) * 100);
+        marks.forEach((mark) => {
+          if (progress >= mark && !reached.has(mark)) {
+            reached.add(mark);
+            this.track(`scroll_${mark}`);
+          }
+        });
+      }, { passive: true });
+    },
+
+    initMobileCTA() {
+      const cta = this.nodes.mobileCTA;
+      if (!cta) return;
+      const onScroll = () => {
+        const inputFocused = Boolean(document.activeElement?.matches?.("input, textarea, select"));
+        const menuOpen = document.body.classList.contains("bx-menu-lock");
+        const show = window.innerWidth <= 767 && window.scrollY > Math.min(window.innerHeight * 0.7, 560) && !inputFocused && !menuOpen;
+        cta.classList.toggle("is-visible", show);
+      };
+      onScroll();
+      window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("resize", onScroll);
+      document.addEventListener("focusin", onScroll);
+      document.addEventListener("focusout", () => window.setTimeout(onScroll, 120));
+    },
+
+    initFloatingLeadPopup() {
+      let popup = document.querySelector("[data-floating-lead]");
+      if (!popup) {
+        const root = document.querySelector(".bx-page") || document.body;
+        root.insertAdjacentHTML("beforeend", `
+          <aside class="bx-floating-lead" data-floating-lead aria-label="Эксперт BARNES Saint Petersburg">
+            <a class="bx-floating-lead__card" href="${this.popupHref}" data-floating-lead-cta data-source="expert_popup">
+              <span class="bx-floating-lead__avatar">
+                <img src="https://daniilterekh-prog.github.io/barnes-assets/spb-catalog/expert-spb.webp" alt="Людмила, эксперт BARNES Saint Petersburg" loading="lazy" decoding="async" />
+              </span>
+              <span class="bx-floating-lead__content">
+                <span class="bx-floating-lead__eyebrow">Эксперт BARNES Saint Petersburg</span>
+                <strong>Задать вопрос эксперту</strong>
+                <span>Людмила</span>
+              </span>
+            </a>
+            <button class="bx-floating-lead__close" type="button" data-floating-lead-close aria-label="Скрыть подсказку эксперта"></button>
+          </aside>
+        `);
+        popup = root.querySelector("[data-floating-lead]");
+      }
+      if (!popup) return;
+      const close = popup.querySelector("[data-floating-lead-close]");
+      const cta = popup.querySelector("[data-floating-lead-cta]");
+      const storageKey = "bx_spb_floating_lead_closed_v2";
+      if (window.sessionStorage?.getItem(storageKey) === "1") {
+        popup.hidden = true;
+        return;
+      }
+      const updateVisibility = () => {
+        if (popup.hidden || window.sessionStorage?.getItem(storageKey) === "1") return;
+        const hero = document.querySelector(".bx-hero");
+        const heroBottom = hero ? hero.offsetTop + hero.offsetHeight : window.innerHeight;
+        const showAfterHero = window.scrollY > Math.max(280, heroBottom - 120);
+        popup.classList.toggle("is-visible", showAfterHero);
+      };
+      window.setTimeout(updateVisibility, 900);
+      window.addEventListener("scroll", updateVisibility, { passive: true });
+      window.addEventListener("resize", updateVisibility);
+      close?.addEventListener("click", () => {
+        popup.classList.remove("is-visible");
+        window.sessionStorage?.setItem(storageKey, "1");
+        this.track("floating_expert_close", { source: "expert_popup" });
+        this.trackBarnesEvent({ interaction_type: "floating_expert_close", source_block: "expert_popup" });
+        window.setTimeout(() => {
+          popup.hidden = true;
+        }, 280);
+      });
+      cta?.addEventListener("click", () => {
+        this.prepareRequestForm("expert_popup", {});
+        this.track("floating_expert_cta_click", { source: "expert_popup" });
+        this.trackBarnesEvent({ interaction_type: "floating_expert_cta_click", source_block: "expert_popup" });
+      });
+    },
+
+    bindTrackingLinks() {
+      document.querySelectorAll("[data-track]").forEach((item) => {
+        item.addEventListener("click", () => this.track(item.dataset.track));
+      });
+
+      document.querySelectorAll("[data-source]").forEach((item) => {
+        item.addEventListener("click", () => {
+          this.prepareRequestForm(item.dataset.source);
+          if (item.dataset.source === "hero") {
+            this.trackBarnesEvent({ interaction_type: "hero_cta_click" });
+          }
+          if (item.dataset.source === "expert") {
+            this.trackBarnesEvent({ interaction_type: "expert_cta_click" });
+          }
+        });
+      });
+    },
+
+    initTildaPopupMode() {
+      document.querySelectorAll('a[href="#request"], a[href="/#request"], a[href="#popup:catalog2026"], a[href="#popup:barnes-request"]').forEach((link) => {
+        link.setAttribute("href", this.popupHref);
+      });
+
+      document.querySelectorAll([
+        `[href="${this.popupHref}"]`,
+        '[href="#popup:catalog2026"]',
+        '[href="#popup:barnes-request"]',
+        "[data-source]",
+        "[data-project-request]",
+        "[data-district-cta]",
+        "[data-scenario-cta]",
+        "[data-mobile-cta]"
+      ].join(",")).forEach((item) => {
+        if (item.dataset.bxPopupBound === "true") return;
+        item.dataset.bxPopupBound = "true";
+        if (item.tagName === "A") item.setAttribute("href", this.popupHref);
+        item.addEventListener("click", (event) => {
+          const sourceBlock = item.dataset.source || item.dataset.projectRequest || item.dataset.districtCta || item.dataset.scenarioCta || "cta";
+          const preferredContactMethod = item.dataset.contactMethod || this.getContactMethodFromSource(sourceBlock);
+          const extra = preferredContactMethod ? { preferredContactMethod } : {};
+          if (item.tagName === "A" || item.closest?.("a")) event.preventDefault();
+          this.openRequestPopup(sourceBlock, extra);
+        });
+      });
+    },
+
+    openCatalogPopup(sourceBlock = "cta") {
+      this.openRequestPopup(sourceBlock);
+    },
+
+    preparePopupPayload(extra = {}) {
+      const scenario = this.getStateLabel("scenario", this.state.scenario) || this.state.scenario || "";
+      window.BX_POPUP_PAYLOAD = {
+        name: this.state.name || "",
+        phone: this.state.phone || "",
+        budget: this.state.budget || "",
+        scenario,
+        district: this.state.district || "",
+        project: this.state.project || "",
+        format: this.state.format || "",
+        page_url: window.location.href,
+        selected_scenario: scenario,
+        selected_budget: this.state.budget || "",
+        selected_district: this.state.district || "",
+        selected_format: this.state.format || "",
+        selected_project: this.state.project || "",
+        source_block: this.state.sourceBlock || extra.source_block || "",
+        ...extra
+      };
+    },
+
+    fillTildaPopupForms() {
+      const payload = window.BX_POPUP_PAYLOAD || {};
+      const forms = document.querySelectorAll("form.t-form, form.js-form-proccess");
+      forms.forEach((form) => {
+        if (form.classList.contains("bx-form")) return;
+        Object.entries(payload).forEach(([key, value]) => {
+          this.setTildaRelayField(form, [key, key.toUpperCase()], value);
+        });
+        const comment = this.buildLeadComment(payload);
+        this.setTildaRelayField(form, ["comment"], comment);
+        this.setTildaRelayField(form, ["COMMENTS"], comment);
+        this.setTildaRelayField(form, ["comments", "Comments", "Комментарий"], comment);
+      });
+    },
+
+    prepareRequestForm(sourceBlock, extra = {}) {
+      this.state.sourceBlock = sourceBlock;
+      Object.entries(extra).forEach(([key, value]) => {
+        this.state[key] = value;
+      });
+      const scenario = this.getStateLabel("scenario", this.state.scenario) || this.state.scenario || "";
+      this.syncHiddenField("source_block", sourceBlock);
+      this.syncHiddenField("selected_scenario", scenario);
+      this.syncHiddenField("selected_budget", this.state.budget);
+      this.syncHiddenField("selected_district", this.state.district);
+      this.syncHiddenField("selected_format", this.state.format);
+      this.syncHiddenField("selected_project", this.state.project);
+      this.syncHiddenField("selected_project_id", this.getProjectId(this.state.project));
+      this.syncHiddenField("format", this.state.format);
+      this.syncHiddenField("page_url", window.location.href);
+      this.syncHiddenField("page_title", document.title || "");
+      this.syncHiddenField("form_source", sourceBlock);
+      this.syncHiddenField("client_id", this.getClientId());
+      if (this.ymClientId) this.syncHiddenField("ym_client_id", this.ymClientId);
+      this.syncFormControl("scenario", scenario);
+      this.syncFormControl("budget", this.state.budget);
+      this.syncFormControl("district", this.state.district);
+      this.syncFormControl("project", this.state.project);
+    },
+
+    syncHiddenField(name, value) {
+      document.querySelectorAll(`input[name="${name}"]`).forEach((field) => {
+        field.value = value || "";
+      });
+    },
+
+    syncFormControl(name, value) {
+      if (!value) return;
+      document.querySelectorAll(`select[name="${name}"], input[name="${name}"]:not([type="hidden"])`).forEach((field) => {
+        if (field.tagName === "SELECT") {
+          const hasOption = Array.from(field.options).some((option) => option.value === value || option.textContent === value);
+          if (!hasOption) return;
+        }
+        field.value = value;
+        field.classList.add("has-value");
+      });
+    },
+
+    track(goal, params = {}) {
+      if (window.ym && window.BX_METRIKA_ID) {
+        window.ym(window.BX_METRIKA_ID, "reachGoal", goal, params);
+      }
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event: goal, ...params });
+    },
+
+    trackBarnesEvent(payload = {}) {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: "barnes_spb_interaction",
+        ...payload
+      });
+    },
+
+    getStateLabel(key, value) {
+      if (!value) return "";
+      if (key === "scenario") {
+        const option = this.onboarding.steps[0].options.find((item) => item.id === value);
+        return option ? option.title : value;
+      }
+      return value;
+    },
+
+    escape(value) {
+      return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+  };
+
+  window.BX = BX;
+  document.addEventListener("DOMContentLoaded", () => BX.init());
+  window.addEventListener("load", () => document.body.classList.add("is-loaded"));
+})();
