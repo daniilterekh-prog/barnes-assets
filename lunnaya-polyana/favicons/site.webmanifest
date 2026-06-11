@@ -1,0 +1,19 @@
+{
+  "name": "Лунная Поляна | BARNES",
+  "short_name": "BARNES",
+  "icons": [
+    {
+      "src": "https://daniilterekh-prog.github.io/barnes-assets/lunnaya-polyana/favicons/favicon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://daniilterekh-prog.github.io/barnes-assets/lunnaya-polyana/favicons/favicon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#111111",
+  "background_color": "#F5F1EA",
+  "display": "standalone"
+}
