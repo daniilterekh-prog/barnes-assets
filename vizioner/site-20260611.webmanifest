@@ -1,0 +1,19 @@
+{
+  "name": "BARNES Saint Petersburg Визионер",
+  "short_name": "BARNES SPB",
+  "icons": [
+    {
+      "src": "https://daniilterekh-prog.github.io/barnes-assets/vizioner/favicon-192x192-20260611.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://daniilterekh-prog.github.io/barnes-assets/vizioner/favicon-512x512-20260611.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#F8F7F4",
+  "background_color": "#F8F7F4",
+  "display": "standalone"
+}
