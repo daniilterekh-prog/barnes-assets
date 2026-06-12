@@ -1101,11 +1101,11 @@
         this.nodes?.header?.classList.remove("is-open");
         document.body.classList.remove("bx-menu-lock");
         this.nodes?.burger?.setAttribute("aria-expanded", "false");
-        this.scrollToY(Math.max(0, top), this.reducedMotion ? 0 : 1750);
+        this.scrollToY(Math.max(0, top), this.reducedMotion ? 0 : 820);
         history.pushState(null, "", hash);
         window.setTimeout(() => {
           isHandlingAnchor = false;
-        }, this.reducedMotion ? 50 : 1800);
+        }, this.reducedMotion ? 50 : 900);
       };
 
       window.addEventListener("click", handleAnchorClick, { capture: true });
@@ -1113,6 +1113,7 @@
     },
 
     initGuidedSectionScroll() {
+      return;
       if (this.reducedMotion) return;
       const sections = () => Array.from(document.querySelectorAll("main section[id], .bm-chapter-section, .bx-postfaq-cta, .bx-footer"))
         .filter((section) => section.offsetHeight > 80);
