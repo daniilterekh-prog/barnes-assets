@@ -60,6 +60,7 @@
       this.injectColorFix();
       this.prepareData();
       this.cache();
+      this.applyUxCopyUpdates();
       this.applyImageConfig();
       this.setupMotionPreferences();
       this.initHeader();
@@ -364,6 +365,88 @@
       });
     },
 
+    applyUxCopyUpdates() {
+      const navCopy = [
+        ["#hero", "Обзор 2026", "Кратко о каталоге"],
+        ["#atlas", "Районы", "Ключевые локации Петербурга"],
+        ["#projects", "Проекты", "Отобранные резиденции"],
+        ["#methodology", "Методология", "Как BARNES оценивает проекты"],
+        ["#expert", "Эксперт", "Кто получит ваш запрос"],
+        ["#contacts", "Контакты", "Связаться с BARNES"]
+      ];
+      navCopy.forEach(([href, title, note]) => {
+        const link = document.querySelector(`.bx-header__nav a[href="${href}"]`);
+        if (link && !link.querySelector("small")) {
+          link.innerHTML = `<span>${this.escape(title)}</span><small>${this.escape(note)}</small>`;
+        }
+      });
+
+      const title = document.querySelector(".bx-hero__title");
+      if (title && !title.dataset.uxCompact) {
+        title.dataset.uxCompact = "true";
+        title.innerHTML = `
+          <span class="bx-title-line">Премиальные новостройки</span>
+          <span class="bx-title-line">Петербурга 2026</span>
+        `;
+      }
+      const lead = document.querySelector(".bx-hero__lead");
+      if (lead) lead.textContent = "Каталог BARNES: районы, проекты, ликвидность и приватные предложения.";
+      const heroButton = document.querySelector('.bx-hero__actions .bx-btn--dark');
+      if (heroButton) heroButton.textContent = "Получить каталог";
+      const heroMeta = document.querySelector(".bx-hero__meta");
+      if (heroMeta && !heroMeta.dataset.uxCompact) {
+        heroMeta.dataset.uxCompact = "true";
+        heroMeta.innerHTML = `
+          <span>Обновлено: май 2026</span>
+          <span>Ответ эксперта за 1 рабочий день</span>
+          <span>Без массовой рассылки</span>
+        `;
+      }
+
+      const onboardingIntro = document.querySelector(".bx-onboarding__intro p");
+      if (onboardingIntro) {
+        onboardingIntro.textContent = "Экономьте время: 5 вопросов помогут эксперту BARNES отобрать только подходящие проекты под ваш бюджет, район и цель покупки.";
+      }
+      const onboardingFooter = document.querySelector(".bx-onboarding__footer");
+      if (onboardingFooter && !onboardingFooter.querySelector("[data-onboarding-sheet-trigger]")) {
+        onboardingFooter.insertAdjacentHTML("beforeend", '<button class="bx-onboarding__compact-summary" type="button" data-onboarding-sheet-trigger aria-expanded="false">Ваш запрос: 0 из 5 выбрано</button>');
+      }
+
+      const matrixHead = document.querySelector("#methodology .bx-section-head");
+      if (matrixHead && !matrixHead.querySelector("[data-methodology-scale-copy]")) {
+        matrixHead.insertAdjacentHTML("beforeend", '<p class="bx-text" data-methodology-scale-copy data-reveal>Оценка BARNES строится по открытой шкале: 1 — параметр выражен слабо, 2 — уверенный уровень премиального сегмента, 3 — редкое преимущество для рынка Санкт-Петербурга.</p>');
+      }
+      const matrixShell = document.querySelector("#methodology .bx-matrix__shell");
+      if (matrixShell && !document.querySelector(".bx-methodology-scale")) {
+        matrixShell.insertAdjacentHTML("beforebegin", `
+          <div class="bx-methodology-scale" data-reveal aria-label="Шкала оценки BARNES">
+            <span><strong>1</strong> базовый уровень</span>
+            <span><strong>2</strong> сильный параметр</span>
+            <span><strong>3</strong> редкое преимущество</span>
+          </div>
+        `);
+      }
+
+      const popupLead = document.querySelector(".bx-popup-form__lead");
+      if (popupLead) {
+        popupLead.textContent = "Сначала выберите удобный способ связи. Детали по бюджету, району и проекту эксперт уточнит аккуратно в диалоге.";
+      }
+      const popupStepLabel = document.querySelector('[data-popup-step="1"] .bx-popup-form__section-title span');
+      if (popupStepLabel) popupStepLabel.textContent = "Куда отправить каталог";
+      document.querySelectorAll('.bx-popup-form select[name="budget"], .bx-popup-form select[name="scenario"]').forEach((field) => {
+        field.required = false;
+        const label = field.closest(".bx-popup-form__field")?.querySelector("label");
+        if (label && !/необязательно/i.test(label.textContent)) label.append(" · необязательно");
+        const first = field.querySelector("option");
+        if (first && !first.value) first.textContent = "Уточню с экспертом";
+      });
+
+      const mobileCta = document.querySelector("[data-mobile-cta]");
+      if (mobileCta && !mobileCta.querySelector('[data-mobile-scroll="shortlist"]')) {
+        mobileCta.insertAdjacentHTML("beforeend", '<a class="bx-btn bx-btn--light" href="#shortlist" data-mobile-scroll="shortlist">Собрать подборку</a>');
+      }
+    },
+
     prepareData() {
       this.data.districts = [
         {
@@ -652,20 +735,20 @@
       this.onboarding.steps = [
         {
           key: "scenario",
-          label: "Задача",
-          title: "Какой сценарий покупки главный?",
-          hint: "Выберите ближайшую мотивацию. Эксперт сможет уточнить детали позже.",
+          label: "Цель",
+          title: "С какой целью вы покупаете?",
+          hint: "Выберите ближайший сценарий. Если сомневаетесь, эксперт уточнит детали в диалоге.",
           options: [
-            { id: "life", title: "Для жизни", description: "Ежедневный комфорт, инфраструктура и качество среды." },
-            { id: "family", title: "Для семьи", description: "Школы, прогулочные пространства, безопасность и спокойный ритм." },
-            { id: "investment", title: "Для инвестиций", description: "Ликвидность, редкость предложения и сохранение капитала." },
-            { id: "status", title: "Для статуса", description: "Редкий адрес, приватность и архитектурная ценность." }
+            { id: "life", title: "Для жизни", description: "Подойдёт, если ваша цель — ежедневный комфорт и качество среды." },
+            { id: "family", title: "Для семьи", description: "Подойдёт, если важны школы, безопасность и спокойный маршрут." },
+            { id: "investment", title: "Для инвестиций", description: "Подойдёт, если вы оцениваете ликвидность и сохранение капитала." },
+            { id: "status", title: "Для статуса", description: "Подойдёт, если важны редкий адрес, приватность и архитектура." }
           ]
         },
         { key: "budget", label: "Бюджет", title: "Какой бюджет рассматриваете?", hint: "Это поможет убрать нерелевантные проекты и оставить точный диапазон.", options: ["до 50 млн ₽", "50–100 млн ₽", "100–250 млн ₽", "250+ млн ₽", "Пока не определён"] },
         { key: "district", label: "Район", title: "Какие районы интересны?", hint: "Можно выбрать район или оставить пространство для рекомендации.", options: ["Центральный", "Петроградский", "Василеостровский", "Адмиралтейский", "Московский", "Пока не выбрано"] },
         { key: "project", label: "Проект", title: "Есть интересующий проект?", hint: "Выберите проект из каталога или оставьте пространство для рекомендации.", options: ["Фонтанка 130", "Манхэттен", "ЛДМ", "Коллекционер", "Аристократ", "Остров Первых", "Визионер", "17/33", "Пока не выбрано"] },
-        { key: "format", label: "Формат", title: "Какой формат ближе?", hint: "Формат помогает точнее собрать shortlist под ваш сценарий покупки.", options: ["Клубный дом", "Пентхаус", "Квартира с террасой", "Резиденция у воды", "Семейная квартира", "Инвестиционный лот", "Пока не выбрано"] }
+        { key: "format", label: "Тип объекта", title: "Какой тип объекта нужен?", hint: "Клубный дом, пентхаус, квартира с террасой или другой формат — можно уточнить позже.", options: ["Клубный дом", "Пентхаус", "Квартира с террасой", "Резиденция у воды", "Семейная квартира", "Инвестиционный лот", "Пока не выбрано"] }
       ];
     },
 
@@ -890,9 +973,26 @@
         event.preventDefault();
         const headerHeight = this.nodes?.header?.offsetHeight || 76;
         const top = target.getBoundingClientRect().top + window.scrollY - headerHeight - 18;
-        window.scrollTo({ top: Math.max(0, top), behavior: this.reducedMotion ? "auto" : "smooth" });
+        this.scrollToY(Math.max(0, top), this.reducedMotion ? 0 : 1100);
         history.pushState(null, "", hash);
       });
+    },
+
+    scrollToY(targetY, duration = 900) {
+      if (!duration) {
+        window.scrollTo(0, targetY);
+        return;
+      }
+      const startY = window.scrollY;
+      const distance = targetY - startY;
+      const startedAt = performance.now();
+      const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+      const tick = (now) => {
+        const progress = Math.min(1, (now - startedAt) / duration);
+        window.scrollTo(0, startY + distance * ease(progress));
+        if (progress < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
     },
 
     initMethodologyFunnel() {
@@ -942,6 +1042,8 @@
       this.onboarding.summary = document.querySelector("[data-onboarding-summary]");
       this.onboarding.prev = document.querySelector("[data-onboarding-prev]");
       this.onboarding.next = document.querySelector("[data-onboarding-next]");
+      this.onboarding.sheetTrigger = document.querySelector("[data-onboarding-sheet-trigger]");
+      this.onboarding.shell = document.querySelector(".bx-onboarding__shell");
       if (!this.onboarding.viewport) return;
 
       this.onboarding.prev?.addEventListener("click", () => this.goToStep(this.onboarding.step - 1));
@@ -952,6 +1054,11 @@
           return;
         }
         this.goToStep(this.onboarding.step + 1);
+      });
+      this.onboarding.sheetTrigger?.addEventListener("click", () => {
+        const open = !this.onboarding.shell?.classList.contains("is-summary-open");
+        this.onboarding.shell?.classList.toggle("is-summary-open", open);
+        this.onboarding.sheetTrigger?.setAttribute("aria-expanded", String(open));
       });
 
       this.goToStep(0);
@@ -964,6 +1071,8 @@
       const max = this.onboarding.steps.length - 1;
       this.onboarding.step = Math.max(0, Math.min(index, max));
       const step = this.onboarding.steps[this.onboarding.step];
+      this.onboarding.shell?.classList.remove("is-complete", "is-summary-open");
+      this.onboarding.sheetTrigger?.setAttribute("aria-expanded", "false");
       this.renderOnboardingStep(step);
       this.updateProgress();
       this.updateSummary();
@@ -978,7 +1087,8 @@
         const description = typeof option === "string" ? "" : option.description;
         const selected = this.state[step.key] === value;
         return `
-          <button class="bx-option${selected ? " is-selected" : ""}" type="button" data-option-key="${step.key}" data-option-value="${this.escape(value)}">
+          <button class="bx-option${selected ? " is-selected" : ""}" type="button" data-option-key="${step.key}" data-option-value="${this.escape(value)}" aria-pressed="${selected}">
+            <i class="bx-option__check" aria-hidden="true"></i>
             <strong>${this.escape(title)}</strong>
             ${description ? `<span>${this.escape(description)}</span>` : ""}
           </button>
@@ -1010,7 +1120,9 @@
 
       const isLastStep = this.onboarding.step === this.onboarding.steps.length - 1;
       if (this.onboarding.prev) this.onboarding.prev.disabled = this.onboarding.step === 0;
+      if (this.onboarding.prev) this.onboarding.prev.textContent = "Назад";
       if (this.onboarding.next) this.onboarding.next.textContent = isLastStep ? "Получить персональную подборку" : "Далее";
+      if (this.onboarding.next) this.onboarding.next.hidden = false;
     },
 
     renderКонтактStep() {
@@ -1049,11 +1161,11 @@
     updateSummary() {
       if (!this.onboarding.summary) return;
       const labels = [
-        ["scenario", "Сценарий"],
+        ["scenario", "Цель"],
         ["budget", "Бюджет"],
         ["district", "Район"],
         ["project", "Проект"],
-        ["format", "Формат"]
+        ["format", "Тип объекта"]
       ];
       this.onboarding.summary.innerHTML = labels.map(([key, label]) => `
         <div>
@@ -1061,6 +1173,10 @@
           <dd>${this.escape(this.getStateLabel(key, this.state[key]) || "Не выбрано")}</dd>
         </div>
       `).join("");
+      const selectedCount = labels.filter(([key]) => Boolean(this.state[key])).length;
+      if (this.onboarding.sheetTrigger) {
+        this.onboarding.sheetTrigger.textContent = `Ваш запрос: ${selectedCount} из ${labels.length} выбрано`;
+      }
     },
 
     validateCurrentStep() {
@@ -1085,7 +1201,44 @@
       this.track("onboarding_complete", { ...this.state });
       this.track("lead_shortlist", { ...this.state });
       this.trackBarnesEvent({ interaction_type: "quiz_complete", ...this.state });
-      this.openCatalogPopup("onboarding");
+      this.renderOnboardingResult();
+    },
+
+    renderOnboardingResult() {
+      const labels = [
+        ["scenario", "Цель"],
+        ["budget", "Бюджет"],
+        ["district", "Район"],
+        ["project", "Проект"],
+        ["format", "Тип объекта"]
+      ];
+      const summary = labels.map(([key, label]) => `
+        <div>
+          <span>${this.escape(label)}</span>
+          <strong>${this.escape(this.getStateLabel(key, this.state[key]) || "Не выбрано")}</strong>
+        </div>
+      `).join("");
+      this.onboarding.shell?.classList.add("is-complete");
+      this.onboarding.viewport.innerHTML = `
+        <div class="bx-onboarding-result" role="status" aria-live="polite">
+          <span>Ваш shortlist почти готов</span>
+          <h3>Эксперт BARNES подготовит каталог и персональную подборку</h3>
+          <p>Вы получите проверенные проекты Санкт-Петербурга с районами, планировками, бюджетами и комментариями по ликвидности.</p>
+          <div class="bx-onboarding-result__summary">${summary}</div>
+          <div class="bx-onboarding-result__actions">
+            <button class="bx-btn bx-btn--dark" type="button" data-onboarding-result-cta="catalog">Получить PDF-каталог</button>
+            <button class="bx-btn bx-btn--light" type="button" data-onboarding-result-cta="expert">Передать запрос эксперту</button>
+          </div>
+        </div>
+      `;
+      this.onboarding.viewport.querySelectorAll("[data-onboarding-result-cta]").forEach((button) => {
+        button.addEventListener("click", () => this.openCatalogPopup("onboarding_result"));
+      });
+      if (this.onboarding.prev) {
+        this.onboarding.prev.disabled = false;
+        this.onboarding.prev.textContent = "Изменить ответы";
+      }
+      if (this.onboarding.next) this.onboarding.next.hidden = true;
     },
 
     initAtlas() {
@@ -1697,9 +1850,9 @@
         const method = form.querySelector('[name="preferred_contact_method"]:checked');
         const budget = form.querySelector('[name="budget"]');
         const scenario = form.querySelector('[name="scenario"]');
-        valid = Boolean(method && budget?.value && scenario?.value);
-        setError(budget, !budget?.value);
-        setError(scenario, !scenario?.value);
+        valid = Boolean(method);
+        setError(budget, false);
+        setError(scenario, false);
         form.querySelector(".bx-contact-methods")?.classList.toggle("has-error", !method);
       } else {
         const name = form.querySelector('[name="name"]');
@@ -2347,11 +2500,13 @@
         popup.hidden = true;
         return;
       }
+      popup.style.display = "none";
       const updateVisibility = () => {
         if (popup.hidden || window.sessionStorage?.getItem(storageKey) === "1") return;
         const hero = document.querySelector(".bx-hero");
         const heroBottom = hero ? hero.offsetTop + hero.offsetHeight : window.innerHeight;
         const showAfterHero = window.scrollY > Math.max(280, heroBottom - 120);
+        popup.style.display = showAfterHero ? "" : "none";
         popup.classList.toggle("is-visible", showAfterHero);
       };
       window.setTimeout(updateVisibility, 900);
@@ -2410,6 +2565,7 @@
         item.dataset.bxPopupBound = "true";
         if (item.tagName === "A") item.setAttribute("href", this.popupHref);
         item.addEventListener("click", (event) => {
+          if (event.target.closest?.("[data-mobile-scroll]")) return;
           const sourceBlock = item.dataset.source || item.dataset.projectRequest || item.dataset.districtCta || item.dataset.scenarioCta || "cta";
           const preferredContactMethod = item.dataset.contactMethod || this.getContactMethodFromSource(sourceBlock);
           const extra = preferredContactMethod ? { preferredContactMethod } : {};
