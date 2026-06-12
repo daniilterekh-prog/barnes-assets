@@ -827,8 +827,8 @@
         {
           key: "scenario",
           label: "Цель",
-          title: "С какой целью вы покупаете?",
-          hint: "Выберите ближайший сценарий. Если сомневаетесь, эксперт уточнит детали в диалоге.",
+          title: "Что для вас главное в этой покупке?",
+          hint: "Выберите наиболее близкий вариант. Эксперт BARNES поможет уточнить детали позже.",
           options: [
             { id: "life", title: "Для жизни", description: "Подойдёт, если ваша цель — ежедневный комфорт и качество среды." },
             { id: "family", title: "Для семьи", description: "Подойдёт, если важны школы, безопасность и спокойный маршрут." },
@@ -846,6 +846,10 @@
     initHeader() {
       const header = this.nodes.header;
       if (!header) return;
+      if (this.nodes.nav && !this.nodes.nav.querySelector("[data-header-close]")) {
+        this.nodes.nav.insertAdjacentHTML("afterbegin", '<button class="bx-header__close" type="button" data-header-close aria-label="Закрыть меню"><span></span><span></span></button>');
+      }
+      const headerClose = this.nodes.nav?.querySelector("[data-header-close]");
       const onScroll = () => header.classList.toggle("is-scrolled", window.scrollY > 20);
       const closeMenu = () => {
         header.classList.remove("is-open");
@@ -870,6 +874,12 @@
           }
         });
       }
+
+      headerClose?.addEventListener("click", (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        closeMenu();
+      });
 
       document.addEventListener("keydown", (event) => {
         if (event.key === "Escape") closeMenu();
@@ -1278,10 +1288,16 @@
       });
 
       const isLastStep = this.onboarding.step === this.onboarding.steps.length - 1;
+      const hasStepValue = step.key === "contact" || Boolean(this.state[step.key]);
       if (this.onboarding.prev) this.onboarding.prev.disabled = this.onboarding.step === 0;
       if (this.onboarding.prev) this.onboarding.prev.textContent = "Назад";
-      if (this.onboarding.next) this.onboarding.next.textContent = isLastStep ? "Получить персональную подборку" : "Далее";
-      if (this.onboarding.next) this.onboarding.next.hidden = false;
+      if (this.onboarding.next) {
+        this.onboarding.next.textContent = isLastStep ? "Получить персональную подборку" : "Далее";
+        this.onboarding.next.hidden = false;
+        this.onboarding.next.disabled = !hasStepValue;
+        this.onboarding.next.classList.toggle("is-disabled", !hasStepValue);
+      }
+      window.dispatchEvent(new CustomEvent("bx:onboarding:update"));
     },
 
     renderКонтактStep() {
@@ -2631,6 +2647,20 @@
         }
         cta.innerHTML = defaultHtml;
       };
+      const syncQuizActions = () => {
+        if (cta.dataset.mode !== "quiz") return;
+        const step = this.onboarding.steps[this.onboarding.step];
+        const isLastStep = this.onboarding.step === this.onboarding.steps.length - 1;
+        const hasStepValue = step?.key === "contact" || Boolean(this.state[step?.key]);
+        const prev = cta.querySelector('[data-mobile-quiz-action="prev"]');
+        const next = cta.querySelector('[data-mobile-quiz-action="next"]');
+        if (prev) prev.disabled = this.onboarding.step === 0;
+        if (next) {
+          next.textContent = isLastStep ? "Отправить запрос" : "Далее";
+          next.disabled = !hasStepValue;
+          next.classList.toggle("is-disabled", !hasStepValue);
+        }
+      };
       cta.addEventListener("click", (event) => {
         const action = event.target.closest?.("[data-mobile-quiz-action]")?.dataset.mobileQuizAction;
         if (action) {
@@ -2640,7 +2670,7 @@
           if (action === "next") this.onboarding.next?.click();
           return;
         }
-        const popupLink = event.target.closest?.('a[data-source][href="#bx-request-popup"]');
+        const popupLink = event.target.closest?.("a[data-source]:not([data-mobile-scroll])");
         if (popupLink) {
           event.preventDefault();
           event.stopPropagation();
@@ -2650,7 +2680,8 @@
       const onScroll = () => {
         const inputFocused = Boolean(document.activeElement?.matches?.("input, textarea, select"));
         const menuOpen = document.body.classList.contains("bx-menu-lock");
-        const show = window.innerWidth <= 767 && window.scrollY > Math.min(window.innerHeight * 0.7, 560) && !inputFocused && !menuOpen;
+        const isMobile = window.innerWidth <= 767;
+        const show = isMobile && !inputFocused && !menuOpen;
         const midpoint = window.scrollY + window.innerHeight * 0.52;
         const inSection = (selector) => {
           const section = document.querySelector(selector);
@@ -2662,12 +2693,18 @@
           else if (inSection("#projects")) render("project");
           else if (window.scrollY > document.documentElement.scrollHeight - window.innerHeight * 1.55) render("bottom");
           else render("default");
+          syncQuizActions();
         }
         cta.classList.toggle("is-visible", show);
+        document.body.classList.toggle("bx-mobile-cta-visible", show);
       };
       onScroll();
       window.addEventListener("scroll", onScroll, { passive: true });
       window.addEventListener("resize", onScroll);
+      window.addEventListener("bx:onboarding:update", () => {
+        onScroll();
+        syncQuizActions();
+      });
       document.addEventListener("focusin", onScroll);
       document.addEventListener("focusout", () => window.setTimeout(onScroll, 120));
     },
@@ -2759,8 +2796,7 @@
         "[data-source]",
         "[data-project-request]",
         "[data-district-cta]",
-        "[data-scenario-cta]",
-        "[data-mobile-cta]"
+        "[data-scenario-cta]"
       ].join(",")).forEach((item) => {
         if (item.dataset.bxPopupBound === "true") return;
         item.dataset.bxPopupBound = "true";
