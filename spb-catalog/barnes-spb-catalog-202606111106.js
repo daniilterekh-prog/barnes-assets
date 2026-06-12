@@ -1065,6 +1065,7 @@
 
     initSmoothAnchors() {
       let isHandlingAnchor = false;
+      const anchorDuration = this.reducedMotion ? 0 : 1180;
       const getHash = (link) => {
         const raw = link.getAttribute("href") || "";
         if (raw.startsWith("#")) return raw;
@@ -1101,11 +1102,11 @@
         this.nodes?.header?.classList.remove("is-open");
         document.body.classList.remove("bx-menu-lock");
         this.nodes?.burger?.setAttribute("aria-expanded", "false");
-        this.scrollToY(Math.max(0, top), this.reducedMotion ? 0 : 820);
+        this.scrollToY(Math.max(0, top), anchorDuration);
         history.pushState(null, "", hash);
         window.setTimeout(() => {
           isHandlingAnchor = false;
-        }, this.reducedMotion ? 50 : 900);
+        }, anchorDuration + 120);
       };
 
       window.addEventListener("click", handleAnchorClick, { capture: true });
@@ -1149,6 +1150,10 @@
     },
 
     scrollToY(targetY, duration = 900) {
+      if (this.scrollAnimationFrame) {
+        cancelAnimationFrame(this.scrollAnimationFrame);
+        this.scrollAnimationFrame = null;
+      }
       if (!duration) {
         window.scrollTo(0, targetY);
         return;
@@ -1156,13 +1161,17 @@
       const startY = window.scrollY;
       const distance = targetY - startY;
       const startedAt = performance.now();
-      const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+      const ease = (t) => -(Math.cos(Math.PI * t) - 1) / 2;
       const tick = (now) => {
         const progress = Math.min(1, (now - startedAt) / duration);
         window.scrollTo(0, startY + distance * ease(progress));
-        if (progress < 1) requestAnimationFrame(tick);
+        if (progress < 1) {
+          this.scrollAnimationFrame = requestAnimationFrame(tick);
+          return;
+        }
+        this.scrollAnimationFrame = null;
       };
-      requestAnimationFrame(tick);
+      this.scrollAnimationFrame = requestAnimationFrame(tick);
     },
 
     initMethodologyFunnel() {
