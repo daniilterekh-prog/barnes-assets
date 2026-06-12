@@ -403,6 +403,23 @@
           <span>Без массовой рассылки</span>
         `;
       }
+      const heroImage = document.querySelector(".bx-hero__image img");
+      if (heroImage) {
+        heroImage.loading = "eager";
+        heroImage.fetchPriority = "high";
+        heroImage.decoding = "async";
+        heroImage.width = heroImage.width || 768;
+        heroImage.height = heroImage.height || 960;
+        heroImage.sizes = "(max-width: 600px) 100vw, 50vw";
+        if (!document.querySelector('link[data-bx-hero-preload]')) {
+          const preload = document.createElement("link");
+          preload.rel = "preload";
+          preload.as = "image";
+          preload.href = heroImage.currentSrc || heroImage.src;
+          preload.setAttribute("data-bx-hero-preload", "");
+          document.head.appendChild(preload);
+        }
+      }
 
       const onboardingIntro = document.querySelector(".bx-onboarding__intro p");
       if (onboardingIntro) {
