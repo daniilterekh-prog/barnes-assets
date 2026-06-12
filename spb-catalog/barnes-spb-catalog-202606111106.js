@@ -2651,7 +2651,7 @@
         if (cta.dataset.mode !== "quiz") return;
         const step = this.onboarding.steps[this.onboarding.step];
         const isLastStep = this.onboarding.step === this.onboarding.steps.length - 1;
-        const hasStepValue = step?.key === "contact" || Boolean(this.state[step?.key]);
+        const hasStepValue = this.onboarding.next ? !this.onboarding.next.disabled : (step?.key === "contact" || Boolean(this.state[step?.key]));
         const prev = cta.querySelector('[data-mobile-quiz-action="prev"]');
         const next = cta.querySelector('[data-mobile-quiz-action="next"]');
         if (prev) prev.disabled = this.onboarding.step === 0;
