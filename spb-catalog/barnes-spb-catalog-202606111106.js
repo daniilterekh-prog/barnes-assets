@@ -1054,35 +1054,68 @@
     },
 
     initSmoothAnchors() {
-      document.addEventListener("click", (event) => {
-        const link = event.target.closest('a[href^="#"]');
-        if (!link) return;
-        const hash = link.getAttribute("href");
+      let isHandlingAnchor = false;
+      const getHash = (link) => {
+        const raw = link.getAttribute("href") || "";
+        if (raw.startsWith("#")) return raw;
+        try {
+          const url = new URL(raw, window.location.href);
+          if (url.pathname === window.location.pathname && url.hash) return url.hash;
+        } catch (_) {
+          return "";
+        }
+        return "";
+      };
+
+      const getAnchor = (event) => {
+        const target = event.target;
+        if (target?.closest) return target.closest('a[href*="#"]');
+        const path = typeof event.composedPath === "function" ? event.composedPath() : [];
+        return path.find((node) => node?.matches?.('a[href*="#"]')) || null;
+      };
+
+      const handleAnchorClick = (event) => {
+        if (isHandlingAnchor) return;
+        const anchor = getAnchor(event);
+        if (!anchor) return;
+        const hash = getHash(anchor);
         if (!hash || hash === "#") return;
         const target = document.querySelector(hash);
         if (!target) return;
         event.preventDefault();
+        event.stopImmediatePropagation?.();
+        event.stopPropagation();
+        isHandlingAnchor = true;
         const headerHeight = this.nodes?.header?.offsetHeight || 76;
-        const top = target.getBoundingClientRect().top + window.scrollY - headerHeight - 18;
-        this.scrollToY(Math.max(0, top), this.reducedMotion ? 0 : 1100);
+        const top = target.getBoundingClientRect().top + window.scrollY - headerHeight - 20;
+        this.nodes?.header?.classList.remove("is-open");
+        document.body.classList.remove("bx-menu-lock");
+        this.nodes?.burger?.setAttribute("aria-expanded", "false");
+        this.scrollToY(Math.max(0, top), this.reducedMotion ? 0 : 1750);
         history.pushState(null, "", hash);
-      });
+        window.setTimeout(() => {
+          isHandlingAnchor = false;
+        }, this.reducedMotion ? 50 : 1800);
+      };
+
+      window.addEventListener("click", handleAnchorClick, { capture: true });
+      document.addEventListener("click", handleAnchorClick, true);
     },
 
     initGuidedSectionScroll() {
       if (this.reducedMotion) return;
-      const sections = () => Array.from(document.querySelectorAll(".bm-chapter-section, .bx-postfaq-cta, .bx-footer"))
+      const sections = () => Array.from(document.querySelectorAll("main section[id], .bm-chapter-section, .bx-postfaq-cta, .bx-footer"))
         .filter((section) => section.offsetHeight > 80);
       let locked = false;
       let lastAt = 0;
       const isInteractiveScroll = (target) => Boolean(target.closest?.(".bx-option-grid, .bx-residences__grid, .bx-matrix__table, .bx-process__track, .bx-scenario__tabs, .bx-atlas__list, [data-bx-request-popup]"));
       window.addEventListener("wheel", (event) => {
-        if (window.innerWidth < 1024) return;
-        if (Math.abs(event.deltaY) < 44 || locked) return;
+        if (window.innerWidth < 768) return;
+        if (Math.abs(event.deltaY) < 18 || locked) return;
         if (isInteractiveScroll(event.target)) return;
         if (document.body.classList.contains("bx-menu-lock") || document.body.classList.contains("bx-popup-lock")) return;
         const now = performance.now();
-        if (now - lastAt < 650) return;
+        if (now - lastAt < 850) return;
         const items = sections();
         if (!items.length) return;
         const headerHeight = this.nodes?.header?.offsetHeight || 76;
@@ -1097,10 +1130,10 @@
         locked = true;
         lastAt = now;
         const targetTop = Math.max(0, items[nextIndex].offsetTop - headerHeight - 14);
-        this.scrollToY(targetTop, 980);
+        this.scrollToY(targetTop, 1350);
         window.setTimeout(() => {
           locked = false;
-        }, 1050);
+        }, 1420);
       }, { passive: false });
     },
 
