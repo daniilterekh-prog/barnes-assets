@@ -1695,6 +1695,7 @@
           ${this.escape(scenario.label)}
         </button>
       `).join("");
+      this.renderScenarioAccordion(tabs);
 
       tabs.querySelectorAll("[data-scenario]").forEach((tab) => {
         tab.addEventListener("click", () => this.setActiveScenario(tab.dataset.scenario));
@@ -1712,6 +1713,53 @@
       this.setActiveScenario("live", false);
     },
 
+    renderScenarioAccordion(tabs) {
+      const grid = tabs.closest(".bx-scenario__grid");
+      if (!grid) return;
+      grid.querySelector("[data-scenario-mobile]")?.remove();
+
+      const mobile = document.createElement("div");
+      mobile.className = "bx-scenario-mobile";
+      mobile.setAttribute("data-scenario-mobile", "");
+      mobile.setAttribute("aria-label", "Сценарии покупки");
+      mobile.innerHTML = Object.entries(this.data.scenarios).map(([key, scenario]) => `
+        <div class="bx-scenario-mobile__item" data-scenario-item="${key}">
+          <button class="bx-scenario-mobile__trigger" type="button" data-scenario="${key}" aria-expanded="false" aria-controls="scenario-mobile-panel-${key}">
+            <span>${this.escape(scenario.label)}</span>
+            <span class="bx-scenario-mobile__indicator" aria-hidden="true">+</span>
+          </button>
+          <div class="bx-scenario-mobile__panel" id="scenario-mobile-panel-${key}">
+            <p class="bx-scenario-mobile__description">${this.escape(scenario.text)}</p>
+            <div class="bx-scenario-mobile__meta">
+              <span>Районы</span>
+              <p>${scenario.districts.map(this.escape).join(" · ")}</p>
+            </div>
+            <div class="bx-scenario-mobile__meta">
+              <span>Проекты</span>
+              <p>${scenario.projects.map(this.escape).join(" · ")}</p>
+            </div>
+            <a class="bx-btn bx-btn--dark bx-scenario-mobile__cta" href="${this.popupHref}" data-scenario-cta="${key}">${this.escape(scenario.cta)}</a>
+          </div>
+        </div>
+      `).join("");
+
+      tabs.after(mobile);
+      mobile.querySelectorAll("[data-scenario]").forEach((trigger) => {
+        trigger.addEventListener("click", () => {
+          this.setActiveScenario(trigger.dataset.scenario);
+          trigger.closest(".bx-scenario-mobile__item")?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        });
+      });
+      mobile.querySelectorAll("[data-scenario-cta]").forEach((cta) => {
+        cta.addEventListener("click", () => {
+          const scenario = this.data.scenarios[cta.dataset.scenarioCta];
+          if (!scenario) return;
+          this.prepareRequestForm("scenario", { scenario: scenario.title });
+          this.trackBarnesEvent({ interaction_type: "scenario_cta_click", scenario: scenario.title });
+        });
+      });
+    },
+
     setActiveScenario(key, shouldTrack = true) {
       const scenario = this.data.scenarios[key];
       const panel = document.querySelector("[data-scenario-panel]");
@@ -1722,8 +1770,15 @@
 
       document.querySelectorAll("[data-scenario]").forEach((tab) => {
         const active = tab.dataset.scenario === key;
-        tab.setAttribute("aria-selected", String(active));
-        tab.tabIndex = active ? 0 : -1;
+        if (tab.getAttribute("role") === "tab") {
+          tab.setAttribute("aria-selected", String(active));
+          tab.tabIndex = active ? 0 : -1;
+        }
+        if (tab.classList.contains("bx-scenario-mobile__trigger")) {
+          tab.setAttribute("aria-expanded", String(active));
+          tab.querySelector(".bx-scenario-mobile__indicator").textContent = active ? "−" : "+";
+          tab.closest(".bx-scenario-mobile__item")?.classList.toggle("is-active", active);
+        }
       });
 
       panel.classList.remove("is-visible");
