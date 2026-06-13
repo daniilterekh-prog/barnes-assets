@@ -1047,25 +1047,56 @@
     initActiveNavigation() {
       const links = Array.from(document.querySelectorAll(".bx-header__nav a[href^='#']"));
       if (!links.length) return;
-      const sections = links
-        .map((link) => document.querySelector(link.getAttribute("href")))
+      const navItems = links
+        .map((link) => {
+          const hash = link.getAttribute("href") || "";
+          const section = hash.startsWith("#") ? document.querySelector(hash) : null;
+          return section ? { link, hash, section } : null;
+        })
         .filter(Boolean);
+      const sections = navItems.map((item) => item.section);
       if (!sections.length) return;
       const setActive = (id) => {
         links.forEach((link) => link.classList.toggle("is-active", link.getAttribute("href") === `#${id}`));
       };
+      const updateActive = () => {
+        const headerHeight = this.nodes?.header?.offsetHeight || 76;
+        const marker = window.scrollY + headerHeight + Math.min(window.innerHeight * 0.28, 260);
+        const current = navItems.reduce((best, item) => {
+          const top = item.section.getBoundingClientRect().top + window.scrollY;
+          if (top <= marker && top >= best.top) return { id: item.section.id, top };
+          return best;
+        }, { id: navItems[0].section.id, top: -Infinity });
+        setActive(current.id);
+      };
+      let ticking = false;
+      const requestUpdate = () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+          ticking = false;
+          updateActive();
+        });
+      };
       const observer = new IntersectionObserver((entries) => {
-        const active = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (active?.target?.id) setActive(active.target.id);
+        if (entries.some((entry) => entry.isIntersecting)) requestUpdate();
       }, { threshold: [0.18, 0.32, 0.52], rootMargin: "-22% 0px -55% 0px" });
       sections.forEach((section) => observer.observe(section));
+      links.forEach((link) => {
+        link.addEventListener("click", () => {
+          const hash = link.getAttribute("href") || "";
+          if (hash.startsWith("#")) setActive(hash.slice(1));
+        });
+      });
+      window.addEventListener("scroll", requestUpdate, { passive: true });
+      window.addEventListener("resize", requestUpdate);
+      window.setTimeout(updateActive, 80);
     },
 
     initSmoothAnchors() {
       let isHandlingAnchor = false;
-      const anchorDuration = this.reducedMotion ? 0 : 1180;
+      const anchorDuration = 1180;
+      let lastAnchorHash = "";
       const getHash = (link) => {
         const raw = link.getAttribute("href") || "";
         if (raw.startsWith("#")) return raw;
@@ -1102,6 +1133,10 @@
         this.nodes?.header?.classList.remove("is-open");
         document.body.classList.remove("bx-menu-lock");
         this.nodes?.burger?.setAttribute("aria-expanded", "false");
+        lastAnchorHash = hash;
+        document.querySelectorAll(".bx-header__nav a[href^='#']").forEach((link) => {
+          link.classList.toggle("is-active", link.getAttribute("href") === hash);
+        });
         this.scrollToY(Math.max(0, top), anchorDuration);
         history.pushState(null, "", hash);
         window.setTimeout(() => {
@@ -1111,6 +1146,16 @@
 
       window.addEventListener("click", handleAnchorClick, { capture: true });
       document.addEventListener("click", handleAnchorClick, true);
+      window.addEventListener("hashchange", () => {
+        const hash = window.location.hash;
+        if (!hash || hash === lastAnchorHash) return;
+        const target = document.querySelector(hash);
+        if (!target) return;
+        const headerHeight = this.nodes?.header?.offsetHeight || 76;
+        const top = target.getBoundingClientRect().top + window.scrollY - headerHeight - 20;
+        lastAnchorHash = hash;
+        this.scrollToY(Math.max(0, top), anchorDuration);
+      });
     },
 
     initGuidedSectionScroll() {
