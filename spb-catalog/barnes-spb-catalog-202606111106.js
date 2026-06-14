@@ -7,7 +7,7 @@
   const BX = {
     metrikaId: window.BX_METRIKA_ID || null,
     webhookUrl: "https://barnes-moscow.com/api/app/form/tilda/lead/callback/",
-    popupHref: "#bx-request-popup",
+    popupHref: "#bx-tilda-form",
     state: {
       scenario: null,
       budget: null,
@@ -1129,7 +1129,7 @@
         if (!anchor) return;
         const hash = getHash(anchor);
         if (!hash || hash === "#") return;
-        if (this.shouldUseTildaNativeForm() && ["#bx-request-popup", "#popup:catalog2026", "#popup:barnes-request"].includes(hash)) {
+        if (this.shouldUseTildaNativeForm() && ["#bx-tilda-form", "#bx-request-popup", "#popup:catalog2026", "#popup:barnes-request"].includes(hash)) {
           const sourceBlock = anchor.dataset.source || anchor.dataset.projectRequest || anchor.dataset.districtCta || anchor.dataset.scenarioCta || "cta";
           const extra = {};
           if (anchor.dataset.projectRequest) {
@@ -2550,17 +2550,6 @@
       if (!window.BX_USE_TILDA_FORM) return;
       const form = this.findTildaRelayForm();
       document.body.classList.toggle("bx-use-tilda-form", Boolean(form));
-      if (form && !document.getElementById("bx-tilda-form-bridge-style")) {
-        const style = document.createElement("style");
-        style.id = "bx-tilda-form-bridge-style";
-        style.textContent = `
-          body.bx-use-tilda-form .bx-page form.bx-form,
-          body.bx-use-tilda-form .bx-page [data-bx-request-popup] {
-            display: none !important;
-          }
-        `;
-        document.head.appendChild(style);
-      }
       if (!this.tildaBridgeClickBound) {
         this.tildaBridgeClickBound = true;
         window.addEventListener("click", (event) => {
@@ -2572,6 +2561,7 @@
             "[data-district-cta]",
             "[data-scenario-cta]",
             "[data-floating-lead-cta]",
+            'a[href="#bx-tilda-form"]',
             'a[href="#bx-request-popup"]',
             'a[href="#popup:catalog2026"]',
             'a[href="#popup:barnes-request"]'
@@ -2926,6 +2916,10 @@
       const candidates = Array.from(document.querySelectorAll([
         "form[data-bx-tilda-relay]",
         "[data-bx-tilda-relay] form",
+        "form[data-bx-tilda-form]",
+        "[data-bx-tilda-form] form",
+        "#bx-tilda-form form",
+        ".bx-tilda-form form",
         "#bx-tilda-relay form",
         ".bx-tilda-relay form",
         ".uc-bx-tilda-relay form",
@@ -3048,11 +3042,11 @@
           return;
         }
         if (mode === "project") {
-          cta.innerHTML = '<a class="bx-btn bx-btn--dark bx-mobile-cta__wide" href="#bx-request-popup" data-source="mobile_project">Получить подборку по проекту</a>';
+          cta.innerHTML = '<a class="bx-btn bx-btn--dark bx-mobile-cta__wide" href="#bx-tilda-form" data-source="mobile_project">Получить подборку по проекту</a>';
           return;
         }
         if (mode === "bottom") {
-          cta.innerHTML = '<a class="bx-btn bx-btn--dark bx-mobile-cta__wide" href="#bx-request-popup" data-source="mobile_bottom">Отправить запрос</a>';
+          cta.innerHTML = '<a class="bx-btn bx-btn--dark bx-mobile-cta__wide" href="#bx-tilda-form" data-source="mobile_bottom">Отправить запрос</a>';
           return;
         }
         cta.innerHTML = defaultHtml;
