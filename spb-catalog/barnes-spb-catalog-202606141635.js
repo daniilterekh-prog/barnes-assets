@@ -2704,6 +2704,7 @@
         trigger.click();
         return true;
       }
+      if (this.openTildaHookPopup(form)) return true;
       const target = this.findTildaFormTarget(form);
       if (!target) return false;
       target.removeAttribute("aria-hidden");
@@ -2984,6 +2985,21 @@
         }
       }
       return null;
+    },
+
+    openTildaHookPopup(form = null) {
+      const hook = window.BX_TILDA_FORM_ANCHOR || window.BX_TILDA_FORM_POPUP_HREF || "#bx-tilda-form";
+      if (!hook || !hook.startsWith("#")) return false;
+      const popup = form?.closest?.(".t-popup") || document.querySelector(`.t-popup[data-tooltip-hook="${hook}"]`);
+      if (!popup) return false;
+      const tempTrigger = document.createElement("a");
+      tempTrigger.href = hook;
+      tempTrigger.setAttribute("data-bx-tilda-external-trigger", "true");
+      tempTrigger.style.cssText = "position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden;";
+      document.body.appendChild(tempTrigger);
+      tempTrigger.click();
+      window.setTimeout(() => tempTrigger.remove(), 120);
+      return true;
     },
 
     setTildaRelayField(form, names, value) {
