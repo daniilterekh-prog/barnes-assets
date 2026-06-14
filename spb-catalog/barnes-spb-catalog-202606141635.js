@@ -931,15 +931,18 @@
     enhanceSections() {
       const chapterMap = [
         ["hero", "Chapter 01 / Обложка", "bm-hero"],
-        ["shortlist", "Chapter 02 / Персональный запрос", "bm-personal-selection"],
-        ["atlas", "Chapter 03 / Районы", "bm-districts"],
-        ["inside", "Chapter 04 / Что внутри", "bm-overview-includes"],
-        ["projects", "Chapter 05 / Проекты", "bm-projects"],
-        ["methodology", "Chapter 06 / Методология", "bm-methodology"],
+        ["atlas", "Chapter 02 / Районы", "bm-districts"],
+        ["inside", "Chapter 03 / Что внутри", "bm-overview-includes"],
+        ["projects", "Chapter 04 / Проекты", "bm-projects"],
+        ["methodology", "Chapter 05 / Методология", "bm-methodology"],
+        ["pulse-title", "Chapter 06 / Пульс рынка", "bm-pulse"],
         ["scenario-title", "Chapter 07 / Сценарии покупки", "bm-scenarios"],
         ["advisor-title", "Chapter 08 / Private Advisory", "bm-advisor"],
         ["request", "Chapter 09 / Запрос каталога", "bm-request"],
-        ["expert", "Chapter 10 / Эксперт", "bm-expert"]
+        ["expert", "Chapter 10 / Эксперт", "bm-expert"],
+        ["process-title", "Chapter 11 / Процесс", "bm-process"],
+        ["faq-title", "Chapter 12 / FAQ", "bm-faq"],
+        ["postfaq-title", "Chapter 13 / Финальный шаг", "bm-final-cta"]
       ];
 
       chapterMap.forEach(([target, chapter, className]) => {
@@ -1782,7 +1785,57 @@
         row.addEventListener("click", () => this.showCriterionInfo(Number(row.dataset.matrixRow)));
       });
 
+      this.renderMobileMethodology();
       this.showCriterionInfo(0);
+    },
+
+    renderMobileMethodology() {
+      const shell = document.querySelector("#methodology .bx-matrix__shell");
+      if (!shell || document.querySelector("[data-methodology-mobile]")) return;
+      const priority = [
+        {
+          number: "01",
+          title: "Адрес и среда",
+          text: "Сначала смотрим локацию: статус, вода, исторический контекст, маршруты и окружение."
+        },
+        {
+          number: "02",
+          title: "Формат и приватность",
+          text: "Проверяем камерность, входные сценарии, архитектуру, планировки и ощущение защищённой среды."
+        },
+        {
+          number: "03",
+          title: "Ликвидность",
+          text: "Сравниваем редкость предложения, понятный спрос, дефицит и долгосрочную ценность адреса."
+        }
+      ];
+      const details = this.data.matrix.map((item, index) => `
+        <details class="bx-methodology-mobile__detail"${index === 0 ? " open" : ""}>
+          <summary><span>${String(index + 1).padStart(2, "0")}</span>${this.escape(item.criterion)}</summary>
+          <p>${this.escape(item.description)}</p>
+        </details>
+      `).join("");
+      shell.insertAdjacentHTML("beforebegin", `
+        <div class="bx-methodology-mobile" data-methodology-mobile>
+          <div class="bx-methodology-mobile__intro">
+            <span>Оценка BARNES</span>
+            <h3>Методология в 3 шага</h3>
+            <p>Мы не считаем баллы ради таблицы. Сначала отсеиваем слабые варианты, затем сравниваем адрес, формат и ликвидность под вашу задачу покупки.</p>
+          </div>
+          <div class="bx-methodology-mobile__cards">
+            ${priority.map((item) => `
+              <article>
+                <span>${item.number}</span>
+                <strong>${this.escape(item.title)}</strong>
+                <p>${this.escape(item.text)}</p>
+              </article>
+            `).join("")}
+          </div>
+          <div class="bx-methodology-mobile__details">
+            ${details}
+          </div>
+        </div>
+      `);
     },
 
     renderBars(value) {
