@@ -2550,6 +2550,17 @@
       if (!window.BX_USE_TILDA_FORM) return;
       const form = this.findTildaRelayForm();
       document.body.classList.toggle("bx-use-tilda-form", Boolean(form));
+      if (form && !document.getElementById("bx-tilda-form-bridge-style")) {
+        const style = document.createElement("style");
+        style.id = "bx-tilda-form-bridge-style";
+        style.textContent = `
+          body.bx-use-tilda-form .bx-page form.bx-form,
+          body.bx-use-tilda-form .bx-page [data-bx-request-popup] {
+            display: none !important;
+          }
+        `;
+        document.head.appendChild(style);
+      }
       if (!this.tildaBridgeClickBound) {
         this.tildaBridgeClickBound = true;
         window.addEventListener("click", (event) => {
