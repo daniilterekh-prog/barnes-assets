@@ -1,5 +1,5 @@
 source_file,output_file,source_ext,original_width,original_height,output_width,output_height,original_kb,webp_kb,savings_percent,quality,lossless,status,notes
-/Users/ritaterekh/Documents/New project/assets/source-live/atlas-map.png,/Users/ritaterekh/Documents/New project/assets/optimized/atlas-map.webp,.png,1448,1086,1440,1080,2505.8,177.1,92.9,82,false,converted,
+/Users/ritaterekh/Documents/New project/assets/source-live/atlas-map-vavilova-barnes-light-source.webp,/Users/ritaterekh/Documents/New project/assets/optimized/atlas-map.webp,.webp,1764,1176,1764,1176,179.0,166.4,7.0,82,false,converted,new Moscow atlas map from user file 2026-06-14
 /Users/ritaterekh/Documents/New project/assets/source-live/final-cta.png,/Users/ritaterekh/Documents/New project/assets/optimized/final-cta.webp,.png,1122,1402,1122,1402,2181.9,152.7,93.0,82,false,converted,
 /Users/ritaterekh/Documents/New project/assets/source-live/hero-building.png,/Users/ritaterekh/Documents/New project/assets/optimized/hero-building.webp,.png,1134,1387,1134,1387,1756.3,81.7,95.3,82,false,converted,
 /Users/ritaterekh/Documents/New project/assets/source-live/index-mockup.png,/Users/ritaterekh/Documents/New project/assets/optimized/index-mockup.webp,.png,1086,1448,1086,1448,1952.9,76.5,96.1,82,false,converted,

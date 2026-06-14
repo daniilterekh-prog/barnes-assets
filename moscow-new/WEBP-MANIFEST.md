@@ -1,11 +1,11 @@
 # WebP Conversion Manifest
 
-Date: 2026-06-06
+Date: 2026-06-14
 Files: 10
 
 | status | source | output | original KB | webp KB | savings % | output size | notes |
 |---|---|---|---:|---:|---:|---|---|
-| converted | `/Users/ritaterekh/Documents/New project/assets/source-live/atlas-map.png` | `/Users/ritaterekh/Documents/New project/assets/optimized/atlas-map.webp` | 2505.8 | 177.1 | 92.9 | 1440x1080 |  |
+| converted | `/Users/ritaterekh/Documents/New project/assets/source-live/atlas-map-vavilova-barnes-light-source.webp` | `/Users/ritaterekh/Documents/New project/assets/optimized/atlas-map.webp` | 179.0 | 166.4 | 7.0 | 1764x1176 | new Moscow atlas map from user file 2026-06-14 |
 | converted | `/Users/ritaterekh/Documents/New project/assets/source-live/final-cta.png` | `/Users/ritaterekh/Documents/New project/assets/optimized/final-cta.webp` | 2181.9 | 152.7 | 93.0 | 1122x1402 |  |
 | converted | `/Users/ritaterekh/Documents/New project/assets/source-live/hero-building.png` | `/Users/ritaterekh/Documents/New project/assets/optimized/hero-building.webp` | 1756.3 | 81.7 | 95.3 | 1134x1387 |  |
 | converted | `/Users/ritaterekh/Documents/New project/assets/source-live/index-mockup.png` | `/Users/ritaterekh/Documents/New project/assets/optimized/index-mockup.webp` | 1952.9 | 76.5 | 96.1 | 1086x1448 |  |
