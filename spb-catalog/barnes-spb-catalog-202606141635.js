@@ -953,7 +953,7 @@
         section.classList.add(className, "bm-chapter-section");
         section.dataset.chapter = chapter;
         if (section.querySelector(".bm-chapter-label")) return;
-        const head = section.querySelector(".bx-section-head, .bx-hero__content, .bx-request__content, .bx-expert__content, .bx-footer__grid");
+        const head = section.querySelector(".bx-section-head, .bx-hero__content, .bx-index__content, .bx-request__content, .bx-expert__content, .bx-postfaq-cta__content, .bx-footer__grid");
         if (!head) return;
         const label = document.createElement("div");
         label.className = "bm-chapter-label";
