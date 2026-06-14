@@ -1122,9 +1122,18 @@
         if (isHandlingAnchor) return;
         const anchor = getAnchor(event);
         if (!anchor) return;
+        if (anchor.closest?.("[data-bx-tilda-external-trigger]")) return;
         const hash = getHash(anchor);
         if (!hash || hash === "#") return;
-        if (this.shouldUseTildaNativeForm() && ["#bx-tilda-form", "#bx-request-popup", "#popup:catalog2026", "#popup:barnes-request"].includes(hash)) {
+        const isTildaFormHash = ["#bx-tilda-form", "#bx-request-popup", "#popup:catalog2026", "#popup:barnes-request"].includes(hash);
+        const isConversionCta = Boolean(anchor.closest?.([
+          "[data-source]:not([data-mobile-scroll])",
+          "[data-project-request]",
+          "[data-district-cta]",
+          "[data-scenario-cta]",
+          "[data-floating-lead-cta]"
+        ].join(",")));
+        if (this.shouldUseTildaNativeForm() && (isTildaFormHash || isConversionCta)) {
           const sourceBlock = anchor.dataset.source || anchor.dataset.projectRequest || anchor.dataset.districtCta || anchor.dataset.scenarioCta || "cta";
           const extra = {};
           if (anchor.dataset.projectRequest) {
@@ -2550,6 +2559,7 @@
         window.addEventListener("click", (event) => {
           if (!this.shouldUseTildaNativeForm()) return;
           const eventTarget = event.target?.nodeType === 1 ? event.target : event.target?.parentElement;
+          if (eventTarget?.closest?.("[data-bx-tilda-external-trigger]")) return;
           const trigger = eventTarget?.closest?.([
             "[data-source]:not([data-mobile-scroll])",
             "[data-project-request]",
@@ -2603,7 +2613,7 @@
 
     shouldUseTildaNativeForm() {
       if (!window.BX_USE_TILDA_FORM) return false;
-      return Boolean(this.findTildaRelayForm() || this.findTildaFormTarget());
+      return Boolean(this.findTildaRelayForm() || this.findTildaFormTarget() || this.findTildaFormTrigger());
     },
 
     openTildaNativeForm(sourceBlock = "cta", extra = {}) {
@@ -2689,12 +2699,10 @@
         explicitTrigger.click();
         return true;
       }
-      if (popupHref && popupHref.startsWith("#popup:")) {
-        const trigger = Array.from(document.querySelectorAll(`a[href="${popupHref}"]`)).find((link) => !link.closest(".bx-page"));
-        if (trigger) {
-          trigger.click();
-          return true;
-        }
+      const trigger = this.findTildaFormTrigger();
+      if (trigger) {
+        trigger.click();
+        return true;
       }
       const target = this.findTildaFormTarget(form);
       if (!target) return false;
@@ -2957,6 +2965,25 @@
         if (node.matches?.("[data-bx-tilda-form-slot]") && !node.querySelector("form")) return false;
         return true;
       }) || null;
+    },
+
+    findTildaFormTrigger() {
+      const hrefs = [
+        window.BX_TILDA_FORM_POPUP_HREF || "",
+        window.BX_TILDA_FORM_ANCHOR || "#bx-tilda-form"
+      ].filter(Boolean);
+      for (const href of hrefs) {
+        try {
+          const trigger = Array.from(document.querySelectorAll(`a[href="${href}"]`)).find((link) => !link.closest(".bx-page"));
+          if (trigger) {
+            trigger.setAttribute("data-bx-tilda-external-trigger", "true");
+            return trigger;
+          }
+        } catch (_) {
+          // Ignore invalid custom hrefs from external Tilda settings.
+        }
+      }
+      return null;
     },
 
     setTildaRelayField(form, names, value) {
