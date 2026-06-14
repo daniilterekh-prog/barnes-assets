@@ -1,5 +1,8 @@
 (function () {
   window.BX_METRIKA_ID = window.BX_METRIKA_ID || 88281896;
+  window.BX_USE_TILDA_FORM = window.BX_USE_TILDA_FORM !== false;
+  window.BX_TILDA_FORM_POPUP_HREF = window.BX_TILDA_FORM_POPUP_HREF || "#popup:catalog2026";
+  window.BX_TILDA_FORM_ANCHOR = window.BX_TILDA_FORM_ANCHOR || "#bx-tilda-form";
 
   const BX = {
     metrikaId: window.BX_METRIKA_ID || null,
@@ -79,6 +82,7 @@
       this.initProcess();
       this.initUTM();
       this.initClientIds();
+      this.initTildaFormBridge();
       this.initScrollDepth();
       this.initMobileCTA();
       this.initFloatingLeadPopup();
@@ -86,9 +90,12 @@
       this.initTildaPopupMode();
       this.initLuxuryAtlasLayer();
       window.addEventListener("load", () => this.injectColorFix(true));
+      window.addEventListener("load", () => this.initTildaFormBridge());
       window.addEventListener("load", () => this.initTildaPopupMode());
       window.setTimeout(() => this.injectColorFix(true), 600);
       window.setTimeout(() => this.injectColorFix(true), 1800);
+      window.setTimeout(() => this.initTildaFormBridge(), 600);
+      window.setTimeout(() => this.initTildaFormBridge(), 1800);
       window.setTimeout(() => this.initTildaPopupMode(), 600);
       window.setTimeout(() => this.initTildaPopupMode(), 1800);
     },
@@ -1122,6 +1129,29 @@
         if (!anchor) return;
         const hash = getHash(anchor);
         if (!hash || hash === "#") return;
+        if (this.shouldUseTildaNativeForm() && ["#bx-request-popup", "#popup:catalog2026", "#popup:barnes-request"].includes(hash)) {
+          const sourceBlock = anchor.dataset.source || anchor.dataset.projectRequest || anchor.dataset.districtCta || anchor.dataset.scenarioCta || "cta";
+          const extra = {};
+          if (anchor.dataset.projectRequest) {
+            const projectId = anchor.dataset.projectRequest;
+            extra.project = this.data.residences?.find((item) => item.id === projectId)?.title || projectId;
+          }
+          if (anchor.dataset.districtCta) {
+            const districtId = anchor.dataset.districtCta;
+            extra.district = this.data.districts?.find((item) => item.id === districtId)?.title || districtId;
+          }
+          if (anchor.dataset.scenarioCta) {
+            const scenarioId = anchor.dataset.scenarioCta;
+            extra.scenario = this.data.scenarios?.[scenarioId]?.title || scenarioId;
+          }
+          const preferredContactMethod = anchor.dataset.contactMethod || this.getContactMethodFromSource(sourceBlock);
+          if (preferredContactMethod) extra.preferredContactMethod = preferredContactMethod;
+          event.preventDefault();
+          event.stopImmediatePropagation?.();
+          event.stopPropagation();
+          this.openRequestPopup(sourceBlock, extra);
+          return;
+        }
         const target = document.querySelector(hash);
         if (!target) return;
         event.preventDefault();
@@ -2031,8 +2061,9 @@
     openRequestPopup(sourceBlock = "cta", extra = {}) {
       const popup = document.querySelector("[data-bx-request-popup]");
       const form = popup?.querySelector("[data-bx-custom-form]");
-      if (!popup || !form) return false;
       this.prepareRequestForm(sourceBlock, extra);
+      if (this.openTildaNativeForm(sourceBlock, extra)) return true;
+      if (!popup || !form) return false;
       if (extra.preferredContactMethod) this.state.preferredContactMethod = extra.preferredContactMethod;
       this.syncPopupForm(form);
       this.resetPopupSuccess(form);
@@ -2294,6 +2325,16 @@
     async sendLeadData(data, options = {}) {
       const payload = this.prepareLeadPayload(data, options);
       this.preparePopupPayload(Object.fromEntries(payload.entries()));
+      if (this.shouldUseTildaNativeForm()) {
+        this.prepareTildaNativeForm(payload, options.sourceBlock || payload.get("source_block") || options.form || "request");
+        this.track("form_submit", { form: "tilda_native", source_block: payload.get("source_block") });
+        this.trackBarnesEvent({
+          interaction_type: "tilda_form_payload_ready",
+          form: "tilda_native",
+          source_block: payload.get("source_block")
+        });
+        return true;
+      }
       this.trackBarnesEvent({
         interaction_type: "form_submit_attempt",
         form: options.form || payload.get("form_source") || "request_popup"
@@ -2502,6 +2543,172 @@
         form.submit();
       }
       window.setTimeout(() => delete form.dataset.bxRelaySubmitting, 1200);
+      return true;
+    },
+
+    initTildaFormBridge() {
+      if (!window.BX_USE_TILDA_FORM) return;
+      const form = this.findTildaRelayForm();
+      document.body.classList.toggle("bx-use-tilda-form", Boolean(form));
+      if (!this.tildaBridgeClickBound) {
+        this.tildaBridgeClickBound = true;
+        window.addEventListener("click", (event) => {
+          if (!this.shouldUseTildaNativeForm()) return;
+          const eventTarget = event.target?.nodeType === 1 ? event.target : event.target?.parentElement;
+          const trigger = eventTarget?.closest?.([
+            "[data-source]:not([data-mobile-scroll])",
+            "[data-project-request]",
+            "[data-district-cta]",
+            "[data-scenario-cta]",
+            "[data-floating-lead-cta]",
+            'a[href="#bx-request-popup"]',
+            'a[href="#popup:catalog2026"]',
+            'a[href="#popup:barnes-request"]'
+          ].join(","));
+          if (!trigger || trigger.closest?.("[data-bx-request-popup]")) return;
+          const sourceBlock = trigger.dataset.source || trigger.dataset.projectRequest || trigger.dataset.districtCta || trigger.dataset.scenarioCta || "cta";
+          const extra = {};
+          if (trigger.dataset.projectRequest) {
+            const projectId = trigger.dataset.projectRequest;
+            extra.project = this.data.residences?.find((item) => item.id === projectId)?.title || projectId;
+          }
+          if (trigger.dataset.districtCta) {
+            const districtId = trigger.dataset.districtCta;
+            extra.district = this.data.districts?.find((item) => item.id === districtId)?.title || districtId;
+          }
+          if (trigger.dataset.scenarioCta) {
+            const scenarioId = trigger.dataset.scenarioCta;
+            extra.scenario = this.data.scenarios?.[scenarioId]?.title || scenarioId;
+          }
+          const preferredContactMethod = trigger.dataset.contactMethod || this.getContactMethodFromSource(sourceBlock);
+          if (preferredContactMethod) extra.preferredContactMethod = preferredContactMethod;
+          event.preventDefault();
+          event.stopImmediatePropagation();
+          this.openRequestPopup(sourceBlock, extra);
+        }, true);
+      }
+      if (!form || form.dataset.bxTildaBridge === "true") return;
+      form.dataset.bxTildaBridge = "true";
+      form.setAttribute("data-bx-tilda-form", "true");
+      form.addEventListener("focusin", () => {
+        this.prepareTildaNativeForm(null, this.state.sourceBlock || "tilda_form_focus");
+        this.track("form_start", { form: "tilda_native" });
+      }, { once: true });
+      form.addEventListener("submit", () => {
+        this.prepareTildaNativeForm(null, this.state.sourceBlock || "tilda_native_submit");
+        this.track("form_submit", { form: "tilda_native", source_block: this.state.sourceBlock || "tilda_native_submit" });
+        this.trackBarnesEvent({
+          interaction_type: "tilda_native_submit",
+          form: "tilda_native",
+          source_block: this.state.sourceBlock || "tilda_native_submit"
+        });
+      }, true);
+    },
+
+    shouldUseTildaNativeForm() {
+      if (!window.BX_USE_TILDA_FORM) return false;
+      return Boolean(this.findTildaRelayForm());
+    },
+
+    openTildaNativeForm(sourceBlock = "cta", extra = {}) {
+      if (!this.shouldUseTildaNativeForm()) return false;
+      if (extra.preferredContactMethod) this.state.preferredContactMethod = extra.preferredContactMethod;
+      const payload = this.prepareTildaNativeForm(null, sourceBlock);
+      this.openTildaPopupOrScroll();
+      this.track("tilda_form_open", { source_block: sourceBlock });
+      this.trackBarnesEvent({
+        interaction_type: "tilda_form_open",
+        form: "tilda_native",
+        source_block: sourceBlock,
+        project: payload?.get?.("project") || this.state.project || "",
+        district: payload?.get?.("district") || this.state.district || "",
+        scenario: payload?.get?.("scenario") || this.state.scenario || ""
+      });
+      return true;
+    },
+
+    prepareTildaNativeForm(payload = null, sourceBlock = "cta") {
+      const form = this.findTildaRelayForm();
+      if (!form) return null;
+      const data = payload || this.prepareLeadPayload(new FormData(form), { form: "tilda_native", sourceBlock });
+      const values = Object.fromEntries(data.entries());
+      const fieldMap = {
+        name: ["name", "Name", "NAME", "Имя"],
+        phone: ["phone", "Phone", "PHONE", "Телефон", "Контакт для связи", "tel"],
+        budget: ["budget", "Budget", "Бюджет"],
+        scenario: ["scenario", "Scenario", "Сценарий", "Сценарий покупки"],
+        district: ["district", "District", "Район"],
+        project: ["project", "Project", "Проект", "Интересующий проект"],
+        format: ["format", "Format", "Формат", "Тип объекта"],
+        page_url: ["page_url", "Page URL", "URL"],
+        page_title: ["page_title"],
+        selected_scenario: ["selected_scenario"],
+        selected_budget: ["selected_budget"],
+        selected_district: ["selected_district"],
+        selected_format: ["selected_format"],
+        selected_project: ["selected_project"],
+        selected_project_id: ["selected_project_id"],
+        source_block: ["source_block"],
+        form_source: ["form_source"],
+        lead_type: ["lead_type"],
+        preferred_contact_method: ["preferred_contact_method"],
+        preferred_contact_value: ["preferred_contact_value"],
+        preferred_contact_parameter: ["preferred_contact_parameter"],
+        contact_login: ["contact_login"],
+        client_id: ["client_id"],
+        ym_client_id: ["ym_client_id"],
+        yclid: ["yclid"],
+        rsya_placement: ["rsya_placement"],
+        rsya_source_type: ["rsya_source_type"],
+        rsya_position_type: ["rsya_position_type"],
+        utm_source: ["utm_source"],
+        utm_medium: ["utm_medium"],
+        utm_campaign: ["utm_campaign"],
+        utm_content: ["utm_content"],
+        utm_term: ["utm_term"],
+        quiz_summary: ["quiz_summary"],
+        comment: ["comment", "comments", "Comments", "Комментарий"],
+        COMMENTS: ["COMMENTS"]
+      };
+
+      Object.entries(values).forEach(([key, value]) => {
+        this.setTildaRelayField(form, fieldMap[key] || [key], value);
+      });
+      const comment = this.buildLeadComment(values);
+      this.setTildaRelayField(form, ["quiz_summary"], values.quiz_summary || comment);
+      this.setTildaRelayField(form, ["comment", "comments", "Comments", "Комментарий"], comment);
+      this.setTildaRelayField(form, ["COMMENTS"], comment);
+      window.BX_TILDA_FORM_PAYLOAD = values;
+      window.BX_POPUP_PAYLOAD = values;
+      this.fillTildaPopupForms();
+      document.body.classList.add("bx-use-tilda-form");
+      return data;
+    },
+
+    openTildaPopupOrScroll() {
+      const form = this.findTildaRelayForm();
+      if (!form) return false;
+      const popupHref = window.BX_TILDA_FORM_POPUP_HREF || "";
+      const explicitTrigger = document.querySelector("[data-bx-tilda-form-trigger]");
+      if (explicitTrigger) {
+        explicitTrigger.click();
+        return true;
+      }
+      if (popupHref) {
+        const trigger = Array.from(document.querySelectorAll(`a[href="${popupHref}"]`)).find((link) => !link.closest(".bx-page"));
+        if (trigger) {
+          trigger.click();
+          return true;
+        }
+      }
+      const target = form.closest(".t-rec, .r, section, .t-container, .t-popup") || form;
+      target.removeAttribute("aria-hidden");
+      target.classList.remove("bx-tilda-relay--auto");
+      form.classList.remove("bx-tilda-relay--auto");
+      if (target.id) {
+        history.replaceState(null, document.title, `${window.location.pathname}${window.location.search}#${target.id}`);
+      }
+      target.scrollIntoView({ behavior: "smooth", block: "center" });
       return true;
     },
 
@@ -3067,6 +3274,7 @@
       this.syncFormControl("budget", this.state.budget);
       this.syncFormControl("district", this.state.district);
       this.syncFormControl("project", this.state.project);
+      if (this.shouldUseTildaNativeForm()) this.prepareTildaNativeForm(null, sourceBlock);
     },
 
     syncHiddenField(name, value) {
