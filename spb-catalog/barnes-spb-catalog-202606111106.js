@@ -467,11 +467,6 @@
       });
       this.normalizePopupContactFirst();
 
-      const mobileCta = document.querySelector("[data-mobile-cta]");
-      if (mobileCta && !mobileCta.querySelector('[data-mobile-scroll="shortlist"]')) {
-        mobileCta.insertAdjacentHTML("beforeend", '<a class="bx-btn bx-btn--light" href="#shortlist" data-mobile-scroll="shortlist">Собрать подборку</a>');
-      }
-
       const postFaqTitle = document.querySelector("#postfaq-title");
       if (postFaqTitle) postFaqTitle.textContent = "Получите каталог и короткий список без лишних объектов";
       const postFaqText = document.querySelector(".bx-postfaq-cta__content .bx-text");
@@ -3034,13 +3029,6 @@
       const render = (mode) => {
         if (cta.dataset.mode === mode) return;
         cta.dataset.mode = mode;
-        if (mode === "quiz") {
-          cta.innerHTML = `
-            <button class="bx-btn bx-btn--light" type="button" data-mobile-quiz-action="prev">Назад</button>
-            <button class="bx-btn bx-btn--dark" type="button" data-mobile-quiz-action="next">Далее</button>
-          `;
-          return;
-        }
         if (mode === "project") {
           cta.innerHTML = '<a class="bx-btn bx-btn--dark bx-mobile-cta__wide" href="#bx-tilda-form" data-source="mobile_project">Получить подборку по проекту</a>';
           return;
@@ -3051,29 +3039,7 @@
         }
         cta.innerHTML = defaultHtml;
       };
-      const syncQuizActions = () => {
-        if (cta.dataset.mode !== "quiz") return;
-        const step = this.onboarding.steps[this.onboarding.step];
-        const isLastStep = this.onboarding.step === this.onboarding.steps.length - 1;
-        const hasStepValue = this.onboarding.next ? !this.onboarding.next.disabled : (step?.key === "contact" || Boolean(this.state[step?.key]));
-        const prev = cta.querySelector('[data-mobile-quiz-action="prev"]');
-        const next = cta.querySelector('[data-mobile-quiz-action="next"]');
-        if (prev) prev.disabled = this.onboarding.step === 0;
-        if (next) {
-          next.textContent = isLastStep ? "Отправить запрос" : "Далее";
-          next.disabled = !hasStepValue;
-          next.classList.toggle("is-disabled", !hasStepValue);
-        }
-      };
       cta.addEventListener("click", (event) => {
-        const action = event.target.closest?.("[data-mobile-quiz-action]")?.dataset.mobileQuizAction;
-        if (action) {
-          event.preventDefault();
-          event.stopPropagation();
-          if (action === "prev") this.onboarding.prev?.click();
-          if (action === "next") this.onboarding.next?.click();
-          return;
-        }
         const popupLink = event.target.closest?.("a[data-source]:not([data-mobile-scroll])");
         if (popupLink) {
           event.preventDefault();
@@ -3093,11 +3059,9 @@
           return midpoint >= section.offsetTop && midpoint <= section.offsetTop + section.offsetHeight;
         };
         if (show) {
-          if (inSection("#shortlist")) render("quiz");
-          else if (inSection("#projects")) render("project");
+          if (inSection("#projects")) render("project");
           else if (window.scrollY > document.documentElement.scrollHeight - window.innerHeight * 1.55) render("bottom");
           else render("default");
-          syncQuizActions();
         }
         cta.classList.toggle("is-visible", show);
         document.body.classList.toggle("bx-mobile-cta-visible", show);
@@ -3105,10 +3069,6 @@
       onScroll();
       window.addEventListener("scroll", onScroll, { passive: true });
       window.addEventListener("resize", onScroll);
-      window.addEventListener("bx:onboarding:update", () => {
-        onScroll();
-        syncQuizActions();
-      });
       document.addEventListener("focusin", onScroll);
       document.addEventListener("focusout", () => window.setTimeout(onScroll, 120));
     },
