@@ -1487,7 +1487,7 @@
         </button>
       `).join("");
 
-      document.querySelectorAll("[data-district]").forEach((item) => {
+      list.querySelectorAll("[data-district]").forEach((item) => {
         item.addEventListener("mouseenter", () => {
           this.setActiveРайон(item.dataset.district, false);
           this.track("atlas_hover", { district: item.dataset.district });
@@ -1496,7 +1496,76 @@
         item.addEventListener("click", () => this.setActiveРайон(item.dataset.district));
       });
 
+      this.renderDistrictAccordion(list);
       this.setActiveРайон("central", false);
+    },
+
+    renderDistrictAccordion(list) {
+      const grid = list.closest(".bx-atlas__grid");
+      if (!grid) return;
+      grid.querySelector("[data-atlas-mobile]")?.remove();
+
+      const mobile = document.createElement("div");
+      mobile.className = "bx-atlas-mobile";
+      mobile.setAttribute("data-atlas-mobile", "");
+      mobile.setAttribute("aria-label", "Районы Санкт-Петербурга");
+      mobile.innerHTML = this.data.districts.map((district) => `
+        <div class="bx-atlas-mobile__item" data-atlas-mobile-item="${district.id}">
+          <button class="bx-atlas-mobile__trigger" type="button" data-district="${district.id}" aria-expanded="false" aria-controls="atlas-mobile-panel-${district.id}">
+            <span class="bx-atlas-mobile__thumb" aria-hidden="true">
+              <img src="${this.escape(this.getImage(district.visual))}" alt="" loading="lazy" decoding="async">
+            </span>
+            <span class="bx-atlas-mobile__copy">
+              <strong>${this.escape(district.title)}</strong>
+              <span>${this.escape(district.scenario)}</span>
+            </span>
+            <span class="bx-atlas-mobile__indicator" aria-hidden="true">+</span>
+          </button>
+          <div class="bx-atlas-mobile__panel" id="atlas-mobile-panel-${district.id}">
+            <p class="bx-atlas-mobile__description">${this.escape(district.character)}</p>
+            <div class="bx-atlas-mobile__projects">
+              <span>Проекты</span>
+              ${district.projects.map((project) => `<a href="#projects" data-district-project="${this.escape(project)}">${this.escape(project)}</a>`).join("")}
+            </div>
+            <a class="bx-btn bx-btn--dark bx-atlas-mobile__cta" href="${this.popupHref}" data-district-cta="${district.id}">${this.escape(district.cta)}</a>
+            <button class="bx-atlas-mobile__map-toggle" type="button" data-district-map-toggle="${district.id}">Смотреть район на карте</button>
+            <div class="bx-atlas-mobile__map" aria-hidden="true">
+              <img src="${this.escape(this.getImage("atlasMap"))}" alt="Карта районов Санкт-Петербурга" loading="lazy" decoding="async">
+              <span>${this.escape(district.title)}</span>
+            </div>
+          </div>
+        </div>
+      `).join("");
+
+      list.after(mobile);
+      mobile.querySelectorAll("[data-district]").forEach((trigger) => {
+        trigger.addEventListener("click", () => {
+          this.setActiveРайон(trigger.dataset.district);
+          trigger.closest(".bx-atlas-mobile__item")?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        });
+      });
+      mobile.querySelectorAll("[data-district-cta]").forEach((cta) => {
+        cta.addEventListener("click", () => {
+          const district = this.data.districts.find((item) => item.id === cta.dataset.districtCta);
+          if (!district) return;
+          this.prepareRequestForm("atlas", { district: district.title });
+          this.track("lead_district", { district: district.id });
+          this.trackBarnesEvent({ interaction_type: "district_cta_click", district: district.title });
+        });
+      });
+      mobile.querySelectorAll("[data-district-project]").forEach((link) => {
+        link.addEventListener("click", () => {
+          this.trackBarnesEvent({ interaction_type: "district_project_click", project: link.dataset.districtProject });
+        });
+      });
+      mobile.querySelectorAll("[data-district-map-toggle]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const item = button.closest(".bx-atlas-mobile__item");
+          const isOpen = item?.classList.toggle("is-map-open");
+          button.textContent = isOpen ? "Скрыть карту" : "Смотреть район на карте";
+          this.trackBarnesEvent({ interaction_type: "district_map_toggle", district: button.dataset.districtMapToggle, map_open: Boolean(isOpen) });
+        });
+      });
     },
 
     setActiveРайон(id, shouldTrack = true) {
@@ -1509,10 +1578,23 @@
         const isActive = item.dataset.district === id;
         item.classList.toggle("is-active", isActive);
         if (item.tagName === "BUTTON") item.setAttribute("aria-pressed", String(isActive));
+        if (item.classList.contains("bx-atlas-mobile__trigger")) {
+          item.setAttribute("aria-expanded", String(isActive));
+          item.querySelector(".bx-atlas-mobile__indicator").textContent = isActive ? "−" : "+";
+          const mobileItem = item.closest(".bx-atlas-mobile__item");
+          mobileItem?.classList.toggle("is-active", isActive);
+          if (!isActive) {
+            mobileItem?.classList.remove("is-map-open");
+            const mapToggle = mobileItem?.querySelector("[data-district-map-toggle]");
+            if (mapToggle) mapToggle.textContent = "Смотреть район на карте";
+          }
+        }
       });
 
       const activeListItem = document.querySelector(`.bx-atlas__list [data-district="${id}"]`);
-      activeListItem?.scrollIntoView({ block: "nearest", behavior: "smooth" });
+      if (activeListItem && getComputedStyle(activeListItem).display !== "none") {
+        activeListItem.scrollIntoView({ block: "nearest", behavior: "smooth" });
+      }
 
       this.renderРайонCard(district);
       if (shouldTrack) this.track("atlas_click", { district: id });
