@@ -1,7 +1,7 @@
 (function () {
   window.BX_METRIKA_ID = window.BX_METRIKA_ID || 88281896;
   window.BX_USE_TILDA_FORM = window.BX_USE_TILDA_FORM !== false;
-  window.BX_TILDA_FORM_POPUP_HREF = window.BX_TILDA_FORM_POPUP_HREF || "#popup:catalog2026";
+  window.BX_TILDA_FORM_POPUP_HREF = window.BX_TILDA_FORM_POPUP_HREF || "#bx-tilda-form";
   window.BX_TILDA_FORM_ANCHOR = window.BX_TILDA_FORM_ANCHOR || "#bx-tilda-form";
 
   const BX = {
@@ -2603,14 +2603,14 @@
 
     shouldUseTildaNativeForm() {
       if (!window.BX_USE_TILDA_FORM) return false;
-      return Boolean(this.findTildaRelayForm());
+      return Boolean(this.findTildaRelayForm() || this.findTildaFormTarget());
     },
 
     openTildaNativeForm(sourceBlock = "cta", extra = {}) {
       if (!this.shouldUseTildaNativeForm()) return false;
       if (extra.preferredContactMethod) this.state.preferredContactMethod = extra.preferredContactMethod;
       const payload = this.prepareTildaNativeForm(null, sourceBlock);
-      this.openTildaPopupOrScroll();
+      if (!this.openTildaPopupOrScroll()) return false;
       this.track("tilda_form_open", { source_block: sourceBlock });
       this.trackBarnesEvent({
         interaction_type: "tilda_form_open",
@@ -2683,24 +2683,24 @@
 
     openTildaPopupOrScroll() {
       const form = this.findTildaRelayForm();
-      if (!form) return false;
       const popupHref = window.BX_TILDA_FORM_POPUP_HREF || "";
       const explicitTrigger = document.querySelector("[data-bx-tilda-form-trigger]");
       if (explicitTrigger) {
         explicitTrigger.click();
         return true;
       }
-      if (popupHref) {
+      if (popupHref && popupHref.startsWith("#popup:")) {
         const trigger = Array.from(document.querySelectorAll(`a[href="${popupHref}"]`)).find((link) => !link.closest(".bx-page"));
         if (trigger) {
           trigger.click();
           return true;
         }
       }
-      const target = form.closest(".t-rec, .r, section, .t-container, .t-popup") || form;
+      const target = this.findTildaFormTarget(form);
+      if (!target) return false;
       target.removeAttribute("aria-hidden");
       target.classList.remove("bx-tilda-relay--auto");
-      form.classList.remove("bx-tilda-relay--auto");
+      form?.classList?.remove("bx-tilda-relay--auto");
       if (target.id) {
         history.replaceState(null, document.title, `${window.location.pathname}${window.location.search}#${target.id}`);
       }
@@ -2925,6 +2925,36 @@
       return candidates.find((form) => {
         if (form.classList.contains("bx-form")) return false;
         if (form.dataset.bxRelaySubmitting === "true") return false;
+        return true;
+      }) || null;
+    },
+
+    findTildaFormTarget(form = null) {
+      const explicitAnchor = window.BX_TILDA_FORM_ANCHOR || "#bx-tilda-form";
+      const popupHref = window.BX_TILDA_FORM_POPUP_HREF || "";
+      const selectors = [
+        explicitAnchor,
+        popupHref && !popupHref.startsWith("#popup:") ? popupHref : "",
+        "[data-bx-tilda-form]",
+        ".bx-tilda-form",
+        ".uc-bx-tilda-form",
+        "#bx-tilda-relay",
+        ".bx-tilda-relay",
+        ".uc-bx-tilda-relay"
+      ].filter(Boolean);
+      const targets = [];
+      if (form) targets.push(form.closest(".t-rec, .r, section, .t-container, .t-popup") || form);
+      selectors.forEach((selector) => {
+        try {
+          const node = document.querySelector(selector);
+          if (node) targets.push(node);
+        } catch (_) {
+          // Ignore invalid custom selectors from external Tilda settings.
+        }
+      });
+      return targets.find((node) => {
+        if (!node) return false;
+        if (node.matches?.("[data-bx-tilda-form-slot]") && !node.querySelector("form")) return false;
         return true;
       }) || null;
     },
