@@ -17,6 +17,7 @@ Base URL:
 - `zagorye-altay-evening.webp`
 - `zagorye-altay-winter.webp`
 - `zagorye-location-map.webp`
+- `zagorye-location-map-relief.webp`
 - `zagorye-map-lake.webp`
 - `zagorye-map-spa.webp`
 - `zagorye-map-restaurant.webp`
