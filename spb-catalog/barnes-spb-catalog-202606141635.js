@@ -4,6 +4,28 @@
   window.BX_TILDA_FORM_POPUP_HREF = window.BX_TILDA_FORM_POPUP_HREF || "#bx-tilda-form";
   window.BX_TILDA_FORM_ANCHOR = window.BX_TILDA_FORM_ANCHOR || "#bx-tilda-form";
 
+  (function guardTildaMobileMutationObservers() {
+    if (!window.MutationObserver || window.__BX_SPB_MUTATION_GUARD__) return;
+    var NativeMutationObserver = window.MutationObserver;
+    window.__BX_SPB_MUTATION_GUARD__ = true;
+    window.__BX_NATIVE_MUTATION_OBSERVER__ = NativeMutationObserver;
+
+    function SafeMutationObserver(callback) {
+      var nativeObserver = new NativeMutationObserver(callback);
+      var nativeObserve = nativeObserver.observe;
+      nativeObserver.observe = function (target, options) {
+        var watchesWholePage = target === document.documentElement && options && options.subtree;
+        var watchesHeavyChanges = watchesWholePage && (options.childList || options.attributes);
+        if (watchesHeavyChanges) return;
+        return nativeObserve.call(nativeObserver, target, options);
+      };
+      return nativeObserver;
+    }
+
+    SafeMutationObserver.prototype = NativeMutationObserver.prototype;
+    window.MutationObserver = SafeMutationObserver;
+  })();
+
   (function emergencyPreloaderKill() {
     var css = [
       "html body .bx-preloader,html body [data-bx-preloader]{",
