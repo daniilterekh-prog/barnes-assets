@@ -4,6 +4,60 @@
   window.BX_TILDA_FORM_POPUP_HREF = window.BX_TILDA_FORM_POPUP_HREF || "#bx-tilda-form";
   window.BX_TILDA_FORM_ANCHOR = window.BX_TILDA_FORM_ANCHOR || "#bx-tilda-form";
 
+  (function emergencyPreloaderKill() {
+    var css = [
+      "html body .bx-preloader,html body [data-bx-preloader]{",
+      "animation:bx-spb-force-preloader-off .01s 2.2s steps(1,end) forwards!important",
+      "}",
+      "@keyframes bx-spb-force-preloader-off{to{opacity:0;visibility:hidden;pointer-events:none;transform:translate3d(0,-120vh,0);z-index:-1}}",
+      "html.bx-preloader-done body .bx-preloader,body.bx-preloader-done .bx-preloader,html.bx-preloader-done body [data-bx-preloader],body.bx-preloader-done [data-bx-preloader],.bx-preloader.is-hidden,[data-bx-preloader].is-hidden{opacity:0!important;visibility:hidden!important;pointer-events:none!important;display:none!important}"
+    ].join("");
+    var styleId = "bx-spb-js-emergency-preloader-css-20260615";
+    var tries = 0;
+
+    function addStyle() {
+      if (document.getElementById(styleId)) return;
+      var style = document.createElement("style");
+      style.id = styleId;
+      style.textContent = css;
+      (document.head || document.documentElement).appendChild(style);
+    }
+
+    function mark() {
+      document.documentElement.classList.add("bx-preloader-done");
+      if (document.body) document.body.classList.add("bx-preloader-done");
+    }
+
+    function kill(force) {
+      addStyle();
+      mark();
+      Array.prototype.slice.call(document.querySelectorAll("[data-bx-preloader], .bx-preloader")).forEach(function (node) {
+        node.classList.add("is-hidden");
+        node.setAttribute("aria-hidden", "true");
+        node.style.setProperty("opacity", "0", "important");
+        node.style.setProperty("visibility", "hidden", "important");
+        node.style.setProperty("pointer-events", "none", "important");
+        node.style.setProperty("display", "none", "important");
+        if (force && node.parentNode) node.parentNode.removeChild(node);
+      });
+    }
+
+    addStyle();
+    [900, 1700, 2600, 3600, 5200, 7500, 10000].forEach(function (ms, index) {
+      window.setTimeout(function () {
+        kill(index > 2);
+      }, ms);
+    });
+    var timer = window.setInterval(function () {
+      tries += 1;
+      kill(tries > 10);
+      if (tries >= 28) window.clearInterval(timer);
+    }, 350);
+    window.addEventListener("pageshow", function () {
+      kill(true);
+    });
+  })();
+
   const BX = {
     metrikaId: window.BX_METRIKA_ID || null,
     webhookUrl: "https://barnes-moscow.com/api/app/form/tilda/lead/callback/",
