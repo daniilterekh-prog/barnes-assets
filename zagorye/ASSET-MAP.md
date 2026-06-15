@@ -7,6 +7,7 @@ Base URL:
 
 - `logo-barnes-international.svg`
 - `zagorye-hero-evening-chalet.webp`
+- `zagorye-mobile-hero-interior.webp`
 - `zagorye-landscape-masterplan.webp`
 - `zagorye-chalet-interior.webp`
 - `zagorye-panoramic-living-room.webp`
@@ -16,6 +17,7 @@ Base URL:
 - `zagorye-altay-evening.webp`
 - `zagorye-altay-winter.webp`
 - `zagorye-location-map.webp`
+- `zagorye-location-map-relief.webp`
 - `zagorye-map-lake.webp`
 - `zagorye-map-spa.webp`
 - `zagorye-map-restaurant.webp`
