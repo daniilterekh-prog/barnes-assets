@@ -17,3 +17,4 @@ Base URL:
 - `gory-zdes-hall-interior.webp`
 - `gory-zdes-arkhyz-location-map.webp`
 - `denis-perovsky-resort-expert.webp`
+- `max-logo.svg`
