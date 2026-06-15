@@ -4,6 +4,60 @@
   window.BX_TILDA_FORM_POPUP_HREF = window.BX_TILDA_FORM_POPUP_HREF || "#bx-tilda-form";
   window.BX_TILDA_FORM_ANCHOR = window.BX_TILDA_FORM_ANCHOR || "#bx-tilda-form";
 
+  (function emergencyPreloaderKill() {
+    var css = [
+      "html body .bx-preloader,html body [data-bx-preloader]{",
+      "animation:bx-spb-force-preloader-off .01s 2.2s steps(1,end) forwards!important",
+      "}",
+      "@keyframes bx-spb-force-preloader-off{to{opacity:0;visibility:hidden;pointer-events:none;transform:translate3d(0,-120vh,0);z-index:-1}}",
+      "html.bx-preloader-done body .bx-preloader,body.bx-preloader-done .bx-preloader,html.bx-preloader-done body [data-bx-preloader],body.bx-preloader-done [data-bx-preloader],.bx-preloader.is-hidden,[data-bx-preloader].is-hidden{opacity:0!important;visibility:hidden!important;pointer-events:none!important;display:none!important}"
+    ].join("");
+    var styleId = "bx-spb-js-emergency-preloader-css-20260615";
+    var tries = 0;
+
+    function addStyle() {
+      if (document.getElementById(styleId)) return;
+      var style = document.createElement("style");
+      style.id = styleId;
+      style.textContent = css;
+      (document.head || document.documentElement).appendChild(style);
+    }
+
+    function mark() {
+      document.documentElement.classList.add("bx-preloader-done");
+      if (document.body) document.body.classList.add("bx-preloader-done");
+    }
+
+    function kill(force) {
+      addStyle();
+      mark();
+      Array.prototype.slice.call(document.querySelectorAll("[data-bx-preloader], .bx-preloader")).forEach(function (node) {
+        node.classList.add("is-hidden");
+        node.setAttribute("aria-hidden", "true");
+        node.style.setProperty("opacity", "0", "important");
+        node.style.setProperty("visibility", "hidden", "important");
+        node.style.setProperty("pointer-events", "none", "important");
+        node.style.setProperty("display", "none", "important");
+        if (force && node.parentNode) node.parentNode.removeChild(node);
+      });
+    }
+
+    addStyle();
+    [900, 1700, 2600, 3600, 5200, 7500, 10000].forEach(function (ms, index) {
+      window.setTimeout(function () {
+        kill(index > 2);
+      }, ms);
+    });
+    var timer = window.setInterval(function () {
+      tries += 1;
+      kill(tries > 10);
+      if (tries >= 28) window.clearInterval(timer);
+    }, 350);
+    window.addEventListener("pageshow", function () {
+      kill(true);
+    });
+  })();
+
   const BX = {
     metrikaId: window.BX_METRIKA_ID || null,
     webhookUrl: "https://barnes-moscow.com/api/app/form/tilda/lead/callback/",
@@ -187,6 +241,15 @@
           border-color: #111111 !important;
           color: #ffffff !important;
           -webkit-text-fill-color: #ffffff !important;
+        }
+
+        html body .bx-page .bx-hero__cta a.bx-btn--light,
+        html body .bx-page .bx-hero__cta a.bx-btn--outline-soft {
+          background: transparent !important;
+          border-color: rgba(138, 18, 50, .44) !important;
+          color: #8a1232 !important;
+          -webkit-text-fill-color: #8a1232 !important;
+          box-shadow: none !important;
         }
 
         html body .bx-page .bx-btn--light,
@@ -399,8 +462,13 @@
       }
       const lead = document.querySelector(".bx-hero__lead");
       if (lead) lead.textContent = "Каталог BARNES: районы, проекты, ликвидность и приватные предложения.";
-      const heroButton = document.querySelector('.bx-hero__actions .bx-btn--dark');
-      if (heroButton) heroButton.textContent = "Получить каталог";
+      const heroButton = document.querySelector(".bx-hero__cta .bx-btn--dark");
+      if (heroButton) heroButton.textContent = "Получить каталог 2026";
+      const heroSecondary = document.querySelector(".bx-hero__cta .bx-btn--light");
+      if (heroSecondary) {
+        heroSecondary.textContent = "Получить подборку";
+        heroSecondary.classList.add("bx-btn--outline-soft");
+      }
       const heroMeta = document.querySelector(".bx-hero__meta");
       if (heroMeta && !heroMeta.dataset.uxCompact) {
         heroMeta.dataset.uxCompact = "true";
@@ -468,10 +536,10 @@
       this.normalizePopupContactFirst();
 
       const postFaqTitle = document.querySelector("#postfaq-title");
-      if (postFaqTitle) postFaqTitle.textContent = "Получите каталог и короткий список без лишних объектов";
+      if (postFaqTitle) postFaqTitle.textContent = "Получите каталог BARNES и подборку по параметрам";
       const postFaqText = document.querySelector(".bx-postfaq-cta__content .bx-text");
       if (postFaqText) {
-        postFaqText.textContent = "Вы получите 16 проверенных проектов с планировками, бюджетами и сроками. Эксперт BARNES сэкономит время: отберёт только подходящие варианты под ваш сценарий покупки.";
+        postFaqText.textContent = "Тот же оффер, что и в начале страницы: каталог премиальных новостроек Петербурга 2026 и персональный shortlist под район, бюджет, формат и сценарий покупки.";
       }
       const postFaqFacts = document.querySelector(".bx-postfaq-cta__facts");
       if (postFaqFacts) {
@@ -481,6 +549,47 @@
           <span>Планировки, бюджеты, сроки и ликвидность</span>
         `;
       }
+      const postFaqButton = document.querySelector(".bx-postfaq-cta .bx-btn");
+      if (postFaqButton) postFaqButton.textContent = "Получить каталог BARNES";
+      document.querySelectorAll(".bx-residences .bx-swipe-hint, .bm-projects .bx-swipe-hint").forEach((hint) => {
+        if (hint.dataset.bxLuxuryHint === "true") return;
+        hint.innerHTML = '<span class="bx-swipe-hint__count">1 / 8</span><span class="bx-swipe-hint__text">Листайте проекты</span><span class="bx-swipe-hint__line"></span>';
+        hint.dataset.bxLuxuryHint = "true";
+      });
+      this.enhanceMobilePulseCopy();
+      this.syncTildaPopupCopy();
+    },
+
+    enhanceMobilePulseCopy() {
+      const updates = [
+        ["01 Адрес", "Адрес стал главным фильтром.", "В Петербурге важны не только район и цена, но и характер локации: историческая среда, вода, окружение и репутация."],
+        ["02 Приватность", "Приватность важнее количества вариантов.", "Камерность, закрытые дворы, сервис и спокойный сценарий жизни становятся ключевыми критериями премиального сегмента."],
+        ["03 Ликвидность", "Ликвидность строится на дефиците.", "Её формируют локация, архитектура, девелопер, планировки, видовые характеристики и ограниченность предложения."]
+      ];
+      document.querySelectorAll(".bx-pulse-card").forEach((card, index) => {
+        const item = updates[index];
+        if (!item || card.dataset.bxPulseEnhanced === "true") return;
+        const label = card.querySelector("span");
+        const text = card.querySelector("p");
+        if (label) label.textContent = item[0];
+        if (text) text.innerHTML = `<strong>${this.escape(item[1])}</strong> ${this.escape(item[2])}`;
+        card.dataset.bxPulseEnhanced = "true";
+      });
+    },
+
+    syncTildaPopupCopy() {
+      const titles = Array.from(document.querySelectorAll(".t-popup .t-title, .t-popup [id^='popuptitle_'], .t702__title"));
+      titles.forEach((node) => {
+        if (/презентац|заявк/i.test(node.textContent || "")) node.textContent = "Получить каталог BARNES";
+      });
+      document.querySelectorAll(".t702__descr, .t-popup .t-descr").forEach((node) => {
+        if (/Введите данные|презентац|заявк/i.test(node.textContent || "")) {
+          node.textContent = "Оставьте контакт, и эксперт BARNES подготовит каталог и подборку по параметрам.";
+        }
+      });
+      document.querySelectorAll(".t-popup .t-submit, .t-popup button[type='submit'], .t-popup .t-btnflex__text").forEach((node) => {
+        if (/презентац|заявк|отправить/i.test(node.textContent || "")) node.textContent = "Получить каталог BARNES";
+      });
     },
 
     normalizePopupContactFirst() {
@@ -546,7 +655,7 @@
           id: "central",
           title: "Центральный",
           visual: "residenceFontanka",
-          scenario: "статус · исторический контекст · редкие адреса",
+          scenario: "статус · история · редкие адреса",
           character: "Для статуса, исторического контекста и редких адресов в центре города.",
           suitable: "Подходит для покупки с фокусом на культурный контекст, приватность и долгосрочную ценность адреса.",
           projects: ["Фонтанка 130", "Миръ", "Моисеенко 10"],
@@ -556,7 +665,7 @@
           id: "petrogradsky",
           title: "Петроградский",
           visual: "residenceLdm",
-          scenario: "городская жизнь · инфраструктура · ликвидность",
+          scenario: "город · сервис · ликвидность",
           character: "Для насыщенной городской жизни, сильной инфраструктуры и устойчивого интереса к району.",
           suitable: "Сценарий для клиентов, которым важны статус района, культура, рестораны и удобная повседневная логистика.",
           projects: ["Коллекционер", "Визионер", "ЛДМ", "17/33"],
@@ -586,7 +695,7 @@
           id: "moskovsky",
           title: "Московский",
           visual: "heroBuilding",
-          scenario: "логистика · инфраструктура · спокойный ритм",
+          scenario: "логистика · сервис · спокойствие",
           character: "Для покупателей, которым важны транспортная логика, инфраструктура и спокойный городской сценарий.",
           suitable: "Подходит для клиентов, которым нужен понятный маршрут, практичность и комфортная городская среда.",
           projects: ["Шепилевский", "19/19"],
@@ -1166,7 +1275,7 @@
         event.stopPropagation();
         isHandlingAnchor = true;
         const headerHeight = this.nodes?.header?.offsetHeight || 76;
-        const top = target.getBoundingClientRect().top + window.scrollY - headerHeight - 20;
+        const top = target.getBoundingClientRect().top + window.scrollY - headerHeight - 32;
         this.nodes?.header?.classList.remove("is-open");
         document.body.classList.remove("bx-menu-lock");
         this.nodes?.burger?.setAttribute("aria-expanded", "false");
@@ -1189,7 +1298,7 @@
         const target = document.querySelector(hash);
         if (!target) return;
         const headerHeight = this.nodes?.header?.offsetHeight || 76;
-        const top = target.getBoundingClientRect().top + window.scrollY - headerHeight - 20;
+        const top = target.getBoundingClientRect().top + window.scrollY - headerHeight - 32;
         lastAnchorHash = hash;
         this.scrollToY(Math.max(0, top), anchorDuration);
       });
@@ -2674,6 +2783,8 @@
       if (extra.preferredContactMethod) this.state.preferredContactMethod = extra.preferredContactMethod;
       const payload = this.prepareTildaNativeForm(null, sourceBlock);
       if (!this.openTildaPopupOrScroll()) return false;
+      window.setTimeout(() => this.syncTildaPopupCopy(), 80);
+      window.setTimeout(() => this.syncTildaPopupCopy(), 420);
       this.track("tilda_form_open", { source_block: sourceBlock });
       this.trackBarnesEvent({
         interaction_type: "tilda_form_open",
@@ -2750,11 +2861,13 @@
       const explicitTrigger = document.querySelector("[data-bx-tilda-form-trigger]");
       if (explicitTrigger) {
         explicitTrigger.click();
+        window.setTimeout(() => this.syncTildaPopupCopy(), 80);
         return true;
       }
       const trigger = this.findTildaFormTrigger();
       if (trigger) {
         trigger.click();
+        window.setTimeout(() => this.syncTildaPopupCopy(), 80);
         return true;
       }
       if (this.openTildaHookPopup(form)) return true;
@@ -3052,6 +3165,7 @@
       document.body.appendChild(tempTrigger);
       tempTrigger.click();
       window.setTimeout(() => tempTrigger.remove(), 120);
+      window.setTimeout(() => this.syncTildaPopupCopy(), 80);
       return true;
     },
 
@@ -3177,7 +3291,11 @@
         const inputFocused = Boolean(document.activeElement?.matches?.("input, textarea, select"));
         const menuOpen = document.body.classList.contains("bx-menu-lock");
         const isMobile = window.innerWidth <= 767;
-        const show = isMobile && !inputFocused && !menuOpen;
+        const hero = document.querySelector(".bx-hero");
+        const heroBottom = hero ? hero.offsetTop + hero.offsetHeight : window.innerHeight;
+        const firstScreenThreshold = Math.round(window.innerHeight * 0.38);
+        const heroPassed = window.scrollY > Math.max(firstScreenThreshold, heroBottom - window.innerHeight * 0.45);
+        const show = isMobile && !inputFocused && !menuOpen && heroPassed;
         const midpoint = window.scrollY + window.innerHeight * 0.52;
         const inSection = (selector) => {
           const section = document.querySelector(selector);
