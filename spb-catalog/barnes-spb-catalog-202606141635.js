@@ -3497,7 +3497,27 @@
     }
   };
 
+  function applyHeroOutlineGuard() {
+    const css = [
+      "html body.t-body #allrecords .bx-page .bx-hero__cta .bx-btn--light",
+      "html body.t-body #allrecords .bx-page .bx-hero__cta .bx-btn--outline-soft",
+      "html body .bx-page .bx-hero__cta .bx-btn--light",
+      "html body .bx-page .bx-hero__cta .bx-btn--outline-soft"
+    ].join(",") + "{background:transparent!important;background-image:none!important;box-shadow:none!important;}";
+    const old = document.getElementById("bx-spb-hero-outline-guard-20260616");
+    if (old) old.remove();
+    const style = document.createElement("style");
+    style.id = "bx-spb-hero-outline-guard-20260616";
+    style.textContent = css;
+    (document.body || document.head || document.documentElement).appendChild(style);
+  }
+
   window.BX = BX;
   document.addEventListener("DOMContentLoaded", () => BX.init());
+  document.addEventListener("DOMContentLoaded", applyHeroOutlineGuard);
+  window.addEventListener("load", applyHeroOutlineGuard);
+  setTimeout(applyHeroOutlineGuard, 900);
+  setTimeout(applyHeroOutlineGuard, 5600);
+  setTimeout(applyHeroOutlineGuard, 9000);
   window.addEventListener("load", () => document.body.classList.add("is-loaded"));
 })();
