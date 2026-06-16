@@ -15,7 +15,7 @@ https://daniilterekh-prog.github.io/barnes-assets/moscow-new/
 | `residenceBadaevsky` | `residence-badaevsky.webp` | `https://daniilterekh-prog.github.io/barnes-assets/moscow-new/residence-badaevsky.webp` |
 | `residenceFrunzenskaya` | `residence-frunzenskaya.webp` | `https://daniilterekh-prog.github.io/barnes-assets/moscow-new/residence-frunzenskaya.webp` |
 | `residenceLuzhniki` | `residence-luzhniki.webp` | `https://daniilterekh-prog.github.io/barnes-assets/moscow-new/residence-luzhniki.webp` |
-| `residenceNicole` | `residence-luzhniki.webp` | `https://daniilterekh-prog.github.io/barnes-assets/moscow-new/residence-luzhniki.webp` |
+| `residenceNicole` | `residence-nicole.webp` | `https://daniilterekh-prog.github.io/barnes-assets/moscow-new/residence-nicole.webp` |
 | `residenceTishinsky` | `residence-tishinsky.webp` | `https://daniilterekh-prog.github.io/barnes-assets/moscow-new/residence-tishinsky.webp` |
 | `residenceShift` | `residence-shift.webp` | `https://daniilterekh-prog.github.io/barnes-assets/moscow-new/residence-shift.webp` |
 | `scenarioLive` | `scenario-live.webp` | `https://daniilterekh-prog.github.io/barnes-assets/moscow-new/scenario-live.webp` |

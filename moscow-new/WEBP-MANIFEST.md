@@ -1,7 +1,7 @@
 # WebP Conversion Manifest
 
-Date: 2026-06-14
-Files: 10
+Date: 2026-06-16
+Files: 11
 
 | status | source | output | original KB | webp KB | savings % | output size | notes |
 |---|---|---|---:|---:|---:|---|---|
@@ -12,6 +12,7 @@ Files: 10
 | converted | `/Users/ritaterekh/Documents/New project/assets/source-live/residence-badaevsky.png` | `/Users/ritaterekh/Documents/New project/assets/optimized/residence-badaevsky.webp` | 2311.3 | 159.2 | 93.1 | 1440x810 |  |
 | converted | `/Users/ritaterekh/Documents/New project/assets/source-live/residence-frunzenskaya.png` | `/Users/ritaterekh/Documents/New project/assets/optimized/residence-frunzenskaya.webp` | 2137.1 | 141.7 | 93.4 | 1440x810 |  |
 | converted | `/Users/ritaterekh/Documents/New project/assets/source-live/residence-luzhniki.png` | `/Users/ritaterekh/Documents/New project/assets/optimized/residence-luzhniki.webp` | 1985.5 | 105.0 | 94.7 | 1440x810 |  |
+| converted | `https://nicole.ru/assets/images/media/landing/1.intro/intro-image@md.webp` | `/Users/ritaterekh/Documents/New project/assets/optimized/residence-nicole.webp` | 186.0 | 186.0 | 0.0 | 1440x992 | official Nicole hero visual, saved 2026-06-16 |
 | converted | `/Users/ritaterekh/Documents/New project/assets/source-live/residence-shift.png` | `/Users/ritaterekh/Documents/New project/assets/optimized/residence-shift.webp` | 2326.5 | 207.2 | 91.1 | 1086x1448 |  |
 | converted | `/Users/ritaterekh/Documents/New project/assets/source-live/residence-tishinsky.png` | `/Users/ritaterekh/Documents/New project/assets/optimized/residence-tishinsky.webp` | 2775.1 | 266.4 | 90.4 | 1440x960 |  |
 | converted | `/Users/ritaterekh/Documents/New project/assets/source-live/scenario-live.png` | `/Users/ritaterekh/Documents/New project/assets/optimized/scenario-live.webp` | 2182.5 | 144.5 | 93.4 | 1254x1254 |  |
