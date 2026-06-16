@@ -6,7 +6,11 @@ Base URL:
 ## Images
 
 - `logo-barnes-international.svg`
+- `gory-zdes-hero-winter.webp`
 - `gory-zdes-hero-forest-yard.webp`
+- `gory-zdes-season-yard-overview.webp`
+- `gory-zdes-season-courtyard-play.webp`
+- `gory-zdes-season-summer-yard.webp`
 - `gory-zdes-facade-forest.webp`
 - `gory-zdes-courtyard-playground.webp`
 - `gory-zdes-courtyard-stage.webp`
