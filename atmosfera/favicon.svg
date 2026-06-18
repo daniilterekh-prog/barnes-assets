@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="BARNES">
+  <rect width="512" height="512" fill="#0D0D0D"/>
+  <text
+    x="256"
+    y="330"
+    text-anchor="middle"
+    font-family="Didot, 'Bodoni 72', 'Times New Roman', serif"
+    font-size="310"
+    font-weight="400"
+    fill="#F6F3EE"
+  >B</text>
+</svg>
