@@ -23,3 +23,4 @@ Base URL:
 - `zagorye-map-restaurant.webp`
 - `zagorye-map-routes.webp`
 - `zagorye-barnes-expert.webp`
+- `zagorye-ekaterina-expert.webp`
