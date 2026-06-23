@@ -24,3 +24,4 @@ Base URL:
 - `zagorye-map-routes.webp`
 - `zagorye-barnes-expert.webp`
 - `zagorye-ekaterina-expert.webp`
+- `zagorye-elena-expert.jpg`
