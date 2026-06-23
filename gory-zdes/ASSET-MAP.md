@@ -20,5 +20,6 @@ Base URL:
 - `gory-zdes-bedroom-interior.webp`
 - `gory-zdes-hall-interior.webp`
 - `gory-zdes-arkhyz-location-map.webp`
+- `gory-zdes-expert-elena.webp` — эксперт Елена, source: `/Users/ritaterekh/Downloads/2026-06-23 13.33.44.jpg`, role: expert portrait, final URL: `https://daniilterekh-prog.github.io/barnes-assets/gory-zdes/gory-zdes-expert-elena.webp`
 - `denis-perovsky-resort-expert.webp`
 - `max-logo.svg`
