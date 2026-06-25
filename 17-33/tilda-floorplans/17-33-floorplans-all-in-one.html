@@ -1,0 +1,1226 @@
+<style>
+.t1733-floorplans {
+  --black: #111111;
+  --white: #ffffff;
+  --burgundy: #8b1e32;
+  --muted: #7f756d;
+  --soft: #a79c92;
+  --font-heading: "Cormorant Garamond", Georgia, serif;
+  font-family: "Commissioner", Arial, sans-serif;
+  background: #f6f2ec;
+}
+
+body.plan-lightbox-open {
+  overflow: hidden;
+}
+.t1733-floorplans .floorplans-filters {
+  max-width: 1720px;
+  margin: 0 auto 28px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.t1733-floorplans .floorplans-filters button {
+  min-height: 46px;
+  padding: 0 22px;
+  border: 1px solid rgba(17,17,17,.12);
+  background: rgba(255,255,255,.72);
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--black);
+  transition: background-color .25s ease, border-color .25s ease, color .25s ease, transform .25s ease;
+}
+
+.t1733-floorplans .floorplans-filters button.is-active,
+.t1733-floorplans .floorplans-filters button:hover,
+.t1733-floorplans .floorplans-filters button:focus-visible {
+  background: var(--burgundy);
+  border-color: var(--burgundy);
+  color: var(--white);
+  transform: translateY(-1px);
+}
+
+.t1733-floorplans .floorplans-grid {
+  max-width: 1720px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.t1733-floorplans .floorplans-list {
+  max-width: 1720px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+  border-top: 0;
+}
+
+.t1733-floorplans .plan-item {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(205,195,186,.68);
+  border-radius: 30px;
+  background: linear-gradient(180deg, rgba(255,255,255,.98) 0%, rgba(255,251,247,.98) 100%);
+  box-shadow: 0 18px 48px rgba(17,17,17,.07);
+  overflow: hidden;
+  transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+}
+
+.t1733-floorplans .plan-item[hidden] {
+  display: none !important;
+}
+
+.t1733-floorplans .plan-item.is-open {
+  background: #ffffff;
+  border-color: rgba(139,30,50,.18);
+}
+
+.t1733-floorplans .plan-item:hover,
+.t1733-floorplans .plan-item:focus-within {
+  transform: translateY(-4px);
+  box-shadow: 0 34px 90px rgba(28, 17, 12, .16), 0 10px 28px rgba(127, 29, 47, .08);
+}
+
+.t1733-floorplans .t1733-floorplans .plan-item__heading {
+  margin: 0;
+  padding: 26px 26px 10px;
+}
+
+.t1733-floorplans .t1733-floorplans .plan-item__button {
+  width: 100%;
+  padding: 0;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) minmax(150px, 190px);
+  gap: 14px 20px;
+  align-items: start;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  color: var(--black);
+  cursor: default;
+}
+
+.t1733-floorplans .t1733-floorplans .plan-item__index {
+  grid-column: 1;
+  grid-row: 1;
+  min-width: 64px;
+  min-height: 42px;
+  padding: 15px 18px 13px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #7c1d2d 0%, #9b2539 100%);
+  clip-path: polygon(0 0, 100% 0, 88% 100%, 0 100%);
+  font-size: 13px;
+  line-height: 1;
+  letter-spacing: .16em;
+  color: #fff;
+}
+
+.t1733-floorplans .t1733-floorplans .plan-item__main {
+  grid-column: 1 / 3;
+  grid-row: 2;
+  display: grid;
+  gap: 10px;
+}
+
+.t1733-floorplans .t1733-floorplans .plan-item__section,
+.t1733-floorplans .t1733-floorplans .plan-item__eyebrow {
+  font-size: 11px;
+  line-height: 1.3;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--soft);
+}
+
+.t1733-floorplans .t1733-floorplans .plan-item__lot {
+  font-family: var(--font-heading);
+  font-size: clamp(28px, 2.2vw, 46px);
+  line-height: 1;
+  color: var(--black);
+  white-space: normal;
+}
+
+.t1733-floorplans .t1733-floorplans .plan-item__summary {
+  grid-column: 3;
+  grid-row: 1 / span 2;
+  display: grid;
+  gap: 16px;
+  align-self: center;
+  justify-self: end;
+  margin-top: 0;
+  font-size: 14px;
+  line-height: 1.35;
+  white-space: normal;
+  color: var(--muted);
+}
+
+.t1733-floorplans .t1733-floorplans .plan-item__meta-row {
+  position: relative;
+  min-height: 28px;
+  padding-left: 40px;
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+  line-height: 1.2;
+  color: #7f756d;
+}
+
+.t1733-floorplans .t1733-floorplans .plan-item__meta-row::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 24px;
+  height: 24px;
+  border: 1px solid rgba(127,117,109,.38);
+  border-radius: 6px;
+  background: rgba(255,255,255,.7);
+  transform: translateY(-50%);
+}
+
+.t1733-floorplans .t1733-floorplans .plan-item__meta-row::after {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.t1733-floorplans .t1733-floorplans .plan-item__meta-row--area::after {
+  width: 10px;
+  height: 10px;
+  border: 1px solid rgba(127,117,109,.78);
+}
+
+.t1733-floorplans .t1733-floorplans .plan-item__meta-row--type::after {
+  width: 12px;
+  height: 7px;
+  border: 1px solid rgba(127,117,109,.78);
+  border-radius: 5px 5px 2px 2px;
+}
+
+.t1733-floorplans .t1733-floorplans .plan-item__meta-row--floor::after {
+  width: 10px;
+  height: 12px;
+  border: 1px solid rgba(127,117,109,.78);
+  box-shadow: inset 0 -4px 0 rgba(127,117,109,.16);
+}
+
+.t1733-floorplans .t1733-floorplans .plan-item__icon {
+  display: none;
+}
+
+.t1733-floorplans .t1733-floorplans .plan-item__icon::before,
+.t1733-floorplans .t1733-floorplans .plan-item__icon::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 18px;
+  height: 1px;
+  background: currentColor;
+  transform: translate(-50%, -50%);
+  transition: transform .25s ease, opacity .25s ease;
+}
+
+.t1733-floorplans .t1733-floorplans .plan-item__icon::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.t1733-floorplans .plan-item.is-open .t1733-floorplans .t1733-floorplans .plan-item__icon::after {
+  opacity: 0;
+}
+
+.t1733-floorplans .t1733-floorplans .plan-item__panel {
+  padding: 8px 26px 28px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  align-content: start;
+  flex: 1 1 auto;
+}
+
+.t1733-floorplans .t1733-floorplans .plan-item__preview {
+  min-width: 0;
+}
+
+.t1733-floorplans .t1733-floorplans .plan-item__image-button {
+  width: 100%;
+  position: relative;
+  min-height: 420px;
+  padding: 76px 28px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid rgba(205,195,186,.76);
+  border-radius: 28px;
+  background: linear-gradient(180deg, #fffdfb 0%, #f9f4ee 100%);
+  transition: border-color .25s ease, box-shadow .25s ease, transform .25s ease, background-color .25s ease;
+}
+
+.t1733-floorplans .t1733-floorplans .plan-item__image-button::before {
+  content: "";
+}
+
+.t1733-floorplans .t1733-floorplans .plan-item__image-button::after {
+  content: "";
+  position: absolute;
+  right: 22px;
+  bottom: 22px;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.94);
+  box-shadow: 0 16px 36px rgba(17,17,17,.16);
+  background-image:
+    linear-gradient(var(--burgundy), var(--burgundy)),
+    linear-gradient(var(--burgundy), var(--burgundy));
+  background-repeat: no-repeat;
+  background-size: 20px 2px, 2px 20px;
+  background-position: center center, center center;
+}
+
+.t1733-floorplans .t1733-floorplans .plan-item__variant {
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  display: grid;
+  gap: 8px;
+  z-index: 1;
+}
+
+.t1733-floorplans .t1733-floorplans .plan-item__variant-label {
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: #968c84;
+}
+
+.t1733-floorplans .t1733-floorplans .plan-item__variant-value {
+  position: relative;
+  width: max-content;
+  padding-bottom: 14px;
+  font-size: 17px;
+  line-height: 1.2;
+  color: var(--black);
+}
+
+.t1733-floorplans .t1733-floorplans .plan-item__variant-value::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 106px;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #7f1d2f 0%, #9a2439 100%);
+}
+
+.t1733-floorplans .t1733-floorplans .plan-item__image-button:hover,
+.t1733-floorplans .t1733-floorplans .plan-item__image-button:focus-visible,
+.t1733-floorplans .t1733-floorplans .plan-item__open:hover,
+.t1733-floorplans .t1733-floorplans .plan-item__open:focus-visible {
+  border-color: rgba(139,30,50,.24);
+  box-shadow: 0 28px 64px rgba(28, 17, 12, .16), 0 12px 28px rgba(127, 29, 47, .08);
+  transform: translateY(-2px);
+}
+
+.t1733-floorplans .t1733-floorplans .plan-item__image-button img {
+  width: 100%;
+  max-width: 100%;
+  max-height: 320px;
+  object-fit: contain;
+  filter: drop-shadow(0 16px 28px rgba(90, 76, 62, .08));
+}
+
+.t1733-floorplans .t1733-floorplans .plan-item__content {
+  display: grid;
+  gap: 12px;
+  align-content: start;
+}
+
+.t1733-floorplans .t1733-floorplans .plan-item__content strong {
+  font-family: var(--font-heading);
+  font-size: clamp(34px, 3vw, 62px);
+  line-height: 1;
+  color: var(--burgundy);
+}
+
+.t1733-floorplans .t1733-floorplans .plan-item__content p {
+  margin: 0;
+  max-width: none;
+  font-size: 15px;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+.t1733-floorplans .t1733-floorplans .plan-item__open {
+  width: 100%;
+  min-height: 66px;
+  margin-top: 12px;
+  padding: 0 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid transparent;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #7f1d2f 0%, #9a2439 100%);
+  color: var(--white);
+  font-size: 12px;
+  line-height: 1;
+  font-weight: 500;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  box-shadow: 0 14px 34px rgba(127, 29, 47, .16);
+  transition: background-color .25s ease, border-color .25s ease, box-shadow .25s ease, transform .25s ease;
+}
+
+.t1733-floorplans .t1733-floorplans .plan-item__open::after {
+
+.plan-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.plan-lightbox[hidden] {
+  display: none !important;
+}
+
+.plan-lightbox__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(17,17,17,.72);
+  backdrop-filter: blur(8px);
+}
+
+.plan-lightbox__dialog {
+  position: relative;
+  z-index: 1;
+  width: min(1100px, 100%);
+  max-height: calc(100vh - 48px);
+  padding: 28px;
+  background: #fbfaf7;
+  border: 1px solid rgba(17,17,17,.12);
+  box-shadow: 0 32px 90px rgba(0,0,0,.24);
+  overflow: auto;
+}
+
+.plan-lightbox__close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  background: transparent;
+  color: var(--black);
+}
+
+.plan-lightbox__close::before,
+.plan-lightbox__close::after {
+  content: "";
+  position: absolute;
+  inset: 21px 10px auto;
+  height: 1px;
+  background: currentColor;
+}
+
+.plan-lightbox__close::before {
+  transform: rotate(45deg);
+}
+
+.plan-lightbox__close::after {
+  transform: rotate(-45deg);
+}
+
+.plan-lightbox__media {
+  min-height: 520px;
+  padding: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+}
+
+.plan-lightbox__media img {
+  width: 100%;
+  max-width: 100%;
+  max-height: 72vh;
+  object-fit: contain;
+}
+
+.plan-lightbox__meta {
+  margin-top: 22px;
+}
+
+.plan-lightbox__section {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.3;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--soft);
+}
+
+.plan-lightbox__meta h3 {
+  margin: 14px 0 0;
+  font-size: clamp(30px, 3vw, 42px);
+  line-height: 1.05;
+  color: var(--black);
+}
+
+.plan-lightbox__meta p:last-child {
+  margin: 12px 0 0;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 8px;
+  }
+
+  .site-page .purchase-card {
+    flex: 0 0 min(72vw, 292px);
+    min-height: 210px !important;
+    padding: 28px 24px !important;
+    scroll-snap-align: start;
+  }
+
+  .site-page .purchase-card h3 {
+    font-size: clamp(24px, 7vw, 32px) !important;
+  }
+
+  .site-page .purchase-card p {
+    font-size: 15px !important;
+    line-height: 1.5 !important;
+  }
+
+  .site-page .contact-panel {
+    min-height: 0;
+    padding: 30px 24px;
+  }
+
+  .site-page .contact-panel__title {
+    font-size: clamp(28px, 8vw, 38px);
+  }
+}
+
+@media (max-width: 1200px) {
+  .courtyard-section__head,
+  .t1733-floorplans__head,
+  .purchase-section__head,
+  .installment-panel,
+  .construction-section {
+    grid-template-columns: 1fr;
+  }
+
+  .formats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .format-card {
+    min-height: 580px;
+  }
+
+  .t1733-floorplans .floorplans-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .t1733-floorplans .t1733-floorplans .plan-item__button {
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 10px 16px;
+  }
+
+  .t1733-floorplans .t1733-floorplans .plan-item__summary {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    justify-self: start;
+    grid-template-columns: repeat(3, minmax(0, max-content));
+    gap: 14px 18px;
+  }
+
+  .purchase-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .purchase-section__intro {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 900px) {
+  .courtyard-section,
+  .t1733-floorplans,
+  .purchase-section,
+  .construction-section {
+    padding: 96px 24px;
+  }
+
+  .courtyard-section__head,
+  .t1733-floorplans__head,
+  .purchase-section__head {
+    gap: 26px;
+    margin-bottom: 44px;
+  }
+
+  .courtyard-section__head p:not(.t1733-floorplans .section-eyebrow),
+  .t1733-floorplans__head p:not(.t1733-floorplans .section-eyebrow),
+  .purchase-section__head p:not(.t1733-floorplans .section-eyebrow),
+  .construction-copy p:not(.t1733-floorplans .section-eyebrow) {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .formats-grid,
+  .purchase-grid,
+  .barnes-advisory__grid,
+  .barnes-selection__grid {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 8px;
+  }
+
+  .format-card,
+  .purchase-card,
+  .barnes-card,
+  .selection-card {
+    flex: 0 0 min(82vw, 360px);
+    min-height: 440px;
+    scroll-snap-align: start;
+  }
+
+  .t1733-floorplans .floorplans-list {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 16px;
+    padding: 0 4px 12px;
+  }
+
+  .t1733-floorplans .floorplans-list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .t1733-floorplans .floorplans-list {
+    scrollbar-width: none;
+  }
+
+  .t1733-floorplans .plan-item {
+    flex: 0 0 min(84vw, 420px);
+    scroll-snap-align: start;
+  }
+
+  .location-distance {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .t1733-floorplans .floorplans-more {
+
+  .plan-lightbox {
+    padding: 16px;
+  }
+
+  .plan-lightbox__dialog {
+    padding: 18px;
+  }
+
+  .plan-lightbox__media {
+    min-height: 320px;
+    padding: 18px;
+  }
+
+  .installment-panel {
+    gap: 32px;
+    padding: 38px 0;
+  }
+</style>
+
+<section class="floorplans-section t1733-floorplans" id="plans" aria-labelledby="floorplans-title">
+          <div class="floorplans-section__head">
+            <p class="section-eyebrow">Планировки</p>
+            <h2 id="floorplans-title">Планировки для трех сценариев</h2>
+            <p>
+              Сравните реальные планировочные решения CLUB, LIFE и RESIDENCE — от компактного сервисного
+              апартамента до семейной резиденции и свободного пространства.
+            </p>
+          </div>
+
+          <div class="floorplans-filters" role="tablist" aria-label="Фильтр планировок 17/33">
+            <button class="is-active" type="button" data-plan-filter="all" aria-pressed="true">Все</button>
+            <button type="button" data-plan-filter="club" aria-pressed="false">CLUB</button>
+            <button type="button" data-plan-filter="life" aria-pressed="false">LIFE</button>
+            <button type="button" data-plan-filter="residence" aria-pressed="false">RESIDENCE</button>
+          </div>
+
+          <div class="floorplans-list" aria-label="Реальные планировки 17/33">
+            <article class="plan-item" data-plan-card="" data-plan-filter-group="residence" data-plan-image="https://daniilterekh-prog.github.io/barnes-assets/17-33/plans/787.webp" data-plan-title="RESIDENCE" data-plan-area="1001 м²" data-plan-type="1 комната" data-plan-floor="8 этаж" data-plan-unit="787">
+              <h3 class="plan-item__heading">
+                <button class="plan-item__button" type="button" aria-expanded="false">
+                  <span class="plan-item__index">01</span>
+                  <span class="plan-item__main">
+                    <span class="plan-item__section">RESIDENCE</span>
+                    <span class="plan-item__lot">Лот №787</span>
+                  </span>
+                  <span class="plan-item__summary">1001 м² · 1 комната · 8 этаж</span>
+                  <span class="plan-item__icon" aria-hidden="true"></span>
+                </button>
+              </h3>
+              <div class="plan-item__panel" hidden>
+                <div class="plan-item__preview">
+                  <button class="plan-item__image-button" type="button" data-plan-open="">
+                    <img src="https://daniilterekh-prog.github.io/barnes-assets/17-33/plans/787.webp" alt="Планировка лота №787 в секции RESIDENCE" loading="lazy" decoding="async">
+                  </button>
+                </div>
+                <div class="plan-item__content">
+                  <p class="plan-item__eyebrow">RESIDENCE · Лот №787</p>
+                  <strong>1001 м²</strong>
+                  <p>1 комната · 8 этаж</p>
+                  <button class="plan-item__open" type="button" data-plan-open="">Открыть планировку</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="plan-item" data-plan-card="" data-plan-filter-group="residence" data-plan-image="https://daniilterekh-prog.github.io/barnes-assets/17-33/plans/794.webp" data-plan-title="RESIDENCE" data-plan-area="413,1 м²" data-plan-type="4 комнаты" data-plan-floor="5 этаж" data-plan-unit="794">
+              <h3 class="plan-item__heading">
+                <button class="plan-item__button" type="button" aria-expanded="false">
+                  <span class="plan-item__index">02</span>
+                  <span class="plan-item__main">
+                    <span class="plan-item__section">RESIDENCE</span>
+                    <span class="plan-item__lot">Лот №794</span>
+                  </span>
+                  <span class="plan-item__summary">413,1 м² · 4 комнаты · 5 этаж</span>
+                  <span class="plan-item__icon" aria-hidden="true"></span>
+                </button>
+              </h3>
+              <div class="plan-item__panel" hidden>
+                <div class="plan-item__preview">
+                  <button class="plan-item__image-button" type="button" data-plan-open="">
+                    <img src="https://daniilterekh-prog.github.io/barnes-assets/17-33/plans/794.webp" alt="Планировка лота №794 в секции RESIDENCE" loading="lazy" decoding="async">
+                  </button>
+                </div>
+                <div class="plan-item__content">
+                  <p class="plan-item__eyebrow">RESIDENCE · Лот №794</p>
+                  <strong>413,1 м²</strong>
+                  <p>4 комнаты · 5 этаж</p>
+                  <button class="plan-item__open" type="button" data-plan-open="">Открыть планировку</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="plan-item" data-plan-card="" data-plan-filter-group="residence" data-plan-image="https://daniilterekh-prog.github.io/barnes-assets/17-33/plans/783.webp" data-plan-title="RESIDENCE" data-plan-area="218,26 м²" data-plan-type="3 комнаты" data-plan-floor="5 этаж" data-plan-unit="783">
+              <h3 class="plan-item__heading">
+                <button class="plan-item__button" type="button" aria-expanded="false">
+                  <span class="plan-item__index">03</span>
+                  <span class="plan-item__main">
+                    <span class="plan-item__section">RESIDENCE</span>
+                    <span class="plan-item__lot">Лот №783</span>
+                  </span>
+                  <span class="plan-item__summary">218,26 м² · 3 комнаты · 5 этаж</span>
+                  <span class="plan-item__icon" aria-hidden="true"></span>
+                </button>
+              </h3>
+              <div class="plan-item__panel" hidden>
+                <div class="plan-item__preview">
+                  <button class="plan-item__image-button" type="button" data-plan-open="">
+                    <img src="https://daniilterekh-prog.github.io/barnes-assets/17-33/plans/783.webp" alt="Планировка лота №783 в секции RESIDENCE" loading="lazy" decoding="async">
+                  </button>
+                </div>
+                <div class="plan-item__content">
+                  <p class="plan-item__eyebrow">RESIDENCE · Лот №783</p>
+                  <strong>218,26 м²</strong>
+                  <p>3 комнаты · 5 этаж</p>
+                  <button class="plan-item__open" type="button" data-plan-open="">Открыть планировку</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="plan-item" data-plan-card="" data-plan-filter-group="life" data-plan-image="https://daniilterekh-prog.github.io/barnes-assets/17-33/plans/295.webp" data-plan-title="LIFE" data-plan-area="48,77 м²" data-plan-type="1 комната" data-plan-floor="8 этаж" data-plan-unit="295">
+              <h3 class="plan-item__heading">
+                <button class="plan-item__button" type="button" aria-expanded="false">
+                  <span class="plan-item__index">04</span>
+                  <span class="plan-item__main">
+                    <span class="plan-item__section">LIFE</span>
+                    <span class="plan-item__lot">Лот №295</span>
+                  </span>
+                  <span class="plan-item__summary">48,77 м² · 1 комната · 8 этаж</span>
+                  <span class="plan-item__icon" aria-hidden="true"></span>
+                </button>
+              </h3>
+              <div class="plan-item__panel" hidden>
+                <div class="plan-item__preview">
+                  <button class="plan-item__image-button" type="button" data-plan-open="">
+                    <img src="https://daniilterekh-prog.github.io/barnes-assets/17-33/plans/295.webp" alt="Планировка лота №295 в секции LIFE" loading="lazy" decoding="async">
+                  </button>
+                </div>
+                <div class="plan-item__content">
+                  <p class="plan-item__eyebrow">LIFE · Лот №295</p>
+                  <strong>48,77 м²</strong>
+                  <p>1 комната · 8 этаж</p>
+                  <button class="plan-item__open" type="button" data-plan-open="">Открыть планировку</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="plan-item" data-plan-card="" data-plan-filter-group="life" data-plan-image="https://daniilterekh-prog.github.io/barnes-assets/17-33/plans/286.webp" data-plan-title="LIFE" data-plan-area="56,45 м²" data-plan-type="1 комната" data-plan-floor="7 этаж" data-plan-unit="286">
+              <h3 class="plan-item__heading">
+                <button class="plan-item__button" type="button" aria-expanded="false">
+                  <span class="plan-item__index">05</span>
+                  <span class="plan-item__main">
+                    <span class="plan-item__section">LIFE</span>
+                    <span class="plan-item__lot">Лот №286</span>
+                  </span>
+                  <span class="plan-item__summary">56,45 м² · 1 комната · 7 этаж</span>
+                  <span class="plan-item__icon" aria-hidden="true"></span>
+                </button>
+              </h3>
+              <div class="plan-item__panel" hidden>
+                <div class="plan-item__preview">
+                  <button class="plan-item__image-button" type="button" data-plan-open="">
+                    <img src="https://daniilterekh-prog.github.io/barnes-assets/17-33/plans/286.webp" alt="Планировка лота №286 в секции LIFE" loading="lazy" decoding="async">
+                  </button>
+                </div>
+                <div class="plan-item__content">
+                  <p class="plan-item__eyebrow">LIFE · Лот №286</p>
+                  <strong>56,45 м²</strong>
+                  <p>1 комната · 7 этаж</p>
+                  <button class="plan-item__open" type="button" data-plan-open="">Открыть планировку</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="plan-item" data-plan-card="" data-plan-filter-group="life" data-plan-image="https://daniilterekh-prog.github.io/barnes-assets/17-33/plans/264.webp" data-plan-title="LIFE" data-plan-area="21,97 м²" data-plan-type="1 комната" data-plan-floor="6 этаж" data-plan-unit="264">
+              <h3 class="plan-item__heading">
+                <button class="plan-item__button" type="button" aria-expanded="false">
+                  <span class="plan-item__index">06</span>
+                  <span class="plan-item__main">
+                    <span class="plan-item__section">LIFE</span>
+                    <span class="plan-item__lot">Лот №264</span>
+                  </span>
+                  <span class="plan-item__summary">21,97 м² · 1 комната · 6 этаж</span>
+                  <span class="plan-item__icon" aria-hidden="true"></span>
+                </button>
+              </h3>
+              <div class="plan-item__panel" hidden>
+                <div class="plan-item__preview">
+                  <button class="plan-item__image-button" type="button" data-plan-open="">
+                    <img src="https://daniilterekh-prog.github.io/barnes-assets/17-33/plans/264.webp" alt="Планировка лота №264 в секции LIFE" loading="lazy" decoding="async">
+                  </button>
+                </div>
+                <div class="plan-item__content">
+                  <p class="plan-item__eyebrow">LIFE · Лот №264</p>
+                  <strong>21,97 м²</strong>
+                  <p>1 комната · 6 этаж</p>
+                  <button class="plan-item__open" type="button" data-plan-open="">Открыть планировку</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="plan-item" data-plan-card="" data-plan-filter-group="life" data-plan-image="https://daniilterekh-prog.github.io/barnes-assets/17-33/plans/224.webp" data-plan-title="LIFE" data-plan-area="62,65 м²" data-plan-type="1 комната" data-plan-floor="4 этаж" data-plan-unit="224">
+              <h3 class="plan-item__heading">
+                <button class="plan-item__button" type="button" aria-expanded="false">
+                  <span class="plan-item__index">07</span>
+                  <span class="plan-item__main">
+                    <span class="plan-item__section">LIFE</span>
+                    <span class="plan-item__lot">Лот №224</span>
+                  </span>
+                  <span class="plan-item__summary">62,65 м² · 1 комната · 4 этаж</span>
+                  <span class="plan-item__icon" aria-hidden="true"></span>
+                </button>
+              </h3>
+              <div class="plan-item__panel" hidden>
+                <div class="plan-item__preview">
+                  <button class="plan-item__image-button" type="button" data-plan-open="">
+                    <img src="https://daniilterekh-prog.github.io/barnes-assets/17-33/plans/224.webp" alt="Планировка лота №224 в секции LIFE" loading="lazy" decoding="async">
+                  </button>
+                </div>
+                <div class="plan-item__content">
+                  <p class="plan-item__eyebrow">LIFE · Лот №224</p>
+                  <strong>62,65 м²</strong>
+                  <p>1 комната · 4 этаж</p>
+                  <button class="plan-item__open" type="button" data-plan-open="">Открыть планировку</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="plan-item" data-plan-card="" data-plan-filter-group="club" data-plan-image="https://daniilterekh-prog.github.io/barnes-assets/17-33/plans/167.webp" data-plan-title="CLUB" data-plan-area="24,79 м²" data-plan-type="1 комната" data-plan-floor="8 этаж" data-plan-unit="167">
+              <h3 class="plan-item__heading">
+                <button class="plan-item__button" type="button" aria-expanded="false">
+                  <span class="plan-item__index">08</span>
+                  <span class="plan-item__main">
+                    <span class="plan-item__section">CLUB</span>
+                    <span class="plan-item__lot">Лот №167</span>
+                  </span>
+                  <span class="plan-item__summary">24,79 м² · 1 комната · 8 этаж</span>
+                  <span class="plan-item__icon" aria-hidden="true"></span>
+                </button>
+              </h3>
+              <div class="plan-item__panel" hidden>
+                <div class="plan-item__preview">
+                  <button class="plan-item__image-button" type="button" data-plan-open="">
+                    <img src="https://daniilterekh-prog.github.io/barnes-assets/17-33/plans/167.webp" alt="Планировка лота №167 в секции CLUB" loading="lazy" decoding="async">
+                  </button>
+                </div>
+                <div class="plan-item__content">
+                  <p class="plan-item__eyebrow">CLUB · Лот №167</p>
+                  <strong>24,79 м²</strong>
+                  <p>1 комната · 8 этаж</p>
+                  <button class="plan-item__open" type="button" data-plan-open="">Открыть планировку</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="plan-item" data-plan-card="" data-plan-filter-group="club" data-plan-image="https://daniilterekh-prog.github.io/barnes-assets/17-33/plans/129.webp" data-plan-title="CLUB" data-plan-area="28,35 м²" data-plan-type="1 комната" data-plan-floor="7 этаж" data-plan-unit="129">
+              <h3 class="plan-item__heading">
+                <button class="plan-item__button" type="button" aria-expanded="false">
+                  <span class="plan-item__index">09</span>
+                  <span class="plan-item__main">
+                    <span class="plan-item__section">CLUB</span>
+                    <span class="plan-item__lot">Лот №129</span>
+                  </span>
+                  <span class="plan-item__summary">28,35 м² · 1 комната · 7 этаж</span>
+                  <span class="plan-item__icon" aria-hidden="true"></span>
+                </button>
+              </h3>
+              <div class="plan-item__panel" hidden>
+                <div class="plan-item__preview">
+                  <button class="plan-item__image-button" type="button" data-plan-open="">
+                    <img src="https://daniilterekh-prog.github.io/barnes-assets/17-33/plans/129.webp" alt="Планировка лота №129 в секции CLUB" loading="lazy" decoding="async">
+                  </button>
+                </div>
+                <div class="plan-item__content">
+                  <p class="plan-item__eyebrow">CLUB · Лот №129</p>
+                  <strong>28,35 м²</strong>
+                  <p>1 комната · 7 этаж</p>
+                  <button class="plan-item__open" type="button" data-plan-open="">Открыть планировку</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="plan-item" data-plan-card="" data-plan-filter-group="club" data-plan-image="https://daniilterekh-prog.github.io/barnes-assets/17-33/plans/80.webp" data-plan-title="CLUB" data-plan-area="26,16 м²" data-plan-type="1 комната" data-plan-floor="5 этаж" data-plan-unit="80">
+              <h3 class="plan-item__heading">
+                <button class="plan-item__button" type="button" aria-expanded="false">
+                  <span class="plan-item__index">10</span>
+                  <span class="plan-item__main">
+                    <span class="plan-item__section">CLUB</span>
+                    <span class="plan-item__lot">Лот №80</span>
+                  </span>
+                  <span class="plan-item__summary">26,16 м² · 1 комната · 5 этаж</span>
+                  <span class="plan-item__icon" aria-hidden="true"></span>
+                </button>
+              </h3>
+              <div class="plan-item__panel" hidden>
+                <div class="plan-item__preview">
+                  <button class="plan-item__image-button" type="button" data-plan-open="">
+                    <img src="https://daniilterekh-prog.github.io/barnes-assets/17-33/plans/80.webp" alt="Планировка лота №80 в секции CLUB" loading="lazy" decoding="async">
+                  </button>
+                </div>
+                <div class="plan-item__content">
+                  <p class="plan-item__eyebrow">CLUB · Лот №80</p>
+                  <strong>26,16 м²</strong>
+                  <p>1 комната · 5 этаж</p>
+                  <button class="plan-item__open" type="button" data-plan-open="">Открыть планировку</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="plan-item" data-plan-card="" data-plan-filter-group="club" data-plan-image="https://daniilterekh-prog.github.io/barnes-assets/17-33/plans/50.webp" data-plan-title="CLUB" data-plan-area="47,33 м²" data-plan-type="1 комната" data-plan-floor="3 этаж" data-plan-unit="50">
+              <h3 class="plan-item__heading">
+                <button class="plan-item__button" type="button" aria-expanded="false">
+                  <span class="plan-item__index">11</span>
+                  <span class="plan-item__main">
+                    <span class="plan-item__section">CLUB</span>
+                    <span class="plan-item__lot">Лот №50</span>
+                  </span>
+                  <span class="plan-item__summary">47,33 м² · 1 комната · 3 этаж</span>
+                  <span class="plan-item__icon" aria-hidden="true"></span>
+                </button>
+              </h3>
+              <div class="plan-item__panel" hidden>
+                <div class="plan-item__preview">
+                  <button class="plan-item__image-button" type="button" data-plan-open="">
+                    <img src="https://daniilterekh-prog.github.io/barnes-assets/17-33/plans/50.webp" alt="Планировка лота №50 в секции CLUB" loading="lazy" decoding="async">
+                  </button>
+                </div>
+                <div class="plan-item__content">
+                  <p class="plan-item__eyebrow">CLUB · Лот №50</p>
+                  <strong>47,33 м²</strong>
+                  <p>1 комната · 3 этаж</p>
+                  <button class="plan-item__open" type="button" data-plan-open="">Открыть планировку</button>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="floorplans-more">
+            <button class="floorplans-more__button" type="button" data-plan-show-more>Смотреть все планировки</button>
+          </div>
+
+          <div class="floorplans-section__bottom">
+            <p>Планировки приведены как примеры форматов. Актуальные конфигурации и доступность уточняются на дату обращения.</p>
+            <a href="#popup:1733" data-event="popup_form_open_click" data-source-block="floorplans">Получить актуальную подборку планировок</a>
+          </div>
+        </section>
+
+<div class="plan-lightbox" data-plan-lightbox="" hidden="" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Просмотр планировки">
+        <div class="plan-lightbox__backdrop" data-plan-lightbox-close=""></div>
+        <div class="plan-lightbox__dialog">
+          <button class="plan-lightbox__close" type="button" data-plan-lightbox-close="" aria-label="Закрыть просмотр"></button>
+          <div class="plan-lightbox__media">
+            <img src="" alt="" data-plan-lightbox-image="">
+          </div>
+          <div class="plan-lightbox__meta">
+            <p class="plan-lightbox__section" data-plan-lightbox-section=""></p>
+            <h3 data-plan-lightbox-area=""></h3>
+            <p data-plan-lightbox-details=""></p>
+          </div>
+        </div>
+      </div>
+
+<script>
+(function () {
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const track = window.trackBarnesEvent || function () {};
+
+  function setupPlanFilters() {
+    const section = document.querySelector(".t1733-floorplans");
+    if (!section) return;
+
+    const buttons = [...section.querySelectorAll("[data-plan-filter]")];
+    const cards = [...section.querySelectorAll("[data-plan-card]")];
+    const list = section.querySelector(".floorplans-list");
+    const showMoreButton = section.querySelector("[data-plan-show-more]");
+    const mobileQuery = window.matchMedia("(max-width: 900px)");
+    if (!buttons.length || !cards.length) return;
+
+    const collapsedLimit = 3;
+    let currentFilter = "all";
+    let showAllInAllFilter = false;
+
+    const setFilter = (filter) => {
+      currentFilter = filter;
+
+      buttons.forEach((button) => {
+        const isActive = button.dataset.planFilter === filter;
+        button.classList.toggle("is-active", isActive);
+        button.setAttribute("aria-pressed", String(isActive));
+      });
+
+      const matchingCards = cards.filter((card) => filter === "all" || card.dataset.planFilterGroup === filter);
+
+      cards.forEach((card) => {
+        const shouldShow = matchingCards.includes(card) && (
+          filter !== "all" ||
+          mobileQuery.matches ||
+          showAllInAllFilter ||
+          matchingCards.indexOf(card) < collapsedLimit
+        );
+        card.hidden = !shouldShow;
+      });
+
+      if (showMoreButton) {
+        const canExpand = !mobileQuery.matches && filter === "all" && matchingCards.length > collapsedLimit;
+        showMoreButton.hidden = !canExpand;
+        showMoreButton.textContent = showAllInAllFilter ? "Свернуть" : "Смотреть все планировки";
+      }
+
+      list?.scrollTo({ left: 0, behavior: reduceMotion ? "auto" : "smooth" });
+    };
+
+    buttons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const filter = button.dataset.planFilter || "all";
+        if (filter !== "all") showAllInAllFilter = false;
+        setFilter(filter);
+        track("plans_filter_click", { filter, source_block: "floorplans" });
+      });
+    });
+
+    showMoreButton?.addEventListener("click", () => {
+      showAllInAllFilter = !showAllInAllFilter;
+      setFilter(currentFilter);
+      track("plans_show_more_click", { state: showAllInAllFilter ? "expanded" : "collapsed", source_block: "floorplans" });
+    });
+
+    const handleViewportChange = () => setFilter(currentFilter);
+    if (typeof mobileQuery.addEventListener === "function") {
+      mobileQuery.addEventListener("change", handleViewportChange);
+    } else if (typeof mobileQuery.addListener === "function") {
+      mobileQuery.addListener(handleViewportChange);
+    }
+
+    setFilter("all");
+  }
+
+  function setupPlanAccordion() {
+    const items = [...document.querySelectorAll(".t1733-floorplans .plan-item")];
+    if (!items.length) return;
+
+    items.forEach((item) => {
+      const button = item.querySelector(".plan-item__button");
+      const panel = item.querySelector(".plan-item__panel");
+      const summary = item.querySelector(".plan-item__summary");
+      if (!button || !panel) return;
+
+      if (summary) {
+        const area = item.dataset.planArea || "";
+        const type = item.dataset.planType || "";
+        const floor = item.dataset.planFloor || "";
+        summary.innerHTML = `
+          <span class="plan-item__meta-row plan-item__meta-row--area">${area}</span>
+          <span class="plan-item__meta-row plan-item__meta-row--type">${type}</span>
+          <span class="plan-item__meta-row plan-item__meta-row--floor">${floor}</span>
+        `;
+      }
+
+      const imageButton = item.querySelector(".plan-item__image-button");
+      if (imageButton && !imageButton.querySelector(".plan-item__variant")) {
+        const variant = document.createElement("span");
+        variant.className = "plan-item__variant";
+        variant.innerHTML = `
+          <span class="plan-item__variant-label">Планировка</span>
+          <span class="plan-item__variant-value">Вариант 1</span>
+        `;
+        imageButton.append(variant);
+      }
+
+      item.classList.add("is-open");
+      button.setAttribute("aria-expanded", "true");
+      panel.hidden = false;
+
+      button.addEventListener("click", () => {
+        item.querySelector("[data-plan-open]")?.click();
+      });
+    });
+  }
+
+  function setupPlanLightbox() {
+    const lightbox = document.querySelector("[data-plan-lightbox]");
+    const openControls = [...document.querySelectorAll(".t1733-floorplans [data-plan-open]")];
+    if (!lightbox || !openControls.length) return;
+
+    const image = lightbox.querySelector("[data-plan-lightbox-image]");
+    const section = lightbox.querySelector("[data-plan-lightbox-section]");
+    const area = lightbox.querySelector("[data-plan-lightbox-area]");
+    const details = lightbox.querySelector("[data-plan-lightbox-details]");
+    const closeControls = [...lightbox.querySelectorAll("[data-plan-lightbox-close]")];
+
+    const close = () => {
+      lightbox.hidden = true;
+      lightbox.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("plan-lightbox-open");
+    };
+
+    const open = (card) => {
+      if (!image || !section || !area || !details) return;
+      image.src = card.dataset.planImage || "";
+      image.alt = card.querySelector("img")?.alt || "";
+      section.textContent = [card.dataset.planTitle || "", card.dataset.planUnit ? `Лот №${card.dataset.planUnit}` : ""].filter(Boolean).join(" · " );
+      area.textContent = card.dataset.planArea || "";
+      details.textContent = `${card.dataset.planType || ""} · ${card.dataset.planFloor || ""}`.replace(/^ · | · $/g, "");
+      lightbox.hidden = false;
+      lightbox.setAttribute("aria-hidden", "false");
+      document.body.classList.add("plan-lightbox-open");
+    };
+
+    openControls.forEach((control) => {
+      control.addEventListener("click", (event) => {
+        event.preventDefault();
+        const card = control.closest("[data-plan-card]");
+        if (card) open(card);
+      });
+    });
+
+    closeControls.forEach((control) => control.addEventListener("click", close));
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && !lightbox.hidden) close();
+    });
+  }
+
+  function setupMobileActiveSliderCards() {
+    const grid = document.querySelector(".t1733-floorplans .floorplans-list");
+    if (!grid) return;
+    const cards = [...grid.querySelectorAll(".plan-item")];
+    if (!cards.length) return;
+
+    const mobileQuery = window.matchMedia("(max-width: 760px)");
+    let frame = 0;
+    let hasInteracted = false;
+
+    const setActive = (activeCard) => {
+      cards.forEach((card) => card.classList.toggle("is-active", card === activeCard));
+    };
+
+    const clearActive = () => cards.forEach((card) => card.classList.remove("is-active"));
+
+    const updateActiveCard = () => {
+      frame = 0;
+      if (!mobileQuery.matches) {
+        hasInteracted = false;
+        clearActive();
+        return;
+      }
+      if (!hasInteracted) {
+        clearActive();
+        return;
+      }
+      const gridRect = grid.getBoundingClientRect();
+      const gridCenter = gridRect.left + gridRect.width / 2;
+      let closestCard = cards[0];
+      let closestDistance = Infinity;
+      cards.forEach((card) => {
+        if (card.hidden) return;
+        const rect = card.getBoundingClientRect();
+        const center = rect.left + rect.width / 2;
+        const distance = Math.abs(center - gridCenter);
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closestCard = card;
+        }
+      });
+      setActive(closestCard);
+    };
+
+    const requestUpdate = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(updateActiveCard);
+    };
+
+    const markInteracted = () => { hasInteracted = true; };
+    grid.addEventListener("scroll", requestUpdate, { passive: true });
+    grid.addEventListener("touchstart", markInteracted, { passive: true });
+    grid.addEventListener("pointerdown", markInteracted, { passive: true });
+    grid.addEventListener("wheel", markInteracted, { passive: true });
+    window.addEventListener("resize", requestUpdate);
+    updateActiveCard();
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    setupMobileActiveSliderCards();
+    setupPlanFilters();
+    setupPlanAccordion();
+    setupPlanLightbox();
+  });
+})();
+
+</script>
