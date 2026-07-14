@@ -7,7 +7,7 @@ Base URL: https://daniilterekh-prog.github.io/barnes-assets/karluu
 
 | role | source file | optimized file | size KB | alt | final URL | status | notes |
 |---|---|---|---:|---|---|---|---|
-| expert | `/Users/ritaterekh/Documents/barnes-assets/karluu/expert-ekaterina.jpg` |  | 297.7 |  | https://daniilterekh-prog.github.io/barnes-assets/karluu/expert-ekaterina.jpg | final_url_ready | mime=image/jpeg |
+| expert | `/Users/ritaterekh/Documents/barnes-assets/karluu/expert-elena.webp` |  | 30.0 | Елена, эксперт BARNES по курортной недвижимости | https://daniilterekh-prog.github.io/barnes-assets/karluu/expert-elena.webp | final_url_ready | mime=image/webp |
 | icon | `/Users/ritaterekh/Documents/barnes-assets/karluu/favicons/apple-touch-icon.png` |  | 11.8 |  | https://daniilterekh-prog.github.io/barnes-assets/karluu/favicons/apple-touch-icon.png | final_url_ready | mime=image/png |
 | icon | `/Users/ritaterekh/Documents/barnes-assets/karluu/favicons/favicon-16x16.png` |  | 0.4 |  | https://daniilterekh-prog.github.io/barnes-assets/karluu/favicons/favicon-16x16.png | final_url_ready | mime=image/png |
 | icon | `/Users/ritaterekh/Documents/barnes-assets/karluu/favicons/favicon-32x32.png` |  | 1.1 |  | https://daniilterekh-prog.github.io/barnes-assets/karluu/favicons/favicon-32x32.png | final_url_ready | mime=image/png |
