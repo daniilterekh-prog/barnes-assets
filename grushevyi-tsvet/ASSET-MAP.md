@@ -1,12 +1,15 @@
 # Asset Map
 
-Date: 2026-06-18
+Date: 2026-08-18
 Source: `/Users/ritaterekh/Documents/barnes-assets/grushevyi-tsvet`
 Target: BARNES GitHub Pages / Tilda
 Base URL: https://daniilterekh-prog.github.io/barnes-assets/grushevyi-tsvet
 
 | role | source file | optimized file | size KB | alt | final URL | status | notes |
 |---|---|---|---:|---|---|---|---|
+| hero | `/Users/ritaterekh/Documents/грушевый цвет/assets/project-research/user-hero-20260818/hero-residences-desktop.png` | `/Users/ritaterekh/Documents/barnes-assets/grushevyi-tsvet/hero-residences-desktop-20260818.webp` | 327.0 | Резиденции Грушевый цвет в окружении гор и сада | https://daniilterekh-prog.github.io/barnes-assets/grushevyi-tsvet/hero-residences-desktop-20260818.webp | final_url_ready | User-provided desktop hero image; published 2026-08-18. |
+| hero-mobile | `/Users/ritaterekh/Documents/грушевый цвет/assets/project-research/user-hero-20260818/hero-residences-mobile.png` | `/Users/ritaterekh/Documents/barnes-assets/grushevyi-tsvet/hero-residences-mobile-20260818.webp` | 328.5 | Резиденции Грушевый цвет в окружении гор и сада | https://daniilterekh-prog.github.io/barnes-assets/grushevyi-tsvet/hero-residences-mobile-20260818.webp | final_url_ready | User-provided mobile hero image; published 2026-08-18. |
+| residence overview | `/Users/ritaterekh/Documents/грушевый цвет/assets/project-research/user-residence-overview-20260818/club-development-water.png` | `/Users/ritaterekh/Documents/barnes-assets/grushevyi-tsvet/club-development-water-20260818.webp` | 295.3 | Клубная застройка у воды на территории Грушевого цвета | https://daniilterekh-prog.github.io/barnes-assets/grushevyi-tsvet/club-development-water-20260818.webp | final_url_ready | User-provided residence overview image; published 2026-08-18. |
 | source_only | `/Users/ritaterekh/Documents/barnes-assets/grushevyi-tsvet/about-hotel-01.webp` |  | 87.6 |  | https://daniilterekh-prog.github.io/barnes-assets/grushevyi-tsvet/about-hotel-01.webp | final_url_ready | mime=image/webp |
 | source_only | `/Users/ritaterekh/Documents/barnes-assets/grushevyi-tsvet/about-hotel-02.webp` |  | 101.5 |  | https://daniilterekh-prog.github.io/barnes-assets/grushevyi-tsvet/about-hotel-02.webp | final_url_ready | mime=image/webp |
 | source_only | `/Users/ritaterekh/Documents/barnes-assets/grushevyi-tsvet/auto-journey.webp` |  | 250.2 |  | https://daniilterekh-prog.github.io/barnes-assets/grushevyi-tsvet/auto-journey.webp | final_url_ready | mime=image/webp |
