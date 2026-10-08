@@ -1,0 +1,24 @@
+{
+  "id": "newsletter",
+  "variant": "sale",
+  "title": "Подписка на материалы",
+  "version": "1.0.0",
+  "source": {
+    "repo": "daniilterekh-prog/barn-estate-homepage-clone",
+    "commit": "43612ab",
+    "route": "prodazha_sobstvennikam",
+    "selector": ".newsletter-cta"
+  },
+  "files": [
+    "fragment.html",
+    "styles.css",
+    "index.html"
+  ],
+  "dependencies": [
+    "../../_shared/base.css",
+    "../../_shared/runtime.js",
+    "../../_assets/"
+  ],
+  "status": "extracted-reference",
+  "integration": "Copy fragment and stylesheet, preserve data-v attributes, include base tokens and call initBlock. Supply onRequest/onSubmit for production. Source page is not a dependency."
+}

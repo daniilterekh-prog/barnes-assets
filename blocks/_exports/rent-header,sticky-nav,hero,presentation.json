@@ -1,0 +1,188 @@
+{
+  "sourceCommit": "43612ab",
+  "blocks": [
+    {
+      "id": "header",
+      "variant": "rent",
+      "title": "Главный хедер",
+      "version": "1.0.0",
+      "source": {
+        "repo": "daniilterekh-prog/barn-estate-homepage-clone",
+        "commit": "43612ab",
+        "route": "arenda_sobstvennikam",
+        "selector": ".layout__header"
+      },
+      "files": [
+        "fragment.html",
+        "styles.css",
+        "index.html"
+      ],
+      "dependencies": [
+        "../../_shared/base.css",
+        "../../_shared/runtime.js",
+        "../../_assets/"
+      ],
+      "status": "extracted-reference",
+      "integration": "Copy fragment and stylesheet, preserve data-v attributes, include base tokens and call initBlock. Supply onRequest/onSubmit for production. Source page is not a dependency."
+    },
+    {
+      "id": "sticky-nav",
+      "variant": "rent",
+      "title": "Якорная навигация",
+      "version": "1.0.0",
+      "source": {
+        "repo": "daniilterekh-prog/barn-estate-homepage-clone",
+        "commit": "43612ab",
+        "route": "arenda_sobstvennikam",
+        "selector": ".owner-sale-sticky"
+      },
+      "files": [
+        "fragment.html",
+        "styles.css",
+        "index.html"
+      ],
+      "dependencies": [
+        "../../_shared/base.css",
+        "../../_shared/runtime.js",
+        "../../_assets/"
+      ],
+      "status": "extracted-reference",
+      "integration": "Copy fragment and stylesheet, preserve data-v attributes, include base tokens and call initBlock. Supply onRequest/onSubmit for production. Source page is not a dependency."
+    },
+    {
+      "id": "hero",
+      "variant": "rent",
+      "title": "Первый экран",
+      "version": "1.0.0",
+      "source": {
+        "repo": "daniilterekh-prog/barn-estate-homepage-clone",
+        "commit": "43612ab",
+        "route": "arenda_sobstvennikam",
+        "selector": ".owner-sale-hero"
+      },
+      "files": [
+        "fragment.html",
+        "styles.css",
+        "index.html"
+      ],
+      "dependencies": [
+        "../../_shared/base.css",
+        "../../_shared/runtime.js",
+        "../../_assets/"
+      ],
+      "status": "extracted-reference",
+      "integration": "Copy fragment and stylesheet, preserve data-v attributes, include base tokens and call initBlock. Supply onRequest/onSubmit for production. Source page is not a dependency."
+    },
+    {
+      "id": "presentation",
+      "variant": "rent",
+      "title": "Стратегия презентации",
+      "version": "1.0.0",
+      "source": {
+        "repo": "daniilterekh-prog/barn-estate-homepage-clone",
+        "commit": "43612ab",
+        "route": "arenda_sobstvennikam",
+        "selector": ".owner-sale-presentation"
+      },
+      "files": [
+        "fragment.html",
+        "styles.css",
+        "index.html"
+      ],
+      "dependencies": [
+        "../../_shared/base.css",
+        "../../_shared/runtime.js",
+        "../../_assets/"
+      ],
+      "status": "extracted-reference",
+      "integration": "Copy fragment and stylesheet, preserve data-v attributes, include base tokens and call initBlock. Supply onRequest/onSubmit for production. Source page is not a dependency."
+    }
+  ],
+  "assets": [
+    {
+      "source": "arenda_sobstvennikam/assets/logo.svg",
+      "file": "7aa20aa89b87-logo.svg",
+      "bytes": 10900
+    },
+    {
+      "source": "arenda_sobstvennikam/pictures/office-contact/whatsapp.svg",
+      "file": "3e197e0e1f3e-whatsapp.svg",
+      "bytes": 1231
+    },
+    {
+      "source": "arenda_sobstvennikam/pictures/office-contact/max.svg",
+      "file": "5caa61a4b073-max.svg",
+      "bytes": 72862
+    },
+    {
+      "source": "arenda_sobstvennikam/pictures/office-contact/telegram.svg",
+      "file": "4435c9a57e16-telegram.svg",
+      "bytes": 757
+    },
+    {
+      "source": "arenda_sobstvennikam/fonts/TildaSans-Light.woff2",
+      "file": "f0f2c165784c-TildaSans-Light.woff2",
+      "bytes": 63952
+    },
+    {
+      "source": "arenda_sobstvennikam/fonts/TildaSans-Regular.woff2",
+      "file": "2670dad44ca6-TildaSans-Regular.woff2",
+      "bytes": 61636
+    },
+    {
+      "source": "arenda_sobstvennikam/fonts/TildaSans-Medium.woff2",
+      "file": "f716269e361f-TildaSans-Medium.woff2",
+      "bytes": 62556
+    },
+    {
+      "source": "arenda_sobstvennikam/fonts/TildaSans-Semibold.woff2",
+      "file": "3814f8c44407-TildaSans-Semibold.woff2",
+      "bytes": 63528
+    },
+    {
+      "source": "arenda_sobstvennikam/fonts/TildaSans-Bold.woff2",
+      "file": "a2690df6fe83-TildaSans-Bold.woff2",
+      "bytes": 63216
+    },
+    {
+      "source": "arenda_sobstvennikam/fonts/TildaSans-ExtraBold.woff2",
+      "file": "726a3a878465-TildaSans-ExtraBold.woff2",
+      "bytes": 62820
+    },
+    {
+      "source": "arenda_sobstvennikam/fonts/TildaSans-Black.woff2",
+      "file": "73abed6708c4-TildaSans-Black.woff2",
+      "bytes": 57952
+    },
+    {
+      "source": "arenda_sobstvennikam/assets/hero.png",
+      "file": "c3f63ab9b45d-hero.png",
+      "bytes": 1917900
+    },
+    {
+      "source": "shared/assets/presentation-v3/object-detail.webp",
+      "file": "fe53b29e285e-object-detail.webp",
+      "bytes": 160646
+    },
+    {
+      "source": "shared/assets/presentation-v3/positioning.webp",
+      "file": "925883abb16a-positioning.webp",
+      "bytes": 177744
+    },
+    {
+      "source": "shared/assets/presentation-v3/viewing.webp",
+      "file": "5d852247fa02-viewing.webp",
+      "bytes": 146918
+    },
+    {
+      "source": "shared/assets/presentation-v3/legal.webp",
+      "file": "ec539a2263cc-legal.webp",
+      "bytes": 141826
+    },
+    {
+      "source": "shared/assets/presentation-v3/interior.webp",
+      "file": "cc0622404bfd-interior.webp",
+      "bytes": 267604
+    }
+  ]
+}
