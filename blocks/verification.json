@@ -1,0 +1,1053 @@
+{
+  "sourceCommit": "43612ab",
+  "checkedAt": "2026-10-08",
+  "types": 16,
+  "variants": 30,
+  "failures": 0,
+  "results": [
+    {
+      "id": "brand",
+      "variant": "rent",
+      "pass": true,
+      "widths": [
+        {
+          "width": 390,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 768,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 1440,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 2560,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        }
+      ],
+      "errors": [],
+      "missing": [],
+      "interactions": {}
+    },
+    {
+      "id": "brand",
+      "variant": "sale",
+      "pass": true,
+      "widths": [
+        {
+          "width": 390,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 768,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 1440,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 2560,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        }
+      ],
+      "errors": [],
+      "missing": [],
+      "interactions": {}
+    },
+    {
+      "id": "consultation-central",
+      "variant": "rent",
+      "pass": true,
+      "widths": [
+        {
+          "width": 390,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 768,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 1440,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 2560,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        }
+      ],
+      "errors": [],
+      "missing": [],
+      "interactions": {}
+    },
+    {
+      "id": "consultation-central",
+      "variant": "sale",
+      "pass": true,
+      "widths": [
+        {
+          "width": 390,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 768,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 1440,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 2560,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        }
+      ],
+      "errors": [],
+      "missing": [],
+      "interactions": {}
+    },
+    {
+      "id": "consultation-expert",
+      "variant": "sale",
+      "pass": true,
+      "widths": [
+        {
+          "width": 390,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 768,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 1440,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 2560,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        }
+      ],
+      "errors": [],
+      "missing": [],
+      "interactions": {}
+    },
+    {
+      "id": "floating-expert",
+      "variant": "rent",
+      "pass": true,
+      "widths": [
+        {
+          "width": 390,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 768,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 1440,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 2560,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        }
+      ],
+      "errors": [],
+      "missing": [],
+      "interactions": {}
+    },
+    {
+      "id": "floating-expert",
+      "variant": "sale",
+      "pass": true,
+      "widths": [
+        {
+          "width": 390,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 768,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 1440,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 2560,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        }
+      ],
+      "errors": [],
+      "missing": [],
+      "interactions": {}
+    },
+    {
+      "id": "footer",
+      "variant": "rent",
+      "pass": true,
+      "widths": [
+        {
+          "width": 390,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 768,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 1440,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 2560,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        }
+      ],
+      "errors": [],
+      "missing": [],
+      "interactions": {}
+    },
+    {
+      "id": "footer",
+      "variant": "sale",
+      "pass": true,
+      "widths": [
+        {
+          "width": 390,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 768,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 1440,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 2560,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        }
+      ],
+      "errors": [],
+      "missing": [],
+      "interactions": {}
+    },
+    {
+      "id": "header",
+      "variant": "rent",
+      "pass": true,
+      "widths": [
+        {
+          "width": 390,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 768,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 1440,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 2560,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        }
+      ],
+      "errors": [],
+      "missing": [],
+      "interactions": {}
+    },
+    {
+      "id": "header",
+      "variant": "sale",
+      "pass": true,
+      "widths": [
+        {
+          "width": 390,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 768,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 1440,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 2560,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        }
+      ],
+      "errors": [],
+      "missing": [],
+      "interactions": {}
+    },
+    {
+      "id": "hero",
+      "variant": "rent",
+      "pass": true,
+      "widths": [
+        {
+          "width": 390,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 768,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 1440,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 2560,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        }
+      ],
+      "errors": [],
+      "missing": [],
+      "interactions": {
+        "modal": true,
+        "escape": true
+      }
+    },
+    {
+      "id": "hero",
+      "variant": "sale",
+      "pass": true,
+      "widths": [
+        {
+          "width": 390,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 768,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 1440,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 2560,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        }
+      ],
+      "errors": [],
+      "missing": [],
+      "interactions": {
+        "modal": true,
+        "escape": true
+      }
+    },
+    {
+      "id": "mechanics",
+      "variant": "rent",
+      "pass": true,
+      "widths": [
+        {
+          "width": 390,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 768,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 1440,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 2560,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        }
+      ],
+      "errors": [],
+      "missing": [],
+      "interactions": {}
+    },
+    {
+      "id": "mechanics",
+      "variant": "sale",
+      "pass": true,
+      "widths": [
+        {
+          "width": 390,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 768,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 1440,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 2560,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        }
+      ],
+      "errors": [],
+      "missing": [],
+      "interactions": {}
+    },
+    {
+      "id": "newsletter",
+      "variant": "rent",
+      "pass": true,
+      "widths": [
+        {
+          "width": 390,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 768,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 1440,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 2560,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        }
+      ],
+      "errors": [],
+      "missing": [],
+      "interactions": {}
+    },
+    {
+      "id": "newsletter",
+      "variant": "sale",
+      "pass": true,
+      "widths": [
+        {
+          "width": 390,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 768,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 1440,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 2560,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        }
+      ],
+      "errors": [],
+      "missing": [],
+      "interactions": {}
+    },
+    {
+      "id": "presentation",
+      "variant": "rent",
+      "pass": true,
+      "widths": [
+        {
+          "width": 390,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 768,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 1440,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 2560,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        }
+      ],
+      "errors": [],
+      "missing": [],
+      "interactions": {}
+    },
+    {
+      "id": "presentation",
+      "variant": "sale",
+      "pass": true,
+      "widths": [
+        {
+          "width": 390,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 768,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 1440,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 2560,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        }
+      ],
+      "errors": [],
+      "missing": [],
+      "interactions": {}
+    },
+    {
+      "id": "property-links",
+      "variant": "rent",
+      "pass": true,
+      "widths": [
+        {
+          "width": 390,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 768,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 1440,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 2560,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        }
+      ],
+      "errors": [],
+      "missing": [],
+      "interactions": {}
+    },
+    {
+      "id": "property-links",
+      "variant": "sale",
+      "pass": true,
+      "widths": [
+        {
+          "width": 390,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 768,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 1440,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 2560,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        }
+      ],
+      "errors": [],
+      "missing": [],
+      "interactions": {}
+    },
+    {
+      "id": "request-modal",
+      "variant": "rent",
+      "pass": true,
+      "widths": [
+        {
+          "width": 390,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 768,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 1440,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 2560,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        }
+      ],
+      "errors": [],
+      "missing": [],
+      "interactions": {}
+    },
+    {
+      "id": "request-modal",
+      "variant": "sale",
+      "pass": true,
+      "widths": [
+        {
+          "width": 390,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 768,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 1440,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 2560,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        }
+      ],
+      "errors": [],
+      "missing": [],
+      "interactions": {}
+    },
+    {
+      "id": "sticky-nav",
+      "variant": "rent",
+      "pass": true,
+      "widths": [
+        {
+          "width": 390,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 768,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 1440,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 2560,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        }
+      ],
+      "errors": [],
+      "missing": [],
+      "interactions": {}
+    },
+    {
+      "id": "sticky-nav",
+      "variant": "sale",
+      "pass": true,
+      "widths": [
+        {
+          "width": 390,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 768,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 1440,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 2560,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        }
+      ],
+      "errors": [],
+      "missing": [],
+      "interactions": {}
+    },
+    {
+      "id": "strategy",
+      "variant": "sale",
+      "pass": true,
+      "widths": [
+        {
+          "width": 390,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 768,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 1440,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 2560,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        }
+      ],
+      "errors": [],
+      "missing": [],
+      "interactions": {}
+    },
+    {
+      "id": "team",
+      "variant": "rent",
+      "pass": true,
+      "widths": [
+        {
+          "width": 390,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 768,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 1440,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 2560,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        }
+      ],
+      "errors": [],
+      "missing": [],
+      "interactions": {
+        "descriptionTypography": true,
+        "slider": true
+      }
+    },
+    {
+      "id": "team",
+      "variant": "sale",
+      "pass": true,
+      "widths": [
+        {
+          "width": 390,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 768,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 1440,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 2560,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        }
+      ],
+      "errors": [],
+      "missing": [],
+      "interactions": {
+        "descriptionTypography": true,
+        "slider": true
+      }
+    },
+    {
+      "id": "why-barnes",
+      "variant": "rent",
+      "pass": true,
+      "widths": [
+        {
+          "width": 390,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 768,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 1440,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 2560,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        }
+      ],
+      "errors": [],
+      "missing": [],
+      "interactions": {
+        "descriptionTypography": true,
+        "secondTab": true,
+        "keyboardEnd": true,
+        "modal": true,
+        "escape": true
+      }
+    },
+    {
+      "id": "why-barnes",
+      "variant": "sale",
+      "pass": true,
+      "widths": [
+        {
+          "width": 390,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 768,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 1440,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        },
+        {
+          "width": 2560,
+          "overflow": false,
+          "brokenImages": [],
+          "visible": true
+        }
+      ],
+      "errors": [],
+      "missing": [],
+      "interactions": {
+        "descriptionTypography": true,
+        "secondTab": true,
+        "keyboardEnd": true,
+        "modal": true,
+        "escape": true
+      }
+    }
+  ]
+}

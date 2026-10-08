@@ -1,0 +1,24 @@
+/* Owner-page component roles; opt in via .barnes-template, not global resets. */
+.barnes-template {
+  --barnes-font: 'Tilda Sans', sans-serif;
+  --barnes-primary: #1e1e1e;
+  --barnes-secondary: #4f4d49;
+  --barnes-muted: #656462;
+  --barnes-brand: #8b1d25;
+  --barnes-background: #fff;
+  --barnes-surface: #f1f1f1;
+  --barnes-border: #e4e4e4;
+  --barnes-radius: 1px;
+  --barnes-h2-size: 38px;
+  --barnes-h2-line: 1.2;
+  --barnes-description-size: 22px;
+  --barnes-description-weight: 300;
+  --barnes-button-size: 17px;
+  --barnes-button-height: 70px;
+  --barnes-container: 1920px;
+  --barnes-gutter: clamp(24px, calc(-26.66667px + 6.59722vw), 100px);
+  --barnes-image-gap: 2px;
+  --barnes-motion: 200ms ease;
+}
+@media(min-width:1441px){.barnes-template{--barnes-h2-size:44px;--barnes-button-size:19px}}
+@media(max-width:540px){.barnes-template{--barnes-h2-size:22px;--barnes-description-size:15px;--barnes-button-size:18px;--barnes-button-height:58px;--barnes-gutter:22px}}
