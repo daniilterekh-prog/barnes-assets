@@ -1,0 +1,120 @@
+{
+  "sourceCommit": "43612ab",
+  "blocks": [
+    {
+      "id": "consultation-central",
+      "variant": "rent",
+      "title": "Центральная форма с экспертом",
+      "version": "1.0.0",
+      "source": {
+        "repo": "daniilterekh-prog/barn-estate-homepage-clone",
+        "commit": "43612ab",
+        "route": "arenda_sobstvennikam",
+        "selector": ".catalog-consultation"
+      },
+      "files": [
+        "fragment.html",
+        "styles.css",
+        "index.html"
+      ],
+      "dependencies": [
+        "../../_shared/base.css",
+        "../../_shared/runtime.js",
+        "../../_assets/"
+      ],
+      "status": "extracted-reference",
+      "integration": "Copy fragment and stylesheet, preserve data-v attributes, include base tokens and call initBlock. Supply onRequest/onSubmit for production. Source page is not a dependency."
+    },
+    {
+      "id": "property-links",
+      "variant": "rent",
+      "title": "Перелинковка с изображениями",
+      "version": "1.0.0",
+      "source": {
+        "repo": "daniilterekh-prog/barn-estate-homepage-clone",
+        "commit": "43612ab",
+        "route": "arenda_sobstvennikam",
+        "selector": ".owner-sale-types"
+      },
+      "files": [
+        "fragment.html",
+        "styles.css",
+        "index.html"
+      ],
+      "dependencies": [
+        "../../_shared/base.css",
+        "../../_shared/runtime.js",
+        "../../_assets/"
+      ],
+      "status": "extracted-reference",
+      "integration": "Copy fragment and stylesheet, preserve data-v attributes, include base tokens and call initBlock. Supply onRequest/onSubmit for production. Source page is not a dependency."
+    }
+  ],
+  "assets": [
+    {
+      "source": "gorodskaya-nedvizhimost/assets/source-assets/16-7d2ca45d4d-contacts-man.webp",
+      "file": "963872afd408-16-7d2ca45d4d-contacts-man.webp",
+      "bytes": 94912
+    },
+    {
+      "source": "gorodskaya-nedvizhimost/assets/source-assets/17-23350d2829-cta-ruslan-pruss.webp",
+      "file": "4464b6998f60-17-23350d2829-cta-ruslan-pruss.webp",
+      "bytes": 96154
+    },
+    {
+      "source": "arenda_sobstvennikam/fonts/TildaSans-Light.woff2",
+      "file": "f0f2c165784c-TildaSans-Light.woff2",
+      "bytes": 63952
+    },
+    {
+      "source": "arenda_sobstvennikam/fonts/TildaSans-Regular.woff2",
+      "file": "2670dad44ca6-TildaSans-Regular.woff2",
+      "bytes": 61636
+    },
+    {
+      "source": "arenda_sobstvennikam/fonts/TildaSans-Medium.woff2",
+      "file": "f716269e361f-TildaSans-Medium.woff2",
+      "bytes": 62556
+    },
+    {
+      "source": "arenda_sobstvennikam/fonts/TildaSans-Semibold.woff2",
+      "file": "3814f8c44407-TildaSans-Semibold.woff2",
+      "bytes": 63528
+    },
+    {
+      "source": "arenda_sobstvennikam/fonts/TildaSans-Bold.woff2",
+      "file": "a2690df6fe83-TildaSans-Bold.woff2",
+      "bytes": 63216
+    },
+    {
+      "source": "arenda_sobstvennikam/fonts/TildaSans-ExtraBold.woff2",
+      "file": "726a3a878465-TildaSans-ExtraBold.woff2",
+      "bytes": 62820
+    },
+    {
+      "source": "arenda_sobstvennikam/fonts/TildaSans-Black.woff2",
+      "file": "73abed6708c4-TildaSans-Black.woff2",
+      "bytes": 57952
+    },
+    {
+      "source": "arenda_sobstvennikam/assets/types-01.png",
+      "file": "398e4b6d8ad6-types-01.png",
+      "bytes": 767902
+    },
+    {
+      "source": "arenda_sobstvennikam/assets/types-02.png",
+      "file": "7e10e0bd7263-types-02.png",
+      "bytes": 597658
+    },
+    {
+      "source": "arenda_sobstvennikam/assets/types-03.png",
+      "file": "f1cefa66d4f8-types-03.png",
+      "bytes": 781566
+    },
+    {
+      "source": "arenda_sobstvennikam/assets/types-04.png",
+      "file": "f780a9179fd0-types-04.png",
+      "bytes": 788732
+    }
+  ]
+}

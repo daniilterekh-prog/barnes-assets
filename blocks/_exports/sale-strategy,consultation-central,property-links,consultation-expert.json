@@ -1,0 +1,178 @@
+{
+  "sourceCommit": "43612ab",
+  "blocks": [
+    {
+      "id": "strategy",
+      "variant": "sale",
+      "title": "Индивидуальная стратегия продажи",
+      "version": "1.0.0",
+      "source": {
+        "repo": "daniilterekh-prog/barn-estate-homepage-clone",
+        "commit": "43612ab",
+        "route": "prodazha_sobstvennikam",
+        "selector": ".owner-sale-strategy"
+      },
+      "files": [
+        "fragment.html",
+        "styles.css",
+        "index.html"
+      ],
+      "dependencies": [
+        "../../_shared/base.css",
+        "../../_shared/runtime.js",
+        "../../_assets/"
+      ],
+      "status": "extracted-reference",
+      "integration": "Copy fragment and stylesheet, preserve data-v attributes, include base tokens and call initBlock. Supply onRequest/onSubmit for production. Source page is not a dependency."
+    },
+    {
+      "id": "consultation-central",
+      "variant": "sale",
+      "title": "Центральная форма с экспертом",
+      "version": "1.0.0",
+      "source": {
+        "repo": "daniilterekh-prog/barn-estate-homepage-clone",
+        "commit": "43612ab",
+        "route": "prodazha_sobstvennikam",
+        "selector": ".catalog-consultation"
+      },
+      "files": [
+        "fragment.html",
+        "styles.css",
+        "index.html"
+      ],
+      "dependencies": [
+        "../../_shared/base.css",
+        "../../_shared/runtime.js",
+        "../../_assets/"
+      ],
+      "status": "extracted-reference",
+      "integration": "Copy fragment and stylesheet, preserve data-v attributes, include base tokens and call initBlock. Supply onRequest/onSubmit for production. Source page is not a dependency."
+    },
+    {
+      "id": "property-links",
+      "variant": "sale",
+      "title": "Перелинковка с изображениями",
+      "version": "1.0.0",
+      "source": {
+        "repo": "daniilterekh-prog/barn-estate-homepage-clone",
+        "commit": "43612ab",
+        "route": "prodazha_sobstvennikam",
+        "selector": ".owner-sale-types"
+      },
+      "files": [
+        "fragment.html",
+        "styles.css",
+        "index.html"
+      ],
+      "dependencies": [
+        "../../_shared/base.css",
+        "../../_shared/runtime.js",
+        "../../_assets/"
+      ],
+      "status": "extracted-reference",
+      "integration": "Copy fragment and stylesheet, preserve data-v attributes, include base tokens and call initBlock. Supply onRequest/onSubmit for production. Source page is not a dependency."
+    },
+    {
+      "id": "consultation-expert",
+      "variant": "sale",
+      "title": "Нижний CTA с круглым портретом",
+      "version": "1.0.0",
+      "source": {
+        "repo": "daniilterekh-prog/barn-estate-homepage-clone",
+        "commit": "43612ab",
+        "route": "prodazha_sobstvennikam",
+        "selector": ".catalog-contact"
+      },
+      "files": [
+        "fragment.html",
+        "styles.css",
+        "index.html"
+      ],
+      "dependencies": [
+        "../../_shared/base.css",
+        "../../_shared/runtime.js",
+        "../../_assets/"
+      ],
+      "status": "extracted-reference",
+      "integration": "Copy fragment and stylesheet, preserve data-v attributes, include base tokens and call initBlock. Supply onRequest/onSubmit for production. Source page is not a dependency."
+    }
+  ],
+  "assets": [
+    {
+      "source": "prodazha_sobstvennikam/assets/strategy.png",
+      "file": "362c3f5453ec-strategy.png",
+      "bytes": 842638
+    },
+    {
+      "source": "prodazha_sobstvennikam/assets/fonts/TildaSans-Light.woff2",
+      "file": "f0f2c165784c-TildaSans-Light.woff2",
+      "bytes": 63952
+    },
+    {
+      "source": "prodazha_sobstvennikam/assets/fonts/TildaSans-Regular.woff2",
+      "file": "2670dad44ca6-TildaSans-Regular.woff2",
+      "bytes": 61636
+    },
+    {
+      "source": "prodazha_sobstvennikam/assets/fonts/TildaSans-Medium.woff2",
+      "file": "f716269e361f-TildaSans-Medium.woff2",
+      "bytes": 62556
+    },
+    {
+      "source": "prodazha_sobstvennikam/assets/fonts/TildaSans-Semibold.woff2",
+      "file": "3814f8c44407-TildaSans-Semibold.woff2",
+      "bytes": 63528
+    },
+    {
+      "source": "prodazha_sobstvennikam/assets/fonts/TildaSans-Bold.woff2",
+      "file": "a2690df6fe83-TildaSans-Bold.woff2",
+      "bytes": 63216
+    },
+    {
+      "source": "prodazha_sobstvennikam/assets/fonts/TildaSans-ExtraBold.woff2",
+      "file": "726a3a878465-TildaSans-ExtraBold.woff2",
+      "bytes": 62820
+    },
+    {
+      "source": "prodazha_sobstvennikam/assets/fonts/TildaSans-Black.woff2",
+      "file": "73abed6708c4-TildaSans-Black.woff2",
+      "bytes": 57952
+    },
+    {
+      "source": "prodazha_sobstvennikam/assets/consultation-bg.webp",
+      "file": "963872afd408-consultation-bg.webp",
+      "bytes": 94912
+    },
+    {
+      "source": "prodazha_sobstvennikam/assets/ruslan.webp",
+      "file": "4464b6998f60-ruslan.webp",
+      "bytes": 96154
+    },
+    {
+      "source": "prodazha_sobstvennikam/assets/types-01.png",
+      "file": "f780a9179fd0-types-01.png",
+      "bytes": 788732
+    },
+    {
+      "source": "prodazha_sobstvennikam/assets/types-02.png",
+      "file": "f1cefa66d4f8-types-02.png",
+      "bytes": 781566
+    },
+    {
+      "source": "prodazha_sobstvennikam/assets/types-03.png",
+      "file": "7e10e0bd7263-types-03.png",
+      "bytes": 597658
+    },
+    {
+      "source": "prodazha_sobstvennikam/assets/types-04.png",
+      "file": "398e4b6d8ad6-types-04.png",
+      "bytes": 767902
+    },
+    {
+      "source": "prodazha_sobstvennikam/assets/request-bg.png",
+      "file": "6c4bf7721f51-request-bg.png",
+      "bytes": 934032
+    }
+  ]
+}

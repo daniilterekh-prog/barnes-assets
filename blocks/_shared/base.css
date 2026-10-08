@@ -1,0 +1,24 @@
+@font-face{font-family:'Tilda Sans';src:url('../_assets/f0f2c165784c-TildaSans-Light.woff2') format('woff2');font-weight:300;font-display:swap}
+@font-face{font-family:'Tilda Sans';src:url('../_assets/2670dad44ca6-TildaSans-Regular.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Tilda Sans';src:url('../_assets/f716269e361f-TildaSans-Medium.woff2') format('woff2');font-weight:500;font-display:swap}
+:root{--barnes-ink:#1e1e1e;--barnes-secondary:#4f4d49;--barnes-muted:#656462;--barnes-brand:#8b1d25;--barnes-surface:#f1f1f1;--barnes-border:#e4e4e4;--barnes-radius:1px}
+body[data-barnes-preview]{margin:0;background:#fff;color:var(--barnes-ink);font-family:'Tilda Sans',sans-serif}
+.barnes-template{font-family:'Tilda Sans',sans-serif;isolation:isolate;position:relative;max-width:100%;color:#1e1e1e}
+.barnes-template *,.barnes-template *::before,.barnes-template *::after{box-sizing:border-box}
+.barnes-template img{max-width:100%}
+.barnes-template [hidden]{display:none!important}
+.barnes-template :focus-visible{outline:2px solid #8b1d25;outline-offset:3px}
+.barnes-template [data-block-status]{font-size:15px;line-height:1.4;margin-top:16px;color:#4f4d49}
+.barnes-template[data-preview=true][data-barnes-block=header]{min-height:170px;background:#262626}
+.barnes-template[data-preview=true][data-barnes-block=header] .layout__header{position:relative;top:0;padding-top:20px}
+.barnes-template[data-preview=true][data-barnes-block=sticky-nav]{min-height:140px}
+.barnes-template[data-preview=true] .owner-sale-sticky{position:relative;transform:none!important;opacity:1!important;visibility:visible!important;top:0}
+.barnes-template[data-preview=true][data-barnes-block=floating-expert]{min-height:250px}
+.barnes-template[data-preview=true] .floating-expert{position:relative;inset:auto;margin:40px auto;opacity:1;transform:none;animation:none}
+.barnes-template .feedback-modal{position:fixed;inset:0;z-index:10000}
+.barnes-template[data-modal-host]{position:fixed;inset:0;z-index:10000;isolation:isolate}
+.barnes-template[data-preview=true][data-barnes-block=request-modal]{min-height:100vh}
+.barnes-template[data-preview=true][data-barnes-block=request-modal] .feedback-modal{position:relative;min-height:100vh}
+.barnes-template[data-preview=true][data-barnes-block=request-modal] .modal__content{margin:auto}
+.barnes-template .owner-sale-services__slider .splide__slide{flex-shrink:0}
+@media(prefers-reduced-motion:reduce){.barnes-template *{animation:none!important;transition:none!important;scroll-behavior:auto!important}}

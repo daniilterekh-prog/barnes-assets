@@ -1,0 +1,153 @@
+{
+  "sourceCommit": "43612ab",
+  "blocks": [
+    {
+      "id": "team",
+      "variant": "rent",
+      "title": "Единая команда BARNES",
+      "version": "1.0.0",
+      "source": {
+        "repo": "daniilterekh-prog/barn-estate-homepage-clone",
+        "commit": "43612ab",
+        "route": "arenda_sobstvennikam",
+        "selector": ".owner-sale-services"
+      },
+      "files": [
+        "fragment.html",
+        "styles.css",
+        "index.html"
+      ],
+      "dependencies": [
+        "../../_shared/base.css",
+        "../../_shared/runtime.js",
+        "../../_assets/"
+      ],
+      "status": "extracted-reference",
+      "integration": "Copy fragment and stylesheet, preserve data-v attributes, include base tokens and call initBlock. Supply onRequest/onSubmit for production. Source page is not a dependency."
+    },
+    {
+      "id": "brand",
+      "variant": "rent",
+      "title": "BARNES / Москва",
+      "version": "1.0.0",
+      "source": {
+        "repo": "daniilterekh-prog/barn-estate-homepage-clone",
+        "commit": "43612ab",
+        "route": "arenda_sobstvennikam",
+        "selector": ".about-company"
+      },
+      "files": [
+        "fragment.html",
+        "styles.css",
+        "index.html"
+      ],
+      "dependencies": [
+        "../../_shared/base.css",
+        "../../_shared/runtime.js",
+        "../../_assets/"
+      ],
+      "status": "extracted-reference",
+      "integration": "Copy fragment and stylesheet, preserve data-v attributes, include base tokens and call initBlock. Supply onRequest/onSubmit for production. Source page is not a dependency."
+    },
+    {
+      "id": "mechanics",
+      "variant": "rent",
+      "title": "Эксклюзив / этапы продажи",
+      "version": "1.0.0",
+      "source": {
+        "repo": "daniilterekh-prog/barn-estate-homepage-clone",
+        "commit": "43612ab",
+        "route": "arenda_sobstvennikam",
+        "selector": ".owner-sale-exclusive, .owner-sale-stages"
+      },
+      "files": [
+        "fragment.html",
+        "styles.css",
+        "index.html"
+      ],
+      "dependencies": [
+        "../../_shared/base.css",
+        "../../_shared/runtime.js",
+        "../../_assets/"
+      ],
+      "status": "extracted-reference",
+      "integration": "Copy fragment and stylesheet, preserve data-v attributes, include base tokens and call initBlock. Supply onRequest/onSubmit for production. Source page is not a dependency."
+    },
+    {
+      "id": "why-barnes",
+      "variant": "rent",
+      "title": "Почему собственники выбирают BARNES",
+      "version": "1.0.0",
+      "source": {
+        "repo": "daniilterekh-prog/barn-estate-homepage-clone",
+        "commit": "43612ab",
+        "route": "arenda_sobstvennikam",
+        "selector": "#why-barnes"
+      },
+      "files": [
+        "fragment.html",
+        "styles.css",
+        "index.html"
+      ],
+      "dependencies": [
+        "../../_shared/base.css",
+        "../../_shared/runtime.js",
+        "../../_assets/"
+      ],
+      "status": "extracted-reference",
+      "integration": "Copy fragment and stylesheet, preserve data-v attributes, include base tokens and call initBlock. Supply onRequest/onSubmit for production. Source page is not a dependency."
+    }
+  ],
+  "assets": [
+    {
+      "source": "arenda_sobstvennikam/fonts/TildaSans-Light.woff2",
+      "file": "f0f2c165784c-TildaSans-Light.woff2",
+      "bytes": 63952
+    },
+    {
+      "source": "arenda_sobstvennikam/fonts/TildaSans-Regular.woff2",
+      "file": "2670dad44ca6-TildaSans-Regular.woff2",
+      "bytes": 61636
+    },
+    {
+      "source": "arenda_sobstvennikam/fonts/TildaSans-Medium.woff2",
+      "file": "f716269e361f-TildaSans-Medium.woff2",
+      "bytes": 62556
+    },
+    {
+      "source": "arenda_sobstvennikam/fonts/TildaSans-Semibold.woff2",
+      "file": "3814f8c44407-TildaSans-Semibold.woff2",
+      "bytes": 63528
+    },
+    {
+      "source": "arenda_sobstvennikam/fonts/TildaSans-Bold.woff2",
+      "file": "a2690df6fe83-TildaSans-Bold.woff2",
+      "bytes": 63216
+    },
+    {
+      "source": "arenda_sobstvennikam/fonts/TildaSans-ExtraBold.woff2",
+      "file": "726a3a878465-TildaSans-ExtraBold.woff2",
+      "bytes": 62820
+    },
+    {
+      "source": "arenda_sobstvennikam/fonts/TildaSans-Black.woff2",
+      "file": "73abed6708c4-TildaSans-Black.woff2",
+      "bytes": 57952
+    },
+    {
+      "source": "arenda_sobstvennikam/assets/about-company.webp",
+      "file": "cb9aa27328e3-about-company.webp",
+      "bytes": 93540
+    },
+    {
+      "source": "arenda_sobstvennikam/assets/exclusive.png",
+      "file": "ac4a0c6f1cd3-exclusive.png",
+      "bytes": 1590400
+    },
+    {
+      "source": "shared/assets/barnes-private-salon.webp",
+      "file": "ffab11f9222a-barnes-private-salon.webp",
+      "bytes": 263238
+    }
+  ]
+}

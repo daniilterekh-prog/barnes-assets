@@ -1,0 +1,2 @@
+# Preserve byte-for-byte source SVG assets, including original whitespace.
+blocks/_assets/*.svg -whitespace

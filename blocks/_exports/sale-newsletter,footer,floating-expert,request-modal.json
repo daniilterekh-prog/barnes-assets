@@ -1,0 +1,163 @@
+{
+  "sourceCommit": "43612ab",
+  "blocks": [
+    {
+      "id": "newsletter",
+      "variant": "sale",
+      "title": "Подписка на материалы",
+      "version": "1.0.0",
+      "source": {
+        "repo": "daniilterekh-prog/barn-estate-homepage-clone",
+        "commit": "43612ab",
+        "route": "prodazha_sobstvennikam",
+        "selector": ".newsletter-cta"
+      },
+      "files": [
+        "fragment.html",
+        "styles.css",
+        "index.html"
+      ],
+      "dependencies": [
+        "../../_shared/base.css",
+        "../../_shared/runtime.js",
+        "../../_assets/"
+      ],
+      "status": "extracted-reference",
+      "integration": "Copy fragment and stylesheet, preserve data-v attributes, include base tokens and call initBlock. Supply onRequest/onSubmit for production. Source page is not a dependency."
+    },
+    {
+      "id": "footer",
+      "variant": "sale",
+      "title": "Футер",
+      "version": "1.0.0",
+      "source": {
+        "repo": "daniilterekh-prog/barn-estate-homepage-clone",
+        "commit": "43612ab",
+        "route": "prodazha_sobstvennikam",
+        "selector": ".site-footer"
+      },
+      "files": [
+        "fragment.html",
+        "styles.css",
+        "index.html"
+      ],
+      "dependencies": [
+        "../../_shared/base.css",
+        "../../_shared/runtime.js",
+        "../../_assets/"
+      ],
+      "status": "extracted-reference",
+      "integration": "Copy fragment and stylesheet, preserve data-v attributes, include base tokens and call initBlock. Supply onRequest/onSubmit for production. Source page is not a dependency."
+    },
+    {
+      "id": "floating-expert",
+      "variant": "sale",
+      "title": "Плавающий эксперт",
+      "version": "1.0.0",
+      "source": {
+        "repo": "daniilterekh-prog/barn-estate-homepage-clone",
+        "commit": "43612ab",
+        "route": "prodazha_sobstvennikam",
+        "selector": ".floating-expert"
+      },
+      "files": [
+        "fragment.html",
+        "styles.css",
+        "index.html"
+      ],
+      "dependencies": [
+        "../../_shared/base.css",
+        "../../_shared/runtime.js",
+        "../../_assets/"
+      ],
+      "status": "extracted-reference",
+      "integration": "Copy fragment and stylesheet, preserve data-v attributes, include base tokens and call initBlock. Supply onRequest/onSubmit for production. Source page is not a dependency."
+    },
+    {
+      "id": "request-modal",
+      "variant": "sale",
+      "title": "Всплывающая форма с Русланом",
+      "version": "1.0.0",
+      "source": {
+        "repo": "daniilterekh-prog/barn-estate-homepage-clone",
+        "commit": "43612ab",
+        "route": "prodazha_sobstvennikam",
+        "selector": ".feedback-modal"
+      },
+      "files": [
+        "fragment.html",
+        "styles.css",
+        "index.html"
+      ],
+      "dependencies": [
+        "../../_shared/base.css",
+        "../../_shared/runtime.js",
+        "../../_assets/"
+      ],
+      "status": "extracted-reference",
+      "integration": "Copy fragment and stylesheet, preserve data-v attributes, include base tokens and call initBlock. Supply onRequest/onSubmit for production. Source page is not a dependency."
+    }
+  ],
+  "assets": [
+    {
+      "source": "prodazha_sobstvennikam/assets/newsletter.webp",
+      "file": "32aa70cd1ff3-newsletter.webp",
+      "bytes": 63620
+    },
+    {
+      "source": "prodazha_sobstvennikam/assets/newsletter-mobile.webp",
+      "file": "3285d219f184-newsletter-mobile.webp",
+      "bytes": 15704
+    },
+    {
+      "source": "prodazha_sobstvennikam/assets/fonts/TildaSans-Light.woff2",
+      "file": "f0f2c165784c-TildaSans-Light.woff2",
+      "bytes": 63952
+    },
+    {
+      "source": "prodazha_sobstvennikam/assets/fonts/TildaSans-Regular.woff2",
+      "file": "2670dad44ca6-TildaSans-Regular.woff2",
+      "bytes": 61636
+    },
+    {
+      "source": "prodazha_sobstvennikam/assets/fonts/TildaSans-Medium.woff2",
+      "file": "f716269e361f-TildaSans-Medium.woff2",
+      "bytes": 62556
+    },
+    {
+      "source": "prodazha_sobstvennikam/assets/fonts/TildaSans-Semibold.woff2",
+      "file": "3814f8c44407-TildaSans-Semibold.woff2",
+      "bytes": 63528
+    },
+    {
+      "source": "prodazha_sobstvennikam/assets/fonts/TildaSans-Bold.woff2",
+      "file": "a2690df6fe83-TildaSans-Bold.woff2",
+      "bytes": 63216
+    },
+    {
+      "source": "prodazha_sobstvennikam/assets/fonts/TildaSans-ExtraBold.woff2",
+      "file": "726a3a878465-TildaSans-ExtraBold.woff2",
+      "bytes": 62820
+    },
+    {
+      "source": "prodazha_sobstvennikam/assets/fonts/TildaSans-Black.woff2",
+      "file": "73abed6708c4-TildaSans-Black.woff2",
+      "bytes": 57952
+    },
+    {
+      "source": "prodazha_sobstvennikam/assets/logo.svg",
+      "file": "7aa20aa89b87-logo.svg",
+      "bytes": 10900
+    },
+    {
+      "source": "prodazha_sobstvennikam/assets/ruslan.webp",
+      "file": "4464b6998f60-ruslan.webp",
+      "bytes": 96154
+    },
+    {
+      "source": "shared/assets/modal-ruslan-organic.webp",
+      "file": "6bbaa8e1df83-modal-ruslan-organic.webp",
+      "bytes": 210000
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+.browser-temp/
+.verification/
+node_modules/
+__pycache__/
