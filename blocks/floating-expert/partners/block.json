@@ -1,0 +1,27 @@
+{
+  "id": "floating-expert",
+  "variant": "partners",
+  "title": "Плавающий эксперт",
+  "description": "Карточка эксперта справа снизу",
+  "version": "1.0.0",
+  "status": "extracted-reference",
+  "source": {
+    "repo": "daniilterekh-prog/barn-estate-homepage-clone",
+    "commit": "8caa88ffc380031461cd2875f0bf733ce147864e",
+    "route": "for-partners",
+    "selector": ".floating-expert"
+  },
+  "files": [
+    "fragment.html",
+    "styles.css",
+    "index.html",
+    "README.md"
+  ],
+  "dependencies": [
+    "../../_shared/partners/base.css",
+    "../../_shared/partners/runtime.js",
+    "../../_assets/partners/"
+  ],
+  "content": "Редактируемые тексты и ссылки в fragment.html",
+  "integration": "initBlock(root,{onRequest,onSubmit}); no Nuxt or source-page dependency"
+}

@@ -1,0 +1,16 @@
+/* Opt-in foundation: apply .barnes-ui-kit to a new integration; no global overrides. */
+.barnes-ui-kit {
+ --barnes-font:"Tilda Sans",sans-serif;
+ --barnes-brand:#8b1d25;--barnes-ink:#1e1e1e;--barnes-description:#4f4d49;--barnes-muted:#656462;
+ --barnes-radius:1px;--barnes-h2-size:38px;--barnes-h2-line:45.6px;
+ --barnes-card-title-size:24px;--barnes-card-title-line:28.8px;
+ --barnes-large-description-size:22px;--barnes-large-description-line:28.16px;
+ --barnes-action-height:70px;--barnes-action-size:17px;--barnes-action-line:18.7px;
+ --barnes-selector-height:35px;--barnes-selector-hit-area:44px;--barnes-channel-icon:18px;
+ --barnes-reveal-duration:240ms;--barnes-card-overlay:.12;--barnes-card-overlay-reveal:.68;
+ --barnes-card-gap:24px;--barnes-channel-gap-x:12px;--barnes-channel-gap-y:16px;
+}
+@media(min-width:1441px){.barnes-ui-kit{--barnes-h2-size:44px;--barnes-h2-line:52.8px;--barnes-action-size:19px;--barnes-action-line:20.9px}}
+@media(max-width:1024px){.barnes-ui-kit{--barnes-h2-size:22px;--barnes-h2-line:26.4px;--barnes-card-title-size:20px;--barnes-card-title-line:24px}}
+@media(max-width:540px){.barnes-ui-kit{--barnes-action-height:58px;--barnes-action-size:18px;--barnes-action-line:19.8px;--barnes-selector-height:29px;--barnes-channel-icon:22px}}
+@media(prefers-reduced-motion:reduce){.barnes-ui-kit{--barnes-reveal-duration:0ms}}

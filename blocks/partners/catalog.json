@@ -1,0 +1,539 @@
+{
+  "version": "1.0.0",
+  "sourceCommit": "8caa88ffc380031461cd2875f0bf733ce147864e",
+  "blocks": [
+    {
+      "id": "header",
+      "variant": "partners",
+      "title": "Главный хедер",
+      "description": "Навигация, контакты и мобильное меню",
+      "version": "1.0.0",
+      "status": "extracted-reference",
+      "source": {
+        "repo": "daniilterekh-prog/barn-estate-homepage-clone",
+        "commit": "8caa88ffc380031461cd2875f0bf733ce147864e",
+        "route": "for-partners",
+        "selector": ".layout__header,.site-menu"
+      },
+      "files": [
+        "fragment.html",
+        "styles.css",
+        "index.html",
+        "README.md"
+      ],
+      "dependencies": [
+        "../../_shared/partners/base.css",
+        "../../_shared/partners/runtime.js",
+        "../../_assets/partners/"
+      ],
+      "content": "Редактируемые тексты и ссылки в fragment.html",
+      "integration": "initBlock(root,{onRequest,onSubmit}); no Nuxt or source-page dependency"
+    },
+    {
+      "id": "sticky-nav",
+      "variant": "partners",
+      "title": "Второй хедер",
+      "description": "Якоря после hero и контакты",
+      "version": "1.0.0",
+      "status": "extracted-reference",
+      "source": {
+        "repo": "daniilterekh-prog/barn-estate-homepage-clone",
+        "commit": "8caa88ffc380031461cd2875f0bf733ce147864e",
+        "route": "for-partners",
+        "selector": ".owner-sale-sticky"
+      },
+      "files": [
+        "fragment.html",
+        "styles.css",
+        "index.html",
+        "README.md"
+      ],
+      "dependencies": [
+        "../../_shared/partners/base.css",
+        "../../_shared/partners/runtime.js",
+        "../../_assets/partners/"
+      ],
+      "content": "Редактируемые тексты и ссылки в fragment.html",
+      "integration": "initBlock(root,{onRequest,onSubmit}); no Nuxt or source-page dependency"
+    },
+    {
+      "id": "hero",
+      "variant": "partners",
+      "title": "Первый экран",
+      "description": "Фоновое фото, хлебные крошки и две кнопки",
+      "version": "1.0.0",
+      "status": "extracted-reference",
+      "source": {
+        "repo": "daniilterekh-prog/barn-estate-homepage-clone",
+        "commit": "8caa88ffc380031461cd2875f0bf733ce147864e",
+        "route": "for-partners",
+        "selector": ".ambassadors-hero"
+      },
+      "files": [
+        "fragment.html",
+        "styles.css",
+        "index.html",
+        "README.md"
+      ],
+      "dependencies": [
+        "../../_shared/partners/base.css",
+        "../../_shared/partners/runtime.js",
+        "../../_assets/partners/"
+      ],
+      "content": "Редактируемые тексты и ссылки в fragment.html",
+      "integration": "initBlock(root,{onRequest,onSubmit}); no Nuxt or source-page dependency"
+    },
+    {
+      "id": "conditions",
+      "variant": "partners",
+      "title": "Условия сотрудничества",
+      "description": "Три фотокарточки с hover/tap-описанием",
+      "version": "1.0.0",
+      "status": "extracted-reference",
+      "source": {
+        "repo": "daniilterekh-prog/barn-estate-homepage-clone",
+        "commit": "8caa88ffc380031461cd2875f0bf733ce147864e",
+        "route": "for-partners",
+        "selector": "#conditions"
+      },
+      "files": [
+        "fragment.html",
+        "styles.css",
+        "index.html",
+        "README.md"
+      ],
+      "dependencies": [
+        "../../_shared/partners/base.css",
+        "../../_shared/partners/runtime.js",
+        "../../_assets/partners/"
+      ],
+      "content": "Редактируемые тексты и ссылки в fragment.html",
+      "integration": "initBlock(root,{onRequest,onSubmit}); no Nuxt or source-page dependency"
+    },
+    {
+      "id": "mechanics",
+      "variant": "partners",
+      "title": "Механика партнёрства",
+      "description": "Текстовые этапы со scroll-анимацией",
+      "version": "1.0.0",
+      "status": "extracted-reference",
+      "source": {
+        "repo": "daniilterekh-prog/barn-estate-homepage-clone",
+        "commit": "8caa88ffc380031461cd2875f0bf733ce147864e",
+        "route": "for-partners",
+        "selector": "#how-it-works"
+      },
+      "files": [
+        "fragment.html",
+        "styles.css",
+        "index.html",
+        "README.md"
+      ],
+      "dependencies": [
+        "../../_shared/partners/base.css",
+        "../../_shared/partners/runtime.js",
+        "../../_assets/partners/"
+      ],
+      "content": "Редактируемые тексты и ссылки в fragment.html",
+      "integration": "initBlock(root,{onRequest,onSubmit}); no Nuxt or source-page dependency"
+    },
+    {
+      "id": "directions",
+      "variant": "partners",
+      "title": "Направления BARNES",
+      "description": "Семь категорий, фото и показатели без скачков",
+      "version": "1.0.0",
+      "status": "extracted-reference",
+      "source": {
+        "repo": "daniilterekh-prog/barn-estate-homepage-clone",
+        "commit": "8caa88ffc380031461cd2875f0bf733ce147864e",
+        "route": "for-partners",
+        "selector": "#requests"
+      },
+      "files": [
+        "fragment.html",
+        "styles.css",
+        "index.html",
+        "README.md"
+      ],
+      "dependencies": [
+        "../../_shared/partners/base.css",
+        "../../_shared/partners/runtime.js",
+        "../../_assets/partners/"
+      ],
+      "content": "data-block-content: семь направлений; не подтверждает актуальность цен и комиссий",
+      "integration": "initBlock(root,{onRequest,onSubmit}); no Nuxt or source-page dependency"
+    },
+    {
+      "id": "advantages",
+      "variant": "partners",
+      "title": "Преимущества партнёрства",
+      "description": "Десять фотокарточек, свайп и раскрытие описаний",
+      "version": "1.0.0",
+      "status": "extracted-reference",
+      "source": {
+        "repo": "daniilterekh-prog/barn-estate-homepage-clone",
+        "commit": "8caa88ffc380031461cd2875f0bf733ce147864e",
+        "route": "for-partners",
+        "selector": "#advantages"
+      },
+      "files": [
+        "fragment.html",
+        "styles.css",
+        "index.html",
+        "README.md"
+      ],
+      "dependencies": [
+        "../../_shared/partners/base.css",
+        "../../_shared/partners/runtime.js",
+        "../../_assets/partners/"
+      ],
+      "content": "Редактируемые тексты и ссылки в fragment.html",
+      "integration": "initBlock(root,{onRequest,onSubmit}); no Nuxt or source-page dependency"
+    },
+    {
+      "id": "consultation-expert",
+      "variant": "partners",
+      "title": "Контактный CTA",
+      "description": "Форма на фото, компактные каналы и эксперт справа",
+      "version": "1.0.0",
+      "status": "extracted-reference",
+      "source": {
+        "repo": "daniilterekh-prog/barn-estate-homepage-clone",
+        "commit": "8caa88ffc380031461cd2875f0bf733ce147864e",
+        "route": "for-partners",
+        "selector": ".catalog-contact"
+      },
+      "files": [
+        "fragment.html",
+        "styles.css",
+        "index.html",
+        "README.md"
+      ],
+      "dependencies": [
+        "../../_shared/partners/base.css",
+        "../../_shared/partners/runtime.js",
+        "../../_assets/partners/"
+      ],
+      "content": "Редактируемые тексты и ссылки в fragment.html",
+      "integration": "initBlock(root,{onRequest,onSubmit}); no Nuxt or source-page dependency"
+    },
+    {
+      "id": "faq",
+      "variant": "partners",
+      "title": "Вопросы и ответы",
+      "description": "Доступный аккордеон",
+      "version": "1.0.0",
+      "status": "extracted-reference",
+      "source": {
+        "repo": "daniilterekh-prog/barn-estate-homepage-clone",
+        "commit": "8caa88ffc380031461cd2875f0bf733ce147864e",
+        "route": "for-partners",
+        "selector": ".catalog-faq"
+      },
+      "files": [
+        "fragment.html",
+        "styles.css",
+        "index.html",
+        "README.md"
+      ],
+      "dependencies": [
+        "../../_shared/partners/base.css",
+        "../../_shared/partners/runtime.js",
+        "../../_assets/partners/"
+      ],
+      "content": "Редактируемые тексты и ссылки в fragment.html",
+      "integration": "initBlock(root,{onRequest,onSubmit}); no Nuxt or source-page dependency"
+    },
+    {
+      "id": "newsletter",
+      "variant": "partners",
+      "title": "Подписка",
+      "description": "Редакционный CTA с обложками журнала",
+      "version": "1.0.0",
+      "status": "extracted-reference",
+      "source": {
+        "repo": "daniilterekh-prog/barn-estate-homepage-clone",
+        "commit": "8caa88ffc380031461cd2875f0bf733ce147864e",
+        "route": "for-partners",
+        "selector": ".newsletter-cta"
+      },
+      "files": [
+        "fragment.html",
+        "styles.css",
+        "index.html",
+        "README.md"
+      ],
+      "dependencies": [
+        "../../_shared/partners/base.css",
+        "../../_shared/partners/runtime.js",
+        "../../_assets/partners/"
+      ],
+      "content": "Редактируемые тексты и ссылки в fragment.html",
+      "integration": "initBlock(root,{onRequest,onSubmit}); no Nuxt or source-page dependency"
+    },
+    {
+      "id": "footer",
+      "variant": "partners",
+      "title": "Футер",
+      "description": "Разделы сайта, адрес и контакты",
+      "version": "1.0.0",
+      "status": "extracted-reference",
+      "source": {
+        "repo": "daniilterekh-prog/barn-estate-homepage-clone",
+        "commit": "8caa88ffc380031461cd2875f0bf733ce147864e",
+        "route": "for-partners",
+        "selector": ".site-footer"
+      },
+      "files": [
+        "fragment.html",
+        "styles.css",
+        "index.html",
+        "README.md"
+      ],
+      "dependencies": [
+        "../../_shared/partners/base.css",
+        "../../_shared/partners/runtime.js",
+        "../../_assets/partners/"
+      ],
+      "content": "Редактируемые тексты и ссылки в fragment.html",
+      "integration": "initBlock(root,{onRequest,onSubmit}); no Nuxt or source-page dependency"
+    },
+    {
+      "id": "floating-expert",
+      "variant": "partners",
+      "title": "Плавающий эксперт",
+      "description": "Карточка эксперта справа снизу",
+      "version": "1.0.0",
+      "status": "extracted-reference",
+      "source": {
+        "repo": "daniilterekh-prog/barn-estate-homepage-clone",
+        "commit": "8caa88ffc380031461cd2875f0bf733ce147864e",
+        "route": "for-partners",
+        "selector": ".floating-expert"
+      },
+      "files": [
+        "fragment.html",
+        "styles.css",
+        "index.html",
+        "README.md"
+      ],
+      "dependencies": [
+        "../../_shared/partners/base.css",
+        "../../_shared/partners/runtime.js",
+        "../../_assets/partners/"
+      ],
+      "content": "Редактируемые тексты и ссылки в fragment.html",
+      "integration": "initBlock(root,{onRequest,onSubmit}); no Nuxt or source-page dependency"
+    },
+    {
+      "id": "request-modal",
+      "variant": "partners",
+      "title": "Всплывающая форма",
+      "description": "Модальная заявка с выбранным направлением",
+      "version": "1.0.0",
+      "status": "extracted-reference",
+      "source": {
+        "repo": "daniilterekh-prog/barn-estate-homepage-clone",
+        "commit": "8caa88ffc380031461cd2875f0bf733ce147864e",
+        "route": "for-partners",
+        "selector": ".feedback-modal"
+      },
+      "files": [
+        "fragment.html",
+        "styles.css",
+        "index.html",
+        "README.md"
+      ],
+      "dependencies": [
+        "../../_shared/partners/base.css",
+        "../../_shared/partners/runtime.js",
+        "../../_assets/partners/"
+      ],
+      "content": "Редактируемые тексты и ссылки в fragment.html",
+      "integration": "initBlock(root,{onRequest,onSubmit}); no Nuxt or source-page dependency"
+    }
+  ],
+  "assets": [
+    {
+      "source": "for-partners/assets/logo.svg",
+      "file": "7aa20aa89b87-logo.svg",
+      "bytes": 10900
+    },
+    {
+      "source": "pictures/office-contact/whatsapp.svg",
+      "file": "3e197e0e1f3e-whatsapp.svg",
+      "bytes": 1231
+    },
+    {
+      "source": "pictures/office-contact/max.svg",
+      "file": "5caa61a4b073-max.svg",
+      "bytes": 72862
+    },
+    {
+      "source": "pictures/office-contact/telegram.svg",
+      "file": "4435c9a57e16-telegram.svg",
+      "bytes": 757
+    },
+    {
+      "source": "for-partners/assets/fonts/TildaSans-Light.woff2",
+      "file": "f0f2c165784c-TildaSans-Light.woff2",
+      "bytes": 63952
+    },
+    {
+      "source": "for-partners/assets/fonts/TildaSans-Regular.woff2",
+      "file": "2670dad44ca6-TildaSans-Regular.woff2",
+      "bytes": 61636
+    },
+    {
+      "source": "for-partners/assets/fonts/TildaSans-Medium.woff2",
+      "file": "f716269e361f-TildaSans-Medium.woff2",
+      "bytes": 62556
+    },
+    {
+      "source": "for-partners/assets/fonts/TildaSans-Semibold.woff2",
+      "file": "3814f8c44407-TildaSans-Semibold.woff2",
+      "bytes": 63528
+    },
+    {
+      "source": "for-partners/assets/fonts/TildaSans-Bold.woff2",
+      "file": "a2690df6fe83-TildaSans-Bold.woff2",
+      "bytes": 63216
+    },
+    {
+      "source": "for-partners/assets/fonts/TildaSans-ExtraBold.woff2",
+      "file": "726a3a878465-TildaSans-ExtraBold.woff2",
+      "bytes": 62820
+    },
+    {
+      "source": "for-partners/assets/fonts/TildaSans-Black.woff2",
+      "file": "73abed6708c4-TildaSans-Black.woff2",
+      "bytes": 57952
+    },
+    {
+      "source": "for-partners/assets/media-01.png",
+      "file": "475800022a4b-media-01.png",
+      "bytes": 1964398
+    },
+    {
+      "source": "for-partners/assets/conditions/buyer.webp",
+      "file": "7536002d0502-buyer.webp",
+      "bytes": 115580
+    },
+    {
+      "source": "for-partners/assets/conditions/owner.webp",
+      "file": "7b86e1d0d851-owner.webp",
+      "bytes": 167040
+    },
+    {
+      "source": "for-partners/assets/conditions/repeat.webp",
+      "file": "c979d7e98780-repeat.webp",
+      "bytes": 115666
+    },
+    {
+      "source": "for-partners/assets/directions/city.webp",
+      "file": "89b4a506c07f-city.webp",
+      "bytes": 34248
+    },
+    {
+      "source": "for-partners/assets/directions/generated-country.webp",
+      "file": "c653980372e6-generated-country.webp",
+      "bytes": 591824
+    },
+    {
+      "source": "for-partners/assets/directions/generated-rent-city.webp",
+      "file": "a796cbe8f7a2-generated-rent-city.webp",
+      "bytes": 331612
+    },
+    {
+      "source": "for-partners/assets/directions/generated-rent-country.webp",
+      "file": "9e04efd641b5-generated-rent-country.webp",
+      "bytes": 426392
+    },
+    {
+      "source": "for-partners/assets/directions/generated-abroad.webp",
+      "file": "28a716ae1fcc-generated-abroad.webp",
+      "bytes": 455840
+    },
+    {
+      "source": "for-partners/assets/directions/generated-residency.webp",
+      "file": "1ccdac31cdc7-generated-residency.webp",
+      "bytes": 355752
+    },
+    {
+      "source": "for-partners/assets/directions/generated-commercial.webp",
+      "file": "3167212c5885-generated-commercial.webp",
+      "bytes": 343686
+    },
+    {
+      "source": "for-partners/assets/advantages/international-network.webp",
+      "file": "6fb66e76d46f-international-network.webp",
+      "bytes": 177040
+    },
+    {
+      "source": "for-partners/assets/advantages/premium-residence.webp",
+      "file": "cab478ac3ad3-premium-residence.webp",
+      "bytes": 183064
+    },
+    {
+      "source": "for-partners/assets/advantages/business-meeting.webp",
+      "file": "4b0b572da70c-business-meeting.webp",
+      "bytes": 61386
+    },
+    {
+      "source": "for-partners/assets/advantages/media-analysis.webp",
+      "file": "67ba313c5d98-media-analysis.webp",
+      "bytes": 93184
+    },
+    {
+      "source": "for-partners/assets/media-06.png",
+      "file": "8520fa0e64f6-media-06.png",
+      "bytes": 707614
+    },
+    {
+      "source": "for-partners/assets/advantages/client-registration.webp",
+      "file": "884f9ae197ad-client-registration.webp",
+      "bytes": 58050
+    },
+    {
+      "source": "for-partners/assets/advantages/client-feedback.webp",
+      "file": "31f7b5ee048e-client-feedback.webp",
+      "bytes": 48508
+    },
+    {
+      "source": "for-partners/assets/advantages/property-requests.webp",
+      "file": "1d129ab3e67c-property-requests.webp",
+      "bytes": 160266
+    },
+    {
+      "source": "for-partners/assets/advantages/partner-materials.webp",
+      "file": "9fe9d9406bdf-partner-materials.webp",
+      "bytes": 187478
+    },
+    {
+      "source": "for-partners/assets/advantages/barnes-polo.webp",
+      "file": "dbcfb59ceb77-barnes-polo.webp",
+      "bytes": 123382
+    },
+    {
+      "source": "for-partners/assets/partner-cta-residence.webp",
+      "file": "e98df516a6aa-partner-cta-residence.webp",
+      "bytes": 118750
+    },
+    {
+      "source": "for-partners/assets/igor-bocharov.webp",
+      "file": "d9fca9ab0b97-igor-bocharov.webp",
+      "bytes": 137832
+    },
+    {
+      "source": "for-partners/assets/subscribe-block-img.webp",
+      "file": "32aa70cd1ff3-subscribe-block-img.webp",
+      "bytes": 63620
+    },
+    {
+      "source": "for-partners/assets/subscribe-block-img-mob.webp",
+      "file": "3285d219f184-subscribe-block-img-mob.webp",
+      "bytes": 15704
+    }
+  ]
+}

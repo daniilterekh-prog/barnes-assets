@@ -1,0 +1,27 @@
+{
+  "id": "directions",
+  "variant": "partners",
+  "title": "Направления BARNES",
+  "description": "Семь категорий, фото и показатели без скачков",
+  "version": "1.0.0",
+  "status": "extracted-reference",
+  "source": {
+    "repo": "daniilterekh-prog/barn-estate-homepage-clone",
+    "commit": "8caa88ffc380031461cd2875f0bf733ce147864e",
+    "route": "for-partners",
+    "selector": "#requests"
+  },
+  "files": [
+    "fragment.html",
+    "styles.css",
+    "index.html",
+    "README.md"
+  ],
+  "dependencies": [
+    "../../_shared/partners/base.css",
+    "../../_shared/partners/runtime.js",
+    "../../_assets/partners/"
+  ],
+  "content": "data-block-content: семь направлений; не подтверждает актуальность цен и комиссий",
+  "integration": "initBlock(root,{onRequest,onSubmit}); no Nuxt or source-page dependency"
+}
