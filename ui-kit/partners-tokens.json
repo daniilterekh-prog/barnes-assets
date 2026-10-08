@@ -1,0 +1,13 @@
+{
+ "version":"1.0.0",
+ "font":{"family":"Tilda Sans","light":300,"regular":400},
+ "colors":{"brand":"#8B1D25","ink":"#1E1E1E","description":"#4F4D49","muted":"#656462"},
+ "radius":1,
+ "h2":{"base":[38,45.6],"wide":[44,52.8],"compact":[22,26.4],"weight":300},
+ "action":{"height":{"base":70,"mobile":58},"label":{"base":[17,18.7],"wide":[19,20.9],"mobile":[18,19.8]},"weight":400},
+ "contactSelector":{"variant":"compact","height":{"base":35,"mobile":29},"hitArea":44,"columns":{"base":4,"below1280":2},"gap":[12,16],"icon":{"base":18,"mobile":22}},
+ "photoCard":{"overlay":0.12,"revealedOverlay":0.68,"durationMs":240,"conditionsRevealedOverlay":0.72},
+ "descriptions":{"large":{"size":22,"line":28.16,"weight":300},"hoverCompact":{"size":16,"line":22.4,"weight":400},"directionsCompact":{"size":16,"line":22.4,"weight":300}},
+ "breakpoints":{"mobile":540,"directionsSelect":900,"compactTypography":1024,"channelColumns":1280,"wide":1441},
+ "notTokens":["commission","budget","inventoryCount","expertIdentity","countries"]
+}
