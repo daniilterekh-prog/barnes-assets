@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>LaunchCard — BARNES library</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>body{margin:0;background:#f1f1f1}main{display:grid;min-height:100vh;padding:40px;place-items:center}@media(max-width:540px){main{padding:20px}}</style>
+</head>
+<body><main>
+  <div class="barnes-card-library" data-barnes-card="launch-card">
+    <article class="barnes-launch-card">
+      <a class="barnes-launch-card__link" href="#project" aria-label="УМУН — открыть проект">
+        <span class="barnes-launch-card__media" aria-hidden="true"><img src="../../_assets/849ddf005882-start-sales-umun.jpg" alt=""></span>
+        <span class="barnes-launch-card__deadline">4 квартал 2029</span>
+        <span class="barnes-launch-card__content"><span class="barnes-launch-card__title">УМУН</span><span class="barnes-launch-card__footer"><span class="barnes-launch-card__price">от 9 800 000 ₽</span><span class="barnes-launch-card__region">Алтай</span></span></span>
+      </a>
+      <button class="barnes-favorite" type="button" aria-label="Добавить УМУН в избранное" aria-pressed="false"></button>
+    </article>
+  </div>
+</main><script>document.querySelector('.barnes-favorite').addEventListener('click',function(){this.setAttribute('aria-pressed',this.getAttribute('aria-pressed')!=='true')})</script></body>
+</html>

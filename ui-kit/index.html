@@ -1,1 +1,33 @@
-<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>BARNES — UI Kit собственников</title><link rel="stylesheet" href="../blocks/_shared/base.css"><link rel="stylesheet" href="tokens.css"><style>body{margin:0;font-family:"Tilda Sans",sans-serif}main{max-width:1200px;margin:auto;padding:60px 24px}h1{font-size:44px;font-weight:300}h2{font-weight:300;font-size:38px}p{font-size:22px;color:#4f4d49;line-height:1.5}.swatches{display:flex;flex-wrap:wrap;gap:16px}.swatch{padding:24px;border:1px solid #e4e4e4;min-width:140px}a{color:#8b1d25}button{background:#8b1d25;color:white;border:1px solid #8b1d25;border-radius:1px;padding:18px 36px;min-height:70px;font:400 17px "Tilda Sans"}table{border-collapse:collapse;width:100%;font-size:18px}td,th{padding:16px;border-bottom:1px solid #e4e4e4;text-align:left}@media(max-width:540px){h1{font-size:30px}h2{font-size:22px}p{font-size:15px}table{font-size:14px}}</style></head><body><main class="barnes-template"><p>BARNES / UI KIT</p><h1>Компоненты страниц собственников</h1><p>Дополнение к исходному UI-киту: утверждённые типографические роли и компонентные исключения, без автоматического изменения других страниц.</p><p><a href="owners.md">Полная спецификация</a> · <a href="https://github.com/daniilterekh-prog/barnes-assets/tree/main/ui-kit">Файлы кита</a> · <a href="../blocks/">Каталог блоков</a></p><h2>Палитра</h2><div class="swatches"><div class="swatch" style="background:#8b1d25;color:white">Brand #8b1d25</div><div class="swatch" style="background:#1e1e1e;color:white">Ink #1e1e1e</div><div class="swatch">Secondary #4f4d49</div><div class="swatch" style="background:#f1f1f1">Surface #f1f1f1</div></div><h2>Типографика</h2><table><tr><th>Роль</th><th>Desktop</th><th>Mobile</th></tr><tr><td>H2</td><td>38 / 45.6; wide 44 / 52.8</td><td>22 / 26.4</td></tr><tr><td>Описание</td><td>22 / 28.16–33, weight300</td><td>15 / 19.2–21</td></tr><tr><td>Вкладки с номерами</td><td>22 / 26.4</td><td>18 / 21.6</td></tr><tr><td>Заголовок аргумента</td><td>32 / 38.4</td><td>24 / 28.8</td></tr><tr><td>Доказательства/каналы</td><td>18 / 27</td><td>15 / 21</td></tr></table><h2>Контролы</h2><button type="button">Консультация эксперта ↗</button><p>Радиус1px; стрелка в production берётся из SVG шаблона. Это образец стиля, не форма заявки.</p><h2>Актуальные решения</h2><p>Изображения с gap2px. Карточки команды: отдельное название и серое описание. Панорама: квадратные номера, текст справа, кнопка под левым заголовком. Модальная форма: органичный портрет Руслана, top-centred crop. Анимации — reduced-motion. API форм подключается отдельно.</p></main></body></html>
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>BARNES — UI Kit</title>
+  <link rel="stylesheet" href="../blocks/_shared/base.css">
+  <link rel="stylesheet" href="tokens.css">
+  <link rel="stylesheet" href="component-tokens.css">
+  <style>
+    body{margin:0;font-family:"Tilda Sans",sans-serif;color:#1e1e1e}main{max-width:1200px;margin:auto;padding:60px 24px}h1{font-size:44px;font-weight:300}h2{font-size:38px;font-weight:300;margin-top:56px}p{font-size:22px;color:#4f4d49;line-height:1.5}.swatches{display:flex;flex-wrap:wrap;gap:16px}.swatch{padding:24px;border:1px solid #e4e4e4;min-width:140px}a{color:#8b1d25}.action{background:#8b1d25;color:#fff;border:1px solid #8b1d25;border-radius:1px;padding:18px 36px;min-height:70px;font:400 17px "Tilda Sans"}table{border-collapse:collapse;width:100%;font-size:18px}td,th{padding:16px;border-bottom:1px solid #e4e4e4;text-align:left}@media(max-width:540px){h1{font-size:30px}h2{font-size:22px}p{font-size:15px}table{font-size:14px}}
+  </style>
+</head>
+<body>
+  <main class="barnes-template">
+    <p>BARNES / UI KIT</p>
+    <h1>Компоненты BARNES</h1>
+    <p>Утверждённые типографические роли, контролы и карточки. Компонентные исключения не меняют другие страницы автоматически.</p>
+    <p><a href="reference-ui.md">Базовая спецификация</a> · <a href="README.md">Навигация по киту</a> · <a href="../blocks/">Каталог блоков</a></p>
+    <h2>Палитра</h2>
+    <div class="swatches"><div class="swatch" style="background:#8b1d25;color:#fff">Brand #8B1D25</div><div class="swatch" style="background:#1e1e1e;color:#fff">Ink #1E1E1E</div><div class="swatch">Secondary #4F4D49</div><div class="swatch" style="background:#f1f1f1">Surface #F1F1F1</div></div>
+    <h2>Типографика</h2>
+    <table><tr><th>Роль</th><th>Desktop</th><th>Mobile</th></tr><tr><td>Content H1</td><td>clamp(48, 5.2vw, 75) / .98</td><td>35 / 35</td></tr><tr><td>H2</td><td>38 / 45.6; wide 44 / 52.8</td><td>22 / 26.4</td></tr><tr><td>Описание</td><td>22 / 28.16–33, weight 300</td><td>15 / 19.2–21</td></tr><tr><td>Фильтры</td><td>17; wide 19, weight 400</td><td>17, weight 400</td></tr></table>
+    <h2>Контролы</h2>
+    <button class="action" type="button">Консультация эксперта ↗</button>
+    <p><a href="components/contact-action.md">ContactAction</a> · <a href="components/inline-filter-row.md">InlineFilterRow</a> · <a href="components/card-action-compact.md">CardActionCompact</a> · <a href="components/floating-expert.md">FloatingExpert</a></p>
+    <h2>Карточки каталога</h2>
+    <p><a href="../blocks/cards/start-sales/">Старт продаж</a> · <a href="../blocks/cards/listing-project/">ЖК</a> · <a href="../blocks/cards/listing-lot/">Вторичный лот</a></p>
+    <p>Каждая карточка хранится отдельным переносимым компонентом с HTML, CSS, метаданными и локальным изображением. Контракты: <a href="components/launch-card.md">LaunchCard</a> и <a href="components/listing-card.md">ListingCard</a>.</p>
+  </main>
+</body>
+</html>

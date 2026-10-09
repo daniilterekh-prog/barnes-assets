@@ -1,0 +1,34 @@
+/* Page and card contracts. Opt in via .barnes-template or .barnes-card-library. */
+.barnes-template,
+.barnes-card-library {
+  --barnes-focus: #e7c88f;
+  --barnes-control-border: #e4e4e4;
+  --barnes-control-text: #4f4d49;
+  --barnes-control-muted: #656462;
+  --barnes-contact-action-height: 44px;
+  --barnes-contact-action-size: 17px;
+  --barnes-card-title-size: 22px;
+  --barnes-card-title-line: 1.12;
+  --barnes-card-price-size: 26px;
+  --barnes-card-action-height: 54px;
+  --barnes-card-action-size: 15px;
+  --barnes-launch-title-size: 31px;
+  --barnes-launch-price-size: 21px;
+}
+
+@media (min-width: 1441px) {
+  .barnes-template,
+  .barnes-card-library { --barnes-contact-action-size: 19px; }
+}
+
+@media (max-width: 540px) {
+  .barnes-template,
+  .barnes-card-library {
+    --barnes-contact-action-height: 46px;
+    --barnes-contact-action-size: 18px;
+    --barnes-card-title-size: 20px;
+    --barnes-card-price-size: 24px;
+    --barnes-card-action-height: 50px;
+    --barnes-launch-title-size: 29px;
+  }
+}

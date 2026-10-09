@@ -1,0 +1,11 @@
+{
+  "id": "listing-card-project",
+  "name": "Карточка ЖК",
+  "category": "cards",
+  "variant": "new-development",
+  "entry": "fragment.html",
+  "preview": "index.html",
+  "styles": ["../_shared.css", "../_listing.css", "styles.css"],
+  "assets": ["../../_assets/348dce92538c-listing-project.png"],
+  "contract": "../../../ui-kit/components/listing-card.md"
+}

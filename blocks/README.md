@@ -2,7 +2,7 @@
 
 [Открыть визуальный каталог](https://daniilterekh-prog.github.io/barnes-assets/blocks/) · [UI Kit](../ui-kit/owners.md)
 
-Каноническая библиотека — этот репозиторий. Источники аренды и продажи остаются в отдельных папках barn-estate-homepage-clone. Здесь 16 типов блоков, 30 вариантов, каждый с самостоятельным index.html, fragment.html, styles.css, block.json и README.md.
+Каноническая библиотека — этот репозиторий. Источники аренды и продажи остаются в отдельных папках barn-estate-homepage-clone. Здесь 16 типов блоков собственников, 30 вариантов и 3 самостоятельных карточных компонента, каждый с index.html, fragment.html, styles.css, block.json и README.md.
 
 Также доступны [13 блоков амбассадоров / partners](partners/README.md). Их адаптеры находятся в `_shared/partners/`: используйте инструкции выбранной коллекции, не смешивайте API runtime собственников и амбассадоров.
 
@@ -26,6 +26,14 @@
 | Индивидуальная стратегия продажи | — | [sale](strategy/sale/README.md) |
 | Единая команда BARNES | [rent](team/rent/README.md) | [sale](team/sale/README.md) |
 | Почему собственники выбирают BARNES | [rent](why-barnes/rent/README.md) | [sale](why-barnes/sale/README.md) |
+
+## Карточки каталога
+
+| Компонент | Вариант | Превью |
+| --- | --- | --- |
+| LaunchCard | Старт продаж | [Открыть](cards/start-sales/index.html) |
+| ListingCard | ЖК / новостройка | [Открыть](cards/listing-project/index.html) |
+| ListingCard | Вторичный лот | [Открыть](cards/listing-lot/index.html) |
 
 ## Подключение
 

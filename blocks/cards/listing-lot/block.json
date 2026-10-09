@@ -1,0 +1,11 @@
+{
+  "id": "listing-card-lot",
+  "name": "Карточка вторичного лота",
+  "category": "cards",
+  "variant": "resale-lot",
+  "entry": "fragment.html",
+  "preview": "index.html",
+  "styles": ["../_shared.css", "../_listing.css", "styles.css"],
+  "assets": ["../../_assets/15358c144022-listing-lot.jpg"],
+  "contract": "../../../ui-kit/components/listing-card.md"
+}

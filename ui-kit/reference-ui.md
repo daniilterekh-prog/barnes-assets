@@ -395,7 +395,22 @@ Footer-ссылки на мобильном больше не использую
 6. Проверить accessibility, overflow, изображения и reduced-motion.
 7. Зафиксировать исключения в handoff конкретной страницы.
 
+### Контракты каталога и карточек
+
+- `ContactAction`: компактный переключатель каналов `44px` desktop / `46px` mobile, 4/2 колонки; это не обычная ActionButton.
+- `InlineFilterRow`: `17px` desktop / `19px` wide, weight `400`, нижняя линия `#E4E4E4`, бордовый active/focus-within.
+- `LaunchCard`: медиа `438px`, заголовок `31/34.72px`, цена `21/26.25px`, регион `12/15.6px`.
+- `ListingCard`: название `22/24.64px`, цена `26/31.2px`, характеристики `10px + 13px`; варианты ЖК и лота различаются данными, не геометрией.
+- `CardActionCompact`: `54px` desktop / `50px` mobile и `15px` text; не заменяет общий `70px` CTA.
+- Канонические самостоятельные реализации находятся в `blocks/cards/`, а подробные правила — в `ui-kit/components/`.
+
 ## История
+
+### 2026-10-09
+
+- Зафиксированы контракты ContactAction, InlineFilterRow, LaunchCard, ListingCard, CardActionCompact и FloatingExpert.
+- Карточки стартов продаж, ЖК и вторичного лота вынесены в самостоятельные переносимые компоненты библиотеки ассетов.
+- Для content-page H1 подтверждены `clamp(48px, 5.2vw, 75px)` и mobile `35/35px`; длинный editorial-текст получил явную иерархию H3/H4/body.
 
 ### 2026-10-07
 

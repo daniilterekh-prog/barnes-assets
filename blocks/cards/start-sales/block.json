@@ -1,0 +1,14 @@
+{
+  "id": "launch-card",
+  "variant": "start-sales",
+  "title": "Карточка старта продаж",
+  "version": "1.0.0",
+  "source": {
+    "repo": "daniilterekh-prog/barn-estate-homepage-clone",
+    "route": "kurortnaya",
+    "selector": ".launch-card"
+  },
+  "files": ["fragment.html", "styles.css", "index.html"],
+  "dependencies": ["../_shared.css", "../../_assets/849ddf005882-start-sales-umun.jpg"],
+  "status": "approved-component"
+}
