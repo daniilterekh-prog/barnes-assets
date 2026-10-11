@@ -6,4 +6,4 @@
 - Высота: `44px` desktop, `46px` mobile; gap `12px`; radius `1px`.
 - Текст: `17/18.7px`, wide `19px`, mobile `18px`; weight `400`.
 - Иконка: `18px` desktop, `20px` mobile.
-- Focus-visible: `2px #E7C88F`, offset `3px`; выбранный канал отражается через `aria-pressed`.
+- Focus-visible: `2px #8B1D25`, offset `3px`; жёлтый запрещён. В узлах первой степени каналы CTA располагаются в две строки согласно экспортированному CSS, а не принудительно в четыре колонки. Выбор отражается через `aria-selected` для tab-контролов или `aria-pressed` для обычных кнопок.

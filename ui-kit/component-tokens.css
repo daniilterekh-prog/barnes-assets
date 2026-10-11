@@ -1,7 +1,7 @@
 /* Page and card contracts. Opt in via .barnes-template or .barnes-card-library. */
 .barnes-template,
 .barnes-card-library {
-  --barnes-focus: #e7c88f;
+  --barnes-focus: #8b1d25;
   --barnes-control-border: #e4e4e4;
   --barnes-control-text: #4f4d49;
   --barnes-control-muted: #656462;

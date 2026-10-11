@@ -398,7 +398,7 @@ Footer-ссылки на мобильном больше не использую
 ### Контракты каталога и карточек
 
 - `ContactAction`: компактный переключатель каналов `44px` desktop / `46px` mobile, 4/2 колонки; это не обычная ActionButton.
-- `InlineFilterRow`: `17px` desktop / `19px` wide, weight `400`, нижняя линия `#E4E4E4`, бордовый active/focus-within.
+- `InlineFilterRow`: актуальное уточнение узлов первой степени — `17px` desktop/mobile / `19px` wide, weight `300`, нижняя линия `#E4E4E4`, только бордовый hover/focus. См. [FirstDegreeNode](first-degree.md).
 - `LaunchCard`: медиа `438px`, заголовок `31/34.72px`, цена `21/26.25px`, регион `12/15.6px`.
 - `ListingCard`: название `22/24.64px`, цена `26/31.2px`, характеристики `10px + 13px`; варианты ЖК и лота различаются данными, не геометрией.
 - `CardActionCompact`: `54px` desktop / `50px` mobile и `15px` text; не заменяет общий `70px` CTA.

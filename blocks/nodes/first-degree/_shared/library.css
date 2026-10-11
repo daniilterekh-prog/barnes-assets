@@ -1,0 +1,19 @@
+/* Export integration rules; the reviewed page styles are loaded before this file. */
+.node-preview { min-width: 0; }
+.node-preview:not([data-assembly]) > .layout__header { position: relative; background: #262626; }
+.node-preview:not([data-assembly]) > .catalog-sticky { position: relative; transform: none; visibility: visible; opacity: 1; }
+.node-preview:not([data-assembly]) > .floating-expert { position: relative; inset: auto; margin: 40px auto; animation: none; opacity: 1; transform: none; }
+.node-preview:not([data-assembly]) > .catalog-feedback-modal { position: relative; min-height: 100dvh; }
+.node-preview [data-node-card] { max-width: 420px; margin: 40px auto; }
+.node-map-placeholder { height: 100%; min-height: 240px; background: #e4e4e4; }
+.node-map-placeholder::before { content: 'Карта объектов'; display: block; padding: 32px; color: #4f4d49; }
+.node-filter-dialog { border: 1px solid #e4e4e4; border-radius: 1px; max-width: min(480px,calc(100vw - 32px)); padding: 24px; color: #1e1e1e; }
+.node-filter-dialog::backdrop { background: rgb(0 0 0 / 45%); }
+.node-filter-dialog label { display: grid; gap: 8px; margin: 16px 0; }
+.node-filter-dialog input, .node-filter-dialog select { border: 1px solid #e4e4e4; min-height: 44px; font: inherit; padding: 8px; width: 100%; }
+.node-filter-dialog button { font: inherit; min-height: 44px; background: #8b1d25; color: #fff; border: 0; padding: 10px 18px; }
+.node-status { font: 16px/1.4 'Tilda Sans',sans-serif; margin-top: 16px; }
+.catalog-hero__filter-panel[hidden], .catalog-grid__item[hidden] { display: none !important; }
+.catalog-sticky:not(.catalog-sticky--visible) .catalog-sticky__contact-panel { display: none; }
+.node-preview a:hover, .node-preview button:hover { --barnes-focus: #8b1d25; }
+[data-node^="card-"] .node-card-preview { max-width: 520px; margin: 32px auto; padding: 0 16px; }

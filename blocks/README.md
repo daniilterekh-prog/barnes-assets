@@ -1,5 +1,7 @@
 # BARNES — библиотека блоков собственников
 
+Отдельная коллекция: [узлы первой степени / Курортная](nodes/first-degree/README.md) — 15 блоков и 3 актуальные карточки, [превью](nodes/first-degree/catalog.html).
+
 [Открыть визуальный каталог](https://daniilterekh-prog.github.io/barnes-assets/blocks/) · [UI Kit](../ui-kit/owners.md)
 
 Каноническая библиотека — этот репозиторий. Источники аренды и продажи остаются в отдельных папках barn-estate-homepage-clone. Здесь 16 типов блоков собственников, 30 вариантов и 3 самостоятельных карточных компонента, каждый с index.html, fragment.html, styles.css, block.json и README.md.
