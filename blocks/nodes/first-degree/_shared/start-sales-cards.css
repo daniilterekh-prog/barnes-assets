@@ -1,0 +1,297 @@
+.catalog-best-offers {
+  --start-sales-card-height: 438px;
+  --start-sales-card-pad: 24px;
+  --start-sales-accent: #8b1d25;
+}
+
+.catalog-best-offers .apartment-card.launch-card {
+  position: relative;
+  isolation: isolate;
+  height: var(--start-sales-card-height);
+  min-width: 0;
+  overflow: hidden;
+  border-radius: 1px;
+  background: #252525;
+  color: #fff;
+  transition: width 700ms cubic-bezier(0.22, 1, 0.36, 1),
+    height 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.catalog-best-offers .splide__slide.is-prev .apartment-card.launch-card,
+.catalog-best-offers .splide__slide.is-next .apartment-card.launch-card {
+  height: calc(var(--start-sales-card-height) * 0.84);
+  margin-block: auto;
+}
+
+.catalog-best-offers .splide__slide.is-active .apartment-card.launch-card {
+  height: var(--start-sales-card-height);
+}
+
+.catalog-best-offers #splide01 > .splide__pagination {
+  display: none;
+}
+
+.catalog-best-offers .launch-card *,
+.catalog-best-offers .launch-card *::before,
+.catalog-best-offers .launch-card *::after {
+  box-sizing: border-box;
+}
+
+.catalog-best-offers .launch-card .apartment-card__link {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: var(--start-sales-card-pad);
+  color: #fff;
+  text-decoration: none;
+}
+
+.catalog-best-offers .launch-card .apartment-card__media {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+  overflow: hidden;
+  border-radius: 0;
+  background: #252525;
+  transition: none;
+}
+
+.catalog-best-offers .launch-card .apartment-card__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.05) 28%,
+    rgba(0, 0, 0, 0.13) 48%,
+    rgba(0, 0, 0, 0.88) 100%
+  );
+  pointer-events: none;
+}
+
+.catalog-best-offers .launch-card .apartment-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--start-sales-image-position, center);
+  transform: scale(1);
+  transition: transform 550ms ease;
+}
+
+.catalog-best-offers .launch-card.launch-card--image-error .apartment-card__image {
+  opacity: 0;
+}
+
+.catalog-best-offers .launch-card .apartment-card__delivery {
+  top: 18px;
+  right: auto;
+  left: 18px;
+  z-index: 2;
+  max-width: calc(100% - 88px);
+  padding: 8px 10px;
+  background: #fff;
+  color: #333;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 0.045em;
+  pointer-events: none;
+}
+
+.catalog-best-offers .launch-card .apartment-card__body {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0;
+  color: #fff;
+}
+
+.catalog-best-offers .launch-card .apartment-card__name {
+  order: 1;
+  display: -webkit-box;
+  min-height: 35px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  color: #fff;
+  font-size: 31px;
+  font-weight: 400;
+  line-height: 1.12;
+  letter-spacing: -0.6px;
+  overflow-wrap: anywhere;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.catalog-best-offers .launch-card .apartment-card__details {
+  order: 2;
+  display: block;
+  margin: 18px 0 0;
+}
+
+.catalog-best-offers .launch-card .apartment-card__price-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 55px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.catalog-best-offers .launch-card .apartment-card__price {
+  min-width: 0;
+  min-height: 0;
+  margin: 0;
+  color: #fff;
+  font-size: 21px;
+  font-weight: 400;
+  line-height: 1.25;
+  letter-spacing: -0.5px;
+}
+
+.catalog-best-offers .launch-card .launch-card__region {
+  order: 0;
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex: 0 1 auto;
+  min-width: 0;
+  margin: 0 0 10px;
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.96);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0.08em;
+  text-align: left;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.catalog-best-offers .launch-card .launch-card__region-icon {
+  flex: 0 0 16px;
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.25;
+}
+
+.catalog-best-offers .launch-card__favorite {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.94);
+  color: #333;
+  cursor: pointer;
+}
+
+.catalog-best-offers .launch-card__favorite svg {
+  width: 21px;
+  height: 21px;
+  fill: transparent;
+  stroke: currentColor;
+  transition: fill 180ms ease, color 180ms ease;
+}
+
+.catalog-best-offers .launch-card__favorite[aria-pressed="true"] {
+  color: var(--start-sales-accent);
+}
+
+.catalog-best-offers .launch-card__favorite[aria-pressed="true"] svg {
+  fill: currentColor;
+}
+
+.catalog-best-offers .launch-card .apartment-card__link:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: -5px;
+}
+
+.catalog-best-offers .launch-card__favorite:focus-visible {
+  outline: 2px solid var(--start-sales-accent);
+  outline-offset: 3px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .catalog-best-offers .launch-card:hover .apartment-card__image {
+    transform: scale(1.025);
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .catalog-best-offers {
+    --start-sales-card-pad: 22px;
+  }
+
+  .catalog-best-offers .launch-card .apartment-card__name {
+    font-size: 29px;
+  }
+
+  .catalog-best-offers .launch-card .apartment-card__details {
+    margin-top: 16px;
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .catalog-best-offers #splide01 > .splide__pagination {
+    display: flex;
+  }
+
+  .catalog-best-offers .splide__slide.is-prev .apartment-card.launch-card,
+  .catalog-best-offers .splide__slide.is-next .apartment-card.launch-card,
+  .catalog-best-offers .splide__slide.is-active .apartment-card.launch-card {
+    height: var(--start-sales-card-height);
+    margin-block: 0;
+  }
+
+  .catalog-best-offers .launch-card .launch-card__region {
+    gap: 7px;
+    margin-bottom: 9px;
+    font-size: 13px;
+  }
+
+  .catalog-best-offers .launch-card .launch-card__region-icon {
+    flex-basis: 15px;
+    width: 15px;
+    height: 15px;
+  }
+}
+
+@media screen and (max-width: 359px) {
+  .catalog-best-offers {
+    --start-sales-card-pad: 20px;
+  }
+
+  .catalog-best-offers .launch-card .apartment-card__price {
+    font-size: 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .catalog-best-offers .launch-card .apartment-card__image,
+  .catalog-best-offers .apartment-card.launch-card,
+  .catalog-best-offers .launch-card__favorite svg {
+    transition: none;
+  }
+
+  .catalog-best-offers .launch-card:hover .apartment-card__image {
+    transform: none;
+  }
+}

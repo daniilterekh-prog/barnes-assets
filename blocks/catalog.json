@@ -724,5 +724,14 @@
       "status": "extracted-reference",
       "integration": "Copy fragment and stylesheet, preserve data-v attributes, include base tokens and call initBlock. Supply onRequest/onSubmit for production. Source page is not a dependency."
     }
-  ]
+  ],
+  "collections": {
+    "first-degree": {
+      "entry": "nodes/first-degree/manifest.json",
+      "preview": "nodes/first-degree/catalog.html",
+      "blocks": 15,
+      "cards": 3,
+      "sourceCommit": "dacc3ab943a1dd8167188300592c683b35d16b06"
+    }
+  }
 }
