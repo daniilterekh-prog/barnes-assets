@@ -1,0 +1,50 @@
+.map-browser[hidden] { display: none !important; }
+.map-browser { position: fixed; inset: 0; z-index: 10000; background: #f1f1f1; color: #1e1e1e; font-family: inherit; }
+.map-browser * { box-sizing: border-box; }
+.map-browser__backdrop { position: absolute; inset: 0; overflow: hidden; }
+.map-browser__backdrop img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.map-browser__attribution { position: absolute; right: 8px; bottom: 6px; padding: 3px 6px; background: #fff; color: #1e1e1e; font-size: 12px; }
+.map-browser__notice { position: absolute; right: 20px; bottom: 30px; max-width: 240px; padding: 10px 14px; background: #fff; font-size: 13px; line-height: 1.4; }
+.map-browser__close { position: absolute; z-index: 3; top: 20px; right: 20px; width: 44px; height: 44px; border: 1px solid #dedede; background: #fff; color: #1e1e1e; cursor: pointer; display: grid; place-items: center; }
+.map-browser__close svg { width: 24px; height: 24px; }
+.map-browser__panel { position: absolute; inset: 0 auto 0 0; width: min(420px, 100%); background: #fff; display: flex; flex-direction: column; overflow: hidden; }
+.map-browser__heading { margin: 0; padding: 20px 20px 12px; font-size: 18px; font-weight: 500; line-height: 1.3; }
+.map-browser__search-row { display: grid; grid-template-columns: 1fr 48px; gap: 10px; margin: 0 20px 12px; }
+.map-browser input, .map-browser select, .map-browser button { font-family: inherit; font-size: 14px; font-weight: 400; color: inherit; }
+.map-browser__search { display: flex; align-items: center; gap: 10px; border: 1px solid #dedede; padding: 0 12px; min-height: 48px; }
+.map-browser__search svg { width: 20px; height: 20px; flex: none; }
+.map-browser__search input { width: 100%; min-width: 0; border: 0; background: transparent; padding: 0; outline-offset: 4px; }
+.map-browser__filter-toggle { border: 1px solid #dedede; background: white; display: grid; place-items: center; cursor: pointer; }
+.map-browser__filter-toggle svg { width: 22px; height: 22px; }
+.map-browser__filters { margin: 0 20px 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.map-browser__filters[hidden], .map-browser__extra[hidden] { display: none; }
+.map-browser__filters label { display: flex; flex-direction: column; gap: 5px; font-size: 12px; color: #52514f; }
+.map-browser__filters input, .map-browser__filters select { border: 0; border-bottom: 1px solid #dedede; border-radius: 0; background: white; width: 100%; min-width: 0; min-height: 36px; padding: 6px 0; }
+.map-browser__extra { grid-column: 1 / -1; }
+.map-browser__reset { grid-column: 1 / -1; background: none; border: 0; color: #931f2b !important; text-align: left; padding: 6px 0; cursor: pointer; }
+.map-browser__list { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 0 20px 20px; }
+.map-browser__card { border-bottom: 1px solid #dedede; padding-bottom: 24px; margin-bottom: 24px; }
+.map-browser__card img { display: block; width: 100%; aspect-ratio: 380 / 260; object-fit: cover; }
+.map-browser__card a { color: inherit; text-decoration: none; }
+.map-browser__card h3 { font-size: 18px; font-weight: 400; line-height: 1.35; margin: 14px 0 8px; }
+.map-browser__card p { font-size: 16px; margin: 0; line-height: 1.4; }
+.map-browser__empty { font-size: 16px; line-height: 1.5; padding: 20px 0; }
+.map-browser__handle { display: none; }
+.map-browser button:hover, .map-browser a:hover { color: #931f2b; }
+.map-browser :focus-visible { outline: 2px solid #931f2b; outline-offset: 3px; }
+@media (max-width: 540px) {
+  .map-browser__close { top: 16px; right: 16px; }
+  .map-browser__panel { inset: auto 0 0; width: 100%; max-height: 85dvh; padding-bottom: env(safe-area-inset-bottom); }
+  .map-browser__panel--expanded { height: 85dvh; }
+  .map-browser__panel:not(.map-browser__panel--expanded) .map-browser__heading,
+  .map-browser__panel:not(.map-browser__panel--expanded) .map-browser__filters,
+  .map-browser__panel:not(.map-browser__panel--expanded) .map-browser__list { display: none; }
+  .map-browser__handle { display: grid; place-items: center; min-height: 32px; padding: 10px; border: 0; background: white; cursor: pointer; flex: none; }
+  .map-browser__handle::before { content: ''; width: 36px; height: 4px; border-radius: 2px; background: #999; }
+  .map-browser__heading { padding: 8px 16px 12px; }
+  .map-browser__search-row { margin: 0 16px 12px; flex: none; }
+  .map-browser__filters { margin: 0 16px 12px; flex: none; }
+  .map-browser__list { padding: 0 16px 16px; }
+  .map-browser__notice { top: 72px; bottom: auto; left: 16px; right: 16px; max-width: none; margin: 0; font-size: 12px; padding: 8px 12px; }
+  .map-browser__attribution { bottom: auto; top: 16px; left: 16px; right: auto; }
+}
