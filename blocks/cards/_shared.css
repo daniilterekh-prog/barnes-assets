@@ -1,0 +1,145 @@
+@font-face {
+  font-family: "Tilda Sans";
+  src: url("../_assets/f0f2c165784c-TildaSans-Light.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Tilda Sans";
+  src: url("../_assets/2670dad44ca6-TildaSans-Regular.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Tilda Sans";
+  src: url("../_assets/f716269e361f-TildaSans-Medium.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+
+.barnes-card-library {
+  --card-ink: #1e1e1e;
+  --card-secondary: #4f4d49;
+  --card-muted: #656462;
+  --card-brand: #8b1d25;
+  --card-gold: #e7c88f;
+  --card-border: #e4e4e4;
+  color: var(--card-ink);
+  font-family: "Tilda Sans", system-ui, sans-serif;
+}
+
+.barnes-card-library *,
+.barnes-card-library *::before,
+.barnes-card-library *::after {
+  box-sizing: border-box;
+}
+
+.barnes-card-library :is(a, button):focus-visible {
+  outline: 2px solid var(--card-gold);
+  outline-offset: 3px;
+}
+
+.barnes-card-library img {
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.barnes-card-library a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.barnes-card-library button {
+  font: inherit;
+}
+
+.barnes-favorite {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.94);
+  border: 0;
+  border-radius: 50%;
+  color: var(--card-ink);
+  cursor: pointer;
+  display: inline-flex;
+  height: 44px;
+  justify-content: center;
+  padding: 0;
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  width: 44px;
+  z-index: 3;
+}
+
+.barnes-favorite::before {
+  content: "♡";
+  font-size: 27px;
+  line-height: 1;
+}
+
+.barnes-favorite[aria-pressed="true"] {
+  color: var(--card-brand);
+}
+
+.barnes-favorite[aria-pressed="true"]::before {
+  content: "♥";
+}
+
+.barnes-card-action {
+  align-items: center;
+  border: 1px solid var(--card-border);
+  border-radius: 1px;
+  display: inline-flex;
+  font-size: 15px;
+  font-weight: 400;
+  height: 54px;
+  justify-content: center;
+  line-height: 1.1;
+  padding: 0 16px;
+  text-align: center;
+  transition: background-color 200ms ease, border-color 200ms ease, color 200ms ease;
+}
+
+.barnes-card-action--primary {
+  background: var(--card-brand);
+  border-color: var(--card-brand);
+  color: #fff;
+}
+
+.barnes-card-action--secondary {
+  background: #fff;
+  color: var(--card-ink);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .barnes-card-action--primary:hover {
+    opacity: 0.9;
+  }
+
+  .barnes-card-action--secondary:hover {
+    border-color: var(--card-ink);
+  }
+}
+
+@media (max-width: 540px) {
+  .barnes-card-action {
+    height: 50px;
+    padding-inline: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .barnes-card-library *,
+  .barnes-card-library *::before,
+  .barnes-card-library *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
