@@ -6,9 +6,13 @@
   var assetsBase = new URL('.', document.currentScript.src);
   var style = document.createElement('link');
   style.rel = 'stylesheet';
-  style.href = new URL('map-fullscreen.css?v=1', assetsBase).href;
+  style.href = new URL('map-fullscreen.css?v=2', assetsBase).href;
   document.head.appendChild(style);
   var icon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">';
+  var parameterIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">';
+  var priceIcon = parameterIcon + '<circle cx="12" cy="12" r="9"/><path d="M9 16V7.5h3.4a2.75 2.75 0 1 1 0 5.5H9m0 0h5.6m-5.6 2h4.6"/></svg>';
+  var buildingIcon = parameterIcon + '<path d="M4 21V5h10v16M14 10h6v11M2 21h20M8 9h2M8 13h2M8 17h2M17 14h1M17 17h1"/></svg>';
+  var filtersIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" aria-hidden="true"><path d="M4 6h3m4 0h9M4 12h8m4 0h4M4 18h4m4 0h8"/><circle cx="9" cy="6" r="2"/><circle cx="14" cy="12" r="2"/><circle cx="10" cy="18" r="2"/></svg>';
   var dialog = document.createElement('section');
   dialog.className = 'map-browser';
   dialog.hidden = true;
@@ -21,11 +25,11 @@
     '<button class="map-browser__close" aria-label="Закрыть полноэкранный режим карты">' + icon + '<path d="m6 6 12 12M18 6 6 18"/></svg></button>' +
     '<div class="map-browser__panel"><button class="map-browser__handle" aria-label="Развернуть список объектов" aria-expanded="false"></button>' +
     '<h2 class="map-browser__heading" aria-live="polite"></h2><div class="map-browser__search-row">' +
-    '<label class="map-browser__search">' + icon + '<circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input type="search" aria-label="Поиск объектов на карте" placeholder="Начните вводить запрос"></label>' +
-    '<button class="map-browser__filter-toggle" aria-label="Подробные фильтры" aria-expanded="false">' + icon + '<path d="M3 6h18M3 12h18M3 18h18"/><circle cx="8" cy="6" r="2" fill="white"/><circle cx="16" cy="12" r="2" fill="white"/><circle cx="9" cy="18" r="2" fill="white"/></svg></button></div>' +
-    '<div class="map-browser__filters"><label>Тип объекта<select aria-label="Тип объекта" data-filter="type"><option value="">Все объекты</option><option value="rc">Жилые комплексы</option><option value="lot">Лоты</option></select></label>' +
-    '<label>Цена до, ₽<input type="number" min="0" step="1000000" data-filter="price" placeholder="Любая"></label>' +
-    '<label class="map-browser__extra" hidden>Сортировка<select aria-label="Сортировка" data-filter="sort"><option value="">По релевантности</option><option value="asc">Сначала дешевле</option><option value="desc">Сначала дороже</option></select></label>' +
+    '<label class="map-browser__search">' + parameterIcon + '<circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input type="search" aria-label="Поиск объектов на карте" placeholder="Поиск объектов"></label>' +
+    '<button class="map-browser__filter-toggle" aria-label="Подробные фильтры" aria-expanded="false">' + filtersIcon + '</button></div>' +
+    '<div class="map-browser__filters"><label class="map-browser__field map-browser__field--select"><span class="map-browser__sr-only">Тип объекта</span>' + buildingIcon + '<select aria-label="Тип объекта" data-filter="type"><option value="">Тип объекта</option><option value="rc">ЖК</option><option value="lot">Лоты</option></select><span class="map-browser__chevron" aria-hidden="true"></span></label>' +
+    '<label class="map-browser__field"><span class="map-browser__sr-only">Цена до, ₽</span>' + priceIcon + '<input aria-label="Цена до, ₽" type="number" min="0" step="1000000" data-filter="price" placeholder="Стоимость"></label>' +
+    '<label class="map-browser__field map-browser__field--select map-browser__extra" hidden><span class="map-browser__sr-only">Сортировка</span><select aria-label="Сортировка" data-filter="sort"><option value="">По релевантности</option><option value="asc">Сначала дешевле</option><option value="desc">Сначала дороже</option></select><span class="map-browser__chevron" aria-hidden="true"></span></label>' +
     '<button class="map-browser__reset">Сбросить фильтры</button></div><div class="map-browser__list"></div></div>';
   document.body.appendChild(dialog);
   var panel = dialog.querySelector('.map-browser__panel');
