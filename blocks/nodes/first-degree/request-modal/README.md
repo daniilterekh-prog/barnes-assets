@@ -1,6 +1,6 @@
 # Попап заявки
 
-Эталон узла первой степени. Источник: `kurortnaya`, commit `8f176eaf71595adb0e561e98340731492cd7eecf`.
+Эталон узла первой степени. Источник: `kurortnaya`, commit `14401c518b4a5f51e910121f1741d79efa164a80`.
 
 - `fragment.html` — desktop/tablet; `mobile.html` — до 540 px.
 - `index.html` — самостоятельное превью.
