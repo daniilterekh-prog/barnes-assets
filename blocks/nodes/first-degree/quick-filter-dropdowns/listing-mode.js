@@ -46,7 +46,16 @@
   const projectBody = projectCard?.querySelector('.apartment-card__body');
   const projectName = projectBody?.querySelector('.apartment-card__name');
   projectBody?.querySelector('.apartment-card__topline')?.remove();
-  projectBody?.querySelector('.apartment-card__address')?.remove();
+  if (projectBody && projectName) {
+    const address = projectBody.querySelector('.apartment-card__address') || document.createElement('p');
+    address.className = 'apartment-card__address';
+    address.setAttribute('data-v-80c326fb', '');
+    if (!address.textContent.trim()) {
+      // Project website: sales office on the property, https://grand.marine-garden-sochi.ru/.
+      address.textContent = 'Сочи, ул. Шоссейная, 9Б';
+    }
+    projectName.before(address);
+  }
   if (projectName && !projectBody.querySelector('.listing-card-facts')) {
     projectName.after(createFacts([
       ['Локация', 'Сочи · Хоста'],
