@@ -31,10 +31,10 @@ urls = set()
 for rows in snapshots.values():
     for row in rows:
         urls.update(re.findall(r'\bsrc="(https?://[^\"]+)"', row['html']))
-css_files = ['source.css', 'ui-kit.css', 'listing-mode.css', 'start-sales-cards.css']
+css_files = ['source.css', 'ui-kit.css', 'listing-mode.css', 'start-sales-cards.css', 'owner-header.css']
 css_contents = {}
 for file in css_files:
-    css = (site / 'kurortnaya' / file).read_text()
+    css = (site / ('shared' if file == 'owner-header.css' else 'kurortnaya') / file).read_text()
     # Copy project-owned CSS dependencies only. Original remote CSS URLs stay remote.
     for match in re.finditer(r'url\(([\"\']?)([^)]+?)\1\)', css):
         value = match[2]
@@ -80,7 +80,7 @@ def page(id=None):
     scripts = f'<script type="module" src="{prefix}preview.js"></script>'
     links = ''.join(f'<link rel="stylesheet" href="{prefix}{file}">' for file in css_files + ['library.css'])
     data = f'data-node="{id}"' if id else 'data-assembly="true"'
-    return f'<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{titles.get(id,"Узел первой степени / референс")}</title>{links}</head><body><main class="node-preview" {data}></main>{scripts}</body></html>\n'
+    return f'<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{titles.get(id,"Узел первой степени / референс")}</title>{links}</head><body class="barnes-header-template"><main class="node-preview" {data}></main>{scripts}</body></html>\n'
 
 blocks = []
 for row in snapshots['desktop']:
@@ -100,7 +100,7 @@ for row in snapshots['desktop']:
         # Inline preview transforms and widths depend on the captured viewport.
         html = re.sub(r'(<(?:li|ul)[^>]*class="[^"]*splide__[^"]*"[^>]*?)\sstyle="[^"]*"', r'\1', html)
         (folder / ('fragment.html' if view == 'desktop' else 'mobile.html')).write_text(html + '\n')
-    (folder / 'styles.css').write_text('@import url("../_shared/source.css");\n@import url("../_shared/ui-kit.css");\n@import url("../_shared/listing-mode.css");\n@import url("../_shared/start-sales-cards.css");\n@import url("../_shared/library.css");\n')
+    (folder / 'styles.css').write_text(''.join(f'@import url("../_shared/{file}");\n' for file in css_files + ['library.css']))
     (folder / 'index.html').write_text(page(id))
     manifest = {'id':f'first-degree-{id}', 'title':titles[id], 'version':'1.0.0', 'source':{'repo':'daniilterekh-prog/barn-estate-homepage-clone','commit':commit,'route':'kurortnaya','selector':row['selector']}, 'entry':'fragment.html','mobileEntry':'mobile.html','preview':'index.html','styles':['styles.css'],'runtime':'../_shared/runtime.js','contract':'../../../../ui-kit/first-degree.md','dependencies':['../_shared/'], 'hooks': {'map':['onMap'], 'listing':['onFilter','onSort'], 'hero':['onFilter','onSearch'], 'header':['onMenu','onSearch']}.get(id, ['onSubmit','onRequest'] if id in ('cta-central','cta-bottom','request-modal','floating-expert') else [])}
     (folder / 'block.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n')

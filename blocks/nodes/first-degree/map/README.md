@@ -1,6 +1,6 @@
 # Карта проектов
 
-Эталон узла первой степени. Источник: `kurortnaya`, commit `dacc3ab943a1dd8167188300592c683b35d16b06`.
+Эталон узла первой степени. Источник: `kurortnaya`, commit `f00d7f7`.
 
 - `fragment.html` — desktop/tablet; `mobile.html` — до 540 px.
 - `index.html` — самостоятельное превью.

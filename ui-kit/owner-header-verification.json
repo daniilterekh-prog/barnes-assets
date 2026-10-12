@@ -1,0 +1,53 @@
+{
+  "source": "f00d7f7",
+  "reference": "prodazha_sobstvennikam",
+  "target": "kurortnaya",
+  "intentionalDifferences": [
+    "No directions row",
+    "Page-specific anchors"
+  ],
+  "measurements": [
+    {
+      "width": 390,
+      "differences": [],
+      "stickyHeight": 77,
+      "navAbsent": true
+    },
+    {
+      "width": 768,
+      "differences": [],
+      "stickyHeight": 107,
+      "navAbsent": true
+    },
+    {
+      "width": 1024,
+      "differences": [],
+      "stickyHeight": 107,
+      "navAbsent": true
+    },
+    {
+      "width": 1366,
+      "differences": [],
+      "stickyHeight": 107,
+      "navAbsent": true
+    },
+    {
+      "width": 1920,
+      "differences": [],
+      "stickyHeight": 108.765625,
+      "navAbsent": true
+    },
+    {
+      "width": 2560,
+      "differences": [],
+      "stickyHeight": 108.765625,
+      "navAbsent": true
+    }
+  ],
+  "interactions": {
+    "requestModal": true,
+    "mobileContactsPanelClickable": true,
+    "mobileContactsCount": 4,
+    "mobileHorizontalOverflow": false
+  }
+}
