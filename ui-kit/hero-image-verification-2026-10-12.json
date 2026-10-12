@@ -1,5 +1,5 @@
 {
-  "sourceCommit": "0f389c4817414f05ab4704c6168791a6105ccd73",
+  "sourceCommit": "8d2a564",
   "failures": 0,
   "results": [
     {
@@ -7,56 +7,72 @@
       "width": 941,
       "pass": true,
       "height": 1672,
-      "src": "blocks/nodes/first-degree/_shared/assets/0d1f105d2525b96b.webp"
+      "src": "blocks/nodes/first-degree/_shared/assets/0d1f105d2525b96b.webp",
+      "overlay": "rgba(0, 0, 0, 0.2)",
+      "backgroundImage": "none"
     },
     {
       "route": "assembly",
       "width": 1664,
       "pass": true,
       "height": 936,
-      "src": "blocks/nodes/first-degree/_shared/assets/0d8f1c149c0ece36.webp"
+      "src": "blocks/nodes/first-degree/_shared/assets/0d8f1c149c0ece36.webp",
+      "overlay": "rgba(0, 0, 0, 0.2)",
+      "backgroundImage": "none"
     },
     {
       "route": "assembly",
       "width": 1664,
       "pass": true,
       "height": 936,
-      "src": "blocks/nodes/first-degree/_shared/assets/0d8f1c149c0ece36.webp"
+      "src": "blocks/nodes/first-degree/_shared/assets/0d8f1c149c0ece36.webp",
+      "overlay": "rgba(0, 0, 0, 0.2)",
+      "backgroundImage": "none"
     },
     {
       "route": "assembly",
       "width": 1664,
       "pass": true,
       "height": 936,
-      "src": "blocks/nodes/first-degree/_shared/assets/0d8f1c149c0ece36.webp"
+      "src": "blocks/nodes/first-degree/_shared/assets/0d8f1c149c0ece36.webp",
+      "overlay": "rgba(0, 0, 0, 0.2)",
+      "backgroundImage": "none"
     },
     {
       "route": "hero/",
       "width": 941,
       "pass": true,
       "height": 1672,
-      "src": "blocks/nodes/first-degree/_shared/assets/0d1f105d2525b96b.webp"
+      "src": "blocks/nodes/first-degree/_shared/assets/0d1f105d2525b96b.webp",
+      "overlay": "rgba(0, 0, 0, 0.2)",
+      "backgroundImage": "none"
     },
     {
       "route": "hero/",
       "width": 1664,
       "pass": true,
       "height": 936,
-      "src": "blocks/nodes/first-degree/_shared/assets/0d8f1c149c0ece36.webp"
+      "src": "blocks/nodes/first-degree/_shared/assets/0d8f1c149c0ece36.webp",
+      "overlay": "rgba(0, 0, 0, 0.2)",
+      "backgroundImage": "none"
     },
     {
       "route": "hero/",
       "width": 1664,
       "pass": true,
       "height": 936,
-      "src": "blocks/nodes/first-degree/_shared/assets/0d8f1c149c0ece36.webp"
+      "src": "blocks/nodes/first-degree/_shared/assets/0d8f1c149c0ece36.webp",
+      "overlay": "rgba(0, 0, 0, 0.2)",
+      "backgroundImage": "none"
     },
     {
       "route": "hero/",
       "width": 1664,
       "pass": true,
       "height": 936,
-      "src": "blocks/nodes/first-degree/_shared/assets/0d8f1c149c0ece36.webp"
+      "src": "blocks/nodes/first-degree/_shared/assets/0d8f1c149c0ece36.webp",
+      "overlay": "rgba(0, 0, 0, 0.2)",
+      "backgroundImage": "none"
     }
   ]
 }

@@ -27,7 +27,7 @@ Tilda Sans. Ink #1E1E1E, secondary #4F4D49, muted #656462, brand/hover/focus #8B
 
 px / line-height. [ComputedStyle с селекторами](first-degree-measurements.json). Hero H1 ограничен 58 px, не переносить универсальный display-H1 другого лендинга.
 
-Hero media: горизонтальная альпийская терраса1664×936 (точное16:9) desktop и пользовательский вертикальный оригинал941×1672 mobile≤540px. Native picture/source переключает файл без JS и без скачивания обеих версий для одного viewport; eager/fetchpriority high. Изображения локальные, overlay/высота/типографика не меняются. [Проверка сборки и отдельного херо](hero-image-verification-2026-10-12.json).
+Hero media: горизонтальная альпийская терраса1664×936 (точное16:9) desktop и пользовательский вертикальный оригинал941×1672 mobile≤540px. Native picture/source переключает файл без JS и без скачивания обеих версий для одного viewport; eager/fetchpriority high. Изображения локальные, равномерный чёрный overlay20% без градиента; высота/типографика не меняются. [Проверка сборки и отдельного херо](hero-image-verification-2026-10-12.json).
 
 Брови: 14 / 16.1 desktop, 12 / 14.4 mobile, weight 400, tracking .12em. Базовый gap 25 / 12 px; старты и направления имеют grid-раскладки с margin-компенсациями. Копируй header блока целиком, не подставляй один глобальный отступ.
 
