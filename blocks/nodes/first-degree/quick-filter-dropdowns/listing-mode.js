@@ -163,18 +163,27 @@
   header.after(toolbar);
 
   const modeButtons = toolbar.querySelectorAll('[data-listing-mode]');
+  function setMode(mode) {
+    if (mode !== 'new-build' && mode !== 'secondary') mode = 'new-build';
+    modeButtons.forEach((item) => {
+      const active = item.dataset.listingMode === mode;
+      item.classList.toggle('is-active', active);
+      item.setAttribute('aria-pressed', String(active));
+    });
+    projectItem.hidden = mode !== 'new-build';
+    lotItem.hidden = mode !== 'secondary';
+  }
   modeButtons.forEach((button) => {
     button.addEventListener('click', () => {
       const mode = button.dataset.listingMode;
-      modeButtons.forEach((item) => {
-        const active = item === button;
-        item.classList.toggle('is-active', active);
-        item.setAttribute('aria-pressed', String(active));
-      });
-      projectItem.hidden = mode !== 'new-build';
-      lotItem.hidden = mode !== 'secondary';
+      setMode(mode);
+      if (window.BarnesFilters) window.BarnesFilters.patch({ market: mode });
     });
   });
+  document.addEventListener('barnes:filters-apply', () => {
+    if (window.BarnesFilters) setMode(window.BarnesFilters.getState().market);
+  });
+  if (window.BarnesFilters) setMode(window.BarnesFilters.getState().market);
 
   delete list.dataset.modeInitializing;
   list.dataset.modeReady = 'true';

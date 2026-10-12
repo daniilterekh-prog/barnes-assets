@@ -58,7 +58,7 @@
   var sort = dialog.querySelector('[data-filter=sort]');
   var list = dialog.querySelector('.map-browser__list');
   var items = window.BarnesMapProjects || [];
-  var market = '';
+  var market = 'new-build';
   var marketButtons = Array.from(dialog.querySelectorAll('[data-map-market]'));
   var metadataNotice = dialog.querySelector('.map-browser__metadata-notice');
   var previousOverflow;
@@ -76,16 +76,15 @@
     });
   });
   function render() {
+    if (window.BarnesFilters) market = window.BarnesFilters.getState().market || 'new-build';
     var term = query.value.trim().toLocaleLowerCase('ru');
     var hasTypes = items.some(function (item) { return Array.isArray(item.propertyTypes) && item.propertyTypes.length; });
-    var hasMarket = items.some(function (item) { return item.market === 'new-build' || item.market === 'secondary'; });
     var hasLocations = items.some(function (item) { return Array.isArray(item.directions) && item.directions.length; });
     var hasBedrooms = items.some(function (item) { return Array.isArray(item.bedrooms) && item.bedrooms.length; });
     var brandFlags = window.BarnesFilters ? window.BarnesFilters.getState().brandFlags || [] : [];
     var hasBrandFlags = items.some(function (item) { return Array.isArray(item.brandFlags); });
     var unavailable = [];
     if (type.value && !hasTypes) unavailable.push('тип объекта');
-    if (market && !hasMarket) unavailable.push('рынок продажи');
     if (location.value && !hasLocations) unavailable.push('локация');
     if (bedrooms.value && !hasBedrooms) unavailable.push('число спален');
     metadataNotice.hidden = !unavailable.length;
@@ -94,7 +93,7 @@
     var result = items.filter(function (item) {
       return (!term || item.name.toLocaleLowerCase('ru').includes(term)) &&
         (!type.value || !hasTypes || (item.propertyTypes || []).includes(type.value)) &&
-        (!market || !hasMarket || item.market === market) &&
+        (item.market === market) &&
         (!location.value || !hasLocations || (item.directions || []).includes(location.value)) &&
         (!bedrooms.value || !hasBedrooms || (item.bedrooms || []).includes(bedrooms.value)) &&
         (!brandFlags.length || !hasBrandFlags || brandFlags.some(function (flag) { return (item.brandFlags || []).includes(flag); })) &&
@@ -168,11 +167,14 @@
   });
   [query, type, price, sort, location, bedrooms].forEach(function (input) { input.addEventListener('input', render); });
   marketButtons.forEach(function (button) {
-    button.addEventListener('click',function () { market = market === button.dataset.mapMarket ? '' : button.dataset.mapMarket; render(); });
+    button.addEventListener('click',function () {
+      market = button.dataset.mapMarket;
+      if (window.BarnesFilters) window.BarnesFilters.patch({ market: market });
+      render();
+    });
   });
   dialog.querySelector('.map-browser__reset').addEventListener('click', function () {
     [query, type, price, sort, location, bedrooms].forEach(function (input) { input.value = ''; });
-    market = '';
     if (window.BarnesFilters) window.BarnesFilters.patch({ brandFlags: [] });
     render();
   });

@@ -12,7 +12,8 @@
   modal.style.display = 'none'; // Prevent a flash before the override stylesheet loads.
   document.body.appendChild(modal);
   var triggerSelector = '.catalog-hero-filters__filter-icon, .catalog-mode-detailed-filters, .map-browser__filter-toggle';
-  var state = {};
+  var selectedMarket = document.querySelector('[data-listing-mode][aria-pressed="true"]');
+  var state = { market: selectedMarket ? selectedMarket.dataset.listingMode : 'new-build' };
   var resetPending = false;
   var opener;
   var savedOverflow;
@@ -138,7 +139,7 @@
       invalid.focus();
       return;
     }
-    state = Object.assign({}, resetPending ? {} : state, draft);
+    state = Object.assign({}, resetPending ? { market: state.market } : state, draft);
     close();
     document.dispatchEvent(new CustomEvent('barnes:filters-apply', { detail:copy(state) }));
   });
@@ -169,8 +170,11 @@
     getState:function () { return copy(state); },
     patch:function (fields) {
       if (!modal.hidden) return;
+      var selectedMarketValue = state.market;
       state = Object.assign({}, state, copy(fields));
+      if (state.market !== 'new-build' && state.market !== 'secondary') state.market = selectedMarketValue;
       document.dispatchEvent(new CustomEvent('barnes:filters-apply', { detail:copy(state) }));
     }
   };
+  document.dispatchEvent(new CustomEvent('barnes:filters-apply', { detail:copy(state) }));
 }());
