@@ -1,6 +1,11 @@
 /* Geometry, colors and markup come from the original source.css modal contract. */
 .resort-filters[hidden] { display: none !important; }
 .resort-filters.hero-filter-modal { z-index: 11000; }
+.resort-filters.hero-filter-modal--drawer { position: fixed; }
+.resort-filters.hero-filter-modal--drawer .hero-filter-modal__dialog { box-shadow: none; }
+.resort-filters.hero-filter-modal--drawer .resort-filters__error { color: #1e1e1e; }
+.resort-filters .ui-checkbox--chip .ui-checkbox__box { display: none; }
+.resort-filters.hero-filter-modal--drawer .ui-checkbox input:checked + .ui-checkbox__box { background: #8b1d25; border-color: #8b1d25; color: #fff; }
 .resort-filters * { box-sizing: border-box; }
 .resort-filters .hero-filter-modal__body { overscroll-behavior: contain; }
 .resort-filters .ui-checkbox, .resort-filters .ui-switch { position: relative; }
@@ -14,4 +19,5 @@
 .resort-filters__error[hidden] { display: none; }
 @media (max-width: 540px) {
   .resort-filters.hero-filter-modal { width: 100vw; height: 100dvh; }
+  .resort-filters.hero-filter-modal--drawer .hero-filter-panel-content__checkboxes--columns { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }

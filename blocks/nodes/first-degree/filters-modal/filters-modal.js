@@ -4,7 +4,7 @@
   var base = new URL('.', document.currentScript.src);
   var css = document.createElement('link');
   css.rel = 'stylesheet';
-  css.href = new URL('filters-modal.css?v=1', base).href;
+  css.href = new URL('filters-modal.css?v=2', base).href;
   document.head.appendChild(css);
   var template = document.createElement('template');
   template.innerHTML = window.BarnesFilterTemplate;
@@ -21,6 +21,18 @@
   var savedModalInert;
   var isolated = [];
   var inputs = Array.from(modal.querySelectorAll('input'));
+  var chips = Array.from(modal.querySelectorAll('.ui-checkbox--chip'));
+  chips.forEach(function (label) {
+    var box = modal.querySelector('.ui-checkbox__box').cloneNode(true);
+    box.setAttribute('aria-hidden','true');
+    label.querySelector('input').after(box);
+  });
+  var chipGroups = Array.from(modal.querySelectorAll('.hero-filter-panel-content__checkboxes--chips'));
+  // Share one form/state, switching only the map entry to the source's white drawer.
+  var darkClasses = ['hero-filter-modal--dark','hero-filter-panel--dark','hero-filter-panel-content--dark','ui-checkbox--dark','ui-switch--dark'];
+  var themedNodes = [modal].concat(Array.from(modal.querySelectorAll('[class]'))).map(function (el) {
+    return { el:el, classes:darkClasses.filter(function (name) { return el.classList.contains(name); }) };
+  }).filter(function (entry) { return entry.classes.length; });
   var error = document.createElement('p');
   error.className = 'resort-filters__error';
   error.hidden = true;
@@ -63,6 +75,19 @@
   function open(trigger) {
     if (!modal.hidden) return;
     opener = trigger;
+    var drawer = trigger.matches('.map-browser__filter-toggle');
+    modal.classList.toggle('hero-filter-modal--drawer',drawer);
+    themedNodes.forEach(function (entry) {
+      entry.classes.forEach(function (name) { entry.el.classList.toggle(name,!drawer); });
+    });
+    chips.forEach(function (label) {
+      label.classList.toggle('ui-checkbox--chip',!drawer);
+      label.classList.toggle('ui-checkbox--default',drawer);
+    });
+    chipGroups.forEach(function (group) {
+      group.classList.toggle('hero-filter-panel-content__checkboxes--chips',!drawer);
+      if (group.querySelector('[name=propertyTypes]')) group.classList.toggle('hero-filter-panel-content__checkboxes--columns',drawer);
+    });
     document.dispatchEvent(new CustomEvent('barnes:filters-open'));
     resetPending = false;
     savedModalInert = modal.inert;
