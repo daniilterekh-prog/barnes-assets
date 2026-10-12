@@ -31,7 +31,14 @@ html body .catalog-mode-toolbar .barnes-brand-filters { grid-column: 1 / -1; gri
 }
 @media (max-width: 540px) { html body .barnes-brand-filters { gap: 4px 20px; margin-top: 16px; } }
 @media (max-width: 540px) {
-  html body .barnes-brand-filters { padding-inline-start: 8px; box-sizing: border-box; }
+  html body .barnes-brand-filters {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 12px;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  html body .barnes-brand-filters label { min-width: 0; padding-inline-start: 8px; box-sizing: border-box; }
   html body .catalog-mode-toolbar .barnes-brand-filters { grid-row: 3; margin: 7px 0 0; }
   html body .catalog-mode-toolbar :is(.catalog-grid__sort, .catalog-mode-detailed-filters)[class][class] { grid-row: 4; }
 }
