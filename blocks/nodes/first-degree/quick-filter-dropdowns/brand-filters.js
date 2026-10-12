@@ -4,7 +4,7 @@
   var css = document.createElement('link');
   css.rel = 'stylesheet';
   css.dataset.barnesBrandFilters = '';
-  css.href = new URL('brand-filters.css?v=2', document.currentScript.src).href;
+  css.href = new URL('brand-filters.css?v=3', document.currentScript.src).href;
   document.head.appendChild(css);
   var choices = [['selection', 'Выбор BARNES'], ['exclusive', 'Эксклюзив BARNES']];
   function flags() { return window.BarnesFilters.getState().brandFlags || []; }
