@@ -249,9 +249,12 @@ html body .catalog-contact__image[class] {
 
 /* Compact ContactAction used as a channel selector inside both forms. */
 html body :is(.catalog-consultation__methods, .catalog-contact__methods)[class] {
+  box-sizing: border-box;
   display: grid;
   gap: 12px;
   grid-template-columns: repeat(4, minmax(0, 1fr));
+  max-width: 610px;
+  width: 100%;
 }
 
 html body :is(.catalog-consultation__method, .catalog-contact__method)[class] {
