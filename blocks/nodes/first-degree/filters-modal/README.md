@@ -19,3 +19,7 @@ Drawer: `min(520px, 100% - 420px)`, высота viewport, right0/top0, white#FF
 Desktop 640 px, max-height min(952 px, viewport−48 px), #292929, header 24 px, группы 18 px, чипы/инпуты 14 px, footer 16 px. Mobile ≤540 — весь экран, фиксированные header/footer, внутренний scroll. Hover только бордо #8B1D25; основные selected-state сохранены по исходнику. Фокус замкнут внутри активного диалога и возвращается к кнопке; Escape не закрывает карту под фильтрами, inert/scroll восстанавливаются.
 
 Проверки в репозитории страницы: `scripts/verify-kurort-filters.cjs` и регрессия `scripts/verify-kurort-map.cjs`, 390/1440/2560. Пакеты не установлены.
+
+## Важное правило мобильной инициализации
+
+При смене desktop/mobile snapshot через `document.open/write` сначала загрузить окончательную разметку, потом инициализировать общий runtime и `BarnesFilters`. Иначе window-API остаётся от предыдущего документа, а его DOM и listeners удаляются: кнопка не открывает фильтры при медленной загрузке mobile.html. При ошибке загрузки mobile snapshot инициализировать fallback-документ один раз. Регрессионная проверка в репозитории страницы: `scripts/verify-kurort-mobile-bootstrap.cjs`, iPhone touch, fast / delayed1500ms / HTTP503, три точки открытия.
