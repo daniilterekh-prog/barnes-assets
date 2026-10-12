@@ -6,7 +6,7 @@
   var assetsBase = new URL('.', document.currentScript.src);
   var style = document.createElement('link');
   style.rel = 'stylesheet';
-  style.href = new URL('map-fullscreen.css?v=2', assetsBase).href;
+  style.href = new URL('map-fullscreen.css?v=3', assetsBase).href;
   document.head.appendChild(style);
   var icon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">';
   var parameterIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">';
@@ -27,10 +27,10 @@
     '<h2 class="map-browser__heading" aria-live="polite"></h2><div class="map-browser__search-row">' +
     '<label class="map-browser__search">' + parameterIcon + '<circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input type="search" aria-label="Поиск объектов на карте" placeholder="Поиск объектов"></label>' +
     '<button class="map-browser__filter-toggle" aria-label="Подробные фильтры" aria-expanded="false">' + filtersIcon + '</button></div>' +
-    '<div class="map-browser__filters"><label class="map-browser__field map-browser__field--select"><span class="map-browser__sr-only">Тип объекта</span>' + buildingIcon + '<select aria-label="Тип объекта" data-filter="type"><option value="">Тип объекта</option><option value="rc">ЖК</option><option value="lot">Лоты</option></select><span class="map-browser__chevron" aria-hidden="true"></span></label>' +
+    '<div class="map-browser__filters"><div class="map-browser__market" role="group" aria-label="Рынок недвижимости"><button type="button" data-map-market="new-build" aria-pressed="false">Новостройки</button><button type="button" data-map-market="secondary" aria-pressed="false">Вторичка</button></div><label class="map-browser__field map-browser__field--select"><span class="map-browser__sr-only">Тип объекта</span>' + buildingIcon + '<select aria-label="Тип объекта" data-filter="type"><option value="">Тип объекта</option><option value="apartment">Апартаменты</option><option value="flat">Квартира</option><option value="penthouse">Пентхаус</option></select><span class="map-browser__chevron" aria-hidden="true"></span></label>' +
     '<label class="map-browser__field"><span class="map-browser__sr-only">Цена до, ₽</span>' + priceIcon + '<input aria-label="Цена до, ₽" type="number" min="0" step="1000000" data-filter="price" placeholder="Стоимость"></label>' +
     '<label class="map-browser__field map-browser__field--select map-browser__extra"><span class="map-browser__sr-only">Сортировка</span><select aria-label="Сортировка" data-filter="sort"><option value="">По релевантности</option><option value="asc">Сначала дешевле</option><option value="desc">Сначала дороже</option></select><span class="map-browser__chevron" aria-hidden="true"></span></label>' +
-    '<button class="map-browser__reset">Сбросить фильтры</button></div><div class="map-browser__list"></div></div>';
+    '<button class="map-browser__reset">Сбросить фильтры</button></div><p class="map-browser__metadata-notice" role="status" hidden></p><div class="map-browser__list"></div></div>';
   document.body.appendChild(dialog);
   var panel = dialog.querySelector('.map-browser__panel');
   var handle = dialog.querySelector('.map-browser__handle');
@@ -40,6 +40,9 @@
   var sort = dialog.querySelector('[data-filter=sort]');
   var list = dialog.querySelector('.map-browser__list');
   var items = window.BarnesMapProjects || [];
+  var market = '';
+  var marketButtons = Array.from(dialog.querySelectorAll('[data-map-market]'));
+  var metadataNotice = dialog.querySelector('.map-browser__metadata-notice');
   var previousOverflow;
   var inertElements = [];
   function isolate(element) {
@@ -56,9 +59,18 @@
   });
   function render() {
     var term = query.value.trim().toLocaleLowerCase('ru');
+    var hasTypes = items.some(function (item) { return Array.isArray(item.propertyTypes) && item.propertyTypes.length; });
+    var hasMarket = items.some(function (item) { return item.market === 'new-build' || item.market === 'secondary'; });
+    var unavailable = [];
+    if (type.value && !hasTypes) unavailable.push('тип объекта');
+    if (market && !hasMarket) unavailable.push('рынок продажи');
+    metadataNotice.hidden = !unavailable.length;
+    metadataNotice.textContent = unavailable.length ? 'В снимке каталога не указан ' + unavailable.join(' и ') + '. Этот параметр пока не меняет выдачу.' : '';
+    marketButtons.forEach(function (button) { button.setAttribute('aria-pressed',String(button.dataset.mapMarket === market)); });
     var result = items.filter(function (item) {
       return (!term || item.name.toLocaleLowerCase('ru').includes(term)) &&
-        (!type.value || item.type === type.value) &&
+        (!type.value || !hasTypes || (item.propertyTypes || []).includes(type.value)) &&
+        (!market || !hasMarket || item.market === market) &&
         (!price.value || (item.priceRub !== null && item.priceRub <= Number(price.value)));
     });
     if (sort.value) result.sort(function (a, b) {
@@ -127,8 +139,12 @@
     expand(true);
   });
   [query, type, price, sort].forEach(function (input) { input.addEventListener('input', render); });
+  marketButtons.forEach(function (button) {
+    button.addEventListener('click',function () { market = market === button.dataset.mapMarket ? '' : button.dataset.mapMarket; render(); });
+  });
   dialog.querySelector('.map-browser__reset').addEventListener('click', function () {
     [query, type, price, sort].forEach(function (input) { input.value = ''; });
+    market = '';
     render();
   });
   document.addEventListener('keydown', function (event) {
