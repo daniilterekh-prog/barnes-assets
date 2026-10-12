@@ -253,9 +253,25 @@ html body .catalog-mode-toolbar .catalog-grid__sort[class] {
   grid-column: 2;
   grid-row: 1;
   min-width: 0;
+  position: relative;
+}
+
+.catalog-mode-toolbar .catalog-grid__sort::after {
+  color: var(--catalog-filter-ink);
+  border-bottom: 1px solid var(--catalog-filter-ink);
+  border-right: 1px solid var(--catalog-filter-ink);
+  content: "";
+  height: 10px;
+  pointer-events: none;
+  position: absolute;
+  right: 16px;
+  top: calc(50% - 5px);
+  transform: rotate(45deg);
+  width: 10px;
 }
 
 .catalog-mode-toolbar .catalog-grid__sort-select[data-v-5a2b3b97] {
+  background-image: none;
   border: 0;
   border-radius: 0;
   color: var(--catalog-filter-ink);
@@ -404,19 +420,6 @@ html body .catalog-mode-toolbar .catalog-grid__sort[class] {
     padding-top: 0;
     position: relative;
     width: auto;
-  }
-
-  .catalog-mode-toolbar .catalog-grid__sort::after {
-    border-bottom: 1px solid var(--catalog-filter-ink);
-    border-right: 1px solid var(--catalog-filter-ink);
-    content: "";
-    height: 10px;
-    pointer-events: none;
-    position: absolute;
-    right: 16px;
-    top: calc(50% - 5px);
-    transform: rotate(45deg);
-    width: 10px;
   }
 
   .catalog-mode-toolbar .catalog-grid__sort-select[data-v-5a2b3b97] {
