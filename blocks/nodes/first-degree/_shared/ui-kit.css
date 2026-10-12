@@ -255,21 +255,24 @@ html body :is(.catalog-consultation__methods, .catalog-contact__methods)[class] 
 }
 
 html body :is(.catalog-consultation__method, .catalog-contact__method)[class] {
+  --contact-icon-size: 18px;
   align-items: center;
   border: 1px solid rgba(255, 255, 255, 0.55);
   border-radius: 1px;
-  display: inline-flex;
+  display: grid;
   flex: initial;
   font-family: var(--kit-font);
   font-size: 17px;
   font-weight: 400;
   gap: 8px;
+  grid-template-columns: var(--contact-icon-size) 4.8em;
   height: 44px;
   justify-content: center;
   line-height: 1.1;
   min-height: 44px;
   min-width: 0;
   padding: 0 12px;
+  text-align: left;
   white-space: nowrap;
   width: 100%;
 }
@@ -277,8 +280,8 @@ html body :is(.catalog-consultation__method, .catalog-contact__method)[class] {
 html body :is(.catalog-consultation__method-icon, .catalog-contact__method-icon)[class] {
   flex: 0 0 18px;
   font-size: 18px;
-  height: 18px;
-  width: 18px;
+  height: var(--contact-icon-size);
+  width: var(--contact-icon-size);
 }
 
 html body :is(.catalog-consultation__method-icon, .catalog-contact__method-icon)[class] svg {
@@ -733,6 +736,7 @@ html body .catalog-grid__sort-select[class] {
   }
 
   html body :is(.catalog-consultation__method, .catalog-contact__method)[class] {
+    --contact-icon-size: 20px;
     font-size: 18px;
     height: 46px;
     line-height: 1.1;
