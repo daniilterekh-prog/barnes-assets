@@ -21,6 +21,14 @@ html body .catalog-mode-toolbar .barnes-brand-filters { grid-column: 1 / -1; gri
   html body .catalog-mode-toolbar .catalog-grid__sort[class][class] { grid-row: 3; grid-column: 2; margin-top: 8px; }
 }
 @media (min-width: 1441px) { html body .barnes-brand-filters { font-size: 19px; } }
+@media (min-width: 1025px) {
+  html body .catalog-mode-toolbar { grid-template-columns: auto minmax(0, 1fr) auto; }
+  html body .catalog-mode-toolbar .catalog-mode-switch { grid-column: 1; grid-row: 1; }
+  html body .catalog-mode-toolbar .barnes-brand-filters { grid-column: 2; grid-row: 1; margin: 0; }
+  html body .catalog-mode-toolbar .catalog-grid__sort[class][class] { grid-column: 3; grid-row: 1; margin: 0; }
+  html body .catalog-mode-toolbar .catalog-mode-filters.catalog-quick-filters { grid-column: 1 / 3; grid-row: 2; }
+  html body .catalog-mode-toolbar .catalog-mode-detailed-filters { grid-column: 3; grid-row: 2; }
+}
 @media (max-width: 540px) { html body .barnes-brand-filters { gap: 4px 20px; margin-top: 16px; } }
 @media (max-width: 540px) {
   html body .catalog-mode-toolbar .barnes-brand-filters { grid-row: 3; margin: 7px 0 0; }
