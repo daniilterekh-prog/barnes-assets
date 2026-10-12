@@ -1,6 +1,6 @@
 # Узлы первой степени — «Курортная»
 
-Референс 1.0.0: [Курортная](https://daniilterekh-prog.github.io/barn-estate-homepage-clone/kurortnaya/), commit `dacc3ab943a1dd8167188300592c683b35d16b06`.
+Референс: [Курортная](https://daniilterekh-prog.github.io/barn-estate-homepage-clone/kurortnaya/). Основной UI зафиксирован по dacc3ab; актуальный экспорт общего хедера собственников — f00d7f7.
 
 [Каталог превью](catalog.html) · [Сборка](index.html) · [UI-контракт](../../../ui-kit/first-degree.md) · [Манифест](manifest.json).
 
@@ -11,6 +11,8 @@
 Дополнительно: card-start-sales, card-project, card-lot. Старые `blocks/cards/*` сохранены отдельно.
 
 В каждой папке: fragment.html, mobile.html, styles.css, block.json, README.md, index.html. Общая папка `_shared` обязательна: CSS, runtime, карусель и 34 локальных изображения/шрифта. Их происхождение записано в asset-manifest.json.
+
+Для общего хедера body должен иметь класс barnes-header-template; подключай owner-header.css после старых page-local CSS. Встроенные превью уже используют этот шаблон. Направления в Курортной намеренно отсутствуют, якоря остаются курортными.
 
 ## Подключение
 

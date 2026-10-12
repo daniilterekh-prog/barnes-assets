@@ -2,6 +2,8 @@
 
 Утверждённый референс: «Курортная», commit dacc3ab. [15 блоков и 3 карточки](../blocks/nodes/first-degree/README.md). Дополнение к базовому киту; не глобальная замена собственников/амбассадоров.
 
+Хэдер обновлён по f00d7f7: [общий шаблон собственников](components/owner-header.md), без строки направлений у Курортной. Общий файл _shared/owner-header.css обязателен, body получает класс barnes-header-template.
+
 Tilda Sans. Ink #1E1E1E, secondary #4F4D49, muted #656462, brand/hover/focus #8B1D25, линии #E4E4E4. Жёлтый hover/focus запрещён. Скругление предусмотренных контролов 1 px. Новые тени и акцентные цвета не добавлять.
 
 | Роль | Mobile 390 | Desktop 1366 | Wide 1920/2560 | Weight |
