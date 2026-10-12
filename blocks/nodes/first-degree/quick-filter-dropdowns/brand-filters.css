@@ -14,9 +14,9 @@ html body .barnes-brand-filters__box { position: relative; pointer-events: none;
 .barnes-brand-filters input:focus-visible + .barnes-brand-filters__box { outline: 2px solid #8b1d25; outline-offset: 3px; }
 .barnes-brand-filters label:hover { color: #8b1d25; }
 html body .map-browser .barnes-brand-filters { grid-column: 1 / -1; margin: 0; gap: 4px 16px; font-size: var(--map-filter-size); }
-html body .map-browser .barnes-brand-filters { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-row: 4; }
+html body .map-browser .barnes-brand-filters { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-row: 5; }
 html body .map-browser .barnes-brand-filters label { min-width: 0; min-height: 58px; padding: 4px 0 0 8px; }
-html body .map-browser .map-browser__extra { grid-row: 5; }
+html body .map-browser .map-browser__extra { grid-row: 4; }
 html body .map-browser .map-browser__reset { grid-row: 6; }
 /* Account for text centering inside different-height controls, not only grid-gap. */
 html body .catalog-mode-toolbar .barnes-brand-filters { grid-column: 1 / -1; grid-row: 3; margin: 8px 0 0; }
@@ -43,6 +43,6 @@ html body .catalog-mode-toolbar .barnes-brand-filters { grid-column: 1 / -1; gri
     box-sizing: border-box;
   }
   html body .barnes-brand-filters label { min-width: 0; padding-inline-start: 8px; box-sizing: border-box; }
-  html body .catalog-mode-toolbar .barnes-brand-filters { grid-row: 3; margin: 7px 0 0; }
-  html body .catalog-mode-toolbar :is(.catalog-grid__sort, .catalog-mode-detailed-filters)[class][class] { grid-row: 4; }
+  html body .catalog-mode-toolbar .barnes-brand-filters { grid-row: 4; margin: 7px 0 0; }
+  html body .catalog-mode-toolbar :is(.catalog-grid__sort, .catalog-mode-detailed-filters)[class][class] { grid-row: 3; }
 }
