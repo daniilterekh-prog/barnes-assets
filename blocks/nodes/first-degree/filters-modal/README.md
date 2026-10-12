@@ -1,5 +1,7 @@
 # Общие подробные фильтры Курортной
 
+Дополнение: `BarnesFilters.patch(fields)` обновляет применённый state при закрытом modal и отправляет `barnes:filters-apply`. Используется [быстрыми dropdown](../quick-filter-dropdowns/README.md). Неизвестные расширения state сохраняются при обычном apply (например `bedrooms`), но общий reset+apply очищает их. `barnes:filters-open` закрывает открытый быстрый popover. Черновик checkbox-полей при apply полностью заменяет предыдущий выбор, включая пустые массивы.
+
 Источник: https://front.barnes.vsavr.ru/kurortnaya/, 12.10.2026. Согласованная адаптация — направления Сочи/Анапа/Алтай/Архыз вместо московских районов. Прочие группы и исходная структура сохранены.
 
 Скопируй папку целиком, подключи `../_shared/source.css` и базовый Tilda Sans. Затем обычные scripts последовательно: `filters-template.js`, `filters-modal.js`. Скрипт подключит соседний CSS. Общий `source.css` с `data-v-*` обязателен: не удаляй scoped-атрибуты шаблона.

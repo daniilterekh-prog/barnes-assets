@@ -13,6 +13,7 @@
   document.body.appendChild(modal);
   var triggerSelector = '.catalog-hero-filters__filter-icon, .catalog-mode-detailed-filters, .map-browser__filter-toggle';
   var state = {};
+  var resetPending = false;
   var opener;
   var savedOverflow;
   var savedRootOverflow;
@@ -62,6 +63,8 @@
   function open(trigger) {
     if (!modal.hidden) return;
     opener = trigger;
+    document.dispatchEvent(new CustomEvent('barnes:filters-open'));
+    resetPending = false;
     savedModalInert = modal.inert;
     modal.inert = false;
     restore(state);
@@ -83,14 +86,15 @@
   }
   modal.querySelector('.hero-filter-modal__close').addEventListener('click', close);
   modal.querySelector('.hero-filter-modal__backdrop').addEventListener('click', close);
-  modal.querySelector('.hero-filter-modal__reset').addEventListener('click', function () { restore({}); });
+  modal.querySelector('.hero-filter-modal__reset').addEventListener('click', function () { restore({}); resetPending = true; });
   modal.querySelector('.hero-filter-modal__apply').addEventListener('click', function () {
     var draft = {};
     var invalid = null;
     inputs.forEach(function (input) {
       input.removeAttribute('aria-invalid');
       if (input.type === 'checkbox') {
-        if (input.checked) (draft[input.name] || (draft[input.name] = [])).push(input.value);
+        if (!draft[input.name]) draft[input.name] = [];
+        if (input.checked) draft[input.name].push(input.value);
       } else {
         var raw = input.value.trim().replace(/[\s\u00a0]/g,'');
         if (raw && !/^\d+$/.test(raw)) invalid = invalid || input;
@@ -109,7 +113,7 @@
       invalid.focus();
       return;
     }
-    state = draft;
+    state = Object.assign({}, resetPending ? {} : state, draft);
     close();
     document.dispatchEvent(new CustomEvent('barnes:filters-apply', { detail:copy(state) }));
   });
@@ -135,5 +139,13 @@
       else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
     }
   }, true);
-  window.BarnesFilters = { open:open, getState:function () { return copy(state); } };
+  window.BarnesFilters = {
+    open:open,
+    getState:function () { return copy(state); },
+    patch:function (fields) {
+      if (!modal.hidden) return;
+      state = Object.assign({}, state, copy(fields));
+      document.dispatchEvent(new CustomEvent('barnes:filters-apply', { detail:copy(state) }));
+    }
+  };
 }());

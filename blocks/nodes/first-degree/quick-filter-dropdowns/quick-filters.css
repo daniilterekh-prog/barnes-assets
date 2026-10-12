@@ -1,0 +1,11 @@
+/* Dropdown markup/geometry follow front.barnes.vsavr.ru's catalog quick filters. */
+.resort-quick-dropdown[hidden] { display: none !important; }
+.resort-quick-dropdown { position: fixed; z-index: 10050; box-sizing: border-box; max-width: calc(100vw - 32px); box-shadow: none; }
+.resort-quick-dropdown .catalog-quick-filters__options { overscroll-behavior: contain; }
+.resort-quick-dropdown .catalog-quick-filters__option { flex-shrink: 0; }
+.resort-quick-dropdown .catalog-quick-filters__option.is-selected,
+.resort-quick-dropdown .catalog-quick-filters__option:hover { background: #8b1d25; color: #fff; }
+.resort-quick-dropdown :focus-visible { outline: 2px solid #8b1d25; outline-offset: -2px; }
+.catalog-mode-toolbar .catalog-quick-filters__button.is-active .catalog-quick-filters__caption { color: #8b1d25; }
+.catalog-mode-toolbar .catalog-quick-filters__content { max-width: calc(100% - 24px); }
+.catalog-mode-toolbar .catalog-quick-filters__caption[data-quick-caption] { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
