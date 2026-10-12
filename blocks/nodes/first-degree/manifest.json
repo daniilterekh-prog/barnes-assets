@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "reference": "kurortnaya",
-  "sourceCommit": "0f389c4817414f05ab4704c6168791a6105ccd73",
+  "sourceCommit": "8f176eaf71595adb0e561e98340731492cd7eecf",
   "blocks": [
     {
       "id": "first-degree-header",
@@ -9,7 +9,7 @@
       "version": "1.0.0",
       "source": {
         "repo": "daniilterekh-prog/barn-estate-homepage-clone",
-        "commit": "0f389c4817414f05ab4704c6168791a6105ccd73",
+        "commit": "8f176eaf71595adb0e561e98340731492cd7eecf",
         "route": "kurortnaya",
         "selector": ".layout__header"
       },
@@ -37,7 +37,7 @@
       "version": "1.0.0",
       "source": {
         "repo": "daniilterekh-prog/barn-estate-homepage-clone",
-        "commit": "0f389c4817414f05ab4704c6168791a6105ccd73",
+        "commit": "8f176eaf71595adb0e561e98340731492cd7eecf",
         "route": "kurortnaya",
         "selector": ".catalog-sticky"
       },
@@ -62,7 +62,7 @@
       "version": "1.0.0",
       "source": {
         "repo": "daniilterekh-prog/barn-estate-homepage-clone",
-        "commit": "0f389c4817414f05ab4704c6168791a6105ccd73",
+        "commit": "8f176eaf71595adb0e561e98340731492cd7eecf",
         "route": "kurortnaya",
         "selector": "#catalog-hero"
       },
@@ -90,7 +90,7 @@
       "version": "1.0.0",
       "source": {
         "repo": "daniilterekh-prog/barn-estate-homepage-clone",
-        "commit": "0f389c4817414f05ab4704c6168791a6105ccd73",
+        "commit": "8f176eaf71595adb0e561e98340731492cd7eecf",
         "route": "kurortnaya",
         "selector": "#catalog-new-starts"
       },
@@ -117,7 +117,7 @@
       "version": "1.0.0",
       "source": {
         "repo": "daniilterekh-prog/barn-estate-homepage-clone",
-        "commit": "0f389c4817414f05ab4704c6168791a6105ccd73",
+        "commit": "8f176eaf71595adb0e561e98340731492cd7eecf",
         "route": "kurortnaya",
         "selector": "#catalog-map"
       },
@@ -144,7 +144,7 @@
       "version": "1.0.0",
       "source": {
         "repo": "daniilterekh-prog/barn-estate-homepage-clone",
-        "commit": "0f389c4817414f05ab4704c6168791a6105ccd73",
+        "commit": "8f176eaf71595adb0e561e98340731492cd7eecf",
         "route": "kurortnaya",
         "selector": "#catalog-grid"
       },
@@ -172,7 +172,7 @@
       "version": "1.0.0",
       "source": {
         "repo": "daniilterekh-prog/barn-estate-homepage-clone",
-        "commit": "0f389c4817414f05ab4704c6168791a6105ccd73",
+        "commit": "8f176eaf71595adb0e561e98340731492cd7eecf",
         "route": "kurortnaya",
         "selector": "#catalog-intro"
       },
@@ -197,7 +197,7 @@
       "version": "1.0.0",
       "source": {
         "repo": "daniilterekh-prog/barn-estate-homepage-clone",
-        "commit": "0f389c4817414f05ab4704c6168791a6105ccd73",
+        "commit": "8f176eaf71595adb0e561e98340731492cd7eecf",
         "route": "kurortnaya",
         "selector": "#catalog-consultation"
       },
@@ -225,7 +225,7 @@
       "version": "1.0.0",
       "source": {
         "repo": "daniilterekh-prog/barn-estate-homepage-clone",
-        "commit": "0f389c4817414f05ab4704c6168791a6105ccd73",
+        "commit": "8f176eaf71595adb0e561e98340731492cd7eecf",
         "route": "kurortnaya",
         "selector": "#catalog-departments"
       },
@@ -250,7 +250,7 @@
       "version": "1.0.0",
       "source": {
         "repo": "daniilterekh-prog/barn-estate-homepage-clone",
-        "commit": "0f389c4817414f05ab4704c6168791a6105ccd73",
+        "commit": "8f176eaf71595adb0e561e98340731492cd7eecf",
         "route": "kurortnaya",
         "selector": "#catalog-news"
       },
@@ -275,7 +275,7 @@
       "version": "1.0.0",
       "source": {
         "repo": "daniilterekh-prog/barn-estate-homepage-clone",
-        "commit": "0f389c4817414f05ab4704c6168791a6105ccd73",
+        "commit": "8f176eaf71595adb0e561e98340731492cd7eecf",
         "route": "kurortnaya",
         "selector": "#catalog-faq"
       },
@@ -300,7 +300,7 @@
       "version": "1.0.0",
       "source": {
         "repo": "daniilterekh-prog/barn-estate-homepage-clone",
-        "commit": "0f389c4817414f05ab4704c6168791a6105ccd73",
+        "commit": "8f176eaf71595adb0e561e98340731492cd7eecf",
         "route": "kurortnaya",
         "selector": "#catalog-contact"
       },
@@ -328,7 +328,7 @@
       "version": "1.0.0",
       "source": {
         "repo": "daniilterekh-prog/barn-estate-homepage-clone",
-        "commit": "0f389c4817414f05ab4704c6168791a6105ccd73",
+        "commit": "8f176eaf71595adb0e561e98340731492cd7eecf",
         "route": "kurortnaya",
         "selector": ".site-footer"
       },
@@ -353,7 +353,7 @@
       "version": "1.0.0",
       "source": {
         "repo": "daniilterekh-prog/barn-estate-homepage-clone",
-        "commit": "0f389c4817414f05ab4704c6168791a6105ccd73",
+        "commit": "8f176eaf71595adb0e561e98340731492cd7eecf",
         "route": "kurortnaya",
         "selector": ".floating-expert"
       },
@@ -381,7 +381,7 @@
       "version": "1.0.0",
       "source": {
         "repo": "daniilterekh-prog/barn-estate-homepage-clone",
-        "commit": "0f389c4817414f05ab4704c6168791a6105ccd73",
+        "commit": "8f176eaf71595adb0e561e98340731492cd7eecf",
         "route": "kurortnaya",
         "selector": ".catalog-feedback-modal"
       },
@@ -409,7 +409,7 @@
       "version": "1.0.0",
       "source": {
         "repo": "daniilterekh-prog/barn-estate-homepage-clone",
-        "commit": "0f389c4817414f05ab4704c6168791a6105ccd73",
+        "commit": "8f176eaf71595adb0e561e98340731492cd7eecf",
         "route": "kurortnaya",
         "selector": ".catalog-best-offers .launch-card"
       },
@@ -434,7 +434,7 @@
       "version": "1.0.0",
       "source": {
         "repo": "daniilterekh-prog/barn-estate-homepage-clone",
-        "commit": "0f389c4817414f05ab4704c6168791a6105ccd73",
+        "commit": "8f176eaf71595adb0e561e98340731492cd7eecf",
         "route": "kurortnaya",
         "selector": ".catalog-grid__item[data-listing-mode=\"new-build\"] .apartment-card"
       },
@@ -459,7 +459,7 @@
       "version": "1.0.0",
       "source": {
         "repo": "daniilterekh-prog/barn-estate-homepage-clone",
-        "commit": "0f389c4817414f05ab4704c6168791a6105ccd73",
+        "commit": "8f176eaf71595adb0e561e98340731492cd7eecf",
         "route": "kurortnaya",
         "selector": ".catalog-grid__item[data-listing-mode=\"secondary\"] .apartment-card"
       },
