@@ -1,8 +1,9 @@
 /* Dropdown markup/geometry follow front.barnes.vsavr.ru's catalog quick filters. */
 .resort-quick-dropdown[hidden] { display: none !important; }
-html body select[data-custom-sort-ready][hidden] { display: none !important; }
-.resort-sort-trigger { cursor: pointer; font-family: inherit; background: transparent; }
-.map-browser .resort-sort-trigger { width: 100%; min-width: 0; min-height: 40px; padding: 0 20px 0 0; border: 0; color: var(--map-filter-ink); font-size: var(--map-filter-size); font-weight: var(--map-filter-weight); line-height: 22px; text-align: left; }
+html body select[data-custom-dropdown-ready][hidden] { display: none !important; }
+.resort-sort-trigger, .resort-select-trigger { cursor: pointer; font-family: inherit; background: transparent; }
+.map-browser :is(.resort-sort-trigger, .resort-select-trigger) { width: 100%; min-width: 0; min-height: 40px; padding: 0 20px 0 0; border: 0; color: var(--map-filter-ink); font-size: var(--map-filter-size); font-weight: var(--map-filter-weight); line-height: 22px; text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.map-browser :is(.resort-sort-trigger, .resort-select-trigger):hover { color: var(--map-filter-wine); }
 .resort-quick-dropdown { position: fixed; z-index: 10050; box-sizing: border-box; max-width: calc(100vw - 32px); box-shadow: none; }
 .resort-quick-dropdown {
   --quick-filter-font-size: 17px;

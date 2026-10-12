@@ -4,7 +4,7 @@
   var base = new URL('.', document.currentScript.src);
   var stylesheet = document.createElement('link');
   stylesheet.rel = 'stylesheet';
-  stylesheet.href = new URL('quick-filters.css?v=3', base).href;
+  stylesheet.href = new URL('quick-filters.css?v=4', base).href;
   document.head.appendChild(stylesheet);
   var configs = [
     { title:'Локация', key:'directions', reset:'Все направления', choices:['Сочи','Анапа','Алтай','Архыз'] },
@@ -23,14 +23,16 @@
   var list = popup.querySelector('.catalog-quick-filters__options');
   var activeButton = null;
   var savedPopupInert = false;
-  var sortConfigs = new Map();
-  function mountSorts() {
-    document.querySelectorAll('.catalog-mode-toolbar .catalog-grid__sort select, .map-browser [data-filter="sort"]').forEach(function (select) {
-      if (select.dataset.customSortReady) return;
-      select.dataset.customSortReady = 'true';
+  var selectConfigs = new Map();
+  function mountSelectDropdowns() {
+    document.querySelectorAll('.catalog-mode-toolbar .catalog-grid__sort select, .map-browser select[data-filter]').forEach(function (select) {
+      if (select.dataset.customDropdownReady) return;
+      select.dataset.customDropdownReady = 'true';
       var button = document.createElement('button');
       button.type = 'button';
-      button.className = select.className + ' resort-sort-trigger';
+      var sorting = select.matches('.catalog-grid__sort-select, [data-filter="sort"]');
+      var title = sorting ? 'Сортировка' : select.getAttribute('aria-label');
+      button.className = select.className + (sorting ? ' resort-sort-trigger' : ' resort-select-trigger');
       Array.from(select.attributes).filter(function (a) { return a.name.startsWith('data-v-'); }).forEach(function (a) { button.setAttribute(a.name, a.value); });
       button.setAttribute('aria-haspopup','dialog');
       button.setAttribute('aria-controls',popup.id);
@@ -40,20 +42,20 @@
       select.setAttribute('aria-hidden','true');
       select.tabIndex = -1;
       var options = Array.from(select.options);
-      sortConfigs.set(button, { title:'Сортировка', select:select, choices:options.map(function (o) { return o.textContent; }), values:options.map(function (o) { return o.value; }) });
+      selectConfigs.set(button, { title:title, select:select, choices:options.map(function (o) { return o.textContent; }), values:options.map(function (o) { return o.value; }) });
       function sync() {
         button.textContent = select.selectedOptions[0].textContent;
-        button.setAttribute('aria-label','Сортировка: ' + button.textContent);
+        button.setAttribute('aria-label',title + ': ' + button.textContent);
       }
       select.addEventListener('input',sync);
       select.addEventListener('change',sync);
       sync();
     });
-    if (sortConfigs.size === 2 && sortObserver) sortObserver.disconnect();
+    if (selectConfigs.size === 5 && selectObserver) selectObserver.disconnect();
   }
-  var sortObserver = new MutationObserver(mountSorts);
-  sortObserver.observe(document.body, { childList:true, subtree:true });
-  mountSorts();
+  var selectObserver = new MutationObserver(mountSelectDropdowns);
+  selectObserver.observe(document.body, { childList:true, subtree:true });
+  mountSelectDropdowns();
   function buttons() { return Array.from(document.querySelectorAll('.catalog-mode-filters .catalog-quick-filters__button')); }
   function state() { return window.BarnesFilters ? window.BarnesFilters.getState() : {}; }
   function selection(config, value) {
@@ -158,8 +160,8 @@
   }
   popup.querySelector('.catalog-quick-filters__dropdown-close').addEventListener('click',function () { close(true); });
   document.addEventListener('click',function (event) {
-    var sortButton = event.target.closest('.resort-sort-trigger');
-    if (sortButton) { event.preventDefault(); open(sortButton,sortConfigs.get(sortButton)); return; }
+    var sortButton = event.target.closest('.resort-sort-trigger, .resort-select-trigger');
+    if (sortButton) { event.preventDefault(); open(sortButton,selectConfigs.get(sortButton)); return; }
     var button = event.target.closest('.catalog-mode-filters .catalog-quick-filters__button');
     if (button) { event.preventDefault(); update(); open(button,buttons().indexOf(button)); }
     else if (!popup.contains(event.target)) close(false);
@@ -187,7 +189,7 @@
   window.addEventListener('resize',function () { close(false); });
   document.addEventListener('barnes:filters-apply',update);
   document.addEventListener('barnes:filters-apply',function () {
-    sortConfigs.forEach(function (config,button) { button.textContent = config.select.selectedOptions[0].textContent; button.setAttribute('aria-label','Сортировка: ' + button.textContent); });
+    selectConfigs.forEach(function (config,button) { button.textContent = config.select.selectedOptions[0].textContent; button.setAttribute('aria-label',config.title + ': ' + button.textContent); });
   });
   document.addEventListener('barnes:filters-open',function () { close(false); });
   update();
