@@ -260,6 +260,7 @@ html body .catalog-sticky__mobile-actions { display: none; }
   html body.barnes-header-template .catalog-sticky__nav { display: flex; align-items: center; gap: 12px; }
   html body.barnes-header-template .catalog-sticky__list { flex: 1; min-width: 0; }
   html body .catalog-sticky__mobile-actions { display: flex; flex: 0 0 auto; gap: 8px; }
+  html body.barnes-header-template .catalog-sticky__mobile-actions .catalog-sticky__callback { width: auto; min-height: 44px; padding-inline: 12px; font-size: 15px; white-space: nowrap; flex: 0 0 auto; }
 }
 
 /* Compact ContactAction used as a channel selector inside both forms. */
