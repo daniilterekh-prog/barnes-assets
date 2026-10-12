@@ -1,5 +1,7 @@
 # OwnerHeader / общий шаблон хедера
 
+Курортная, мобильные действия: в херо телефонная иконка — button выбора контактов (4 ссылки), не прямой tel. В sticky две независимые touch-зоны44px: список контактов и callback-form с каналом «Звонок». Блок actions не прокручивается, якоря прокручиваются отдельно. Реализация узла: [ui-kit-runtime.js](https://github.com/daniilterekh-prog/barn-estate-homepage-clone/blob/master/kurortnaya/ui-kit-runtime.js), регрессия `scripts/verify-kurort-mobile-header-actions.cjs` на320/390/540px. Desktop остаётся общим шаблоном.
+
 Источник: prodazha_sobstvennikam, интеграция Курортной f00d7f7. Один CSS-шаблон shared/owner-header.css на сайте; переносимая копия blocks/nodes/first-degree/_shared/owner-header.css. Подключать после остальных CSS-слоёв, body.barnes-header-template.
 
 Primary header: общий логотип, кнопка меню, поиск/каналы, одинаковые touch-зоны. В Курортной нет строки направлений (site-header--no-nav), у собственников она остаётся. На mobile поиск скрыт.

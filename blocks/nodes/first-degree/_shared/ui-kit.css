@@ -247,6 +247,24 @@ html body .catalog-contact__image[class] {
   transform-origin: center;
 }
 
+/* Mobile hero contacts remain distinct from the sticky request-form button. */
+html body.barnes-header-template .catalog-primary-contact-toggle { background: transparent; border: 0; padding: 0; min-width: 44px; min-height: 44px; cursor: pointer; }
+html body.barnes-header-template .site-header { position: relative; }
+html body .catalog-primary-contact-panel { position: absolute; left: 16px; top: calc(100% + 8px); z-index: 110; display: flex; gap: 12px; padding: 8px; background: #fff; border: 1px solid #e4e4e4; }
+html body .catalog-primary-contact-panel[hidden] { display: none; }
+html body .catalog-primary-contact { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; color: #8b1d25; }
+html body .catalog-primary-contact :is(img, svg) { width: 22px; height: 22px; }
+html body .catalog-primary-contact .site-header__phone-number { display: none; }
+html body .catalog-primary-contact .site-header__icon--phone { color: #8b1d25; }
+html body .catalog-primary-contact-toggle:focus-visible, html body .catalog-primary-contact:focus-visible { outline: 2px solid #8b1d25; outline-offset: 3px; }
+html body .catalog-sticky__mobile-actions { display: none; }
+@media (max-width: 540px) {
+  html body.barnes-header-template .catalog-header-ready .catalog-primary-contact-toggle { display: inline-flex; align-items: center; justify-content: center; }
+  html body.barnes-header-template .catalog-sticky__nav { display: flex; align-items: center; gap: 12px; }
+  html body.barnes-header-template .catalog-sticky__list { flex: 1; min-width: 0; }
+  html body .catalog-sticky__mobile-actions { display: flex; flex: 0 0 auto; gap: 8px; }
+}
+
 /* Compact ContactAction used as a channel selector inside both forms. */
 html body :is(.catalog-consultation__methods, .catalog-contact__methods)[class] {
   box-sizing: border-box;
@@ -915,12 +933,6 @@ html body :is(.catalog-header-search, .catalog-header-contact):focus-visible {
 @media (max-width: 1024px) {
   html body .catalog-header-contacts {
     display: none;
-  }
-}
-
-@media (max-width: 540px) {
-  html body .catalog-header-ready .site-header__mobile-phone {
-    display: none !important;
   }
 }
 
