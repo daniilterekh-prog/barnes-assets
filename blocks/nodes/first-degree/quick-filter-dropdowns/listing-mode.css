@@ -396,6 +396,26 @@ html body .catalog-mode-toolbar .catalog-grid__sort[class] {
     overflow: visible;
   }
 
+  /* Anchor every mobile arrow to its control, independently of text/padding. */
+  .catalog-mode-toolbar .catalog-quick-filters__button[data-v-6fd45cc6] {
+    position: relative;
+  }
+
+  html body .catalog-mode-toolbar .catalog-quick-filters__chevron[class],
+  .catalog-mode-toolbar .catalog-grid__sort::after {
+    box-sizing: border-box;
+    height: 10px;
+    margin: 0;
+    position: absolute;
+    right: 16px;
+    transform: rotate(45deg);
+    width: 10px;
+  }
+
+  html body .catalog-mode-toolbar .catalog-quick-filters__chevron[class] {
+    top: calc(50% - 3px);
+  }
+
   html body .catalog-mode-toolbar .catalog-mode-filters .catalog-quick-filters__item:first-child[class] {
     grid-column: 1 / -1;
     grid-row: 1;
