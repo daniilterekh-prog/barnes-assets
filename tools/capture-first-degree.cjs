@@ -36,7 +36,7 @@ const props = ['fontFamily','fontSize','fontWeight','lineHeight','letterSpacing'
           // Yandex tiles and runtime are not portable. Preserve public preview + controls.
           const mapCanvas=node.querySelector('.catalog-projects-map__canvas');
           if(mapCanvas) {
-            const image=document.createElement('img');image.src=new URL('kurortnaya/map-preview.png',publicBase).href;image.alt='Статичный снимок карты Яндекс';image.className='node-map-preview';
+            const image=document.createElement('img');image.src=new URL('kurortnaya/assets/map-preview.png',publicBase).href;image.alt='Статичный снимок карты Яндекс';image.className='node-map-preview';
             mapCanvas.replaceChildren(image);
           }
           node.querySelectorAll('ymaps,[class*="ymaps3"],[class*="ymaps-"],canvas,iframe').forEach(n=>n.remove());

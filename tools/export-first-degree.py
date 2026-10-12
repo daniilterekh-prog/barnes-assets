@@ -33,13 +33,18 @@ for rows in snapshots.values():
         urls.update(re.findall(r'\bsrc(?:set)?="(https?://[^\"\s,]+)', row['html']))
 css_files = ['source.css', 'ui-kit.css', 'listing-mode.css', 'start-sales-cards.css', 'owner-header.css', 'owner-footer.css', 'brand-filters.css']
 css_contents = {}
+css_bases = {}
 for file in css_files:
-    css = (site / ('shared' if file == 'owner-header.css' else 'kurortnaya') / file).read_text()
+    current = site / 'kurortnaya/css' / file
+    legacy = site / ('shared' if file == 'owner-header.css' else 'kurortnaya') / file
+    source = current if current.is_file() else legacy
+    css = source.read_text()
+    css_bases[file] = origin + source.parent.relative_to(site).as_posix() + '/'
     # Copy project-owned CSS dependencies only. Original remote CSS URLs stay remote.
     for match in re.finditer(r'url\(([\"\']?)([^)]+?)\1\)', css):
         value = match[2]
         if not value.startswith(('http', 'data:', '#')):
-            urls.add(urllib.parse.urljoin(origin + 'kurortnaya/', value))
+            urls.add(urllib.parse.urljoin(css_bases[file], value))
     css_contents[file] = css
 
 asset_map = {}
@@ -68,12 +73,13 @@ with concurrent.futures.ThreadPoolExecutor(max_workers=6) as pool:
 for file, css in css_contents.items():
     def rewrite(match):
         quote, value = match[1], match[2]
-        absolute = urllib.parse.urljoin(origin + 'kurortnaya/', value)
+        absolute = urllib.parse.urljoin(css_bases[file], value)
         if absolute in asset_map:
             return f'url("assets/{asset_map[absolute]}")'
         return match[0]
     (shared / file).write_text(re.sub(r'url\(([\"\']?)([^)]+?)\1\)', rewrite, css))
-shutil.copyfile(site / 'kurortnaya/start-sales-cards.js', shared / 'start-sales.js')
+carousel = site / 'kurortnaya/js/start-sales-cards.js'
+shutil.copyfile(carousel if carousel.is_file() else site / 'kurortnaya/start-sales-cards.js', shared / 'start-sales.js')
 
 def page(id=None):
     prefix = '../_shared/' if id else '_shared/'
