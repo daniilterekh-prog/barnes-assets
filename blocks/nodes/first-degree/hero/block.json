@@ -2,13 +2,9 @@
   "id": "first-degree-hero",
   "title": "Первый экран и поиск",
   "version": "1.0.0",
-  "styleUpdate": {
-    "sourceCommit": "8d2a5649b426e7b3e11b4edc60a5651bc3fb8942",
-    "heroOverlay": "rgba(0, 0, 0, 0.2)"
-  },
   "source": {
     "repo": "daniilterekh-prog/barn-estate-homepage-clone",
-    "commit": "0f389c4817414f05ab4704c6168791a6105ccd73",
+    "commit": "8f176eaf71595adb0e561e98340731492cd7eecf",
     "route": "kurortnaya",
     "selector": "#catalog-hero"
   },
