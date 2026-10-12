@@ -4,7 +4,7 @@
   var css = document.createElement('link');
   css.rel = 'stylesheet';
   css.dataset.barnesBrandFilters = '';
-  css.href = new URL('brand-filters.css?v=1', document.currentScript.src).href;
+  css.href = new URL('brand-filters.css?v=2', document.currentScript.src).href;
   document.head.appendChild(css);
   var choices = [['selection', 'Выбор BARNES'], ['exclusive', 'Эксклюзив BARNES']];
   function flags() { return window.BarnesFilters.getState().brandFlags || []; }
@@ -42,19 +42,12 @@
     document.querySelectorAll('.barnes-brand-filters input').forEach(function (input) {
       input.checked = selected.includes(input.value);
     });
-    var notice = document.querySelector('.barnes-brand-filters__notice');
-    if (notice) notice.hidden = !selected.length;
   }
   function mount() {
     var toolbar = document.querySelector('.catalog-mode-toolbar');
     if (toolbar && !document.querySelector('[data-brand-context=listing]')) {
       var row = group('listing');
-      var notice = document.createElement('p');
-      notice.className = 'barnes-brand-filters__notice';
-      notice.setAttribute('role', 'status');
-      notice.hidden = true;
-      notice.textContent = 'В снимке листинга нет признаков подборок BARNES. Эти параметры пока не меняют выдачу.';
-      toolbar.after(row, notice);
+      toolbar.appendChild(row);
     }
     var reset = document.querySelector('.map-browser__reset');
     if (reset && !document.querySelector('[data-brand-context=map]')) reset.before(group('map'));

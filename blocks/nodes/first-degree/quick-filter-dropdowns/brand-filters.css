@@ -14,7 +14,8 @@ html body .barnes-brand-filters__box { position: relative; pointer-events: none;
 .barnes-brand-filters input:focus-visible + .barnes-brand-filters__box { outline: 2px solid #8b1d25; outline-offset: 3px; }
 .barnes-brand-filters label:hover { color: #8b1d25; }
 html body .map-browser .barnes-brand-filters { grid-column: 1 / -1; margin: 0; gap: 4px 16px; font-size: var(--map-filter-size); }
-html body .barnes-brand-filters__notice { font-family: var(--kit-font, "Tilda Sans", sans-serif); font-size: 14px; font-weight: 300; line-height: 1.4; color: #4f4d49; margin: 8px 0 0; }
-.barnes-brand-filters__notice[hidden] { display: none; }
+/* Share toolbar row-gap with the market-switch / quick-filter interval. */
+html body .catalog-mode-toolbar .barnes-brand-filters { grid-column: 1 / -1; grid-row: 3; margin: 0; }
 @media (min-width: 1441px) { html body .barnes-brand-filters { font-size: 19px; } }
 @media (max-width: 540px) { html body .barnes-brand-filters { gap: 4px 20px; margin-top: 16px; } }
+@media (max-width: 540px) { html body .catalog-mode-toolbar .barnes-brand-filters { grid-row: 4; margin: 0; } }

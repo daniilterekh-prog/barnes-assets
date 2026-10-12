@@ -88,7 +88,6 @@
     if (market && !hasMarket) unavailable.push('рынок продажи');
     if (location.value && !hasLocations) unavailable.push('локация');
     if (bedrooms.value && !hasBedrooms) unavailable.push('число спален');
-    if (brandFlags.length && !hasBrandFlags) unavailable.push('подборки BARNES');
     metadataNotice.hidden = !unavailable.length;
     metadataNotice.textContent = unavailable.length ? 'Нет данных для параметров: ' + unavailable.join(', ') + '. Они пока не меняют выдачу.' : '';
     marketButtons.forEach(function (button) { button.setAttribute('aria-pressed',String(button.dataset.mapMarket === market)); });
