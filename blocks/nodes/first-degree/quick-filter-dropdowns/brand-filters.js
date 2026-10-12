@@ -4,7 +4,7 @@
   var css = document.createElement('link');
   css.rel = 'stylesheet';
   css.dataset.barnesBrandFilters = '';
-  css.href = new URL('brand-filters.css?v=10', document.currentScript.src).href;
+  css.href = new URL('brand-filters.css?v=11', document.currentScript.src).href;
   document.head.appendChild(css);
   var choices = [['selection', 'Выбор BARNES'], ['exclusive', 'Эксклюзив BARNES']];
   function flags() { return window.BarnesFilters.getState().brandFlags || []; }
@@ -50,7 +50,10 @@
       toolbar.appendChild(row);
     }
     var reset = document.querySelector('.map-browser__reset');
-    if (reset && !document.querySelector('[data-brand-context=map]')) reset.before(group('map'));
+    if (reset && !document.querySelector('[data-brand-context=map]')) {
+      var sortRow = document.querySelector('.map-browser__extra');
+      (sortRow || reset).before(group('map'));
+    }
     update();
     if (document.querySelector('[data-brand-context=listing]') && document.querySelector('[data-brand-context=map]')) observer.disconnect();
   }
