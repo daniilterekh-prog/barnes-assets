@@ -1572,3 +1572,8 @@ html body .catalog-feedback-modal .modal__close svg {
     animation-iteration-count: 1 !important;
   }
 }
+
+/* One consistent 20% black overlay for both hero image variants. */
+html body .catalog-hero__overlay[class] {
+  background: rgb(0 0 0 / 20%);
+}
