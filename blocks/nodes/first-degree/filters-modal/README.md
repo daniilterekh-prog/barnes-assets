@@ -22,4 +22,6 @@ Desktop 640 px, max-height min(952 px, viewport−48 px), #292929, header 24 px,
 
 ## Важное правило мобильной инициализации
 
+Дополнение 12.10.2026: обязательный `market` равен `new-build` или `secondary` (по умолчанию `new-build`). При повторном клике и reset+apply выбор сохраняется. `brandFlags` снимаются при reset; тип недвижимости и рынок независимы. Не объединяй два рынка и не считай запись с неизвестным market подходящей.
+
 При смене desktop/mobile snapshot через `document.open/write` сначала загрузить окончательную разметку, потом инициализировать общий runtime и `BarnesFilters`. Иначе window-API остаётся от предыдущего документа, а его DOM и listeners удаляются: кнопка не открывает фильтры при медленной загрузке mobile.html. При ошибке загрузки mobile snapshot инициализировать fallback-документ один раз. Регрессионная проверка в репозитории страницы: `scripts/verify-kurort-mobile-bootstrap.cjs`, iPhone touch, fast / delayed1500ms / HTTP503, три точки открытия.

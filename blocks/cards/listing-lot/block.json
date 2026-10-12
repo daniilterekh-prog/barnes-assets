@@ -5,7 +5,20 @@
   "variant": "resale-lot",
   "entry": "fragment.html",
   "preview": "index.html",
-  "styles": ["../_shared.css", "../_listing.css", "styles.css"],
-  "assets": ["../../_assets/15358c144022-listing-lot.jpg"],
-  "contract": "../../../ui-kit/components/listing-card.md"
+  "styles": [
+    "styles.css"
+  ],
+  "contract": "../../../ui-kit/components/listing-card.md",
+  "version": "1.1.0",
+  "source": {
+    "repo": "daniilterekh-prog/barn-estate-homepage-clone",
+    "commit": "9b83c5d6b3858df52fe27da7b1b8ba18a2210459",
+    "route": "kurortnaya",
+    "selector": ".catalog-grid__item[data-listing-mode=\"secondary\"] .apartment-card"
+  },
+  "mobileEntry": "mobile.html",
+  "dependencies": [
+    "../../nodes/first-degree/_shared/"
+  ],
+  "canonical": "../../nodes/first-degree/card-lot/block.json"
 }

@@ -915,7 +915,7 @@ html body :is(.catalog-header-search, .catalog-header-contact):focus-visible {
     opacity: 0.72;
   }
 
-  /* The BARNES interaction accent is always burgundy, never gold. */
+  /* Interactive accents are burgundy; yellow and gold are prohibited. */
   html body :is(
     .news-section__read-more,
     .site-footer__column-title--link,

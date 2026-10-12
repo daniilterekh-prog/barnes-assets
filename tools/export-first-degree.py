@@ -31,7 +31,7 @@ urls = set()
 for rows in snapshots.values():
     for row in rows:
         urls.update(re.findall(r'\bsrc="(https?://[^\"]+)"', row['html']))
-css_files = ['source.css', 'ui-kit.css', 'listing-mode.css', 'start-sales-cards.css', 'owner-header.css']
+css_files = ['source.css', 'ui-kit.css', 'listing-mode.css', 'start-sales-cards.css', 'owner-header.css', 'owner-footer.css', 'brand-filters.css']
 css_contents = {}
 for file in css_files:
     css = (site / ('shared' if file == 'owner-header.css' else 'kurortnaya') / file).read_text()
@@ -113,8 +113,22 @@ for row in snapshots['desktop']:
 (root / 'index.html').write_text(page())
 (root / 'catalog.html').write_text('<!doctype html><html lang="ru"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Блоки узла первой степени</title><body style="font:18px sans-serif;max-width:900px;margin:40px auto;padding:16px"><h1>Узел первой степени</h1><p><a href="index.html">Полная сборка</a> · <a href="README.md">Интеграция</a></p><ol>' + ''.join(f'<li style="margin:16px"><a href="{b["id"].removeprefix("first-degree-")}/index.html">{b["title"]}</a></li>' for b in blocks) + '</ol></body></html>\n')
 print(json.dumps({'blocks':len(blocks),'assets':len(asset_map),'sourceCommit':commit}))
+# Keep the older, user-facing card paths current, without duplicating media.
+for alias, canonical in {'start-sales':'card-start-sales', 'listing-project':'card-project', 'listing-lot':'card-lot'}.items():
+    folder = repo / 'blocks/cards' / alias
+    source = root / canonical
+    prefix = '../../nodes/first-degree/'
+    for file in ('fragment.html', 'mobile.html'):
+        folder.joinpath(file).write_text(source.joinpath(file).read_text().replace('../_shared/', prefix + '_shared/'))
+    folder.joinpath('styles.css').write_text(f'@import url("{prefix}{canonical}/styles.css");\n')
+    folder.joinpath('index.html').write_text(source.joinpath('index.html').read_text().replace('../_shared/', prefix + '_shared/'))
+    metadata = json.loads(folder.joinpath('block.json').read_text())
+    metadata.update(version='1.1.0', source=json.loads(source.joinpath('block.json').read_text())['source'], entry='fragment.html', mobileEntry='mobile.html', preview='index.html', styles=['styles.css'], dependencies=[prefix + '_shared/'], canonical=prefix + canonical + '/block.json')
+    metadata.pop('assets', None)
+    folder.joinpath('block.json').write_text(json.dumps(metadata,ensure_ascii=False,indent=2)+'\n')
+    folder.joinpath('README.md').write_text(f'# {titles[canonical]}\n\nАктуальный экспорт Курортной, commit `{commit}`.\n\nЭтот прежний путь синхронизирован с [каноническим компонентом]({prefix}{canonical}/README.md). `fragment.html`, `mobile.html` и `index.html` обновляются вместе; изображения и шрифты не дублируются. Копируй `_shared` коллекции узлов первой степени вместе с карточкой. CSS-классы актуального компонента имеют приоритет над историческими `barnes-listing-card`; старые версии доступны в Git-истории. Контракт: [FirstDegreeNode]({prefix}../../../ui-kit/first-degree.md).\n')
 measurements = [json.loads((site / f'.playwright-mcp/first-degree-measurements-{w}.json').read_text()) for w in (390,768,1366,1920,2560)]
-(repo / 'ui-kit/first-degree-measurements.json').write_text(json.dumps({'sourceCommit':commit,'environment':'Chromium, CSS viewport px, exported assembly','measurements':measurements},ensure_ascii=False,indent=2)+'\n')
+(repo / 'ui-kit/first-degree-measurements.json').write_text(json.dumps({'sourceCommit':commit,'environment':'Chromium, CSS viewport px, source Kurortnaya rendered page','measurements':measurements},ensure_ascii=False,indent=2)+'\n')
 catalog_path = repo / 'blocks/catalog.json'
 catalog = json.loads(catalog_path.read_text())
 catalog.setdefault('collections', {})['first-degree'] = {'entry':'nodes/first-degree/manifest.json','preview':'nodes/first-degree/catalog.html','blocks':15,'cards':3,'sourceCommit':commit}

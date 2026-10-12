@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "source": {
     "repo": "daniilterekh-prog/barn-estate-homepage-clone",
-    "commit": "f00d7f7",
+    "commit": "9b83c5d6b3858df52fe27da7b1b8ba18a2210459",
     "route": "kurortnaya",
     "selector": "#catalog-consultation"
   },

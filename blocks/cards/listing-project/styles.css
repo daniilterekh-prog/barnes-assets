@@ -1,9 +1,1 @@
-@import url("../_listing.css");
-
-.barnes-listing-card__address {
-  color: #65717a;
-  font-size: 15px;
-  font-weight: 400;
-  line-height: 1.35;
-  margin: 0 0 8px;
-}
+@import url("../../nodes/first-degree/card-project/styles.css");

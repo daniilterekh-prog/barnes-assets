@@ -1,0 +1,78 @@
+{
+  "sourceCommit": "9b83c5d6b3858df52fe27da7b1b8ba18a2210459",
+  "results": [
+    {
+      "id": "start-sales",
+      "width": 390,
+      "pass": true,
+      "overflow": false,
+      "images": true,
+      "height": 438
+    },
+    {
+      "id": "listing-project",
+      "width": 390,
+      "pass": true,
+      "overflow": false,
+      "images": true,
+      "height": 492.9375
+    },
+    {
+      "id": "listing-lot",
+      "width": 390,
+      "pass": true,
+      "overflow": false,
+      "images": true,
+      "height": 497.734375
+    },
+    {
+      "id": "start-sales",
+      "width": 1440,
+      "pass": true,
+      "overflow": false,
+      "images": true,
+      "height": 588
+    },
+    {
+      "id": "listing-project",
+      "width": 1440,
+      "pass": true,
+      "overflow": false,
+      "images": true,
+      "height": 616.453125
+    },
+    {
+      "id": "listing-lot",
+      "width": 1440,
+      "pass": true,
+      "overflow": false,
+      "images": true,
+      "height": 621.65625
+    },
+    {
+      "id": "start-sales",
+      "width": 2560,
+      "pass": true,
+      "overflow": false,
+      "images": true,
+      "height": 438
+    },
+    {
+      "id": "listing-project",
+      "width": 2560,
+      "pass": true,
+      "overflow": false,
+      "images": true,
+      "height": 616.453125
+    },
+    {
+      "id": "listing-lot",
+      "width": 2560,
+      "pass": true,
+      "overflow": false,
+      "images": true,
+      "height": 621.65625
+    }
+  ],
+  "failures": 0
+}
