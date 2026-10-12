@@ -1,0 +1,28 @@
+{
+  "id": "launch-card",
+  "variant": "start-sales",
+  "title": "Карточка старта продаж",
+  "version": "1.1.0",
+  "source": {
+    "repo": "daniilterekh-prog/barn-estate-homepage-clone",
+    "commit": "9b83c5d6b3858df52fe27da7b1b8ba18a2210459",
+    "route": "kurortnaya",
+    "selector": ".catalog-best-offers .launch-card"
+  },
+  "files": [
+    "fragment.html",
+    "styles.css",
+    "index.html"
+  ],
+  "dependencies": [
+    "../../nodes/first-degree/_shared/"
+  ],
+  "status": "approved-component",
+  "entry": "fragment.html",
+  "mobileEntry": "mobile.html",
+  "preview": "index.html",
+  "styles": [
+    "styles.css"
+  ],
+  "canonical": "../../nodes/first-degree/card-start-sales/block.json"
+}

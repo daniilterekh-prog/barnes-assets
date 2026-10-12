@@ -1,6 +1,6 @@
 # Фильтры и листинг ЖК / лотов
 
-Эталон узла первой степени. Источник: `kurortnaya`, commit `f00d7f7`.
+Эталон узла первой степени. Источник: `kurortnaya`, commit `9b83c5d6b3858df52fe27da7b1b8ba18a2210459`.
 
 - `fragment.html` — desktop/tablet; `mobile.html` — до 540 px.
 - `index.html` — самостоятельное превью.

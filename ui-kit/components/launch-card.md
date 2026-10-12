@@ -1,6 +1,6 @@
 # LaunchCard / старт продаж
 
-Полноформатная медиакарточка стартов продаж. Актуальный узловой вариант: `blocks/nodes/first-degree/card-start-sales/`; старый `blocks/cards/start-sales/` сохранён отдельно.
+Полноформатная медиакарточка стартов продаж. Актуальный узловой вариант: `blocks/nodes/first-degree/card-start-sales/`; `blocks/cards/start-sales/` синхронизирован с ним 12.10.2026 (source commit 9b83c5d).
 
 - Высота `438px`, максимальная ширина `520px`, radius `1px`.
 - Заголовок `31/34.72px`, mobile `29/32.48px`, weight `400`.

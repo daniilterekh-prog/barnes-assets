@@ -247,29 +247,51 @@ html body .catalog-contact__image[class] {
   transform-origin: center;
 }
 
+/* Mobile hero contacts remain distinct from the sticky request-form button. */
+html body.barnes-header-template .site-header { position: relative; }
+html body .catalog-sticky__mobile-actions { display: none; }
+@media (max-width: 540px) {
+  html body.barnes-header-template .catalog-header-ready .site-header__top { display: grid; grid-template-columns: 44px minmax(0, 1fr) 44px; align-items: center; }
+  html body.barnes-header-template .catalog-header-ready .site-header__left { display: contents; transform: none; }
+  html body.barnes-header-template .catalog-header-ready .catalog-primary-call { display: flex; align-items: center; justify-content: center; grid-column: 1; grid-row: 1; width: 44px; height: 44px; }
+  html body.barnes-header-template .catalog-header-ready .site-header__logo { grid-column: 2; grid-row: 1; justify-self: center; }
+  html body.barnes-header-template .catalog-header-ready .site-header__icon-btn { grid-column: 3; grid-row: 1; display: grid; place-items: center; width: 44px; height: 44px; padding: 0; }
+  html body.barnes-header-template .catalog-header-ready .site-header__right { display: none; }
+  html body.barnes-header-template .catalog-sticky__nav { display: flex; align-items: center; gap: 12px; }
+  html body.barnes-header-template .catalog-sticky__list { flex: 1; min-width: 0; }
+  html body .catalog-sticky__mobile-actions { display: flex; flex: 0 0 auto; gap: 8px; }
+  html body.barnes-header-template .catalog-sticky__mobile-actions .catalog-sticky__callback { width: auto; min-height: 44px; padding-inline: 12px; font-size: 15px; white-space: nowrap; flex: 0 0 auto; }
+}
+
 /* Compact ContactAction used as a channel selector inside both forms. */
 html body :is(.catalog-consultation__methods, .catalog-contact__methods)[class] {
+  box-sizing: border-box;
   display: grid;
   gap: 12px;
   grid-template-columns: repeat(4, minmax(0, 1fr));
+  max-width: 610px;
+  width: 100%;
 }
 
 html body :is(.catalog-consultation__method, .catalog-contact__method)[class] {
+  --contact-icon-size: 18px;
   align-items: center;
   border: 1px solid rgba(255, 255, 255, 0.55);
   border-radius: 1px;
-  display: inline-flex;
+  display: grid;
   flex: initial;
   font-family: var(--kit-font);
   font-size: 17px;
   font-weight: 400;
   gap: 8px;
+  grid-template-columns: var(--contact-icon-size) 4.8em;
   height: 44px;
   justify-content: center;
   line-height: 1.1;
   min-height: 44px;
   min-width: 0;
   padding: 0 12px;
+  text-align: left;
   white-space: nowrap;
   width: 100%;
 }
@@ -277,8 +299,8 @@ html body :is(.catalog-consultation__method, .catalog-contact__method)[class] {
 html body :is(.catalog-consultation__method-icon, .catalog-contact__method-icon)[class] {
   flex: 0 0 18px;
   font-size: 18px;
-  height: 18px;
-  width: 18px;
+  height: var(--contact-icon-size);
+  width: var(--contact-icon-size);
 }
 
 html body :is(.catalog-consultation__method-icon, .catalog-contact__method-icon)[class] svg {
@@ -733,6 +755,7 @@ html body .catalog-grid__sort-select[class] {
   }
 
   html body :is(.catalog-consultation__method, .catalog-contact__method)[class] {
+    --contact-icon-size: 20px;
     font-size: 18px;
     height: 46px;
     line-height: 1.1;
@@ -892,7 +915,7 @@ html body :is(.catalog-header-search, .catalog-header-contact):focus-visible {
     opacity: 0.72;
   }
 
-  /* The BARNES interaction accent is always burgundy, never gold. */
+  /* Interactive accents are burgundy; yellow and gold are prohibited. */
   html body :is(
     .news-section__read-more,
     .site-footer__column-title--link,
@@ -908,12 +931,6 @@ html body :is(.catalog-header-search, .catalog-header-contact):focus-visible {
 @media (max-width: 1024px) {
   html body .catalog-header-contacts {
     display: none;
-  }
-}
-
-@media (max-width: 540px) {
-  html body .catalog-header-ready .site-header__mobile-phone {
-    display: none !important;
   }
 }
 
