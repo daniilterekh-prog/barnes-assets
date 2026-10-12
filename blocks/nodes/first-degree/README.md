@@ -1,6 +1,6 @@
 # Узлы первой степени — «Курортная»
 
-Референс: [Курортная](https://daniilterekh-prog.github.io/barn-estate-homepage-clone/kurortnaya/). Все HTML/CSS и карточки пересобраны 12.10.2026 по commit `8f176eaf71595adb0e561e98340731492cd7eecf`, включая затемнённый десктопный файл херо и неизменённый мобильный оригинал. [Сводка дня](../../../docs/2026-10-12-first-degree-sync.md).
+Референс: [Курортная](https://daniilterekh-prog.github.io/barn-estate-homepage-clone/kurortnaya/). HTML/CSS и карточки пересобраны 12.10.2026 по commit `14401c5`: новый одобренный десктопный кадр с простой архитектурой, прежний мобильный оригинал. [Сводка дня](../../../docs/2026-10-12-first-degree-sync.md).
 
 [Каталог превью](catalog.html) · [Сборка](index.html) · [UI-контракт](../../../ui-kit/first-degree.md) · [Манифест](manifest.json).
 
