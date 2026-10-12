@@ -30,7 +30,7 @@ titles.update({'card-start-sales':'Карточка старта продаж', 
 urls = set()
 for rows in snapshots.values():
     for row in rows:
-        urls.update(re.findall(r'\bsrc="(https?://[^\"]+)"', row['html']))
+        urls.update(re.findall(r'\bsrc(?:set)?="(https?://[^\"\s,]+)', row['html']))
 css_files = ['source.css', 'ui-kit.css', 'listing-mode.css', 'start-sales-cards.css', 'owner-header.css', 'owner-footer.css', 'brand-filters.css']
 css_contents = {}
 for file in css_files:

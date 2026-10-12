@@ -6,6 +6,12 @@ export async function mountNode(host, folder, options = {}) {
   if (!response.ok) throw new Error(`Block load failed: ${response.status}`);
   host.innerHTML = await response.text();
   host.querySelectorAll('[src]').forEach(el => el.src = new URL(el.getAttribute('src'), base).href);
+  host.querySelectorAll('source[srcset]').forEach(el => {
+    el.srcset = el.srcset.split(',').map(candidate => {
+      const [url,...descriptor] = candidate.trim().split(/\s+/);
+      return [new URL(url,base).href,...descriptor].join(' ');
+    }).join(', ');
+  });
   const manifest = await fetch(new URL('block.json', base)).then(r => r.json());
   host.dataset.nodeId = manifest.id;
   return initNode(host, options);

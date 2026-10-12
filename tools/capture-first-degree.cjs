@@ -40,6 +40,12 @@ const props = ['fontFamily','fontSize','fontWeight','lineHeight','letterSpacing'
             mapCanvas.replaceChildren(image);
           }
           node.querySelectorAll('ymaps,[class*="ymaps3"],[class*="ymaps-"],canvas,iframe').forEach(n=>n.remove());
+          node.querySelectorAll('source[srcset]').forEach(n=>{
+            n.srcset=n.srcset.split(',').map(candidate=>{
+              const [url,...descriptor]=candidate.trim().split(/\s+/);
+              return [new URL(url,location.href).href.replace(base,publicBase),...descriptor].join(' ');
+            }).join(', ');
+          });
           node.querySelectorAll('[src]').forEach(n=>{n.setAttribute('src',new URL(n.getAttribute('src'),location.href).href.replace(base,publicBase));n.removeAttribute('srcset');});
           return {id:block.id.replace('first-degree-',''),selector:block.source.selector,html:node.outerHTML};
         }),{blocks:manifest.blocks,base,publicBase});
