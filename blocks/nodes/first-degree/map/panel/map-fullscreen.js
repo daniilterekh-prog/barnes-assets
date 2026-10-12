@@ -81,11 +81,14 @@
     var hasMarket = items.some(function (item) { return item.market === 'new-build' || item.market === 'secondary'; });
     var hasLocations = items.some(function (item) { return Array.isArray(item.directions) && item.directions.length; });
     var hasBedrooms = items.some(function (item) { return Array.isArray(item.bedrooms) && item.bedrooms.length; });
+    var brandFlags = window.BarnesFilters ? window.BarnesFilters.getState().brandFlags || [] : [];
+    var hasBrandFlags = items.some(function (item) { return Array.isArray(item.brandFlags); });
     var unavailable = [];
     if (type.value && !hasTypes) unavailable.push('тип объекта');
     if (market && !hasMarket) unavailable.push('рынок продажи');
     if (location.value && !hasLocations) unavailable.push('локация');
     if (bedrooms.value && !hasBedrooms) unavailable.push('число спален');
+    if (brandFlags.length && !hasBrandFlags) unavailable.push('подборки BARNES');
     metadataNotice.hidden = !unavailable.length;
     metadataNotice.textContent = unavailable.length ? 'Нет данных для параметров: ' + unavailable.join(', ') + '. Они пока не меняют выдачу.' : '';
     marketButtons.forEach(function (button) { button.setAttribute('aria-pressed',String(button.dataset.mapMarket === market)); });
@@ -95,6 +98,7 @@
         (!market || !hasMarket || item.market === market) &&
         (!location.value || !hasLocations || (item.directions || []).includes(location.value)) &&
         (!bedrooms.value || !hasBedrooms || (item.bedrooms || []).includes(bedrooms.value)) &&
+        (!brandFlags.length || !hasBrandFlags || brandFlags.some(function (flag) { return (item.brandFlags || []).includes(flag); })) &&
         (!price.value || (item.priceRub !== null && item.priceRub <= Number(price.value)));
     });
     if (sort.value) result.sort(function (a, b) {
@@ -170,8 +174,10 @@
   dialog.querySelector('.map-browser__reset').addEventListener('click', function () {
     [query, type, price, sort, location, bedrooms].forEach(function (input) { input.value = ''; });
     market = '';
+    if (window.BarnesFilters) window.BarnesFilters.patch({ brandFlags: [] });
     render();
   });
+  document.addEventListener('barnes:filters-apply', function () { if (!dialog.hidden) render(); });
   document.addEventListener('keydown', function (event) {
     if (dialog.hidden) return;
     if (event.key === 'Escape') close();
