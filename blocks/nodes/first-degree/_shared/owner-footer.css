@@ -1,0 +1,35 @@
+/* Footer contract from prodazha_sobstvennikam/owner-sale.css.
+   Base snapshot rules use the same data-v-6eb18211 scope on both pages. */
+html body .site-footer__nav[class] { gap: 28px 20px; }
+html body .site-footer__column-title[class] { font-size: 18px; font-weight: 400; }
+html body .site-footer__link[class] { font-size: 16px; font-weight: 300; transition: color 200ms ease; }
+html body .site-footer__callback-btn[class] {
+  border-radius: 1px;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 18.7px;
+  min-height: 56px;
+}
+html body :is(.site-footer__link, .site-footer__column-title--link, .site-footer__phone, .site-footer__email, .site-footer__privacy):is(:hover, :focus-visible, :active) {
+  color: #8b1d25 !important;
+}
+@media (min-width: 1200px) {
+  html body .site-footer__nav[class] { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  html body .site-footer__nav[class] > .site-footer__column:nth-child(6) { grid-column: 4; grid-row: 1; }
+  html body .site-footer__nav[class] > .site-footer__column:nth-child(4) { grid-column: 5; grid-row: 1; }
+  html body .site-footer__nav[class] > .site-footer__column:nth-child(5) { grid-column: 6; grid-row: 1; }
+  html body .site-footer__nav[class] > .site-footer__column:nth-child(7) { grid-column: 1; grid-row: 2; }
+  html body .site-footer__nav[class] > .site-footer__column:nth-child(8) { grid-column: 2; grid-row: 2; }
+  html body .site-footer__nav[class] > .site-footer__column:nth-child(9) { grid-column: 3; grid-row: 2; }
+}
+@media (max-width: 540px) {
+  html body .site-footer__nav[class] { gap: 24px 16px; }
+  html body .site-footer__column-title[class] { font-size: 14px; line-height: 1.2; }
+  html body .site-footer__link[class] { font-size: 13px; font-weight: 400; line-height: 1.4; }
+  html body .site-footer__callback-btn[class] { font-size: 18px; line-height: 19.8px; min-height: 48px; }
+}
+@media (min-width: 1441px) {
+  html body .site-footer__column-title[class] { font-size: 20px; line-height: 20px; }
+  html body .site-footer__link[class] { font-size: 18px; line-height: 18px; }
+  html body .site-footer__callback-btn[class] { font-size: 19px; line-height: 20.9px; }
+}

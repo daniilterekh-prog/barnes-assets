@@ -1,6 +1,6 @@
 # Футер
 
-Эталон узла первой степени. Источник: `kurortnaya`, commit `f00d7f7`.
+Эталон узла первой степени. Обновлено 12.10.2026 по футеру `prodazha_sobstvennikam` в barn-estate-homepage-clone: разметка, ссылки (включая «Амбассадоры»), сетка и адаптивная типографика. Интеграция: `kurortnaya/owner-footer.css`. Проверка совпадения computed styles на 320/390/768/1440/1920/2560 — `scripts/verify-kurort-footer-hover.cjs` в репозитории сайта. Золотой hover только `#E7C88F`, жёлтые оттенки недопустимы; бордовый hover ссылок футера сохранён.
 
 - `fragment.html` — desktop/tablet; `mobile.html` — до 540 px.
 - `index.html` — самостоятельное превью.
