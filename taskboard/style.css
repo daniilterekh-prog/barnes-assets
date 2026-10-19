@@ -135,3 +135,6 @@ select,select option,select optgroup{color:var(--ink);background-color:var(--sur
 @media(max-width:500px){#task-card-dialog{width:calc(100vw - 16px);max-height:calc(100svh - 20px);padding:18px 14px}#task-card-title{font-size:23px}.task-card-heading{gap:12px;margin-bottom:22px}#task-card-body .task-card-detail{grid-template-columns:32px minmax(0,1fr);gap:12px}#task-card-body .task-toggle{width:32px}#task-card-body .task-extra-actions{grid-template-columns:1fr}#task-card-body .task-meta{font-size:11px}#task-card-body .status-option{padding:10px;font-size:11px}.task-open{font-size:13px;min-height:52px}}
 
 .task-card-section-title{font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin:0 0 12px}#task-card-body .task-meta{font-size:13px}@media(max-width:500px){#task-card-body .task-meta{font-size:12px}}
+
+.assignee-open{width:100%;min-height:56px;margin:16px 0;justify-content:center;white-space:normal;text-align:center}
+#assignee-form{display:grid;gap:16px}#assignee-select{width:100%;min-height:52px}#assignee-form .primary{width:100%;min-height:56px}

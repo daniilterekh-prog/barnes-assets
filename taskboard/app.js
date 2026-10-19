@@ -1,5 +1,6 @@
+import {setupAssignee} from './assignee.js?v=20261019-assignee';
 import {setupTaskCard} from './task-card.js?v=20261019-progress-deadline';
-import {createPersistence,normalizeView,SESSION_KEY} from './persistence.js?v=20261019-site-categories';
+import {createPersistence,normalizeView,SESSION_KEY} from './persistence.js?v=20261019-assignee';
 import {setupGateway} from './gateway.js?v=20261019-gateway';
 import {setupAttachments,imageFileError} from './attachments.js?v=20261019-upload-form';
 import {setupDiscussion} from './discussion.js?v=20261019-gateway';
@@ -14,7 +15,7 @@ const browserStorage=name=>{try{return window[name];}catch{return null;}};
 const persistence=createPersistence(browserStorage('localStorage'),browserStorage('sessionStorage'));
 let persistenceReady=false,restoringView=false,scrollTimer;
 const state = { session: null, board: null, owner: 'all', status: 'open', urgent: false, query: '', busy: new Set(), signature: '', fetching: false, toastTimer: null };
-const ownerIds = () => state.board?.members.filter(m=>!['tatyana','team'].includes(m.id)).map(m=>m.id) || [];
+const ownerIds = () => [...(state.board?.members.filter(m=>!['tatyana','team'].includes(m.id)).map(m=>m.id)||[]),'unassigned'];
 let taskImage=null,taskImagePreview=null;
 let createRequestId=null, creatingTask=false, editingTask=null, editingPage=null, savingPage=false;
 state.screen='gateway';state.mineBrowse=null;state.mineOrigin=null;state.createFromGateway=false;
@@ -25,7 +26,8 @@ const attachments=setupAttachments({api,getSession:()=>state.session,getBoard:()
 const gateway=setupGateway(chooseDestination);
 const discussion=setupDiscussion({api,getSession:()=>state.session,getBoard:()=>state.board,acceptBoard,member,toast,onUnauthorized:showLogin});
 const taskCard=setupTaskCard({getTask:id=>state.board?.tasks.find(t=>t.id===id),isBusy:id=>state.busy.has(id),renderTask,onSelect:id=>{state.selectedTask=id;saveView();}});
-[['task-create-dialog','.task-edit'],['deadline-dialog','.deadline-chip'],['discussion-dialog','.discussion-open:not(.attachments-open)'],['attachments-dialog','.attachments-open']].forEach(([id,selector])=>$(id).addEventListener('close',()=>taskCard.focusAction(selector)));
+const assignee=setupAssignee({api,getBoard:()=>state.board,getSession:()=>state.session,acceptBoard,toast,onUnauthorized:showLogin,onSaved:()=>taskCard.focusAction('.assignee-open')});
+[['task-create-dialog','.task-edit'],['assignee-dialog','.assignee-open'],['deadline-dialog','.deadline-chip'],['discussion-dialog','.discussion-open:not(.attachments-open)'],['attachments-dialog','.attachments-open']].forEach(([id,selector])=>$(id).addEventListener('close',()=>taskCard.focusAction(selector)));
 
 function el(tag, className, text) {
   const node = document.createElement(tag);
@@ -33,7 +35,7 @@ function el(tag, className, text) {
   if (text !== undefined) node.textContent = text;
   return node;
 }
-function member(id) { return state.board?.members.find(m => m.id === id) || {name:'Участник',initials:'—',color:'neutral'}; }
+function member(id) { if(id==='unassigned')return {id,name:'Без исполнителя',initials:'—',color:'neutral'};return state.board?.members.find(m => m.id === id) || {name:'Участник',initials:'—',color:'neutral'}; }
 function avatar(m) { return el('span', 'avatar ' + m.color, m.initials); }
 function displayDate(date) { return date ? dateFormat.format(new Date(date)) + ' мск' : ''; }
 function toast(message) {
@@ -134,7 +136,7 @@ $('gateway-back').onclick=e=>{e.preventDefault();showGateway();};
 function showLogin(message = '',clearStored=true) {
   persistenceReady=false;restoringView=false;clearTimeout(scrollTimer);if(clearStored)persistence.clearSession(state.session?.token);
   gateway.reset();$('gateway-view').hidden=true;$('skip-link').hidden=false;state.screen='login';state.mineBrowse=null;state.mineOrigin=null;state.createFromGateway=false;
-  taskCard.reset();attachments.reset();discussion.reset();$('deadline-dialog').close();deadlineTask=null;state.deadline='all';state.questionsTo=null;state.session = null; state.board = null; state.signature = ''; state.busy.clear();state.detailsExpanded.clear();state.expanded.clear();state.specExpanded?.clear();state.openPages.clear();state.selectedPage=null;state.wikiScope='mine';state.wikiStatus='open';state.pageQuery='';$('page-search').value='';state.view='tasks';state.owner='all';state.scope='mine';state.creator='all';
+  assignee.reset();taskCard.reset();attachments.reset();discussion.reset();$('deadline-dialog').close();deadlineTask=null;state.deadline='all';state.questionsTo=null;state.session = null; state.board = null; state.signature = ''; state.busy.clear();state.detailsExpanded.clear();state.expanded.clear();state.specExpanded?.clear();state.openPages.clear();state.selectedPage=null;state.wikiScope='mine';state.wikiStatus='open';state.pageQuery='';$('page-search').value='';state.view='tasks';state.owner='all';state.scope='mine';state.creator='all';
   state.status='open';state.urgent=false;state.query='';$('search').value='';
   $('nav-mine').open=true;$('nav-assigned').open=false;
   $('board-view').hidden = true; $('login-view').hidden = false;
@@ -171,7 +173,7 @@ function renderNav() {
     const select=$(id);
     if(!select.options.length){
       const all=el('option','',label);all.value='all';select.append(all);
-      ownerIds().forEach(id=>{const option=el('option','',member(id).name);option.value=id;select.append(option);});
+      ownerIds().filter(owner=>id!=='from-member'||owner!=='unassigned').forEach(id=>{const option=el('option','',member(id).name);option.value=id;select.append(option);});
       if(id==='from-member'){const unknown=el('option','','Автор не указан');unknown.value='unknown';select.append(unknown);}
     }
   });
@@ -339,7 +341,7 @@ function renderTask(task,{level=3,showOwner=false,isCard=false}={}) {
   if(task.open_question_count)discuss.append(el('span','question-counter','Вопросы: '+task.open_question_count));
   const images=el('button','discussion-open attachments-open',(task.attachment_count?'Скриншоты':'Прикрепить скриншот')+(task.attachment_count?' · '+task.attachment_count:''));images.type='button';images.prepend(icon('plus'));images.setAttribute('aria-label','Прикрепить скриншот к задаче: '+task.title);images.onclick=()=>attachments.open(task.id);
   const actions=el('div','task-extra-actions');actions.append(discuss,images);
-  if(isCard)main.append(title,meta,details,related,actions);
+  if(isCard){const assign=el('button','filter-button assignee-open','Ответственный: '+member(task.owner).name+' · Изменить');assign.type='button';assign.disabled=state.busy.has(task.id);assign.onclick=()=>assignee.open(task);main.append(title,meta,assign,details,related,actions);}
   else{const open=el('button','primary task-open','Открыть задачу');open.type='button';open.append(icon('arrow-up-right'));open.setAttribute('aria-label','Открыть задачу: '+task.title);open.onclick=()=>taskCard.open(task.id);main.append(title,meta,open);row.onclick=event=>{if(event.target.closest('button,a,input,select,textarea,summary')||window.getSelection()?.toString().trim())return;taskCard.open(task.id);};}
   const controls=el('div','status-controls'); controls.setAttribute('role','group'); controls.setAttribute('aria-label','Статус задачи «'+task.title+'»');
   ['progress','done','obsolete'].forEach(status=>{
@@ -424,7 +426,7 @@ function openTask(task=null,pageId=null) {
   $('task-create-title').textContent=task?'Изменить задачу':'Новая задача';
   $('task-create-submit').textContent=task?'Сохранить':'Добавить';
   const select=$('task-owner'); select.replaceChildren();
-  state.board.members.filter(m=>!['tatyana','team'].includes(m.id)).forEach(m=>{const option=el('option','',m.name);option.value=m.id;select.append(option);});
+  [{id:'unassigned',name:'Без исполнителя'},...state.board.members.filter(m=>!['tatyana','team'].includes(m.id))].forEach(m=>{const option=el('option','',m.name);option.value=m.id;select.append(option);});
   select.value=task?.owner||(state.owner==='all'?state.session.member:state.owner);
   $('task-title').value=task?.title||'';$('task-detail').value=task?.detail||'';$('task-urgent').checked=Boolean(Number(task?.urgent));
   $('task-origin').value=task?.origin||'spec';$('task-source').value=task?.source_url||task?.source||'';

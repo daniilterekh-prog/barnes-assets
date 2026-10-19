@@ -11,10 +11,10 @@
   <title>Рабочая доска — BARN Estate</title>
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
   <script src="./theme.js?v=20261019-theme"></script>
-  <link rel="stylesheet" href="./style.css?v=20261019-task-card">
+  <link rel="stylesheet" href="./style.css?v=20261019-assignee">
   <link rel="stylesheet" href="./preloader.css?v=20261019-theme">
   <script type="module" src="./preloader.js"></script>
-  <script type="module" src="./app.js?v=20261019-site-categories"></script>
+  <script type="module" src="./app.js?v=20261019-assignee"></script>
 </head>
 <body>
   <a id="skip-link" class="skip" href="#tasks">К задачам</a>
@@ -120,6 +120,9 @@
       <details class="create-details"><summary>Исходники и блоки</summary><label for="page-github-url">Папка страницы в GitHub</label><input id="page-github-url" type="url" pattern="https://github.com/.*" maxlength="600" placeholder="https://github.com/…"><label for="page-file-url">HTML страницы</label><input id="page-file-url" type="url" pattern="https://github.com/.*" maxlength="600" placeholder="https://github.com/…"><label for="page-blocks-url">Папка блоков</label><input id="page-blocks-url" type="url" pattern="https://github.com/.*" maxlength="600" placeholder="https://github.com/…"></details>
       <p id="page-error" class="error" role="alert"></p><button id="page-submit" class="primary" type="submit">Сохранить</button>
     </form>
+  </dialog>
+  <dialog id="assignee-dialog" aria-labelledby="assignee-title"><div class="dialog-head"><div><span class="discussion-eyebrow">Ответственный за задачу</span><h2 id="assignee-title"></h2></div><button id="assignee-close" class="icon-button" type="button" aria-label="Закрыть выбор ответственного">×</button></div>
+    <form id="assignee-form"><label for="assignee-select">Кто выполняет задачу</label><select id="assignee-select" required></select><p id="assignee-error" class="form-error" role="alert"></p><button type="submit" class="primary">Сохранить ответственного</button></form>
   </dialog>
   <dialog id="deadline-dialog" aria-labelledby="deadline-title">
     <div class="dialog-head"><div><span class="discussion-eyebrow">Дедлайн задачи</span><h2 id="deadline-title"></h2></div><button id="deadline-close" class="icon-button" type="button" aria-label="Закрыть дедлайн"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="./icons.svg?v=20261019-gateway#x"></use></svg></button></div>
