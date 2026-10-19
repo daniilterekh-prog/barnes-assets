@@ -1,16 +1,16 @@
-import {setupDiscussion} from './discussion.js?v=20261019-spec';
-import {icon} from './icons.js?v=20261019-spec';
+import {setupDiscussion} from './discussion.js?v=20261019-mine';
+import {icon} from './icons.js?v=20261019-mine';
 import { API_URL } from './config.js';
-import { STATUSES, selectTasks, summarize, safeSource, safeHttps, taskDateLabel, splitTaskBuckets, groupSpecTasks, programmerMood, mergeTask, deadlineInfo, moscowDay, shiftDay } from './domain.js?v=20261019-spec';
+import { STATUSES, selectTasks, summarize, safeSource, safeHttps, taskDateLabel, splitTaskBuckets, groupSpecTasks, programmerMood, mergeTask, deadlineInfo, moscowDay, shiftDay } from './domain.js?v=20261019-mine';
 
-import {renderWiki} from './wiki.js?v=20261019-spec';
+import {renderWiki} from './wiki.js?v=20261019-mine';
 
 const $ = id => document.getElementById(id);
 const SESSION_KEY = 'barn-taskboard-session-v1';
 const state = { session: null, board: null, owner: 'all', status: 'all', urgent: false, query: '', busy: new Set(), signature: '', fetching: false, toastTimer: null };
 const ownerIds = () => state.board?.members.filter(m=>!['tatyana','team'].includes(m.id)).map(m=>m.id) || [];
 let createRequestId=null, creatingTask=false, editingTask=null, editingPage=null, savingPage=false;
-state.scope='all'; state.creator='all'; state.questionsTo=null;state.deadline='all';
+state.scope='mine'; state.creator='all'; state.questionsTo=null;state.deadline='all';
 state.view='tasks'; state.expanded=new Set(); state.openPages=new Set(); state.pageQuery='';
 const dateFormat = new Intl.DateTimeFormat('ru', {day:'numeric',month:'short',hour:'2-digit',minute:'2-digit',timeZone:'Europe/Moscow'});
 const discussion=setupDiscussion({api,getSession:()=>state.session,getBoard:()=>state.board,acceptBoard,member,toast,onUnauthorized:showLogin});
@@ -80,7 +80,9 @@ function showBoard() {
   $('my-avatar').textContent = member(state.session.member).initials;
 }
 function showLogin(message = '') {
-  discussion.reset();$('deadline-dialog').close();deadlineTask=null;state.deadline='all';state.questionsTo=null;state.session = null; state.board = null; state.signature = ''; state.busy.clear();state.expanded.clear();state.specExpanded?.clear();state.openPages.clear();state.view='tasks';state.owner='all';state.scope='all';state.creator='all';
+  discussion.reset();$('deadline-dialog').close();deadlineTask=null;state.deadline='all';state.questionsTo=null;state.session = null; state.board = null; state.signature = ''; state.busy.clear();state.expanded.clear();state.specExpanded?.clear();state.openPages.clear();state.view='tasks';state.owner='all';state.scope='mine';state.creator='all';
+  state.status='all';state.urgent=false;state.query='';$('search').value='';
+  $('nav-mine').open=true;$('nav-assigned').open=false;
   sessionStorage.removeItem(SESSION_KEY);
   $('board-view').hidden = true; $('login-view').hidden = false;
   $('history-dialog').close(); $('task-create-dialog').close(); $('page-dialog').close();
@@ -120,6 +122,7 @@ function renderNav() {
       if(id==='from-member'){const unknown=el('option','','Автор не указан');unknown.value='unknown';select.append(unknown);}
     }
   });
+  $('all-owner').closest('label').hidden=state.scope!=='all';
   $('all-owner').value=state.scope==='all'?state.owner:'all';
   $('from-member').value=state.creator;
   $('to-member').value=state.scope==='assigned'?state.owner:'all';
@@ -159,7 +162,7 @@ function render() {
   ['all','mine','assigned'].forEach(scope=>{$('tab-'+scope).classList.toggle('active',state.scope===scope);$('tab-'+scope).setAttribute('aria-pressed',String(state.scope===scope));});
   $('status-filter').value=state.status;$('deadline-filter').value=state.deadline;
   $('urgent-filter').setAttribute('aria-pressed',String(state.urgent));
-  $('list-description').textContent=state.questionsTo?'Открытые вопросы мне':state.scope==='mine'?'Мои задачи · '+(state.creator==='all'?'от всех':state.creator==='unknown'?'автор не указан':'от '+member(state.creator).name):state.scope==='assigned'?'Поставленные мной · '+(state.owner==='all'?'всем':'для '+member(state.owner).name):state.owner==='all'?'Все задачи':'Задачи: '+member(state.owner).name;
+  $('list-description').textContent=state.questionsTo?'Открытые вопросы мне':state.scope==='mine'?'Мои задачи · '+(state.creator==='all'?'от всех':state.creator==='unknown'?'автор не указан':'от '+member(state.creator).name):state.scope==='assigned'?'Я поставил · '+(state.owner==='all'?'всем':'для '+member(state.owner).name):state.owner==='all'?'Все задачи':'Задачи: '+member(state.owner).name;
   const visible=selectTasks(state.board.tasks,{...state,me:state.session?.member});
   $('visible-count').textContent='Показано '+visible.length+' из '+counts.total;
   const list=$('tasks'); list.replaceChildren();
