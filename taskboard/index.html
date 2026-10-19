@@ -5,50 +5,38 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow,noarchive">
   <meta name="referrer" content="no-referrer">
-  <meta name="theme-color" content="#742d3b">
+  <meta name="theme-color" content="#090909">
   <meta name="description" content="Рабочая доска BARN Estate: задачи команды, статусы и общий прогресс.">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src https://turkish-property.ru http://127.0.0.1:8788; object-src 'none'; base-uri 'none'; form-action 'self'">
   <title>Рабочая доска — BARN Estate</title>
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="./style.css?v=20261019-checkbox">
+  <link rel="stylesheet" href="./style.css?v=20261019-mono">
   <link rel="stylesheet" href="./preloader.css">
   <script type="module" src="./preloader.js"></script>
-  <script type="module" src="./app.js?v=20261019-checkbox"></script>
+  <script type="module" src="./app.js?v=20261019-mono"></script>
 </head>
 <body>
   <a class="skip" href="#tasks">К задачам</a>
   <div id="login-view" class="entry">
-    <div class="entry-art" aria-hidden="true">
-      <div class="wordmark">BARN<span>Estate</span></div>
-      <div class="entry-copy"><span class="eyebrow">Вместе — к результату</span><p>Меньше переписок.<br>Больше сделанного.</p><div class="art-line"></div><span>Рабочая доска команды</span></div>
-      <div class="entry-bottom">Один список. Общий результат.</div>
-    </div>
     <main class="entry-main">
       <div class="entry-form">
-        <span class="mobile-brand">BARN <i>Estate</i></span>
-        <span class="eyebrow">Командное пространство</span>
-        <h1>Дела — по порядку.</h1>
-        <p class="lead">Выбери своё имя и введи код команды.<br>Все изменения увидят коллеги.</p>
+        <h1>ВХОД.</h1>
         <form id="login-form">
-          <label for="member">Как тебя зовут</label>
+          <label for="member">Имя</label>
           <select id="member" name="member" required disabled><option value="">Загружаем команду…</option></select>
           <label for="access-code">Код доступа</label>
           <div class="code-wrap"><input id="access-code" name="code" type="password" autocomplete="current-password" required maxlength="128" placeholder="Код команды"><button id="show-code" type="button" aria-label="Показать код" aria-pressed="false">Показать</button></div>
           <p id="login-error" class="error" role="alert"></p>
-          <button id="login-submit" class="primary" type="submit" disabled>Открыть рабочую доску <span aria-hidden="true">↗</span></button>
+          <button id="login-submit" class="primary" type="submit" disabled>Войти <span aria-hidden="true">↗</span></button>
         </form>
         <button id="retry-meta" class="text-button" type="button" hidden>Повторить загрузку</button>
-        <p class="entry-note">Имя нужно для истории изменений.<br>Вход общий — отдельная регистрация не нужна.</p>
       </div>
-      <span class="entry-footer">BARN Estate · задачи сайта</span>
     </main>
   </div>
 
   <div id="board-view" class="workspace" hidden>
     <aside class="sidebar">
-      <a class="wordmark side-brand" href="./" aria-label="BARN Estate — рабочая доска">BARN<span>Estate</span></a>
-      <div class="workspace-label"><span class="square-mark" aria-hidden="true">▦</span><span>Рабочая доска<small>Задачи сайта</small></span></div>
-      <div class="nav-caption">Пространство</div>
+      <a class="wordmark side-brand" href="./" aria-label="BARN Estate — рабочая доска">BARN.</a>
       <nav id="owner-nav" aria-label="Исполнители"></nav>
       <div class="sidebar-bottom">
         <div class="connection"><span id="connection-dot" class="live-dot"></span><span id="sync-label" role="status">Подключение…</span></div>
@@ -57,11 +45,11 @@
       </div>
     </aside>
     <div class="main-shell">
-      <header class="topbar"><span><span class="topbar-name">BARN Estate</span><span class="topbar-divider">/</span>Рабочая доска</span><div><span class="board-date">19 октября 2026</span><button id="refresh" class="icon-button" type="button" aria-label="Обновить задачи" title="Обновить">↻</button><button id="mobile-history" class="icon-button" type="button" aria-label="История изменений">◷</button></div></header>
+      <header class="topbar"><button id="refresh" class="icon-button" type="button" aria-label="Обновить задачи" title="Обновить">↻</button><button id="mobile-history" class="icon-button" type="button" aria-label="История изменений" title="История">◷</button></header>
       <main class="main-content">
-        <div class="page-heading"><div><span class="eyebrow">Общий фокус</span><h1>Делаем сайт лучше<span class="heading-dot">.</span></h1><p>Один список задач, вся команда на одной странице.</p></div><div class="edition"><span class="edition-line"></span>РАБОЧИЙ СПИСОК<small>Срез 10–19 октября</small></div></div>
+        <div class="page-heading"><h1>ЗАДАЧИ.</h1></div>
         <section class="overview" aria-label="Прогресс команды">
-          <div class="progress-summary"><div class="summary-top"><span>Общий прогресс</span><span id="progress-label">0 / 25</span></div><div class="progress-track"><progress id="progress" max="25" value="0" aria-label="Выполненные задачи"></progress></div><span id="progress-note">Всё начинается с первого шага</span></div>
+          <div class="progress-summary"><div class="summary-top"><span>Общий прогресс</span><span id="progress-label">0 / 25</span></div><div class="progress-track"><progress id="progress" max="25" value="0" aria-label="Выполненные задачи"></progress></div><span id="progress-note" class="sr-only">Всё начинается с первого шага</span></div>
           <button class="metric" data-stat="unmarked"><span class="metric-label"><i class="dot unmarked"></i>Не отмечено</span><strong id="count-unmarked">—</strong></button>
           <button class="metric" data-stat="progress"><span class="metric-label"><i class="dot progress"></i>В работе</span><strong id="count-progress">—</strong></button>
           <button class="metric" data-stat="done"><span class="metric-label"><i class="dot done"></i>Сделано</span><strong id="count-done">—</strong></button>
@@ -74,11 +62,10 @@
         </div>
         <div class="list-caption"><span id="list-description">Все исполнители</span><span id="visible-count"></span></div>
         <section id="tasks" class="task-list" aria-label="Задачи команды" tabindex="-1"></section>
-        <footer class="board-footer"><span>Отмечай статус — коллеги увидят изменения.</span><span>Имя выбирается при входе · без отдельных аккаунтов</span></footer>
       </main>
     </div>
   </div>
-  <dialog id="history-dialog" aria-labelledby="history-title"><div class="dialog-head"><div><span class="eyebrow">Ход работы</span><h2 id="history-title">История изменений</h2></div><button id="history-close" class="icon-button" type="button" aria-label="Закрыть историю">×</button></div><div id="history-list"></div></dialog>
+  <dialog id="history-dialog" aria-labelledby="history-title"><div class="dialog-head"><div><h2 id="history-title">История изменений</h2></div><button id="history-close" class="icon-button" type="button" aria-label="Закрыть историю">×</button></div><div id="history-list"></div></dialog>
   <div id="toast" class="toast" role="status" hidden></div>
   <div id="preloader" class="task-preloader" aria-hidden="true">
     <div class="loader-word"><span>МЫ</span></div>

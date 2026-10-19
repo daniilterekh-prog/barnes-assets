@@ -1,8 +1,8 @@
 export const STATUSES = {
   unmarked: { label: 'Не отмечено', short: 'Не отмечено', symbol: '○' },
-  progress: { label: 'В работе 🧑🏼‍💻', short: 'В работе', symbol: '◷' },
-  done: { label: 'Сделано ✅', short: 'Сделано', symbol: '✓' },
-  obsolete: { label: 'Уже не актуально ⛔️', short: 'Не актуально', symbol: '−' }
+  progress: { label: 'В работе', short: 'В работе', symbol: '◷' },
+  done: { label: 'Сделано', short: 'Сделано', symbol: '✓' },
+  obsolete: { label: 'Не актуально', short: 'Не актуально', symbol: '−' }
 };
 export function selectTasks(tasks, filters) {
   const query = filters.query.trim().toLocaleLowerCase('ru');

@@ -1,10 +1,10 @@
 import { API_URL } from './config.js';
-import { STATUSES, selectTasks, summarize, safeSource } from './domain.js';
+import { STATUSES, selectTasks, summarize, safeSource } from './domain.js?v=20261019-mono';
 
 const $ = id => document.getElementById(id);
 const SESSION_KEY = 'barn-taskboard-session-v1';
 const state = { session: null, board: null, owner: 'all', status: 'all', urgent: false, query: '', busy: new Set(), signature: '', fetching: false, toastTimer: null };
-const owners = ['vova','andrey','irina','victoria','jenya','daniil','team'];
+const owners = ['vova','andrey','irina','victoria','jenya','daniil'];
 const dateFormat = new Intl.DateTimeFormat('ru', {day:'numeric',month:'short',hour:'2-digit',minute:'2-digit',timeZone:'Europe/Moscow'});
 
 function el(tag, className, text) {
@@ -13,7 +13,7 @@ function el(tag, className, text) {
   if (text !== undefined) node.textContent = text;
   return node;
 }
-function member(id) { return state.board?.members.find(m => m.id === id) || {name:'Команда',initials:'К',color:'neutral'}; }
+function member(id) { return state.board?.members.find(m => m.id === id) || {name:'Участник',initials:'—',color:'neutral'}; }
 function avatar(m) { return el('span', 'avatar ' + m.color, m.initials); }
 function displayDate(date) { return date ? dateFormat.format(new Date(date)) + ' мск' : ''; }
 function toast(message) {
@@ -46,6 +46,7 @@ async function api(action, body) {
   return data;
 }
 function acceptBoard(data) {
+  data.tasks=data.tasks.filter(t=>!['tatyana','team'].includes(t.owner));
   // An older poll response must never overwrite a newer status save.
   if (state.board) {
     const previous = new Map(state.board.tasks.map(t => [t.id,t]));
@@ -59,7 +60,7 @@ function acceptBoard(data) {
     state.signature = signature; render();
     if ($('history-dialog').open) renderHistory();
   }
-  setConnection(true,'Сохранено · общая доска');
+  setConnection(true,'Сохранено');
 }
 function showBoard() {
   $('login-view').hidden = true; $('board-view').hidden = false;
@@ -94,7 +95,7 @@ function renderNav() {
   const nav = $('owner-nav'), scrollPosition = nav.scrollLeft; nav.replaceChildren();
   const all = el('button','owner-button' + (state.owner === 'all' ? ' active' : ''));
   all.type='button'; all.setAttribute('aria-pressed',String(state.owner === 'all'));
-  all.append(el('span','nav-symbol','▦'),el('span','','Все исполнители'),el('span','',String(state.board.tasks.length)));
+  all.append(el('span','nav-symbol','▦'),el('span','','Все'),el('span','',String(state.board.tasks.length)));
   all.onclick=()=>setOwner('all'); nav.append(all);
   owners.forEach(id => {
     const tasks=state.board.tasks.filter(t=>t.owner===id);
@@ -115,14 +116,14 @@ function render() {
   $('total-count').textContent=String(counts.total);
   $('progress').max=counts.total || 1; $('progress').value=counts.done;
   $('progress-label').textContent=counts.done+' / '+counts.total;
-  $('progress-note').textContent=counts.done ? 'Готово '+Math.round(counts.done/Math.max(counts.total,1)*100)+'% · не актуально: '+counts.obsolete : 'Всё начинается с первого шага';
+  $('progress-note').textContent=counts.done ? 'Готово '+Math.round(counts.done/Math.max(counts.total,1)*100)+'% · не актуально: '+counts.obsolete : 'Пока нет выполненных задач';
   $('tab-all').classList.toggle('active',state.owner==='all');
   $('tab-mine').classList.toggle('active',state.owner===state.session?.member);
   $('tab-all').setAttribute('aria-pressed',String(state.owner==='all'));
   $('tab-mine').setAttribute('aria-pressed',String(state.owner===state.session?.member));
   $('status-filter').value=state.status;
   $('urgent-filter').setAttribute('aria-pressed',String(state.urgent));
-  $('list-description').textContent=state.owner==='all' ? 'Все исполнители' : 'Задачи: '+member(state.owner).name;
+  $('list-description').textContent=state.owner==='all' ? 'Все' : 'Задачи: '+member(state.owner).name;
   const visible=selectTasks(state.board.tasks,state);
   $('visible-count').textContent='Показано '+visible.length+' из '+counts.total;
   const list=$('tasks'); list.replaceChildren();
@@ -153,9 +154,7 @@ function renderTask(task) {
   mark.setAttribute('aria-hidden','true'); symbol.append(mark);
   symbol.onclick=()=>changeStatus(task.id,task.status==='done'?'unmarked':'done',true);
   const main=el('div','task-main'),title=el('h3','task-title',task.title),meta=el('div','task-meta');
-  meta.append(el('span','task-id',task.id));
   if (Number(task.urgent)) meta.append(el('span','priority','⚑ Срочно'));
-  if (task.status==='unmarked') meta.append(el('span','','Не отмечено'));
   if (task.updated_at) meta.append(el('span','',member(task.updated_by).name+' · '+displayDate(task.updated_at)));
   const details=el('details','task-details'),summary=el('summary','','Подробнее');
   details.append(summary,el('p','',task.detail));
@@ -188,7 +187,7 @@ async function changeStatus(id,status,fromCheckbox=false) {
   try {
     const data=await api('status',{id,status,revision:Number(task.revision)});
     if (state.session?.token!==token) return;
-    acceptBoard(data); showError(''); toast('Статус сохранён для всей команды');
+    acceptBoard(data); showError(''); toast('Сохранено');
   } catch(error) {
     if (state.session?.token!==token) return;
     if (error.status===401) { showLogin(error.message); return; }
@@ -218,7 +217,7 @@ async function loadMembers() {
   try {
     const data=await api('meta'); const select=$('member'); select.replaceChildren(el('option','','Выбери имя'));
     select.options[0].value='';
-    data.members.forEach(m=>{const option=el('option','',m.name);option.value=m.id;select.append(option);});
+    data.members.filter(m=>!['tatyana','team'].includes(m.id)).forEach(m=>{const option=el('option','',m.name);option.value=m.id;select.append(option);});
     select.disabled=false; $('login-submit').disabled=false;
   } catch(error) {
     $('login-error').textContent='Не удалось подключиться к доске. Проверьте интернет и повторите.';
