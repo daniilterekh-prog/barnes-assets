@@ -257,3 +257,4 @@ try {
     catch(error) { showLogin(error.status===401?error.message:'Нет связи с доской. Войдите ещё раз, когда интернет восстановится.'); }
   } else sessionStorage.removeItem(SESSION_KEY);
 } catch { sessionStorage.removeItem(SESSION_KEY); }
+document.dispatchEvent(new Event('barn:ready'));

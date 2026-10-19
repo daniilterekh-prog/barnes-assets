@@ -11,6 +11,8 @@
   <title>Рабочая доска — BARN Estate</title>
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./preloader.css">
+  <script type="module" src="./preloader.js"></script>
   <script type="module" src="./app.js"></script>
 </head>
 <body>
@@ -78,5 +80,14 @@
   </div>
   <dialog id="history-dialog" aria-labelledby="history-title"><div class="dialog-head"><div><span class="eyebrow">Ход работы</span><h2 id="history-title">История изменений</h2></div><button id="history-close" class="icon-button" type="button" aria-label="Закрыть историю">×</button></div><div id="history-list"></div></dialog>
   <div id="toast" class="toast" role="status" hidden></div>
+  <div id="preloader" class="task-preloader" aria-hidden="true">
+    <div class="loader-word"><span>МЫ</span></div>
+    <div class="loader-word long"><span>ПОДНИМЕМ</span></div>
+    <div class="loader-word"><span>ЭТОТ</span></div>
+    <div class="loader-word"><span>САЙТ</span></div>
+    <span class="loader-note">МЫ ПОДНИМЕМ ЭТОТ САЙТ</span>
+    <div class="loader-progress"></div>
+  </div>
+  <p id="loader-status" class="sr-only" role="status"></p>
 </body>
 </html>
