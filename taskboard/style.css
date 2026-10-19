@@ -11,3 +11,10 @@ dialog{border:1px solid var(--line);border-radius:16px;width:min(560px,calc(100v
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 /* Comfortable desktop reading sizes for a working list. */
 @media(min-width:801px){.task-title{font-size:14px}.status-option{font-size:11px;min-height:40px}.status-controls{max-width:410px}.task-meta{font-size:10px}.task-id,.priority{font-size:9px}.task-details{font-size:12px}.task-details summary{font-size:10px;min-height:30px}.group-heading h2{font-size:14px}.metric-label{font-size:11px}.progress-summary .summary-top{font-size:12px}#progress-note{font-size:10px}.view-tab{font-size:13px}.search input,.toolbar select,.filter-button{font-size:12px}.board-footer{font-size:10px}}
+
+/* Quick completion control: a 44px keyboard and touch target. */
+.task-row{grid-template-columns:44px minmax(0,1fr) auto}
+.task-toggle{display:flex;align-items:flex-start;justify-content:center;width:44px;height:44px;min-height:44px;padding:0;background:transparent;border:0;border-radius:6px}
+.task-toggle .task-check{margin-top:1px;flex-shrink:0}
+.task-toggle:hover .task-check{border-color:var(--wine)}
+@media(max-width:1230px){.task-row{grid-template-columns:44px minmax(0,1fr)}}

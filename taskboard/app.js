@@ -142,8 +142,16 @@ function render() {
   });
 }
 function renderTask(task) {
-  const row=el('article','task-row is-'+task.status), symbol=el('span','task-check',task.status==='unmarked'?'':STATUSES[task.status].symbol);
-  row.dataset.task=task.id; symbol.setAttribute('aria-hidden','true');
+  const row=el('article','task-row is-'+task.status), symbol=el('button','task-toggle');
+  row.dataset.task=task.id;
+  symbol.type='button'; symbol.setAttribute('role','checkbox');
+  symbol.setAttribute('aria-checked',String(task.status==='done'));
+  symbol.setAttribute('aria-label','Готово: '+task.title);
+  symbol.title=task.status==='done'?'Снять отметку':'Отметить выполненной';
+  symbol.disabled=state.busy.has(task.id);
+  const mark=el('span','task-check',task.status==='unmarked'?'':STATUSES[task.status].symbol);
+  mark.setAttribute('aria-hidden','true'); symbol.append(mark);
+  symbol.onclick=()=>changeStatus(task.id,task.status==='done'?'unmarked':'done',true);
   const main=el('div','task-main'),title=el('h3','task-title',task.title),meta=el('div','task-meta');
   meta.append(el('span','task-id',task.id));
   if (Number(task.urgent)) meta.append(el('span','priority','⚑ Срочно'));
@@ -170,7 +178,7 @@ function renderTask(task) {
   }
   row.append(symbol,main,controls); return row;
 }
-async function changeStatus(id,status) {
+async function changeStatus(id,status,fromCheckbox=false) {
   if (state.busy.has(id)) return;
   const task=state.board.tasks.find(t=>t.id===id);
   if (!task || task.status===status) return;
@@ -191,7 +199,7 @@ async function changeStatus(id,status) {
     state.busy.delete(id);
     if (state.session && state.board) {
       render();
-      $('tasks').querySelector('[data-task="'+id+'"] [data-status="'+status+'"]')?.focus({preventScroll:true});
+      $('tasks').querySelector('[data-task="'+id+'"] '+(fromCheckbox?'.task-toggle':'[data-status="'+status+'"]'))?.focus({preventScroll:true});
     }
   }
 }
@@ -247,7 +255,7 @@ $('history-open').onclick=openHistory; $('mobile-history').onclick=openHistory;
 $('history-close').onclick=()=>$('history-dialog').close();
 window.addEventListener('online',()=>refresh(true));
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh();});
-setInterval(()=>refresh(),15000);
+setInterval(()=>refresh(),2000);
 await loadMembers();
 try {
   const saved=JSON.parse(sessionStorage.getItem(SESSION_KEY)||'null');
