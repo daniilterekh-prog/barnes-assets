@@ -1,7 +1,8 @@
+import {icon} from './icons.js?v=20261019-icons';
 import { API_URL } from './config.js';
 import { STATUSES, selectTasks, summarize, safeSource, safeHttps, taskDateLabel, splitTaskBuckets } from './domain.js?v=20261019-wiki';
 
-import {renderWiki} from './wiki.js?v=20261019-wiki';
+import {renderWiki} from './wiki.js?v=20261019-icons';
 
 const $ = id => document.getElementById(id);
 const SESSION_KEY = 'barn-taskboard-session-v1';
@@ -141,7 +142,7 @@ function render() {
   const buckets=splitTaskBuckets(visible);
   if(buckets.urgent.length){
     const urgent=el('section','urgent-block'),heading=el('h2','urgent-heading');
-    const fire=el('span','fire','🔥');fire.setAttribute('aria-hidden','true');
+    const fire=icon('flame','fire');fire.setAttribute('aria-hidden','true');
     heading.append(fire,el('span','','Срочные'),el('span','group-counter',String(buckets.urgent.length)));
     urgent.append(heading);buckets.urgent.forEach(t=>urgent.append(renderTask(t,{level:3,showOwner:true})));list.append(urgent);
   }
@@ -177,13 +178,14 @@ function renderTask(task,{level=3,showOwner=false}={}) {
   symbol.setAttribute('aria-label','Готово: '+task.title);
   symbol.title=task.status==='done'?'Снять отметку':'Отметить выполненной';
   symbol.disabled=state.busy.has(task.id);
-  const mark=el('span','task-check',task.status==='unmarked'?'':STATUSES[task.status].symbol);
+  const mark=el('span','task-check');
+  if(task.status!=='unmarked')mark.append(icon({done:'check',progress:'clock',obsolete:'minus'}[task.status]));
   mark.setAttribute('aria-hidden','true'); symbol.append(mark);
   symbol.onclick=()=>changeStatus(task.id,task.status==='done'?'unmarked':'done',true);
   const main=el('div','task-main'),title=el('h'+level,'task-title',task.title),meta=el('div','task-meta');
   if(showOwner)meta.append(el('span','task-assignee',member(task.owner).name));
   meta.append(el('span','task-date',taskDateLabel(task)));
-  if (Number(task.urgent)&&!['done','obsolete'].includes(task.status)) {const badge=el('span','priority');const fire=el('span','fire','🔥');fire.setAttribute('aria-hidden','true');badge.append(fire,document.createTextNode(' Срочно'));meta.append(badge);}
+  if (Number(task.urgent)&&!['done','obsolete'].includes(task.status)) {const badge=el('span','priority');const fire=icon('flame','fire');fire.setAttribute('aria-hidden','true');badge.append(fire,document.createTextNode(' Срочно'));meta.append(badge);}
   if (task.updated_at) meta.append(el('span','',member(task.updated_by).name+' · '+displayDate(task.updated_at)));
   const details=el('details','task-details'),summary=el('summary','','Подробнее');
   details.append(summary,el('p','',task.detail));
@@ -195,6 +197,7 @@ function renderTask(task,{level=3,showOwner=false}={}) {
   const controls=el('div','status-controls'); controls.setAttribute('role','group'); controls.setAttribute('aria-label','Статус задачи «'+task.title+'»');
   ['progress','done','obsolete'].forEach(status=>{
     const button=el('button','status-option '+status,STATUSES[status].label);
+    button.prepend(icon({progress:'clock',done:'check',obsolete:'minus'}[status]));
     button.type='button'; button.dataset.status=status; button.setAttribute('aria-pressed',String(task.status===status));
     button.setAttribute('aria-label',STATUSES[status].short+': '+task.title);
     button.disabled=state.busy.has(task.id);
