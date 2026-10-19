@@ -1,16 +1,16 @@
-import {setupDiscussion} from './discussion.js?v=20261019-discuss';
-import {icon} from './icons.js?v=20261019-discuss';
+import {setupDiscussion} from './discussion.js?v=20261019-deadline';
+import {icon} from './icons.js?v=20261019-deadline';
 import { API_URL } from './config.js';
-import { STATUSES, selectTasks, summarize, safeSource, safeHttps, taskDateLabel, splitTaskBuckets, programmerMood, mergeTask } from './domain.js?v=20261019-discuss';
+import { STATUSES, selectTasks, summarize, safeSource, safeHttps, taskDateLabel, splitTaskBuckets, programmerMood, mergeTask, deadlineInfo, moscowDay, shiftDay } from './domain.js?v=20261019-deadline';
 
-import {renderWiki} from './wiki.js?v=20261019-discuss';
+import {renderWiki} from './wiki.js?v=20261019-deadline';
 
 const $ = id => document.getElementById(id);
 const SESSION_KEY = 'barn-taskboard-session-v1';
 const state = { session: null, board: null, owner: 'all', status: 'all', urgent: false, query: '', busy: new Set(), signature: '', fetching: false, toastTimer: null };
 const ownerIds = () => state.board?.members.filter(m=>!['tatyana','team'].includes(m.id)).map(m=>m.id) || [];
 let createRequestId=null, creatingTask=false, editingTask=null, editingPage=null, savingPage=false;
-state.scope='all'; state.creator='all'; state.questionsTo=null;
+state.scope='all'; state.creator='all'; state.questionsTo=null;state.deadline='all';
 state.view='tasks'; state.expanded=new Set(); state.openPages=new Set(); state.pageQuery='';
 const dateFormat = new Intl.DateTimeFormat('ru', {day:'numeric',month:'short',hour:'2-digit',minute:'2-digit',timeZone:'Europe/Moscow'});
 const discussion=setupDiscussion({api,getSession:()=>state.session,getBoard:()=>state.board,acceptBoard,member,toast,onUnauthorized:showLogin});
@@ -65,7 +65,7 @@ function acceptBoard(data) {
     data.history = [...events.values()].sort((a,b) => Number(b.id)-Number(a.id)).slice(0,50);
   }
   state.board = data;
-  const signature = data.tasks.map(t => t.id + ':' + t.revision + ':' + (t.discussion_revision||0)).join(',') + ':' + (data.history[0]?.id || '')+':'+(data.pages||[]).map(p=>p.id+':'+p.revision).join(',');
+  const signature = todayMoscow()+':'+data.tasks.map(t => t.id + ':' + t.revision + ':' + (t.discussion_revision||0)).join(',') + ':' + (data.history[0]?.id || '')+':'+(data.pages||[]).map(p=>p.id+':'+p.revision).join(',');
   if (signature !== state.signature) {
     state.signature = signature; render();
     if ($('history-dialog').open) renderHistory();
@@ -80,7 +80,7 @@ function showBoard() {
   $('my-avatar').textContent = member(state.session.member).initials;
 }
 function showLogin(message = '') {
-  discussion.reset();state.questionsTo=null;state.session = null; state.board = null; state.signature = ''; state.busy.clear();state.expanded.clear();state.openPages.clear();state.view='tasks';state.owner='all';state.scope='all';state.creator='all';
+  discussion.reset();$('deadline-dialog').close();deadlineTask=null;state.deadline='all';state.questionsTo=null;state.session = null; state.board = null; state.signature = ''; state.busy.clear();state.expanded.clear();state.openPages.clear();state.view='tasks';state.owner='all';state.scope='all';state.creator='all';
   sessionStorage.removeItem(SESSION_KEY);
   $('board-view').hidden = true; $('login-view').hidden = false;
   $('history-dialog').close(); $('task-create-dialog').close(); $('page-dialog').close();
@@ -157,7 +157,7 @@ function render() {
   $('count-urgent').textContent=state.board.tasks.filter(t=>Number(t.urgent)&&!['done','obsolete'].includes(t.status)).length;
   $('urgent-summary').setAttribute('aria-pressed',String(state.urgent));
   ['all','mine','assigned'].forEach(scope=>{$('tab-'+scope).classList.toggle('active',state.scope===scope);$('tab-'+scope).setAttribute('aria-pressed',String(state.scope===scope));});
-  $('status-filter').value=state.status;
+  $('status-filter').value=state.status;$('deadline-filter').value=state.deadline;
   $('urgent-filter').setAttribute('aria-pressed',String(state.urgent));
   $('list-description').textContent=state.questionsTo?'Открытые вопросы мне':state.scope==='mine'?'Мои задачи · '+(state.creator==='all'?'от всех':state.creator==='unknown'?'автор не указан':'от '+member(state.creator).name):state.scope==='assigned'?'Поставленные мной · '+(state.owner==='all'?'всем':'для '+member(state.owner).name):state.owner==='all'?'Все задачи':'Задачи: '+member(state.owner).name;
   const visible=selectTasks(state.board.tasks,{...state,me:state.session?.member});
@@ -212,6 +212,7 @@ function renderTask(task,{level=3,showOwner=false}={}) {
   meta.append(el('span','task-author',task.created_by?'От: '+member(task.created_by).name:'Автор не указан'));
   if (Number(task.urgent)&&!['done','obsolete'].includes(task.status)) {const badge=el('span','priority');const fire=icon('flame','fire');fire.setAttribute('aria-hidden','true');badge.append(fire,document.createTextNode(' Срочно'));meta.append(badge);}
   if (task.updated_at) meta.append(el('span','',member(task.updated_by).name+' · '+displayDate(task.updated_at)));
+  const deadline=deadlineInfo(task),dueButton=el('button','deadline-chip due-'+deadline.kind,deadline.label);dueButton.type='button';dueButton.prepend(icon('clock'));dueButton.setAttribute('aria-label','Дедлайн: '+task.title+' — '+deadline.label);dueButton.onclick=()=>openDeadline(task);meta.append(dueButton);
   const details=el('details','task-details'),summary=el('summary','','Подробнее');
   details.append(summary,el('p','',task.detail));
   const source=safeHttps(task.source_url||task.source);
@@ -265,7 +266,25 @@ async function changeStatus(id,status,fromCheckbox=false) {
     }
   }
 }
-function todayMoscow(){return new Intl.DateTimeFormat('en-CA',{year:'numeric',month:'2-digit',day:'2-digit',timeZone:'Europe/Moscow'}).format(new Date());}
+let deadlineTask=null,savingDeadline=false;
+function openDeadline(task){
+  if(savingDeadline)return;deadlineTask={id:task.id,revision:Number(task.revision)};
+  $('deadline-title').textContent=task.title;$('deadline-date').value=task.due_date||'';$('deadline-error').textContent='';$('deadline-dialog').showModal();$('deadline-date').focus();
+}
+$('deadline-close').onclick=()=>{if(!savingDeadline)$('deadline-dialog').close();};
+$('deadline-dialog').addEventListener('cancel',e=>{if(savingDeadline)e.preventDefault();});
+$('deadline-clear').onclick=()=>{$('deadline-date').value='';};
+document.querySelectorAll('[data-due-offset]').forEach(button=>{button.onclick=()=>{$('deadline-date').value=shiftDay(todayMoscow(),Number(button.dataset.dueOffset));};});
+$('deadline-form').addEventListener('submit',async e=>{
+  e.preventDefault();if(savingDeadline||!deadlineTask)return;savingDeadline=true;
+  $('deadline-form').querySelectorAll('button,input').forEach(el=>el.disabled=true);$('deadline-close').disabled=true;$('deadline-error').textContent='';const token=state.session?.token,id=deadlineTask.id;
+  try{
+    const data=await api('deadline',{...deadlineTask,due_date:$('deadline-date').value});if(state.session?.token!==token)return;acceptBoard(data);$('deadline-dialog').close();toast('Дедлайн сохранён');
+    const row=$('tasks').querySelector('[data-task="'+id+'"] .deadline-chip');if(row?.checkVisibility())row.focus();else $('task-create-open').focus();
+  }catch(error){if(state.session?.token!==token)return;if(error.status===401)showLogin(error.message);else{if(error.status===409&&error.data.board){acceptBoard(error.data.board);const task=state.board.tasks.find(t=>t.id===id);if(task)deadlineTask.revision=Number(task.revision);}$('deadline-error').textContent=error.message;}}
+  finally{savingDeadline=false;$('deadline-form').querySelectorAll('button,input').forEach(el=>el.disabled=false);$('deadline-close').disabled=false;}
+});
+function todayMoscow(){return moscowDay();}
 function openTask(task=null,pageId=null) {
   editingTask=task; $('task-create-form').reset(); $('task-create-error').textContent='';
   $('task-create-title').textContent=task?'Изменить задачу':'Новая задача';
@@ -275,6 +294,7 @@ function openTask(task=null,pageId=null) {
   select.value=task?.owner||(state.owner==='all'?state.session.member:state.owner);
   $('task-title').value=task?.title||'';$('task-detail').value=task?.detail||'';$('task-urgent').checked=Boolean(Number(task?.urgent));
   $('task-origin').value=task?.origin||'spec';$('task-source').value=task?.source_url||task?.source||'';
+  $('task-due').value=task?.due_date||'';
   $('task-date').value=task?.created_at?.slice(0,10)||todayMoscow();
   const field=$('task-pages');field.replaceChildren(el('legend','','Страницы сайта'));
   (state.board.pages||[]).forEach(p=>{const label=el('label','page-choice'),input=document.createElement('input');input.type='checkbox';input.value=p.id;input.checked=(task?.page_ids||[pageId]).includes(p.id);label.append(input,document.createTextNode(p.title));field.append(label);});
@@ -290,10 +310,10 @@ $('task-create-form').addEventListener('submit',async event=>{
   const token=state.session?.token;
   creatingTask=true;$('task-create-submit').disabled=true;$('task-create-close').disabled=true;$('task-create-error').textContent='';
   try{
-    const body={title,owner:$('task-owner').value,detail:$('task-detail').value.trim(),urgent:$('task-urgent').checked,origin:$('task-origin').value,created_at:$('task-date').value,source_url:$('task-source').value.trim(),page_ids:[...$('task-pages').querySelectorAll('input:checked')].map(e=>e.value)};
+    const body={title,owner:$('task-owner').value,detail:$('task-detail').value.trim(),urgent:$('task-urgent').checked,due_date:$('task-due').value,origin:$('task-origin').value,created_at:$('task-date').value,source_url:$('task-source').value.trim(),page_ids:[...$('task-pages').querySelectorAll('input:checked')].map(e=>e.value)};
     const data=await api(editingTask?'task_save':'create',editingTask?{...body,id:editingTask.id,revision:Number(editingTask.revision)}:{...body,request_id:createRequestId});
     if(state.session?.token!==token)return;
-    state.scope='all';state.creator='all';state.questionsTo=null;state.owner=body.owner;state.status='all';state.urgent=false;state.query='';$('search').value='';state.expanded.add(body.origin);
+    state.scope='all';state.creator='all';state.questionsTo=null;state.deadline='all';state.owner=body.owner;state.status='all';state.urgent=false;state.query='';$('search').value='';state.expanded.add(body.origin);
     acceptBoard(data);render();$('task-create-dialog').close();toast(editingTask?'Задача сохранена':'Задача добавлена');
     if(state.view==='tasks')$('tasks').querySelector('[data-task="'+data.created_task_id+'"] .task-toggle')?.focus();
   }catch(error){
@@ -362,6 +382,7 @@ $('tab-mine').onclick=()=>setScope('mine');
 $('tab-assigned').onclick=()=>setScope('assigned');
 $('urgent-summary').onclick=()=>{state.urgent=!state.urgent;state.status='all';render();};
 $('search').oninput=event=>{state.query=event.target.value;render();};
+$('deadline-filter').onchange=e=>{state.deadline=e.target.value;render();};
 $('status-filter').onchange=event=>{state.status=event.target.value;render();};
 $('urgent-filter').onclick=()=>{state.urgent=!state.urgent;render();};
 document.querySelectorAll('[data-stat]').forEach(button=>{button.onclick=()=>{state.status=state.status===button.dataset.stat?'all':button.dataset.stat;render();};});

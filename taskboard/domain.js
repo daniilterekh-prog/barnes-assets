@@ -6,13 +6,15 @@ export const STATUSES = {
 };
 export function selectTasks(tasks, filters) {
   const query = filters.query.trim().toLocaleLowerCase('ru');
-  return tasks.filter(t => (!filters.questionsTo || (t.open_question_recipients||[]).includes(filters.questionsTo))
+  const today=filters.today||moscowDay();
+  return tasks.filter(t => deadlineMatches(t,filters.deadline||'all',today)
+    && (!filters.questionsTo || (t.open_question_recipients||[]).includes(filters.questionsTo))
     && (!filters.scope || filters.scope==='all' || (filters.scope==='mine' ? t.owner===filters.me : t.created_by===filters.me))
     && (!filters.creator || filters.creator==='all' || (filters.creator==='unknown' ? !t.created_by : t.created_by===filters.creator))
     && (filters.owner === 'all' || t.owner === filters.owner)
     && (filters.status === 'all' || t.status === filters.status)
     && (!filters.urgent || (Number(t.urgent) === 1 && !['done','obsolete'].includes(t.status)))
-    && (!query || (t.title + ' ' + t.detail + ' ' + t.id).toLocaleLowerCase('ru').includes(query)));
+    && (!query || (t.title + ' ' + t.detail + ' ' + t.id).toLocaleLowerCase('ru').includes(query))).sort((a,b)=>deadlineSortKey(a).localeCompare(deadlineSortKey(b)));
 }
 export function summarize(tasks) {
   const counts = { unmarked: 0, progress: 0, done: 0, obsolete: 0 };
@@ -56,3 +58,25 @@ export function mergeTask(previous,incoming){
   for(const key of ['discussion_revision','comment_count','open_question_count','open_question_recipients','open_questions_by_recipient'])task[key]=discussion[key];
   return task;
 }
+
+export function moscowDay(now=new Date()){
+  return new Intl.DateTimeFormat('en-CA',{year:'numeric',month:'2-digit',day:'2-digit',timeZone:'Europe/Moscow'}).format(now);
+}
+export function shiftDay(day,offset){const d=new Date(day+'T12:00:00Z');d.setUTCDate(d.getUTCDate()+offset);return d.toISOString().slice(0,10);}
+export function deadlineInfo(task,today=moscowDay()){
+  const due=task.due_date;if(!due)return {kind:'none',label:'Поставить срок'};
+  const date=due.slice(8,10)+'.'+due.slice(5,7)+(due.slice(0,4)!==today.slice(0,4)?'.'+due.slice(0,4):'');
+  if(['done','obsolete'].includes(task.status))return {kind:'closed',label:'До '+date};
+  if(due<today)return {kind:'overdue',label:'Просрочено · '+date};
+  if(due===today)return {kind:'today',label:'Сегодня · '+date};
+  if(due===shiftDay(today,1))return {kind:'soon',label:'Завтра · '+date};
+  return {kind:'future',label:'До '+date};
+}
+export function deadlineMatches(task,filter,today){
+  if(filter==='none')return !task.due_date;
+  if(filter==='overdue')return deadlineInfo(task,today).kind==='overdue';
+  if(filter==='today')return task.due_date===today&&!['done','obsolete'].includes(task.status);
+  if(filter==='week')return !!task.due_date&&task.due_date>=today&&task.due_date<=shiftDay(today,7)&&!['done','obsolete'].includes(task.status);
+  return true;
+}
+function deadlineSortKey(task){return ['done','obsolete'].includes(task.status)?'9999-99-99':task.due_date||'9999-99-99';}
