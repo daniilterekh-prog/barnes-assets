@@ -1,11 +1,14 @@
 import { API_URL } from './config.js';
-import { STATUSES, selectTasks, summarize, safeSource } from './domain.js?v=20261019-mono';
+import { STATUSES, selectTasks, summarize, safeSource, safeHttps, taskDateLabel, splitTaskBuckets } from './domain.js?v=20261019-wiki';
+
+import {renderWiki} from './wiki.js?v=20261019-wiki';
 
 const $ = id => document.getElementById(id);
 const SESSION_KEY = 'barn-taskboard-session-v1';
 const state = { session: null, board: null, owner: 'all', status: 'all', urgent: false, query: '', busy: new Set(), signature: '', fetching: false, toastTimer: null };
 const ownerIds = () => state.board?.members.filter(m=>!['tatyana','team'].includes(m.id)).map(m=>m.id) || [];
-let createRequestId=null, creatingTask=false;
+let createRequestId=null, creatingTask=false, editingTask=null, editingPage=null, savingPage=false;
+state.view='tasks'; state.expanded=new Set(); state.openPages=new Set(); state.pageQuery='';
 const dateFormat = new Intl.DateTimeFormat('ru', {day:'numeric',month:'short',hour:'2-digit',minute:'2-digit',timeZone:'Europe/Moscow'});
 
 function el(tag, className, text) {
@@ -58,7 +61,7 @@ function acceptBoard(data) {
     data.history = [...events.values()].sort((a,b) => Number(b.id)-Number(a.id)).slice(0,50);
   }
   state.board = data;
-  const signature = data.tasks.map(t => t.id + ':' + t.revision).join(',') + ':' + (data.history[0]?.id || '');
+  const signature = data.tasks.map(t => t.id + ':' + t.revision).join(',') + ':' + (data.history[0]?.id || '')+':'+(data.pages||[]).map(p=>p.id+':'+p.revision).join(',');
   if (signature !== state.signature) {
     state.signature = signature; render();
     if ($('history-dialog').open) renderHistory();
@@ -72,10 +75,10 @@ function showBoard() {
   $('my-avatar').textContent = member(state.session.member).initials;
 }
 function showLogin(message = '') {
-  state.session = null; state.board = null; state.signature = ''; state.busy.clear();
+  state.session = null; state.board = null; state.signature = ''; state.busy.clear();state.expanded.clear();state.openPages.clear();state.view='tasks';state.owner='all';
   sessionStorage.removeItem(SESSION_KEY);
   $('board-view').hidden = true; $('login-view').hidden = false;
-  $('history-dialog').close(); $('task-create-dialog').close();
+  $('history-dialog').close(); $('task-create-dialog').close(); $('page-dialog').close();
   $('login-error').textContent = message;
 }
 async function refresh(manual = false) {
@@ -114,6 +117,11 @@ function setOwner(id) { state.owner=id; render(); }
 function render() {
   if (!state.board) return;
   renderNav();
+  $('tasks-view').hidden=state.view!=='tasks'; $('pages-view').hidden=state.view!=='pages';
+  $('owner-nav').hidden=state.view==='pages'; $('board-title').textContent=state.view==='pages'?'СТРАНИЦЫ.':'ЗАДАЧИ.';
+  $('page-create-open').hidden=state.view!=='pages';
+  ['tasks','pages'].forEach(view=>{$('view-'+view).classList.toggle('active',state.view===view);$('view-'+view).setAttribute('aria-pressed',String(state.view===view));});
+  renderPages();
   const counts=summarize(state.board.tasks);
   Object.keys(STATUSES).forEach(status => { $('count-'+status).textContent=String(counts[status]); });
   $('total-count').textContent=String(counts.total);
@@ -130,22 +138,38 @@ function render() {
   const visible=selectTasks(state.board.tasks,state);
   $('visible-count').textContent='Показано '+visible.length+' из '+counts.total;
   const list=$('tasks'); list.replaceChildren();
-  if (!visible.length) {
-    const empty=el('div','empty');
-    empty.append(el('strong','','Здесь пока нет задач'),el('p','','Измени фильтры или поисковый запрос.'));
-    list.append(empty); return;
+  const buckets=splitTaskBuckets(visible);
+  if(buckets.urgent.length){
+    const urgent=el('section','urgent-block'),heading=el('h2','urgent-heading');
+    const fire=el('span','fire','🔥');fire.setAttribute('aria-hidden','true');
+    heading.append(fire,el('span','','Срочные'),el('span','group-counter',String(buckets.urgent.length)));
+    urgent.append(heading);buckets.urgent.forEach(t=>urgent.append(renderTask(t,{level:3,showOwner:true})));list.append(urgent);
   }
-  ownerIds().forEach(id => {
-    const tasks=visible.filter(t=>t.owner===id).sort((a,b)=>Number(b.urgent)-Number(a.urgent));
-    if (!tasks.length) return;
-    const m=member(id),group=el('section','task-group'),heading=el('div','group-heading'),h=el('h2','',m.name);
-    h.id='owner-'+id; group.setAttribute('aria-labelledby',h.id);
-    const totals=summarize(state.board.tasks.filter(t=>t.owner===id));
-    heading.append(avatar(m),h,el('span','group-counter',String(tasks.length)),el('span','group-rule'),el('span','group-progress',totals.closed+' из '+totals.total+' закрыто'));
-    group.append(heading); tasks.forEach(task=>group.append(renderTask(task))); list.append(group);
+  [['telegram','Telegram'],['spec','ТЗ']].forEach(([origin,label])=>{
+    const bucket=el('details','source-bucket');bucket.dataset.origin=origin;bucket.open=state.expanded.has(origin);
+    const summary=el('summary','source-summary');summary.append(el('h2','',label),el('span','',String(buckets[origin].length)));bucket.append(summary);
+    bucket.addEventListener('toggle',()=>{if(!bucket.isConnected)return;bucket.open?state.expanded.add(origin):state.expanded.delete(origin);});
+    const contents=el('div','source-contents');
+    if(!buckets[origin].length)contents.append(el('p','muted','В этом списке пока нет задач'));
+    ownerIds().forEach(id=>{
+      const tasks=buckets[origin].filter(t=>t.owner===id);if(!tasks.length)return;
+      const group=el('section','task-group'),heading=el('div','group-heading'),h=el('h3','',member(id).name);
+      heading.append(h,el('span','group-counter',String(tasks.length)),el('span','group-rule'));group.append(heading);
+      tasks.forEach(t=>group.append(renderTask(t,{level:4})));contents.append(group);
+    });
+    bucket.append(contents);list.append(bucket);
   });
 }
-function renderTask(task) {
+function renderPages(){
+  if(!state.board)return;
+  renderWiki($('wiki-cards'),{pages:state.board.pages||[],tasks:state.board.tasks,query:state.pageQuery,openPages:state.openPages,
+    onToggle:(id,open)=>{open?state.openPages.add(id):state.openPages.delete(id);},
+    onEdit:openPage,onTask:id=>openTask(null,id),renderTask});
+}
+function switchView(view){state.view=view;render();}
+$('view-tasks').onclick=()=>switchView('tasks');$('view-pages').onclick=()=>switchView('pages');
+$('page-search').oninput=e=>{state.pageQuery=e.target.value;renderPages();};
+function renderTask(task,{level=3,showOwner=false}={}) {
   const row=el('article','task-row is-'+task.status), symbol=el('button','task-toggle');
   row.dataset.task=task.id;
   symbol.type='button'; symbol.setAttribute('role','checkbox');
@@ -156,14 +180,18 @@ function renderTask(task) {
   const mark=el('span','task-check',task.status==='unmarked'?'':STATUSES[task.status].symbol);
   mark.setAttribute('aria-hidden','true'); symbol.append(mark);
   symbol.onclick=()=>changeStatus(task.id,task.status==='done'?'unmarked':'done',true);
-  const main=el('div','task-main'),title=el('h3','task-title',task.title),meta=el('div','task-meta');
-  if (Number(task.urgent)) meta.append(el('span','priority','⚑ Срочно'));
+  const main=el('div','task-main'),title=el('h'+level,'task-title',task.title),meta=el('div','task-meta');
+  if(showOwner)meta.append(el('span','task-assignee',member(task.owner).name));
+  meta.append(el('span','task-date',taskDateLabel(task)));
+  if (Number(task.urgent)&&!['done','obsolete'].includes(task.status)) {const badge=el('span','priority');const fire=el('span','fire','🔥');fire.setAttribute('aria-hidden','true');badge.append(fire,document.createTextNode(' Срочно'));meta.append(badge);}
   if (task.updated_at) meta.append(el('span','',member(task.updated_by).name+' · '+displayDate(task.updated_at)));
   const details=el('details','task-details'),summary=el('summary','','Подробнее');
   details.append(summary,el('p','',task.detail));
-  const source=safeSource(task.source);
-  if(source) { const link=el('a','','Поручение в Telegram ↗'); link.href=source; link.target='_blank'; link.rel='noopener noreferrer'; details.append(link); }
-  main.append(title,meta,details);
+  const source=safeHttps(task.source_url||task.source);
+  if(source) { const link=el('a','',task.origin==='telegram'?'Поручение в Telegram ↗':'Открыть ТЗ ↗'); link.href=source; link.target='_blank'; link.rel='noopener noreferrer'; details.append(link); }
+  const edit=el('button','text-button task-edit','Изменить задачу');edit.type='button';edit.onclick=()=>openTask(task);details.append(edit);
+  const related=el('div','task-page-links');(task.page_ids||[]).forEach(id=>{const p=state.board.pages?.find(p=>p.id===id);if(!p)return;const button=el('button','page-chip',p.title);button.type='button';button.onclick=()=>{state.openPages.add(id);state.pageQuery=p.title;$('page-search').value=p.title;switchView('pages');};related.append(button);});
+  main.append(title,meta,related,details);
   const controls=el('div','status-controls'); controls.setAttribute('role','group'); controls.setAttribute('aria-label','Статус задачи «'+task.title+'»');
   ['progress','done','obsolete'].forEach(status=>{
     const button=el('button','status-option '+status,STATUSES[status].label);
@@ -201,41 +229,67 @@ async function changeStatus(id,status,fromCheckbox=false) {
     state.busy.delete(id);
     if (state.session && state.board) {
       render();
-      $('tasks').querySelector('[data-task="'+id+'"] '+(fromCheckbox?'.task-toggle':'[data-status="'+status+'"]'))?.focus({preventScroll:true});
+      const scope=state.view==='pages'?$('pages-view'):$('tasks');
+      const target=scope.querySelector('[data-task="'+id+'"] '+(fromCheckbox?'.task-toggle':'[data-status="'+status+'"]'));
+      if(target?.getClientRects().length)target.focus({preventScroll:true});else $('task-create-open').focus({preventScroll:true});
     }
   }
 }
-function openCreateTask() {
-  $('task-create-form').reset(); $('task-create-error').textContent='';
+function todayMoscow(){return new Intl.DateTimeFormat('en-CA',{year:'numeric',month:'2-digit',day:'2-digit',timeZone:'Europe/Moscow'}).format(new Date());}
+function openTask(task=null,pageId=null) {
+  editingTask=task; $('task-create-form').reset(); $('task-create-error').textContent='';
+  $('task-create-title').textContent=task?'Изменить задачу':'Новая задача';
+  $('task-create-submit').textContent=task?'Сохранить':'Добавить';
   const select=$('task-owner'); select.replaceChildren();
-  state.board.members.filter(m=>!['tatyana','team'].includes(m.id)).forEach(m=>{
-    const option=el('option','',m.name); option.value=m.id; select.append(option);
-  });
-  select.value=state.owner==='all'?state.session.member:state.owner;
+  state.board.members.filter(m=>!['tatyana','team'].includes(m.id)).forEach(m=>{const option=el('option','',m.name);option.value=m.id;select.append(option);});
+  select.value=task?.owner||(state.owner==='all'?state.session.member:state.owner);
+  $('task-title').value=task?.title||'';$('task-detail').value=task?.detail||'';$('task-urgent').checked=Boolean(Number(task?.urgent));
+  $('task-origin').value=task?.origin||'spec';$('task-source').value=task?.source_url||task?.source||'';
+  $('task-date').value=task?.created_at?.slice(0,10)||todayMoscow();
+  const field=$('task-pages');field.replaceChildren(el('legend','','Страницы сайта'));
+  (state.board.pages||[]).forEach(p=>{const label=el('label','page-choice'),input=document.createElement('input');input.type='checkbox';input.value=p.id;input.checked=(task?.page_ids||[pageId]).includes(p.id);label.append(input,document.createTextNode(p.title));field.append(label);});
+  $('task-create-form').querySelector('.create-details').open=Boolean(task||pageId);
   createRequestId=crypto.randomUUID(); $('task-create-dialog').showModal(); $('task-title').focus();
 }
-$('task-create-open').onclick=openCreateTask;
+$('task-create-open').onclick=()=>openTask();
 $('task-create-close').onclick=()=>{if(!creatingTask)$('task-create-dialog').close();};
 $('task-create-dialog').addEventListener('cancel',event=>{if(creatingTask)event.preventDefault();});
 $('task-create-form').addEventListener('submit',async event=>{
-  event.preventDefault(); if(creatingTask)return;
-  const title=$('task-title').value.trim();
-  if(!title){$('task-create-error').textContent='Напиши, что нужно сделать.';$('task-title').focus();return;}
+  event.preventDefault();if(creatingTask)return;
+  const title=$('task-title').value.trim();if(!title){$('task-create-error').textContent='Напиши, что нужно сделать.';$('task-title').focus();return;}
   const token=state.session?.token;
-  creatingTask=true; $('task-create-submit').disabled=true; $('task-create-close').disabled=true;
-  $('task-create-error').textContent='';
-  try {
-    const owner=$('task-owner').value;
-    const data=await api('create',{request_id:createRequestId,title,owner,detail:$('task-detail').value.trim(),urgent:$('task-urgent').checked});
+  creatingTask=true;$('task-create-submit').disabled=true;$('task-create-close').disabled=true;$('task-create-error').textContent='';
+  try{
+    const body={title,owner:$('task-owner').value,detail:$('task-detail').value.trim(),urgent:$('task-urgent').checked,origin:$('task-origin').value,created_at:$('task-date').value,source_url:$('task-source').value.trim(),page_ids:[...$('task-pages').querySelectorAll('input:checked')].map(e=>e.value)};
+    const data=await api(editingTask?'task_save':'create',editingTask?{...body,id:editingTask.id,revision:Number(editingTask.revision)}:{...body,request_id:createRequestId});
     if(state.session?.token!==token)return;
-    state.owner=owner; state.status='all'; state.urgent=false; state.query=''; $('search').value='';
-    acceptBoard(data); render(); $('task-create-dialog').close(); toast('Задача добавлена');
-    $('tasks').querySelector('[data-task="'+data.created_task_id+'"] .task-toggle')?.focus();
-  } catch(error) {
+    state.owner=body.owner;state.status='all';state.urgent=false;state.query='';$('search').value='';state.expanded.add(body.origin);
+    acceptBoard(data);render();$('task-create-dialog').close();toast(editingTask?'Задача сохранена':'Задача добавлена');
+    if(state.view==='tasks')$('tasks').querySelector('[data-task="'+data.created_task_id+'"] .task-toggle')?.focus();
+  }catch(error){
     if(state.session?.token!==token)return;
-    if(error.status===401)showLogin(error.message);
-    else $('task-create-error').textContent=error.message;
-  } finally {creatingTask=false;$('task-create-submit').disabled=false;$('task-create-close').disabled=false;}
+    if(error.status===401)showLogin(error.message);else{if(error.status===409&&error.data.board)acceptBoard(error.data.board);$('task-create-error').textContent=error.message;}
+  }finally{creatingTask=false;$('task-create-submit').disabled=false;$('task-create-close').disabled=false;}
+});
+function openPage(page=null){
+  editingPage=page||{id:'P-'+crypto.randomUUID(),revision:0};$('page-form').reset();$('page-error').textContent='';
+  $('page-name').value=page?.title||'';
+  ['front','live','preview'].forEach(key=>{$('page-'+key+'-url').value=page?.[key+'_url']||'';$('page-'+key+'-version').value=page?.[key+'_version']||'';});
+  $('page-github-url').value=page?.github_url||'';$('page-file-url').value=page?.source_file_url||'';$('page-blocks-url').value=page?.blocks_url||'';
+  $('page-dialog').showModal();$('page-name').focus();
+}
+$('page-create-open').onclick=()=>openPage();$('page-close').onclick=()=>{if(!savingPage)$('page-dialog').close();};
+$('page-dialog').addEventListener('cancel',e=>{if(savingPage)e.preventDefault();});
+$('page-form').addEventListener('submit',async e=>{
+  e.preventDefault();if(savingPage)return;savingPage=true;$('page-submit').disabled=true;$('page-close').disabled=true;$('page-error').textContent='';
+  const token=state.session?.token;
+  try{
+    const body={id:editingPage.id,revision:Number(editingPage.revision),title:$('page-name').value.trim(),github_url:$('page-github-url').value.trim(),source_file_url:$('page-file-url').value.trim(),blocks_url:$('page-blocks-url').value.trim()};
+    ['front','live','preview'].forEach(key=>{body[key+'_url']=$('page-'+key+'-url').value.trim();body[key+'_version']=$('page-'+key+'-version').value.trim();});
+    const data=await api('page_save',body);if(state.session?.token!==token)return;
+    acceptBoard(data);$('page-dialog').close();state.pageQuery='';$('page-search').value='';switchView('pages');toast('Страница сохранена');
+  }catch(error){if(state.session?.token!==token)return;if(error.status===401)showLogin(error.message);else{if(error.status===409&&error.data.board)acceptBoard(error.data.board);$('page-error').textContent=error.message;}}
+  finally{savingPage=false;$('page-submit').disabled=false;$('page-close').disabled=false;}
 });
 function renderHistory() {
   const list=$('history-list'); list.replaceChildren();

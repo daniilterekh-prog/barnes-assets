@@ -10,10 +10,10 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src https://turkish-property.ru http://127.0.0.1:8788; object-src 'none'; base-uri 'none'; form-action 'self'">
   <title>Рабочая доска — BARN Estate</title>
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="./style.css?v=20261019-create">
+  <link rel="stylesheet" href="./style.css?v=20261019-wiki">
   <link rel="stylesheet" href="./preloader.css">
   <script type="module" src="./preloader.js"></script>
-  <script type="module" src="./app.js?v=20261019-create"></script>
+  <script type="module" src="./app.js?v=20261019-wiki"></script>
 </head>
 <body>
   <a class="skip" href="#tasks">К задачам</a>
@@ -35,6 +35,7 @@
   <div id="board-view" class="workspace" hidden>
     <aside class="sidebar">
       <a class="wordmark side-brand" href="./" aria-label="BARN Estate — рабочая доска">BARN.</a>
+      <nav class="workspace-views" aria-label="Разделы"><button id="view-tasks" class="view-tab active" type="button">Задачи</button><button id="view-pages" class="view-tab" type="button">Страницы сайта</button></nav>
       <nav id="owner-nav" aria-label="Исполнители"></nav>
       <div class="sidebar-bottom">
         <div class="connection"><span id="connection-dot" class="live-dot"></span><span id="sync-label" role="status">Подключение…</span></div>
@@ -45,7 +46,8 @@
     <div class="main-shell">
       <header class="topbar"><button id="refresh" class="icon-button" type="button" aria-label="Обновить задачи" title="Обновить">↻</button><button id="mobile-history" class="icon-button" type="button" aria-label="История изменений" title="История">◷</button></header>
       <main class="main-content">
-        <div class="page-heading"><h1>ЗАДАЧИ.</h1><button id="task-create-open" class="primary" type="button">Добавить задачу <span aria-hidden="true">+</span></button></div>
+        <div class="page-heading"><h1 id="board-title">ЗАДАЧИ.</h1><div class="heading-actions"><button id="page-create-open" class="filter-button" type="button" hidden>Добавить страницу +</button><button id="task-create-open" class="primary" type="button">Добавить задачу <span aria-hidden="true">+</span></button></div></div>
+        <div id="tasks-view">
         <section class="overview" aria-label="Прогресс команды">
           <div class="progress-summary"><div class="summary-top"><span>Общий прогресс</span><span id="progress-label">0 / 25</span></div><div class="progress-track"><progress id="progress" max="25" value="0" aria-label="Выполненные задачи"></progress></div><span id="progress-note" class="sr-only">Всё начинается с первого шага</span></div>
           <button class="metric" data-stat="unmarked"><span class="metric-label"><i class="dot unmarked"></i>Не отмечено</span><strong id="count-unmarked">—</strong></button>
@@ -60,6 +62,8 @@
         </div>
         <div class="list-caption"><span id="list-description">Все исполнители</span><span id="visible-count"></span></div>
         <section id="tasks" class="task-list" aria-label="Задачи команды" tabindex="-1"></section>
+        </div>
+        <section id="pages-view" hidden aria-label="Страницы сайта"><label class="search wiki-search"><span aria-hidden="true">⌕</span><input id="page-search" type="search" aria-label="Поиск страниц" placeholder="Найти страницу"></label><div id="wiki-cards"></div></section>
       </main>
     </div>
   </div>
@@ -68,8 +72,19 @@
     <form id="task-create-form">
       <label for="task-title">Задача</label><input id="task-title" name="title" required maxlength="150" placeholder="Что нужно сделать" autocomplete="off">
       <label for="task-owner">Исполнитель</label><select id="task-owner" name="owner" required></select>
-      <details class="create-details"><summary>Описание и срочность</summary><label for="task-detail">Описание</label><textarea id="task-detail" name="detail" maxlength="600" rows="3" placeholder="Детали, если нужны"></textarea><label class="urgent-choice"><input id="task-urgent" name="urgent" type="checkbox"> Срочная задача</label></details>
+      <div class="task-field-row"><div><label for="task-origin">Источник</label><select id="task-origin"><option value="spec">ТЗ</option><option value="telegram">Telegram</option></select></div><div><label for="task-date">Дата постановки</label><input id="task-date" type="date" required></div></div>
+      <details class="create-details"><summary>Описание и срочность</summary><label for="task-detail">Описание</label><textarea id="task-detail" name="detail" maxlength="600" rows="3" placeholder="Детали, если нужны"></textarea><label for="task-source">Ссылка на поручение</label><input id="task-source" type="url" pattern="https://.*" maxlength="600" placeholder="https://…"><fieldset id="task-pages"><legend>Страницы сайта</legend></fieldset><label class="urgent-choice"><input id="task-urgent" name="urgent" type="checkbox"> Срочная задача</label></details>
       <p id="task-create-error" class="error" role="alert"></p><button id="task-create-submit" class="primary" type="submit">Добавить <span aria-hidden="true">↗</span></button>
+    </form>
+  </dialog>
+  <dialog id="page-dialog" aria-labelledby="page-dialog-title">
+    <div class="dialog-head"><h2 id="page-dialog-title">Страница сайта</h2><button id="page-close" class="icon-button" type="button" aria-label="Закрыть страницу">×</button></div>
+    <form id="page-form"><label for="page-name">Название</label><input id="page-name" required maxlength="100" autocomplete="off">
+      <div class="page-version-fields"><h3>Фронт</h3><label for="page-front-url">Ссылка на фронт</label><input id="page-front-url" type="url" pattern="https://.*" maxlength="600" placeholder="https://…"><label for="page-front-version">Версия фронта</label><input id="page-front-version" maxlength="80" placeholder="Коммит, дата или название версии"></div>
+      <div class="page-version-fields"><h3>Живой сайт</h3><label for="page-live-url">Ссылка на живую страницу</label><input id="page-live-url" type="url" pattern="https://.*" maxlength="600" placeholder="https://…"><label for="page-live-version">Версия на сайте</label><input id="page-live-version" maxlength="80" placeholder="Дата публикации или версия"></div>
+      <div class="page-version-fields"><h3>Моя версия</h3><label for="page-preview-url">Ссылка на эталонное превью</label><input id="page-preview-url" type="url" pattern="https://.*" maxlength="600" placeholder="https://…"><label for="page-preview-version">Версия превью</label><input id="page-preview-version" maxlength="80" placeholder="Дата, коммит или название"></div>
+      <details class="create-details"><summary>Исходники и блоки</summary><label for="page-github-url">Папка страницы в GitHub</label><input id="page-github-url" type="url" pattern="https://github.com/.*" maxlength="600" placeholder="https://github.com/…"><label for="page-file-url">HTML страницы</label><input id="page-file-url" type="url" pattern="https://github.com/.*" maxlength="600" placeholder="https://github.com/…"><label for="page-blocks-url">Папка блоков</label><input id="page-blocks-url" type="url" pattern="https://github.com/.*" maxlength="600" placeholder="https://github.com/…"></details>
+      <p id="page-error" class="error" role="alert"></p><button id="page-submit" class="primary" type="submit">Сохранить</button>
     </form>
   </dialog>
   <dialog id="history-dialog" aria-labelledby="history-title"><div class="dialog-head"><div><h2 id="history-title">История изменений</h2></div><button id="history-close" class="icon-button" type="button" aria-label="Закрыть историю">×</button></div><div id="history-list"></div></dialog>
