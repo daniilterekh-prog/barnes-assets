@@ -5,7 +5,7 @@ import {icon} from './icons.js?v=20261019-gateway';
 import { API_URL } from './config.js';
 import { STATUSES, selectTasks, summarize, safeSource, safeHttps, taskDateLabel, splitTaskBuckets, groupSpecTasks, programmerMood, mergeTask, deadlineInfo, moscowDay, shiftDay, personalBrowseModel } from './domain.js?v=20261019-gateway';
 
-import {renderWiki} from './wiki.js?v=20261019-gateway';
+import {renderWiki} from './wiki.js?v=20261019-page-cards';
 
 const $ = id => document.getElementById(id);
 const SESSION_KEY = 'barn-taskboard-session-v1';
@@ -14,7 +14,7 @@ const ownerIds = () => state.board?.members.filter(m=>!['tatyana','team'].includ
 let createRequestId=null, creatingTask=false, editingTask=null, editingPage=null, savingPage=false;
 state.screen='gateway';state.mineBrowse=null;state.mineOrigin=null;state.createFromGateway=false;
 state.scope='mine'; state.creator='all'; state.questionsTo=null;state.deadline='all';
-state.view='tasks'; state.expanded=new Set(); state.openPages=new Set(); state.pageQuery='';
+state.view='tasks'; state.expanded=new Set(); state.openPages=new Set(); state.pageQuery='';state.selectedPage=null;state.wikiScope='mine';state.wikiStatus='open';
 const dateFormat = new Intl.DateTimeFormat('ru', {day:'numeric',month:'short',hour:'2-digit',minute:'2-digit',timeZone:'Europe/Moscow'});
 const attachments=setupAttachments({api,getSession:()=>state.session,getBoard:()=>state.board,acceptBoard,member,toast,onUnauthorized:showLogin});
 const gateway=setupGateway(chooseDestination);
@@ -96,7 +96,7 @@ function showGateway(){
 function chooseDestination(route){
   if(!state.session||!state.board)return;
   state.mineBrowse=null;state.mineOrigin=null;state.query='';$('search').value='';state.owner='all';state.creator='all';state.questionsTo=null;state.deadline='all';state.status='open';state.urgent=false;
-  state.pageQuery='';$('page-search').value='';state.expanded.clear();state.specExpanded?.clear();state.scope=route==='assigned'?'assigned':'mine';state.view=route==='site'?'pages':'tasks';
+  state.pageQuery='';state.selectedPage=null;state.wikiScope='mine';state.wikiStatus='open';$('page-search').value='';state.expanded.clear();state.specExpanded?.clear();state.scope=route==='assigned'?'assigned':'mine';state.view=route==='site'?'pages':'tasks';
   $('nav-mine').open=state.scope==='mine';$('nav-assigned').open=state.scope==='assigned';
   showBoard();render();
   const board=$('board-view');board.classList.remove('arriving');void board.offsetWidth;board.classList.add('arriving');
@@ -108,7 +108,7 @@ function chooseDestination(route){
 $('gateway-back').onclick=e=>{e.preventDefault();showGateway();};
 function showLogin(message = '') {
   gateway.reset();$('gateway-view').hidden=true;$('skip-link').hidden=false;state.screen='login';state.mineBrowse=null;state.mineOrigin=null;state.createFromGateway=false;
-  attachments.reset();discussion.reset();$('deadline-dialog').close();deadlineTask=null;state.deadline='all';state.questionsTo=null;state.session = null; state.board = null; state.signature = ''; state.busy.clear();state.expanded.clear();state.specExpanded?.clear();state.openPages.clear();state.view='tasks';state.owner='all';state.scope='mine';state.creator='all';
+  attachments.reset();discussion.reset();$('deadline-dialog').close();deadlineTask=null;state.deadline='all';state.questionsTo=null;state.session = null; state.board = null; state.signature = ''; state.busy.clear();state.expanded.clear();state.specExpanded?.clear();state.openPages.clear();state.selectedPage=null;state.wikiScope='mine';state.wikiStatus='open';state.pageQuery='';$('page-search').value='';state.view='tasks';state.owner='all';state.scope='mine';state.creator='all';
   state.status='open';state.urgent=false;state.query='';$('search').value='';
   $('nav-mine').open=true;$('nav-assigned').open=false;
   sessionStorage.removeItem(SESSION_KEY);
@@ -267,8 +267,11 @@ function renderMinePicker(list,model,visible){
 }
 function renderPages(){
   if(!state.board)return;
-  renderWiki($('wiki-cards'),{pages:state.board.pages||[],tasks:state.board.tasks.filter(t=>!['done','obsolete'].includes(t.status)),query:state.pageQuery,openPages:state.openPages,
-    onToggle:(id,open)=>{open?state.openPages.add(id):state.openPages.delete(id);},
+  $('page-search').closest('label').hidden=!!state.selectedPage;
+  renderWiki($('wiki-cards'),{pages:state.board.pages||[],tasks:state.board.tasks,query:state.pageQuery,selectedPage:state.selectedPage,taskScope:state.wikiScope,taskStatus:state.wikiStatus,me:state.session.member,
+    onSelect:id=>{state.selectedPage=id;if(!id){state.pageQuery='';$('page-search').value='';}state.wikiScope='mine';state.wikiStatus='open';renderPages();(id?$('wiki-page-title'):$('page-search'))?.focus({preventScroll:true});$('pages-view').scrollIntoView({block:'start',behavior:'instant'});},
+    onScope:scope=>{state.wikiScope=scope;renderPages();$('wiki-cards').querySelector('[data-wiki-scope="'+scope+'"]')?.focus({preventScroll:true});},
+    onStatus:status=>{state.wikiStatus=status;renderPages();$('wiki-task-status')?.focus({preventScroll:true});},
     onEdit:openPage,onTask:id=>openTask(null,id),renderTask});
 }
 function switchView(view){state.view=view;render();}
@@ -298,7 +301,7 @@ function renderTask(task,{level=3,showOwner=false}={}) {
   const source=safeHttps(task.source_url||task.source);
   if(source) { const link=el('a','',task.origin==='telegram'?'Поручение в Telegram ↗':'Открыть ТЗ ↗'); link.href=source; link.target='_blank'; link.rel='noopener noreferrer'; details.append(link); }
   const edit=el('button','text-button task-edit','Изменить задачу');edit.type='button';edit.onclick=()=>openTask(task);details.append(edit);
-  const related=el('div','task-page-links');(task.page_ids||[]).forEach(id=>{const p=state.board.pages?.find(p=>p.id===id);if(!p)return;const button=el('button','page-chip',p.title);button.type='button';button.onclick=()=>{state.openPages.add(id);state.pageQuery=p.title;$('page-search').value=p.title;switchView('pages');};related.append(button);});
+  const related=el('div','task-page-links');(task.page_ids||[]).forEach(id=>{const p=state.board.pages?.find(p=>p.id===id);if(!p)return;const button=el('button','page-chip',p.title);button.type='button';button.onclick=()=>{state.selectedPage=id;state.wikiScope='mine';state.wikiStatus='open';switchView('pages');$('wiki-page-title')?.focus({preventScroll:true});};related.append(button);});
   const discuss=el('button','discussion-open','Обсуждение'+(task.comment_count?' · '+task.comment_count:''));discuss.type='button';discuss.prepend(icon('message-circle'));discuss.setAttribute('aria-label','Обсудить задачу: '+task.title);discuss.onclick=()=>discussion.open(task.id);
   if(task.open_question_count)discuss.append(el('span','question-counter','Вопросы: '+task.open_question_count));
   const images=el('button','discussion-open attachments-open','Изображения'+(task.attachment_count?' · '+task.attachment_count:''));images.type='button';images.prepend(icon('plus'));images.setAttribute('aria-label','Изображения задачи: '+task.title);images.onclick=()=>attachments.open(task.id);
@@ -398,6 +401,7 @@ $('task-create-form').addEventListener('submit',async event=>{
     if(state.session?.token!==token)return;
     state.scope=body.owner===state.session.member?'mine':'assigned';state.creator='all';state.questionsTo=null;state.deadline='all';state.owner='all';state.status='open';state.urgent=false;state.query='';$('search').value='';state.expanded.add(body.origin);
     state.createFromGateway=false;
+    if(state.view==='pages'){state.wikiScope=state.scope;state.wikiStatus='open';}
     const created=data.tasks.find(t=>t.id===data.created_task_id);
     {state.mineOrigin=body.origin;const group=created?groupSpecTasks([created],data.pages||[],data.spec_sections||[])[0]:null;state.mineBrowse=body.origin==='telegram'?null:body.page_ids.length?{kind:'page',id:body.page_ids[0]}:{kind:'section',id:group?.id.startsWith('source:')?group.id.slice(7):'outside'};}
     if(created?.origin==='spec'){state.specExpanded ||= new Set();groupSpecTasks([created],data.pages||[],data.spec_sections||[]).forEach(s=>state.specExpanded.add(s.id));}
@@ -424,7 +428,7 @@ $('page-form').addEventListener('submit',async e=>{
     const body={id:editingPage.id,revision:Number(editingPage.revision),title:$('page-name').value.trim(),github_url:$('page-github-url').value.trim(),source_file_url:$('page-file-url').value.trim(),blocks_url:$('page-blocks-url').value.trim()};
     ['front','live','preview'].forEach(key=>{body[key+'_url']=$('page-'+key+'-url').value.trim();body[key+'_version']=$('page-'+key+'-version').value.trim();});
     const data=await api('page_save',body);if(state.session?.token!==token)return;
-    acceptBoard(data);$('page-dialog').close();state.pageQuery='';$('page-search').value='';switchView('pages');toast('Страница сохранена');
+    acceptBoard(data);$('page-dialog').close();state.pageQuery='';state.selectedPage=null;state.wikiScope='mine';state.wikiStatus='open';state.selectedPage=body.id;$('page-search').value='';switchView('pages');toast('Страница сохранена');
   }catch(error){if(state.session?.token!==token)return;if(error.status===401)showLogin(error.message);else{if(error.status===409&&error.data.board)acceptBoard(error.data.board);$('page-error').textContent=error.message;}}
   finally{savingPage=false;$('page-submit').disabled=false;$('page-close').disabled=false;}
 });

@@ -1,14 +1,20 @@
 import {icon} from './icons.js?v=20261019-gateway';
-import {safeHttps} from './domain.js?v=20261019-gateway';
+import {safeHttps,pageTaskModel} from './domain.js?v=20261019-page-cards';
 const node=(tag,cls,text)=>{const e=document.createElement(tag);e.className=cls||'';if(text!==undefined)e.textContent=text;return e;};
-export function renderWiki(container,{pages,tasks,query,openPages,onToggle,onEdit,onTask,renderTask}) {
+export function renderWiki(container,{pages,tasks,query,selectedPage,taskScope,taskStatus,me,onSelect,onScope,onStatus,onEdit,onTask,renderTask}) {
   container.replaceChildren();
   const visible=pages.filter(p=>(p.title+' '+p.front_url+' '+p.live_url+' '+p.github_url).toLocaleLowerCase('ru').includes(query.trim().toLocaleLowerCase('ru')));
-  if(!visible.length){container.append(node('p','empty','Страницы не найдены'));return;}
-  visible.forEach(p=>{
+  if(!selectedPage&&!visible.length){container.append(node('p','empty','Страницы не найдены'));return;}
+  const selected=pages.find(p=>p.id===selectedPage);
+  if(!selected){
+    const grid=node('div','wiki-page-choices');grid.setAttribute('role','group');grid.setAttribute('aria-label','Выбери раздел сайта');
+    visible.forEach(p=>{const button=node('button','wiki-page-choice',p.title);button.type='button';button.dataset.pageChoice=p.id;button.append(icon('arrow-up-right'));button.onclick=()=>onSelect(p.id);grid.append(button);});container.append(grid);return;
+  }
+  const p=selected,back=node('button','filter-button wiki-back','Все разделы');back.type='button';back.onclick=()=>onSelect(null);container.append(back);
     const card=node('article','wiki-card');card.dataset.page=p.id;
     const header=node('div','wiki-heading'),title=node('h2','',p.title),edit=node('button','wiki-edit','Изменить');
     edit.prepend(icon('pencil'));edit.type='button';edit.setAttribute('aria-label','Изменить страницу: '+p.title);edit.onclick=()=>onEdit(p);header.append(title,edit);card.append(header);
+    title.id='wiki-page-title';title.tabIndex=-1;
     const versions=node('div','version-grid');
     [['front','Фронт'],['live','Живой сайт'],['preview','Референс Даниил GitHub']].forEach(([key,label])=>{
       const box=node('div','version-cell');box.append(node('span','version-label',label));
@@ -21,11 +27,16 @@ export function renderWiki(container,{pages,tasks,query,openPages,onToggle,onEdi
     [['github_url','Папка страницы'],['source_file_url','HTML'],['blocks_url','Блоки']].forEach(([key,label])=>{
       const href=safeHttps(p[key]);if(!href)return;const a=node('a','wiki-source',label);a.prepend(icon({github_url:'folder',source_file_url:'code-xml',blocks_url:'blocks'}[key]));a.append(icon('arrow-up-right'));a.href=href;a.target='_blank';a.rel='noopener noreferrer';a.setAttribute('aria-label',label+': '+p.title);sources.append(a);
     });card.append(sources);
-    const linked=tasks.filter(t=>(t.page_ids||[]).includes(p.id));
-    const controls=node('div','wiki-task-actions'),add=node('button','filter-button','Добавить задачу');add.prepend(icon('plus'));add.type='button';add.setAttribute('aria-label','Добавить задачу к странице: '+p.title);add.onclick=()=>onTask(p.id);
-    const details=node('details','wiki-linked');details.open=openPages.has(p.id);const summary=node('summary','',`Открытые задачи · ${linked.length}`);summary.prepend(icon('list-todo'));details.append(summary);
-    details.addEventListener('toggle',()=>{if(details.isConnected)onToggle(p.id,details.open);});
-    const list=node('div','wiki-task-list');if(!linked.length)list.append(node('p','muted','Связанных задач пока нет'));
-    linked.forEach(t=>list.append(renderTask(t,{level:3,showOwner:true})));details.append(list);controls.append(add);card.append(controls,details);container.append(card);
-  });
+    const model=pageTaskModel(tasks,p.id,me,taskScope,taskStatus);
+    const controls=node('div','wiki-task-actions'),add=node('button','filter-button','Добавить задачу');add.prepend(icon('plus'));add.type='button';add.setAttribute('aria-label','Добавить задачу к странице: '+p.title);add.onclick=()=>onTask(p.id);controls.append(add);card.append(controls);
+    const taskArea=node('section','wiki-page-tasks');taskArea.setAttribute('aria-label','Задачи страницы: '+p.title);taskArea.append(node('h3','wiki-tasks-title','Задачи страницы'));
+    const modes=node('div','wiki-task-scopes');modes.setAttribute('role','group');modes.setAttribute('aria-label','Чьи задачи показать');
+    const labels={mine:'На мне',assigned:'Я поставил',all:'Все'};
+    model.modes.forEach(({id,count})=>{const button=node('button','filter-button',labels[id]);button.type='button';button.dataset.wikiScope=id;button.setAttribute('aria-pressed',String(taskScope===id));button.append(node('span','',String(count)));button.onclick=()=>onScope(id);modes.append(button);});taskArea.append(modes);
+    const filters=node('div','wiki-task-filters'),label=node('label','','Статус'),select=node('select','');label.htmlFor='wiki-task-status';select.id='wiki-task-status';
+    [['open','Открытые'],['all','Все статусы'],['unmarked','Не отмечено'],['progress','В работе'],['done','Сделано'],['obsolete','Не актуально']].forEach(([value,text])=>{const option=node('option','',text);option.value=value;select.append(option);});select.value=taskStatus;select.onchange=()=>onStatus(select.value);filters.append(label,select);taskArea.append(filters);
+    const progress=node('p','muted',`${model.counts.done} из ${model.counts.total} выполнено`);taskArea.append(progress);
+    const list=node('div','wiki-task-list');
+    if(!model.rows.length)list.append(node('p','muted',taskScope==='mine'?'На тебе нет задач этой страницы по выбранному статусу.':taskScope==='assigned'?'Твоих поручений по этой странице и статусу пока нет.':'Задач этой страницы по выбранному статусу нет.'));
+    model.rows.forEach(t=>list.append(renderTask(t,{level:4,showOwner:true})));taskArea.append(list);card.append(taskArea);container.append(card);
 }

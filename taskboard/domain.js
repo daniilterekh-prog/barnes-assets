@@ -115,3 +115,12 @@ export function personalBrowseModel(tasks,pages,sections,choice=null,explicit=fa
   else if(explicit)selected=ordinary;
   return {urgent,selected,pageOptions,sectionOptions,ready:!!choice||explicit,totalOrdinary:ordinary.length};
 }
+
+// A page card never includes tasks linked only to another page.
+export function pageTaskModel(tasks,pageId,me,scope='mine',status='open'){
+  const linked=tasks.filter(t=>(t.page_ids||[]).includes(pageId));
+  const filters={owner:'all',creator:'all',query:'',urgent:false,me};
+  const scoped=selectTasks(linked,{...filters,scope,status:'all'});
+  const modes=['mine','assigned','all'].map(id=>({id,count:selectTasks(linked,{...filters,scope:id,status}).length}));
+  return {rows:selectTasks(scoped,{...filters,scope:'all',status}),counts:summarize(scoped),modes};
+}
