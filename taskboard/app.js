@@ -155,7 +155,7 @@ function renderNav() {
   $('from-member').value=state.creator;
   $('to-member').value=state.scope==='assigned'?state.owner:'all';
 }
-function setScope(scope) { if(scope==='mine'&&state.scope!=='mine'){state.mineBrowse=null;state.mineOrigin=null;}state.questionsTo=null; state.scope=scope;state.owner='all';state.creator='all';if(scope!=='all')$('nav-'+scope).open=true;render(); }
+function setScope(scope) { if(scope!==state.scope){state.mineBrowse=null;state.mineOrigin=null;}state.questionsTo=null; state.scope=scope;state.owner='all';state.creator='all';if(scope!=='all')$('nav-'+scope).open=true;render(); }
 function setOwner(id) { state.questionsTo=null; state.scope='all';state.creator='all';state.owner=id;render(); }
 $('scope-questions').onclick=()=>{state.scope='all';state.owner='all';state.creator='all';state.status='all';state.urgent=false;state.query='';$('search').value='';state.questionsTo=state.session.member;render();};
 $('scope-all').onclick=()=>setScope('all');
@@ -195,12 +195,12 @@ function render() {
   const visible=selectTasks(state.board.tasks,{...state,me:state.session?.member});
   $('visible-count').textContent='Показано '+visible.length+' из '+counts.total;
   const list=$('tasks'); list.replaceChildren();
-  const personal=state.scope==='mine'&&!state.questionsTo;
+  const personal=['mine','assigned'].includes(state.scope)&&!state.questionsTo;
   const personalRows=visible.filter(t=>state.mineOrigin==='telegram'?t.origin==='telegram':t.origin!=='telegram');
   const browse=personal?personalBrowseModel(personalRows,state.board.pages||[],state.board.spec_sections||[],state.mineBrowse,state.mineOrigin==='telegram'||!!state.query.trim()||state.status!=='open'||state.deadline!=='all'||state.creator!=='all'):null;
   if(browse){browse.urgent=splitTaskBuckets(visible).urgent;if(!state.mineOrigin){browse.selected=[];browse.ready=false;}}
   const buckets=splitTaskBuckets(browse?[...browse.urgent,...browse.selected]:visible);
-  if(browse)$('visible-count').textContent= browse.ready?'Показано '+(browse.urgent.length+browse.selected.length)+' из '+visible.length+' моих задач':'Срочные · '+browse.urgent.length;
+  if(browse)$('visible-count').textContent= browse.ready?'Показано '+(browse.urgent.length+browse.selected.length)+' из '+visible.length+(state.scope==='assigned'?' моих поручений':' моих задач'):'Срочные · '+browse.urgent.length;
   if(buckets.urgent.length){
     const urgent=el('section','urgent-block'),heading=el('h2','urgent-heading');
     const fire=icon('flame','fire');fire.setAttribute('aria-hidden','true');
@@ -223,7 +223,7 @@ function render() {
         group.addEventListener('toggle',()=>{if(!group.isConnected)return;group.open?state.specExpanded.add(section.id):state.specExpanded.delete(section.id);});
         section.tasks.forEach(t=>group.append(renderTask(t,{level:4,showOwner:true})));contents.append(group);
       });
-    }else if(personal){buckets.telegram.forEach(t=>contents.append(renderTask(t,{level:3})));}
+    }else if(personal){buckets.telegram.forEach(t=>contents.append(renderTask(t,{level:3,showOwner:state.scope==='assigned'})));}
     else ownerIds().forEach(id=>{
       const tasks=buckets[origin].filter(t=>t.owner===id);if(!tasks.length)return;
       const group=el('section','task-group'),heading=el('div','group-heading'),h=el('h3','',member(id).name);
@@ -399,7 +399,7 @@ $('task-create-form').addEventListener('submit',async event=>{
     state.scope=body.owner===state.session.member?'mine':'assigned';state.creator='all';state.questionsTo=null;state.deadline='all';state.owner='all';state.status='open';state.urgent=false;state.query='';$('search').value='';state.expanded.add(body.origin);
     state.createFromGateway=false;
     const created=data.tasks.find(t=>t.id===data.created_task_id);
-    if(state.scope==='mine'){state.mineOrigin=body.origin;const group=created?groupSpecTasks([created],data.pages||[],data.spec_sections||[])[0]:null;state.mineBrowse=body.origin==='telegram'?null:body.page_ids.length?{kind:'page',id:body.page_ids[0]}:{kind:'section',id:group?.id.startsWith('source:')?group.id.slice(7):'outside'};}
+    {state.mineOrigin=body.origin;const group=created?groupSpecTasks([created],data.pages||[],data.spec_sections||[])[0]:null;state.mineBrowse=body.origin==='telegram'?null:body.page_ids.length?{kind:'page',id:body.page_ids[0]}:{kind:'section',id:group?.id.startsWith('source:')?group.id.slice(7):'outside'};}
     if(created?.origin==='spec'){state.specExpanded ||= new Set();groupSpecTasks([created],data.pages||[],data.spec_sections||[]).forEach(s=>state.specExpanded.add(s.id));}
     acceptBoard(data);render();$('task-create-dialog').close();toast(editingTask?'Задача сохранена':'Задача добавлена');
     if(state.view==='tasks')$('tasks').querySelector('[data-task="'+data.created_task_id+'"] .task-toggle')?.focus();
