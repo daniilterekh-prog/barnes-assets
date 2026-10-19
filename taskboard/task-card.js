@@ -1,6 +1,14 @@
 export function setupTaskCard({getTask,isBusy,renderTask,onSelect}){
   const dialog=document.getElementById('task-card-dialog'),body=document.getElementById('task-card-body'),title=document.getElementById('task-card-title');
   let activeId=null,signature='';
+  // An asynchronously opened child can share the browser's Escape close group.
+  // Consume one Escape for the top child, preserving its busy/cancel safeguards.
+  document.addEventListener('keydown',event=>{
+    if(event.key!=='Escape'||!dialog.open)return;
+    const child=[...document.querySelectorAll('dialog[open]:not(#task-card-dialog)')].at(-1);
+    if(!child)return;event.preventDefault();event.stopPropagation();
+    if(child.dispatchEvent(new Event('cancel',{cancelable:true})))child.close();
+  },{capture:true});
   function refresh(force=false){
     if(!activeId)return;const task=getTask(activeId);if(!task){dialog.close();return;}
     const next=JSON.stringify(task)+':'+isBusy(activeId);if(!force&&next===signature)return;

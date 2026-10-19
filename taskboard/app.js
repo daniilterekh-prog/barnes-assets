@@ -1,4 +1,4 @@
-import {setupTaskCard} from './task-card.js?v=20261019-task-card';
+import {setupTaskCard} from './task-card.js?v=20261019-progress-deadline';
 import {createPersistence,normalizeView,SESSION_KEY} from './persistence.js?v=20261019-task-card';
 import {setupGateway} from './gateway.js?v=20261019-gateway';
 import {setupAttachments,imageFileError} from './attachments.js?v=20261019-upload-form';
@@ -359,14 +359,15 @@ function renderTask(task,{level=3,showOwner=false,isCard=false}={}) {
 async function changeStatus(id,status,fromCheckbox=false) {
   if (state.busy.has(id)) return;
   const task=state.board.tasks.find(t=>t.id===id);
-  if (!task || task.status===status) return;
+  if(!task)return;
+  if(task.status===status){if(status==='progress')openDeadline(task);return;}
   state.busy.add(id); render();
-  const token=state.session?.token;
+  const token=state.session?.token;let statusSaved=false;
   setConnection(true,'Сохраняем…');
   try {
     const data=await api('status',{id,status,revision:Number(task.revision)});
     if (state.session?.token!==token) return;
-    acceptBoard(data); showError(''); toast('Сохранено');
+    acceptBoard(data);statusSaved=true; showError(''); toast('Сохранено');
   } catch(error) {
     if (state.session?.token!==token) return;
     if (error.status===401) { showLogin(error.message); return; }
@@ -375,11 +376,15 @@ async function changeStatus(id,status,fromCheckbox=false) {
     showError(error.message); toast(error.message);
   } finally {
     state.busy.delete(id);
-    if (state.session && state.board) {
+    if(state.session?.token===token&&state.board){
       render();
+      const current=state.board.tasks.find(t=>t.id===id);
+      if(statusSaved&&status==='progress'&&current?.status==='progress')openDeadline(current);
+      else{
       const scope=taskCard.isOpenFor(id)?$('task-card-body'):state.view==='pages'?$('pages-view'):$('tasks');
       const target=scope.querySelector('[data-task="'+id+'"] '+(fromCheckbox?'.task-toggle':'[data-status="'+status+'"]'));
       if(target?.getClientRects().length)target.focus({preventScroll:true});else $('task-create-open').focus({preventScroll:true});
+      }
     }
   }
 }
