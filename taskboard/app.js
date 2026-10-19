@@ -102,7 +102,6 @@ function chooseDestination(route){
   showBoard();render();
   const board=$('board-view');board.classList.remove('arriving');void board.offsetWidth;board.classList.add('arriving');
   if(route==='create'){state.createFromGateway=true;openTask();}
-  else if(route==='site')$('page-search').focus({preventScroll:true});
   else $('board-title').focus({preventScroll:true});
   window.scrollTo({top:0,behavior:'instant'});
 }
@@ -270,7 +269,7 @@ function renderPages(){
   if(!state.board)return;
   $('page-search').closest('label').hidden=!!state.selectedPage;
   renderWiki($('wiki-cards'),{pages:state.board.pages||[],tasks:state.board.tasks,query:state.pageQuery,selectedPage:state.selectedPage,taskScope:state.wikiScope,taskStatus:state.wikiStatus,me:state.session.member,
-    onSelect:id=>{state.selectedPage=id;if(!id){state.pageQuery='';$('page-search').value='';}state.wikiScope='mine';state.wikiStatus='open';renderPages();(id?$('wiki-page-title'):$('page-search'))?.focus({preventScroll:true});$('pages-view').scrollIntoView({block:'start',behavior:'instant'});},
+    onSelect:id=>{state.selectedPage=id;if(!id){state.pageQuery='';$('page-search').value='';}state.wikiScope='mine';state.wikiStatus='open';renderPages();(id?$('wiki-page-title'):$('board-title'))?.focus({preventScroll:true});$('pages-view').scrollIntoView({block:'start',behavior:'instant'});},
     onScope:scope=>{state.wikiScope=scope;renderPages();$('wiki-cards').querySelector('[data-wiki-scope="'+scope+'"]')?.focus({preventScroll:true});},
     onStatus:status=>{state.wikiStatus=status;renderPages();$('wiki-task-status')?.focus({preventScroll:true});},
     onEdit:openPage,onTask:id=>openTask(null,id),renderTask});
