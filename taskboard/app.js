@@ -5,7 +5,7 @@ import {setupAttachments,imageFileError} from './attachments.js?v=20261019-uploa
 import {setupDiscussion} from './discussion.js?v=20261019-gateway';
 import {icon} from './icons.js?v=20261019-gateway';
 import { API_URL } from './config.js';
-import { STATUSES, selectTasks, summarize, safeSource, safeHttps, taskDateLabel, splitTaskBuckets, groupSpecTasks, programmerMood, mergeTask, deadlineInfo, moscowDay, shiftDay, personalBrowseModel } from './domain.js?v=20261019-gateway';
+import { STATUSES, selectTasks, summarize, safeSource, safeHttps, taskDateLabel, splitTaskBuckets, groupSpecTasks, programmerMood, mergeTask, deadlineInfo, moscowDay, shiftDay, personalBrowseModel } from './domain.js?v=20261019-merged-destination';
 
 import {renderWiki} from './wiki.js?v=20261019-page-cards';
 
@@ -271,20 +271,21 @@ function renderMinePicker(list,model,visible){
   if(!state.mineOrigin)return;
   if(state.mineOrigin==='telegram'){if(!model.selected.length)section.append(el('p','muted','Задач из Telegram по текущим условиям нет.'));return;}
   const controls=el('div','mine-browser-controls');
-  [['page','Страница сайта',model.pageOptions,'Выбери страницу'],['section','Раздел Экстра ТЗ',model.sectionOptions,'Или раздел Экстра ТЗ']].forEach(([kind,label,options,prompt])=>{
-    const field=el('div','mine-browser-field'),id='mine-'+kind,caption=el('label','',label),select=el('select','');caption.htmlFor=id;select.id=id;
-    const empty=el('option','',prompt);empty.value='';select.append(empty);
-    options.forEach(item=>{const option=el('option','',(item.id==='outside'?'Другие задачи ТЗ':item.title)+' · '+item.count);option.value=item.id;select.append(option);});
-    select.disabled=!options.length;select.value=state.mineBrowse?.kind===kind?state.mineBrowse.id:'';
-    select.onchange=()=>{state.mineBrowse=select.value?{kind,id:select.value}:null;
-      if(state.mineBrowse){
-        const visible=selectTasks(state.board.tasks,{...state,me:state.session.member}).filter(t=>t.origin!=='telegram');
-        const chosen=personalBrowseModel(visible,state.board.pages||[],state.board.spec_sections||[],state.mineBrowse);
-        chosen.selected.forEach(t=>state.expanded.add(t.origin==='telegram'?'telegram':'spec'));state.specExpanded ||= new Set();
-        groupSpecTasks(chosen.selected.filter(t=>t.origin!=='telegram'),state.board.pages||[],state.board.spec_sections||[]).forEach(s=>state.specExpanded.add(s.id));
-      }render();$(id)?.focus({preventScroll:true});};field.append(caption,select);controls.append(field);
-  });
-  if(state.mineBrowse){const reset=el('button','filter-button','Сбросить выбор');reset.type='button';reset.onclick=()=>{state.mineBrowse=null;render();$('mine-page').focus({preventScroll:true});};controls.append(reset);}
+  const field=el('div','mine-browser-field'),caption=el('label','','Страница или раздел ТЗ'),select=el('select','');
+  caption.htmlFor='mine-destination';select.id='mine-destination';const prompt=el('option','','Выбери страницу или раздел');prompt.value='';select.append(prompt);
+  const key=item=>JSON.stringify([item.kind,item.id]);
+  model.browseOptions.forEach(item=>{const option=el('option','',item.title+' · '+item.count);option.value=key(item);select.append(option);});
+  select.disabled=!model.browseOptions.length;select.value=model.currentChoice?key(model.currentChoice):'';
+  select.onchange=()=>{
+    const option=model.browseOptions.find(item=>key(item)===select.value);state.mineBrowse=option?{kind:option.kind,id:option.id}:null;
+    if(state.mineBrowse){
+      const visible=selectTasks(state.board.tasks,{...state,me:state.session.member}).filter(t=>t.origin!=='telegram');
+      const chosen=personalBrowseModel(visible,state.board.pages||[],state.board.spec_sections||[],state.mineBrowse);
+      chosen.selected.forEach(t=>state.expanded.add('spec'));state.specExpanded ||= new Set();
+      groupSpecTasks(chosen.selected,state.board.pages||[],state.board.spec_sections||[]).forEach(s=>state.specExpanded.add(s.id));
+    }render();$('mine-destination').focus({preventScroll:true});
+  };field.append(caption,select);controls.append(field);
+  if(state.mineBrowse){const reset=el('button','filter-button','Сбросить выбор');reset.type='button';reset.onclick=()=>{state.mineBrowse=null;render();$('mine-destination').focus({preventScroll:true});};controls.append(reset);}
   section.append(controls);
   if(!model.urgent.length&&!model.ready)section.append(el('p','muted','Срочных задач нет. Выбери страницу или раздел ниже, чтобы открыть остальные задачи.'));
   else if(!model.ready)section.append(el('p','muted','Выбери страницу или раздел, чтобы открыть остальные задачи.'));

@@ -103,17 +103,24 @@ export function personalBrowseModel(tasks,pages,sections,choice=null,explicit=fa
   const sourceKey=value=>{try{const u=new URL(value);return u.origin+u.pathname.replace(/\/edit$/,'')+'?tab='+(u.searchParams.get('tab')||'');}catch{return '';}};
   const sectionSources=new Map(sections.map(s=>[sourceKey(s.source_url),s.tab_id]));
   const sectionOf=t=>t.origin==='spec'?sectionSources.get(sourceKey(t.source_url))||'outside':'outside';
-  const pageOptions=pages.map(p=>({id:p.id,title:p.title,count:ordinary.filter(t=>(t.page_ids||[]).includes(p.id)).length})).filter(p=>p.count||choice?.kind==='page'&&choice.id===p.id);
-  const noPage=ordinary.filter(t=>!t.page_ids?.length).length;
-  if(noPage||choice?.kind==='page'&&choice.id==='none')pageOptions.push({id:'none',title:'Без страницы',count:noPage});
-  const sectionOptions=sections.map(s=>({id:s.tab_id,title:s.title,count:ordinary.filter(t=>sectionOf(t)===s.tab_id).length})).filter(s=>s.count||choice?.kind==='section'&&choice.id===s.id);
-  const outside=ordinary.filter(t=>sectionOf(t)==='outside').length;
-  if(outside||choice?.kind==='section'&&choice.id==='outside')sectionOptions.push({id:'outside',title:'Вне Экстра ТЗ',count:outside});
-  let selected=[];
-  if(choice?.kind==='page')selected=ordinary.filter(t=>choice.id==='none'?!t.page_ids?.length:(t.page_ids||[]).includes(choice.id));
-  else if(choice?.kind==='section')selected=ordinary.filter(t=>sectionOf(t)===choice.id);
-  else if(explicit)selected=ordinary;
-  return {urgent,selected,pageOptions,sectionOptions,ready:!!choice||explicit,totalOrdinary:ordinary.length};
+  const titleKey=value=>(value||'').toLocaleLowerCase('ru').replace(/ё/g,'е').replace(/[^а-яa-z0-9]/g,'');
+  const aliases={узелгородская:'city',узелгородскаянедвижимость:'city',узелзагородная:'country',узелзагороднаянедвижимость:'country',узелзарубежная:'international',узелзарубежнаянедвижимость:'international',узелкурортная:'resort',узелкурортнаянедвижимость:'resort',узелкоммерческая:'commercial',узелкоммерческаянедвижимость:'commercial',узелвторичная:'secondary',узелновостройки:'newbuilds',собственникпродажа:'owner-sale',собственникаренда:'owner-rent',амбассадоры:'partners',узловаясобственикам:'owners',узловаясобственникам:'owners'};
+  const pageFor=s=>pages.find(p=>titleKey(p.title)===titleKey(s.title))||pages.find(p=>p.id===aliases[titleKey(s.title)]);
+  const groups=pages.map(p=>({kind:'page',id:p.id,title:p.title,sectionIds:sections.filter(s=>pageFor(s)?.id===p.id).map(s=>s.tab_id)}));
+  const remaining=new Map();
+  sections.filter(s=>!pageFor(s)).forEach(s=>{const key=titleKey(s.title)||s.tab_id;if(!remaining.has(key)){const group={kind:'section',id:s.tab_id,title:s.title,sectionIds:[]};remaining.set(key,group);groups.push(group);}remaining.get(key).sectionIds.push(s.tab_id);});
+  groups.push({kind:'page',id:'none',title:'Без страницы',sectionIds:[]},{kind:'section',id:'outside',title:'Другие задачи ТЗ',sectionIds:[]});
+  const matches=(t,g)=>g.kind==='page'&&g.id==='none'?!t.page_ids?.length:g.kind==='section'&&g.id==='outside'?sectionOf(t)==='outside':(g.kind==='page'&&(t.page_ids||[]).includes(g.id))||g.sectionIds.includes(sectionOf(t));
+  let current=choice?groups.find(g=>g.kind===choice.kind&&g.id===choice.id||choice.kind==='section'&&g.sectionIds.includes(choice.id)):null;
+  const options=groups.map(g=>({...g,count:ordinary.filter(t=>matches(t,g)).length}));
+  // General tasks with no page/source should not appear twice under two names.
+  const none=options.find(g=>g.kind==='page'&&g.id==='none'),outside=options.find(g=>g.kind==='section'&&g.id==='outside');
+  const sameGeneral=none.count>0&&none.count===outside.count&&ordinary.every(t=>matches(t,none)===matches(t,outside));
+  if(sameGeneral){outside.title='Общие задачи ТЗ';if(current===groups.find(g=>g.kind==='page'&&g.id==='none'))current=groups.find(g=>g.kind==='section'&&g.id==='outside');}
+  const currentChoice=current?{kind:current.kind,id:current.id}:null;
+  const browseOptions=options.filter(g=>(g.count||current?.kind===g.kind&&current?.id===g.id)&&!(sameGeneral&&g.kind==='page'&&g.id==='none'));
+  const selected=current?ordinary.filter(t=>matches(t,current)):!choice&&explicit?ordinary:[];
+  return {urgent,selected,browseOptions,currentChoice,pageOptions:browseOptions.filter(g=>g.kind==='page'),sectionOptions:browseOptions.filter(g=>g.kind==='section'),ready:!!choice||explicit,totalOrdinary:ordinary.length};
 }
 
 // A page card never includes tasks linked only to another page.
