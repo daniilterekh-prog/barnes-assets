@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="./style.css?v=20261019-gateway">
   <link rel="stylesheet" href="./preloader.css">
   <script type="module" src="./preloader.js"></script>
-  <script type="module" src="./app.js?v=20261019-gateway"></script>
+  <script type="module" src="./app.js?v=20261019-navigation"></script>
 </head>
 <body>
   <a id="skip-link" class="skip" href="#tasks">К задачам</a>
@@ -44,7 +44,7 @@
     <aside class="sidebar">
       <a id="gateway-back" class="wordmark side-brand" href="#start" aria-label="Вернуться к выбору раздела">BARN.</a>
       <nav class="workspace-views" aria-label="Разделы"><button id="view-tasks" class="view-tab active" type="button">Задачи</button><button id="view-pages" class="view-tab" type="button">Страницы сайта</button></nav>
-      <nav id="owner-nav" aria-label="Задачи по участникам">
+      <nav id="owner-nav" aria-label="Задачи по участникам" hidden>
         <details id="nav-mine" class="scope-group" open><summary>Мои задачи <span id="nav-mine-count"></span></summary><label class="nav-filter" for="from-member">От кого<select id="from-member"></select></label></details>
         <details id="nav-assigned" class="scope-group"><summary>Я поставил <span id="nav-assigned-count"></span></summary><label class="nav-filter" for="to-member">Кому<select id="to-member"></select></label></details>
         <button id="scope-all" class="owner-button" type="button">Все задачи <span id="nav-total"></span></button>

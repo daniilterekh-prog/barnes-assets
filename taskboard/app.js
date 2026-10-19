@@ -171,7 +171,7 @@ function render() {
   if (!state.board) return;
   renderNav();
   $('tasks-view').hidden=state.view!=='tasks'; $('pages-view').hidden=state.view!=='pages';
-  $('owner-nav').hidden=state.view==='pages'; $('board-title').textContent=state.view==='pages'?'СТРАНИЦЫ.':'ЗАДАЧИ.';
+  $('owner-nav').hidden=true; $('board-title').textContent=state.view==='pages'?'СТРАНИЦЫ.':'ЗАДАЧИ.';
   $('page-create-open').hidden=state.view!=='pages';
   ['tasks','pages'].forEach(view=>{$('view-'+view).classList.toggle('active',state.view===view);$('view-'+view).setAttribute('aria-pressed',String(state.view===view));});
   renderPages();
