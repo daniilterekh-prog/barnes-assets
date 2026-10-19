@@ -1,4 +1,4 @@
-import {icon} from './icons.js?v=20261019-icons';
+import {icon} from './icons.js?v=20261019-discuss';
 import {safeHttps} from './domain.js?v=20261019-wiki';
 const node=(tag,cls,text)=>{const e=document.createElement(tag);e.className=cls||'';if(text!==undefined)e.textContent=text;return e;};
 export function renderWiki(container,{pages,tasks,query,openPages,onToggle,onEdit,onTask,renderTask}) {

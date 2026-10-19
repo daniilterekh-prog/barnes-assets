@@ -1,16 +1,19 @@
-import {icon} from './icons.js?v=20261019-icons';
+import {setupDiscussion} from './discussion.js?v=20261019-discuss';
+import {icon} from './icons.js?v=20261019-discuss';
 import { API_URL } from './config.js';
-import { STATUSES, selectTasks, summarize, safeSource, safeHttps, taskDateLabel, splitTaskBuckets } from './domain.js?v=20261019-wiki';
+import { STATUSES, selectTasks, summarize, safeSource, safeHttps, taskDateLabel, splitTaskBuckets, programmerMood, mergeTask } from './domain.js?v=20261019-discuss';
 
-import {renderWiki} from './wiki.js?v=20261019-icons';
+import {renderWiki} from './wiki.js?v=20261019-discuss';
 
 const $ = id => document.getElementById(id);
 const SESSION_KEY = 'barn-taskboard-session-v1';
 const state = { session: null, board: null, owner: 'all', status: 'all', urgent: false, query: '', busy: new Set(), signature: '', fetching: false, toastTimer: null };
 const ownerIds = () => state.board?.members.filter(m=>!['tatyana','team'].includes(m.id)).map(m=>m.id) || [];
 let createRequestId=null, creatingTask=false, editingTask=null, editingPage=null, savingPage=false;
+state.scope='all'; state.creator='all'; state.questionsTo=null;
 state.view='tasks'; state.expanded=new Set(); state.openPages=new Set(); state.pageQuery='';
 const dateFormat = new Intl.DateTimeFormat('ru', {day:'numeric',month:'short',hour:'2-digit',minute:'2-digit',timeZone:'Europe/Moscow'});
+const discussion=setupDiscussion({api,getSession:()=>state.session,getBoard:()=>state.board,acceptBoard,member,toast,onUnauthorized:showLogin});
 
 function el(tag, className, text) {
   const node = document.createElement(tag);
@@ -55,18 +58,19 @@ function acceptBoard(data) {
   // An older poll response must never overwrite a newer status save.
   if (state.board) {
     const previous = new Map(state.board.tasks.map(t => [t.id,t]));
-    data.tasks = data.tasks.map(t => Number(previous.get(t.id)?.revision) > Number(t.revision) ? previous.get(t.id) : t);
+    data.tasks = data.tasks.map(t => mergeTask(previous.get(t.id),t));
     const incomingIds=new Set(data.tasks.map(t=>t.id));
     data.tasks.push(...state.board.tasks.filter(t=>!incomingIds.has(t.id)));
     const events = new Map([...state.board.history,...data.history].map(h => [Number(h.id),h]));
     data.history = [...events.values()].sort((a,b) => Number(b.id)-Number(a.id)).slice(0,50);
   }
   state.board = data;
-  const signature = data.tasks.map(t => t.id + ':' + t.revision).join(',') + ':' + (data.history[0]?.id || '')+':'+(data.pages||[]).map(p=>p.id+':'+p.revision).join(',');
+  const signature = data.tasks.map(t => t.id + ':' + t.revision + ':' + (t.discussion_revision||0)).join(',') + ':' + (data.history[0]?.id || '')+':'+(data.pages||[]).map(p=>p.id+':'+p.revision).join(',');
   if (signature !== state.signature) {
     state.signature = signature; render();
     if ($('history-dialog').open) renderHistory();
   }
+  discussion.refresh();
   setConnection(true,'Сохранено');
 }
 function showBoard() {
@@ -76,7 +80,7 @@ function showBoard() {
   $('my-avatar').textContent = member(state.session.member).initials;
 }
 function showLogin(message = '') {
-  state.session = null; state.board = null; state.signature = ''; state.busy.clear();state.expanded.clear();state.openPages.clear();state.view='tasks';state.owner='all';
+  discussion.reset();state.questionsTo=null;state.session = null; state.board = null; state.signature = ''; state.busy.clear();state.expanded.clear();state.openPages.clear();state.view='tasks';state.owner='all';state.scope='all';state.creator='all';
   sessionStorage.removeItem(SESSION_KEY);
   $('board-view').hidden = true; $('login-view').hidden = false;
   $('history-dialog').close(); $('task-create-dialog').close(); $('page-dialog').close();
@@ -99,22 +103,39 @@ async function refresh(manual = false) {
   } finally { state.fetching = false; $('refresh').disabled = false; }
 }
 function renderNav() {
-  const nav = $('owner-nav'), scrollPosition = nav.scrollLeft; nav.replaceChildren();
-  const all = el('button','owner-button' + (state.owner === 'all' ? ' active' : ''));
-  all.type='button'; all.setAttribute('aria-pressed',String(state.owner === 'all'));
-  all.append(el('span','nav-symbol','▦'),el('span','','Все'),el('span','',String(state.board.tasks.length)));
-  all.onclick=()=>setOwner('all'); nav.append(all);
-  ownerIds().forEach(id => {
-    const tasks=state.board.tasks.filter(t=>t.owner===id);
-    if (!tasks.length) return;
-    const m=member(id), button=el('button','owner-button' + (state.owner === id ? ' active' : ''));
-    button.type='button'; button.setAttribute('aria-pressed',String(state.owner === id));
-    button.append(avatar(m),el('span','',m.name),el('span','',String(tasks.length)));
-    button.onclick=()=>setOwner(id); nav.append(button);
+  const tasks=state.board.tasks,me=state.session?.member;
+  $('nav-question-count').textContent=tasks.reduce((n,t)=>n+Number(t.open_questions_by_recipient?.[me]||0),0);
+  $('scope-questions').classList.toggle('active',!!state.questionsTo);$('scope-questions').setAttribute('aria-pressed',String(!!state.questionsTo));
+  $('nav-total').textContent=tasks.length;
+  $('nav-mine-count').textContent=tasks.filter(t=>t.owner===me).length;
+  $('nav-assigned-count').textContent=tasks.filter(t=>t.created_by===me).length;
+  $('scope-all').classList.toggle('active',state.scope==='all'&&!state.questionsTo);
+  $('scope-all').setAttribute('aria-pressed',String(state.scope==='all'&&!state.questionsTo));
+  ['mine','assigned'].forEach(scope=>$('nav-'+scope).classList.toggle('active',state.scope===scope));
+  [['all-owner','Все исполнители'],['from-member','Все авторы'],['to-member','Все исполнители']].forEach(([id,label])=>{
+    const select=$(id);
+    if(!select.options.length){
+      const all=el('option','',label);all.value='all';select.append(all);
+      ownerIds().forEach(id=>{const option=el('option','',member(id).name);option.value=id;select.append(option);});
+      if(id==='from-member'){const unknown=el('option','','Автор не указан');unknown.value='unknown';select.append(unknown);}
+    }
   });
-  nav.scrollLeft = scrollPosition;
+  $('all-owner').value=state.scope==='all'?state.owner:'all';
+  $('from-member').value=state.creator;
+  $('to-member').value=state.scope==='assigned'?state.owner:'all';
 }
-function setOwner(id) { state.owner=id; render(); }
+function setScope(scope) { state.questionsTo=null; state.scope=scope;state.owner='all';state.creator='all';if(scope!=='all')$('nav-'+scope).open=true;render(); }
+function setOwner(id) { state.questionsTo=null; state.scope='all';state.creator='all';state.owner=id;render(); }
+$('scope-questions').onclick=()=>{state.scope='all';state.owner='all';state.creator='all';state.status='all';state.urgent=false;state.query='';$('search').value='';state.questionsTo=state.session.member;render();};
+$('scope-all').onclick=()=>setScope('all');
+['mine','assigned'].forEach(scope=>{
+  $('nav-'+scope).addEventListener('toggle',()=>{if($('nav-'+scope).open&&state.scope!==scope)setScope(scope);});
+  // Clicking an already open summary still selects its task list.
+  $('nav-'+scope).querySelector('summary').addEventListener('click',()=>{if(state.scope!==scope||state.questionsTo){state.questionsTo=null;state.scope=scope;state.owner='all';state.creator='all';render();}});
+});
+$('all-owner').onchange=e=>setOwner(e.target.value);
+$('from-member').onchange=e=>{state.questionsTo=null;state.scope='mine';state.owner='all';state.creator=e.target.value;render();};
+$('to-member').onchange=e=>{state.questionsTo=null;state.scope='assigned';state.creator='all';state.owner=e.target.value;render();};
 function render() {
   if (!state.board) return;
   renderNav();
@@ -129,14 +150,17 @@ function render() {
   $('progress').max=counts.total || 1; $('progress').value=counts.done;
   $('progress-label').textContent=counts.done+' / '+counts.total;
   $('progress-note').textContent=counts.done ? 'Готово '+Math.round(counts.done/Math.max(counts.total,1)*100)+'% · не актуально: '+counts.obsolete : 'Пока нет выполненных задач';
-  $('tab-all').classList.toggle('active',state.owner==='all');
-  $('tab-mine').classList.toggle('active',state.owner===state.session?.member);
-  $('tab-all').setAttribute('aria-pressed',String(state.owner==='all'));
-  $('tab-mine').setAttribute('aria-pressed',String(state.owner===state.session?.member));
+  const percent=Math.round(counts.done/Math.max(counts.total,1)*100),mood=programmerMood(percent);
+  $('progress-scene').className='progress-summary mood-'+mood.id;
+  $('progress-percent').textContent=percent+'%';$('progress-mood').textContent=mood.label;
+  $('progress-label').textContent=counts.done+' из '+counts.total+' сделано';
+  $('count-urgent').textContent=state.board.tasks.filter(t=>Number(t.urgent)&&!['done','obsolete'].includes(t.status)).length;
+  $('urgent-summary').setAttribute('aria-pressed',String(state.urgent));
+  ['all','mine','assigned'].forEach(scope=>{$('tab-'+scope).classList.toggle('active',state.scope===scope);$('tab-'+scope).setAttribute('aria-pressed',String(state.scope===scope));});
   $('status-filter').value=state.status;
   $('urgent-filter').setAttribute('aria-pressed',String(state.urgent));
-  $('list-description').textContent=state.owner==='all' ? 'Все' : 'Задачи: '+member(state.owner).name;
-  const visible=selectTasks(state.board.tasks,state);
+  $('list-description').textContent=state.questionsTo?'Открытые вопросы мне':state.scope==='mine'?'Мои задачи · '+(state.creator==='all'?'от всех':state.creator==='unknown'?'автор не указан':'от '+member(state.creator).name):state.scope==='assigned'?'Поставленные мной · '+(state.owner==='all'?'всем':'для '+member(state.owner).name):state.owner==='all'?'Все задачи':'Задачи: '+member(state.owner).name;
+  const visible=selectTasks(state.board.tasks,{...state,me:state.session?.member});
   $('visible-count').textContent='Показано '+visible.length+' из '+counts.total;
   const list=$('tasks'); list.replaceChildren();
   const buckets=splitTaskBuckets(visible);
@@ -185,6 +209,7 @@ function renderTask(task,{level=3,showOwner=false}={}) {
   const main=el('div','task-main'),title=el('h'+level,'task-title',task.title),meta=el('div','task-meta');
   if(showOwner)meta.append(el('span','task-assignee',member(task.owner).name));
   meta.append(el('span','task-date',taskDateLabel(task)));
+  meta.append(el('span','task-author',task.created_by?'От: '+member(task.created_by).name:'Автор не указан'));
   if (Number(task.urgent)&&!['done','obsolete'].includes(task.status)) {const badge=el('span','priority');const fire=icon('flame','fire');fire.setAttribute('aria-hidden','true');badge.append(fire,document.createTextNode(' Срочно'));meta.append(badge);}
   if (task.updated_at) meta.append(el('span','',member(task.updated_by).name+' · '+displayDate(task.updated_at)));
   const details=el('details','task-details'),summary=el('summary','','Подробнее');
@@ -193,7 +218,9 @@ function renderTask(task,{level=3,showOwner=false}={}) {
   if(source) { const link=el('a','',task.origin==='telegram'?'Поручение в Telegram ↗':'Открыть ТЗ ↗'); link.href=source; link.target='_blank'; link.rel='noopener noreferrer'; details.append(link); }
   const edit=el('button','text-button task-edit','Изменить задачу');edit.type='button';edit.onclick=()=>openTask(task);details.append(edit);
   const related=el('div','task-page-links');(task.page_ids||[]).forEach(id=>{const p=state.board.pages?.find(p=>p.id===id);if(!p)return;const button=el('button','page-chip',p.title);button.type='button';button.onclick=()=>{state.openPages.add(id);state.pageQuery=p.title;$('page-search').value=p.title;switchView('pages');};related.append(button);});
-  main.append(title,meta,related,details);
+  const discuss=el('button','discussion-open','Обсуждение'+(task.comment_count?' · '+task.comment_count:''));discuss.type='button';discuss.prepend(icon('message-circle'));discuss.setAttribute('aria-label','Обсудить задачу: '+task.title);discuss.onclick=()=>discussion.open(task.id);
+  if(task.open_question_count)discuss.append(el('span','question-counter','Вопросы: '+task.open_question_count));
+  main.append(title,meta,related,discuss,details);
   const controls=el('div','status-controls'); controls.setAttribute('role','group'); controls.setAttribute('aria-label','Статус задачи «'+task.title+'»');
   ['progress','done','obsolete'].forEach(status=>{
     const button=el('button','status-option '+status,STATUSES[status].label);
@@ -266,7 +293,7 @@ $('task-create-form').addEventListener('submit',async event=>{
     const body={title,owner:$('task-owner').value,detail:$('task-detail').value.trim(),urgent:$('task-urgent').checked,origin:$('task-origin').value,created_at:$('task-date').value,source_url:$('task-source').value.trim(),page_ids:[...$('task-pages').querySelectorAll('input:checked')].map(e=>e.value)};
     const data=await api(editingTask?'task_save':'create',editingTask?{...body,id:editingTask.id,revision:Number(editingTask.revision)}:{...body,request_id:createRequestId});
     if(state.session?.token!==token)return;
-    state.owner=body.owner;state.status='all';state.urgent=false;state.query='';$('search').value='';state.expanded.add(body.origin);
+    state.scope='all';state.creator='all';state.questionsTo=null;state.owner=body.owner;state.status='all';state.urgent=false;state.query='';$('search').value='';state.expanded.add(body.origin);
     acceptBoard(data);render();$('task-create-dialog').close();toast(editingTask?'Задача сохранена':'Задача добавлена');
     if(state.view==='tasks')$('tasks').querySelector('[data-task="'+data.created_task_id+'"] .task-toggle')?.focus();
   }catch(error){
@@ -330,8 +357,10 @@ $('login-form').addEventListener('submit',async event=>{
 $('retry-meta').onclick=loadMembers;
 $('logout').onclick=async()=>{try{await api('logout',{});}catch{}showLogin();};
 $('refresh').onclick=()=>refresh(true);
-$('tab-all').onclick=()=>setOwner('all');
-$('tab-mine').onclick=()=>setOwner(state.session.member);
+$('tab-all').onclick=()=>setScope('all');
+$('tab-mine').onclick=()=>setScope('mine');
+$('tab-assigned').onclick=()=>setScope('assigned');
+$('urgent-summary').onclick=()=>{state.urgent=!state.urgent;state.status='all';render();};
 $('search').oninput=event=>{state.query=event.target.value;render();};
 $('status-filter').onchange=event=>{state.status=event.target.value;render();};
 $('urgent-filter').onclick=()=>{state.urgent=!state.urgent;render();};
