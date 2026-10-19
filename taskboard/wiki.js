@@ -10,7 +10,7 @@ export function renderWiki(container,{pages,tasks,query,openPages,onToggle,onEdi
     const header=node('div','wiki-heading'),title=node('h2','',p.title),edit=node('button','wiki-edit','Изменить');
     edit.prepend(icon('pencil'));edit.type='button';edit.setAttribute('aria-label','Изменить страницу: '+p.title);edit.onclick=()=>onEdit(p);header.append(title,edit);card.append(header);
     const versions=node('div','version-grid');
-    [['front','Фронт'],['live','Живой сайт'],['preview','Моя версия']].forEach(([key,label])=>{
+    [['front','Фронт'],['live','Живой сайт'],['preview','Референс Даниил GitHub']].forEach(([key,label])=>{
       const box=node('div','version-cell');box.append(node('span','version-label',label));
       const href=safeHttps(p[key+'_url']);
       if(href){const a=node('a','version-link','Открыть');a.append(icon('arrow-up-right'));a.href=href;a.target='_blank';a.rel='noopener noreferrer';a.setAttribute('aria-label',label+': '+p.title);box.append(a);}

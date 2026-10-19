@@ -4,7 +4,7 @@ import {icon} from './icons.js?v=20261019-images';
 import { API_URL } from './config.js';
 import { STATUSES, selectTasks, summarize, safeSource, safeHttps, taskDateLabel, splitTaskBuckets, groupSpecTasks, programmerMood, mergeTask, deadlineInfo, moscowDay, shiftDay } from './domain.js?v=20261019-images';
 
-import {renderWiki} from './wiki.js?v=20261019-images';
+import {renderWiki} from './wiki.js?v=20261019-reference';
 
 const $ = id => document.getElementById(id);
 const SESSION_KEY = 'barn-taskboard-session-v1';
