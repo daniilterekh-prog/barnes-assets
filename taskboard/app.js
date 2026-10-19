@@ -1,5 +1,5 @@
 import {setupGateway} from './gateway.js?v=20261019-gateway';
-import {setupAttachments} from './attachments.js?v=20261019-gateway';
+import {setupAttachments,imageFileError} from './attachments.js?v=20261019-upload-form';
 import {setupDiscussion} from './discussion.js?v=20261019-gateway';
 import {icon} from './icons.js?v=20261019-gateway';
 import { API_URL } from './config.js';
@@ -11,6 +11,7 @@ const $ = id => document.getElementById(id);
 const SESSION_KEY = 'barn-taskboard-session-v1';
 const state = { session: null, board: null, owner: 'all', status: 'open', urgent: false, query: '', busy: new Set(), signature: '', fetching: false, toastTimer: null };
 const ownerIds = () => state.board?.members.filter(m=>!['tatyana','team'].includes(m.id)).map(m=>m.id) || [];
+let taskImage=null,taskImagePreview=null;
 let createRequestId=null, creatingTask=false, editingTask=null, editingPage=null, savingPage=false;
 state.screen='gateway';state.mineBrowse=null;state.mineOrigin=null;state.createFromGateway=false;
 state.scope='mine'; state.creator='all'; state.questionsTo=null;state.deadline='all';
@@ -304,7 +305,7 @@ function renderTask(task,{level=3,showOwner=false}={}) {
   const related=el('div','task-page-links');(task.page_ids||[]).forEach(id=>{const p=state.board.pages?.find(p=>p.id===id);if(!p)return;const button=el('button','page-chip',p.title);button.type='button';button.onclick=()=>{state.selectedPage=id;state.wikiScope='mine';state.wikiStatus='open';switchView('pages');$('wiki-page-title')?.focus({preventScroll:true});};related.append(button);});
   const discuss=el('button','discussion-open','Обсуждение'+(task.comment_count?' · '+task.comment_count:''));discuss.type='button';discuss.prepend(icon('message-circle'));discuss.setAttribute('aria-label','Обсудить задачу: '+task.title);discuss.onclick=()=>discussion.open(task.id);
   if(task.open_question_count)discuss.append(el('span','question-counter','Вопросы: '+task.open_question_count));
-  const images=el('button','discussion-open attachments-open','Изображения'+(task.attachment_count?' · '+task.attachment_count:''));images.type='button';images.prepend(icon('plus'));images.setAttribute('aria-label','Изображения задачи: '+task.title);images.onclick=()=>attachments.open(task.id);
+  const images=el('button','discussion-open attachments-open',(task.attachment_count?'Скриншоты':'Прикрепить скриншот')+(task.attachment_count?' · '+task.attachment_count:''));images.type='button';images.prepend(icon('plus'));images.setAttribute('aria-label','Прикрепить скриншот к задаче: '+task.title);images.onclick=()=>attachments.open(task.id);
   const actions=el('div','task-extra-actions');actions.append(discuss,images);
   main.append(title,meta,related,actions,details);
   const controls=el('div','status-controls'); controls.setAttribute('role','group'); controls.setAttribute('aria-label','Статус задачи «'+task.title+'»');
@@ -370,8 +371,18 @@ $('deadline-form').addEventListener('submit',async e=>{
   finally{savingDeadline=false;$('deadline-form').querySelectorAll('button,input').forEach(el=>el.disabled=false);$('deadline-close').disabled=false;}
 });
 function todayMoscow(){return moscowDay();}
+function clearTaskImage(){
+  taskImage=null;if(taskImagePreview)URL.revokeObjectURL(taskImagePreview);taskImagePreview=null;
+  $('task-image').value='';$('task-image-name').textContent='';$('task-image-preview').hidden=true;$('task-image-preview').removeAttribute('src');$('task-image-remove').hidden=true;$('task-image-error').textContent='';
+}
+$('task-image').onchange=()=>{
+  const file=$('task-image').files[0];clearTaskImage();if(!file)return;
+  const error=imageFileError(file);if(error){$('task-image-error').textContent=error;return;}
+  taskImage=file;taskImagePreview=URL.createObjectURL(file);$('task-image-preview').src=taskImagePreview;$('task-image-preview').alt='Выбранный скриншот: '+file.name;$('task-image-preview').hidden=false;$('task-image-name').textContent=file.name;$('task-image-remove').hidden=false;
+};
+$('task-image-remove').onclick=clearTaskImage;
 function openTask(task=null,pageId=null) {
-  editingTask=task; $('task-create-form').reset(); $('task-create-error').textContent='';
+  clearTaskImage();editingTask=task; $('task-create-form').reset(); $('task-create-error').textContent='';
   $('task-create-title').textContent=task?'Изменить задачу':'Новая задача';
   $('task-create-submit').textContent=task?'Сохранить':'Добавить';
   const select=$('task-owner'); select.replaceChildren();
@@ -389,12 +400,12 @@ function openTask(task=null,pageId=null) {
 $('task-create-open').onclick=()=>openTask();
 $('task-create-close').onclick=()=>{if(!creatingTask)$('task-create-dialog').close();};
 $('task-create-dialog').addEventListener('cancel',event=>{if(creatingTask)event.preventDefault();});
-$('task-create-dialog').addEventListener('close',()=>{if(state.createFromGateway){state.createFromGateway=false;showGateway();}});
+$('task-create-dialog').addEventListener('close',()=>{clearTaskImage();if(state.createFromGateway){state.createFromGateway=false;showGateway();}});
 $('task-create-form').addEventListener('submit',async event=>{
   event.preventDefault();if(creatingTask)return;
   const title=$('task-title').value.trim();if(!title){$('task-create-error').textContent='Напиши, что нужно сделать.';$('task-title').focus();return;}
-  const token=state.session?.token;
-  creatingTask=true;$('task-create-submit').disabled=true;$('task-create-close').disabled=true;$('task-create-error').textContent='';
+  const token=state.session?.token,chosenImage=taskImage;
+  creatingTask=true;$('task-image').disabled=true;$('task-image-remove').disabled=true;$('task-create-submit').disabled=true;$('task-create-close').disabled=true;$('task-create-error').textContent='';
   try{
     const body={title,owner:$('task-owner').value,detail:$('task-detail').value.trim(),urgent:$('task-urgent').checked,due_date:$('task-due').value,origin:$('task-origin').value,created_at:$('task-date').value,source_url:$('task-source').value.trim(),page_ids:[...$('task-pages').querySelectorAll('input:checked')].map(e=>e.value)};
     const data=await api(editingTask?'task_save':'create',editingTask?{...body,id:editingTask.id,revision:Number(editingTask.revision)}:{...body,request_id:createRequestId});
@@ -406,11 +417,12 @@ $('task-create-form').addEventListener('submit',async event=>{
     {state.mineOrigin=body.origin;const group=created?groupSpecTasks([created],data.pages||[],data.spec_sections||[])[0]:null;state.mineBrowse=body.origin==='telegram'?null:body.page_ids.length?{kind:'page',id:body.page_ids[0]}:{kind:'section',id:group?.id.startsWith('source:')?group.id.slice(7):'outside'};}
     if(created?.origin==='spec'){state.specExpanded ||= new Set();groupSpecTasks([created],data.pages||[],data.spec_sections||[]).forEach(s=>state.specExpanded.add(s.id));}
     acceptBoard(data);render();$('task-create-dialog').close();toast(editingTask?'Задача сохранена':'Задача добавлена');
-    if(state.view==='tasks')$('tasks').querySelector('[data-task="'+data.created_task_id+'"] .task-toggle')?.focus();
+    if(chosenImage)await attachments.open(data.created_task_id,chosenImage,true);
+    else if(state.view==='tasks')$('tasks').querySelector('[data-task="'+data.created_task_id+'"] .task-toggle')?.focus();
   }catch(error){
     if(state.session?.token!==token)return;
     if(error.status===401)showLogin(error.message);else{if(error.status===409&&error.data.board)acceptBoard(error.data.board);$('task-create-error').textContent=error.message;}
-  }finally{creatingTask=false;$('task-create-submit').disabled=false;$('task-create-close').disabled=false;}
+  }finally{creatingTask=false;$('task-image').disabled=false;$('task-image-remove').disabled=false;$('task-create-submit').disabled=false;$('task-create-close').disabled=false;}
 });
 function openPage(page=null){
   editingPage=page||{id:'P-'+crypto.randomUUID(),revision:0};$('page-form').reset();$('page-error').textContent='';

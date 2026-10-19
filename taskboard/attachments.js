@@ -1,13 +1,19 @@
+export function imageFileError(file){
+  if(!file)return '';
+  if(!['image/jpeg','image/png','image/webp','image/gif'].includes(file.type))return 'Выбери JPG, PNG, WebP или GIF.';
+  if(!file.size||file.size>2097152)return 'Максимальный размер файла — 2 МБ.';
+  return '';
+}
 const $=id=>document.getElementById(id);
 const node=(tag,cls,text)=>{const n=document.createElement(tag);n.className=cls||'';if(text!==undefined)n.textContent=text;return n;};
 export function setupAttachments({api,getSession,getBoard,acceptBoard,member,toast,onUnauthorized}){
   const dialog=$('attachments-dialog'),input=$('attachment-file'),form=$('attachment-form');
-  let taskId=null,epoch=0,busy=false,loading=false,revision=-1,requestId=null,preview=null;
+  let taskId=null,epoch=0,busy=false,loading=false,revision=-1,requestId=null,preview=null,selectedFile=null;
   const urls=new Map();
   const task=()=>getBoard()?.tasks.find(t=>t.id===taskId);
   function release(){for(const url of urls.values())URL.revokeObjectURL(url);urls.clear();if(preview)URL.revokeObjectURL(preview);preview=null;}
-  function clearChoice(){if(preview)URL.revokeObjectURL(preview);preview=null;input.value='';$('attachment-filename').textContent='';requestId=null;$('attachment-preview').hidden=true;$('attachment-preview').removeAttribute('src');$('attachment-submit').disabled=true;}
-  function setBusy(value){busy=value;input.disabled=value;$('attachment-submit').disabled=value||!input.files.length;$('attachments-close').disabled=value;$('attachment-submit').textContent=value?'Загружаю…':'Прикрепить';}
+  function clearChoice(){if(preview)URL.revokeObjectURL(preview);preview=null;selectedFile=null;input.value='';$('attachment-filename').textContent='';requestId=null;$('attachment-preview').hidden=true;$('attachment-preview').removeAttribute('src');$('attachment-submit').disabled=true;}
+  function setBusy(value){busy=value;input.disabled=value;$('attachment-submit').disabled=value||!selectedFile;$('attachments-close').disabled=value;$('attachment-submit').textContent=value?'Загружаю…':'Прикрепить';}
   function error(e){if(e.status===401)onUnauthorized(e.message);else $('attachment-error').textContent=e.message;}
   async function apply(data,current){
     if(current!==epoch)return;const list=$('attachment-gallery');list.replaceChildren();
@@ -32,23 +38,21 @@ export function setupAttachments({api,getSession,getBoard,acceptBoard,member,toa
     catch(e){if(current===epoch)error(e);}
     finally{if(current===epoch)loading=false;}
   }
-  async function open(id){
-    if(busy)return;epoch++;release();taskId=id;revision=-1;loading=false;clearChoice();$('attachment-error').textContent='';$('attachments-title').textContent=task()?.title||'Изображения задачи';$('attachment-gallery').replaceChildren(node('p','muted','Загрузка…'));dialog.showModal();input.focus();await load();
+  async function open(id,file=null,autoUpload=false){
+    if(busy)return;epoch++;release();taskId=id;revision=-1;loading=false;clearChoice();$('attachment-error').textContent='';$('attachments-title').textContent=task()?.title||'Изображения задачи';$('attachment-gallery').replaceChildren(node('p','muted','Загрузка…'));dialog.showModal();input.focus();const current=epoch;await load();if(current===epoch&&file){chooseFile(file);if(autoUpload&&selectedFile)form.requestSubmit();}
   }
-  input.onchange=()=>{
-    requestId=null;$('attachment-filename').textContent='';$('attachment-error').textContent='';if(preview)URL.revokeObjectURL(preview);preview=null;
-    const file=input.files[0];$('attachment-preview').hidden=true;$('attachment-preview').removeAttribute('src');$('attachment-submit').disabled=true;
-    if(!file)return;
-    if(!['image/jpeg','image/png','image/webp','image/gif'].includes(file.type)){input.value='';$('attachment-error').textContent='Выбери JPG, PNG, WebP или GIF.';return;}
-    if(!file.size||file.size>2097152){input.value='';$('attachment-error').textContent='Максимальный размер файла — 2 МБ.';return;}
-    $('attachment-filename').textContent=file.name;preview=URL.createObjectURL(file);$('attachment-preview').src=preview;$('attachment-preview').alt='Перед загрузкой: '+file.name;$('attachment-preview').hidden=false;$('attachment-submit').disabled=false;requestId=crypto.randomUUID();
-  };
+  function chooseFile(file){
+    clearChoice();$('attachment-error').textContent='';if(!file)return;
+    const message=imageFileError(file);if(message){$('attachment-error').textContent=message;return;}
+    selectedFile=file;$('attachment-filename').textContent=file.name;preview=URL.createObjectURL(file);$('attachment-preview').src=preview;$('attachment-preview').alt='Перед загрузкой: '+file.name;$('attachment-preview').hidden=false;$('attachment-submit').disabled=false;requestId=crypto.randomUUID();
+  }
+  input.onchange=()=>chooseFile(input.files[0]);
   form.onsubmit=async e=>{
-    e.preventDefault();if(busy||!input.files.length)return;const current=epoch;setBusy(true);$('attachment-error').textContent='';
-    const data=new FormData();data.append('task_id',taskId);data.append('request_id',requestId);data.append('image',input.files[0]);
+    e.preventDefault();if(busy||!selectedFile)return;const current=epoch;setBusy(true);$('attachment-error').textContent='';
+    const data=new FormData();data.append('task_id',taskId);data.append('request_id',requestId);data.append('image',selectedFile);
     try{const result=await api('attachment_upload',data);if(current!==epoch)return;acceptBoard(result.board);clearChoice();await apply(result.gallery,current);toast('Изображение прикреплено');input.focus();}
     catch(e){if(current===epoch)error(e);}
-    finally{if(current===epoch){setBusy(false);if(!input.files.length)input.focus();}}
+    finally{if(current===epoch){setBusy(false);if(!selectedFile)input.focus();}}
   };
   $('attachments-close').onclick=()=>{if(!busy)dialog.close();};
   dialog.addEventListener('cancel',e=>{if(busy)e.preventDefault();});

@@ -10,10 +10,10 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; connect-src https://turkish-property.ru http://127.0.0.1:8788; object-src 'none'; base-uri 'none'; form-action 'self'">
   <title>Рабочая доска — BARN Estate</title>
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="./style.css?v=20261019-page-cards">
+  <link rel="stylesheet" href="./style.css?v=20261019-upload-form">
   <link rel="stylesheet" href="./preloader.css">
   <script type="module" src="./preloader.js"></script>
-  <script type="module" src="./app.js?v=20261019-page-cards"></script>
+  <script type="module" src="./app.js?v=20261019-upload-form"></script>
 </head>
 <body>
   <a id="skip-link" class="skip" href="#tasks">К задачам</a>
@@ -103,6 +103,7 @@
       <div class="task-field-row"><div><label for="task-origin">Источник</label><select id="task-origin"><option value="spec">ТЗ</option><option value="telegram">Telegram</option></select></div><div><label for="task-date">Дата постановки</label><input id="task-date" type="date" required></div></div>
       <label for="task-due">Дедлайн</label><input id="task-due" type="date"><p class="field-hint">До конца выбранного дня по Москве. Можно оставить пустым.</p>
       <details class="create-details"><summary>Описание и срочность</summary><label for="task-detail">Описание</label><textarea id="task-detail" name="detail" maxlength="600" rows="3" placeholder="Детали, если нужны"></textarea><label for="task-source">Ссылка на поручение</label><input id="task-source" type="url" pattern="https://.*" maxlength="600" placeholder="https://…"><fieldset id="task-pages"><legend>Страницы сайта</legend></fieldset><label class="urgent-choice"><input id="task-urgent" name="urgent" type="checkbox"> Срочная задача</label></details>
+      <div class="task-image-field"><label for="task-image">Скриншот или изображение</label><p id="task-image-hint" class="field-hint">JPG, PNG, WebP или GIF · до 2 МБ. Загрузится при сохранении задачи.</p><div class="attachment-file-picker"><span aria-hidden="true">＋ Прикрепить скриншот</span><input id="task-image" type="file" accept="image/jpeg,image/png,image/webp,image/gif" aria-describedby="task-image-hint task-image-error"></div><p id="task-image-name" class="muted" aria-live="polite"></p><img id="task-image-preview" class="attachment-preview" alt="Предпросмотр скриншота" hidden><button id="task-image-remove" class="text-button" type="button" hidden>Убрать файл</button><p id="task-image-error" class="error" role="alert"></p></div>
       <p id="task-create-error" class="error" role="alert"></p><button id="task-create-submit" class="primary" type="submit">Добавить <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-gateway#arrow-up-right"></use></svg></button>
     </form>
   </dialog>
@@ -129,14 +130,14 @@
     <p id="discussion-error" class="error" role="alert"></p><div class="discussion-submit-row"><button id="discussion-refresh" class="filter-button" type="button">Обновить</button><button id="discussion-submit" class="primary" type="submit">Отправить</button></div></form>
   </dialog>
   <dialog id="attachments-dialog" aria-labelledby="attachments-title">
-    <div class="dialog-head"><div><span class="discussion-eyebrow">Изображения задачи</span><h2 id="attachments-title"></h2></div><button id="attachments-close" class="icon-button" type="button" aria-label="Закрыть изображения">×</button></div>
+    <div class="dialog-head"><div><span class="discussion-eyebrow">Скриншоты задачи</span><h2 id="attachments-title"></h2></div><button id="attachments-close" class="icon-button" type="button" aria-label="Закрыть изображения">×</button></div>
     <form id="attachment-form">
-      <label for="attachment-file">Добавить изображение</label>
+      <label for="attachment-file">Прикрепить скриншот или изображение</label>
       <p id="attachment-hint" class="muted">JPG, PNG, WebP или GIF · до 2 МБ · до 20 файлов на задачу. Вложения видны всем участникам.</p>
-      <div class="attachment-file-picker"><span aria-hidden="true">Выбрать изображение</span><input id="attachment-file" name="image" type="file" accept="image/jpeg,image/png,image/webp,image/gif" aria-describedby="attachment-hint attachment-error"></div><p id="attachment-filename" class="muted" aria-live="polite"></p>
+      <div class="attachment-file-picker"><span aria-hidden="true">Выбрать файл</span><input id="attachment-file" name="image" type="file" accept="image/jpeg,image/png,image/webp,image/gif" aria-describedby="attachment-hint attachment-error"></div><p id="attachment-filename" class="muted" aria-live="polite"></p>
       <img id="attachment-preview" class="attachment-preview" alt="Предпросмотр изображения" hidden>
       <p id="attachment-error" class="form-error" role="alert"></p>
-      <button id="attachment-submit" class="primary-button" type="submit" disabled>Прикрепить</button>
+      <button id="attachment-submit" class="primary" type="submit" disabled>Прикрепить</button>
     </form>
     <div id="attachment-gallery" class="attachment-gallery" aria-live="polite"></div>
   </dialog>
