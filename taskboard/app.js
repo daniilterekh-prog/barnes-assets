@@ -141,7 +141,7 @@ function showLogin(message = '',clearStored=true) {
   $('nav-mine').open=true;$('nav-assigned').open=false;
   $('board-view').hidden = true; $('login-view').hidden = false;
   $('history-dialog').close(); $('task-create-dialog').close(); $('page-dialog').close();
-  $('login-error').textContent = message;
+  $('login-password').value='';$('login-error').textContent = message;
 }
 async function refresh(manual = false) {
   if (!state.session || state.fetching || state.busy.size || (document.hidden && !manual)) return;
@@ -494,27 +494,30 @@ function renderHistory() {
   });
 }
 function openHistory() { renderHistory(); $('history-dialog').showModal(); }
+let passwordMembers=new Set();
+function syncLoginPassword(clear=true){const required=passwordMembers.has($('member').value);$('login-password-field').hidden=!required;$('login-password').disabled=!required;$('login-password').required=required;if(clear)$('login-password').value='';}
+$('member').onchange=()=>{syncLoginPassword();$('login-error').textContent='';};
 async function loadMembers() {
   $('retry-meta').hidden=true; $('login-error').textContent='';
   try {
     const data=await api('meta'); const select=$('member'); select.replaceChildren(el('option','','Выбери имя'));
     select.options[0].value='';
     data.members.filter(m=>!['tatyana','team'].includes(m.id)).forEach(m=>{const option=el('option','',m.name);option.value=m.id;select.append(option);});
-    select.disabled=false; $('login-submit').disabled=false;
+    passwordMembers=new Set(data.members.filter(m=>m.password_required).map(m=>m.id));syncLoginPassword();select.disabled=false; $('login-submit').disabled=false;
   } catch(error) {
     $('login-error').textContent='Не удалось подключиться к доске. Проверьте интернет и повторите.';
     $('retry-meta').hidden=false;
   }
 }
 $('login-form').addEventListener('submit',async event=>{
-  event.preventDefault(); $('login-error').textContent=''; $('login-submit').disabled=true;
+  event.preventDefault();const memberId=$('member').value,credentials={member:memberId};if(passwordMembers.has(memberId))credentials.password=$('login-password').value;$('login-error').textContent='';$('login-submit').disabled=true;$('member').disabled=true;$('login-password').disabled=true;
   try {
-    state.session=await api('login',{member:$('member').value});
+    state.session=await api('login',credentials);$('login-password').value='';
     persistenceReady=false;persistence.storeSession(state.session);
     acceptBoard(await api('board')); restoreLastView();
   } catch(error) {
     persistence.clearSession(state.session?.token);state.session=null; $('login-error').textContent=error.message;
-  } finally { $('login-submit').disabled=false; }
+  } finally { $('member').disabled=false;$('login-submit').disabled=false;syncLoginPassword(false);if($('login-error').textContent&&passwordMembers.has($('member').value)){$('login-password').value='';$('login-password').focus();} }
 });
 $('retry-meta').onclick=loadMembers;
 $('logout').onclick=async()=>{persistenceReady=false;if(state.session){persistence.clearView(state.session.member);persistence.clearSession(state.session.token);}try{await api('logout',{});}catch{}showLogin();};

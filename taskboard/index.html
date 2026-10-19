@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="./style.css?v=20261019-assignee">
   <link rel="stylesheet" href="./preloader.css?v=20261019-theme">
   <script type="module" src="./preloader.js"></script>
-  <script type="module" src="./app.js?v=20261019-full-names"></script>
+  <script type="module" src="./app.js?v=20261019-password-login"></script>
 </head>
 <body>
   <a id="skip-link" class="skip" href="#tasks">К задачам</a>
@@ -26,6 +26,7 @@
         <form id="login-form">
           <label for="member">Имя</label>
           <select id="member" name="member" required disabled><option value="">Загружаем команду…</option></select>
+          <div id="login-password-field" hidden><label for="login-password">Пароль</label><input id="login-password" name="password" type="password" autocomplete="current-password" maxlength="128" aria-describedby="login-error" disabled></div>
           <p id="login-error" class="error" role="alert"></p>
           <button id="login-submit" class="primary" type="submit" disabled>Войти <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-gateway#arrow-up-right"></use></svg></button>
         </form>
