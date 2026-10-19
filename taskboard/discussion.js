@@ -1,4 +1,4 @@
-import {icon} from './icons.js?v=20261019-deadline';
+import {icon} from './icons.js?v=20261019-spec';
 const $=id=>document.getElementById(id);
 const node=(tag,cls,text)=>{const n=document.createElement(tag);n.className=cls||'';if(text!==undefined)n.textContent=text;return n;};
 const format=new Intl.DateTimeFormat('ru',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit',timeZone:'Europe/Moscow'});

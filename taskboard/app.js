@@ -1,9 +1,9 @@
-import {setupDiscussion} from './discussion.js?v=20261019-deadline';
-import {icon} from './icons.js?v=20261019-deadline';
+import {setupDiscussion} from './discussion.js?v=20261019-spec';
+import {icon} from './icons.js?v=20261019-spec';
 import { API_URL } from './config.js';
-import { STATUSES, selectTasks, summarize, safeSource, safeHttps, taskDateLabel, splitTaskBuckets, programmerMood, mergeTask, deadlineInfo, moscowDay, shiftDay } from './domain.js?v=20261019-deadline';
+import { STATUSES, selectTasks, summarize, safeSource, safeHttps, taskDateLabel, splitTaskBuckets, groupSpecTasks, programmerMood, mergeTask, deadlineInfo, moscowDay, shiftDay } from './domain.js?v=20261019-spec';
 
-import {renderWiki} from './wiki.js?v=20261019-deadline';
+import {renderWiki} from './wiki.js?v=20261019-spec';
 
 const $ = id => document.getElementById(id);
 const SESSION_KEY = 'barn-taskboard-session-v1';
@@ -65,7 +65,7 @@ function acceptBoard(data) {
     data.history = [...events.values()].sort((a,b) => Number(b.id)-Number(a.id)).slice(0,50);
   }
   state.board = data;
-  const signature = todayMoscow()+':'+data.tasks.map(t => t.id + ':' + t.revision + ':' + (t.discussion_revision||0)).join(',') + ':' + (data.history[0]?.id || '')+':'+(data.pages||[]).map(p=>p.id+':'+p.revision).join(',');
+  const signature = todayMoscow()+':'+data.tasks.map(t => t.id + ':' + t.revision + ':' + (t.discussion_revision||0)).join(',') + ':' + (data.history[0]?.id || '')+':'+(data.pages||[]).map(p=>p.id+':'+p.revision).join(',')+':'+JSON.stringify(data.spec_sections||[]);
   if (signature !== state.signature) {
     state.signature = signature; render();
     if ($('history-dialog').open) renderHistory();
@@ -80,7 +80,7 @@ function showBoard() {
   $('my-avatar').textContent = member(state.session.member).initials;
 }
 function showLogin(message = '') {
-  discussion.reset();$('deadline-dialog').close();deadlineTask=null;state.deadline='all';state.questionsTo=null;state.session = null; state.board = null; state.signature = ''; state.busy.clear();state.expanded.clear();state.openPages.clear();state.view='tasks';state.owner='all';state.scope='all';state.creator='all';
+  discussion.reset();$('deadline-dialog').close();deadlineTask=null;state.deadline='all';state.questionsTo=null;state.session = null; state.board = null; state.signature = ''; state.busy.clear();state.expanded.clear();state.specExpanded?.clear();state.openPages.clear();state.view='tasks';state.owner='all';state.scope='all';state.creator='all';
   sessionStorage.removeItem(SESSION_KEY);
   $('board-view').hidden = true; $('login-view').hidden = false;
   $('history-dialog').close(); $('task-create-dialog').close(); $('page-dialog').close();
@@ -170,13 +170,21 @@ function render() {
     heading.append(fire,el('span','','Срочные'),el('span','group-counter',String(buckets.urgent.length)));
     urgent.append(heading);buckets.urgent.forEach(t=>urgent.append(renderTask(t,{level:3,showOwner:true})));list.append(urgent);
   }
+  state.specExpanded ||= new Set();
   [['telegram','Telegram'],['spec','ТЗ']].forEach(([origin,label])=>{
     const bucket=el('details','source-bucket');bucket.dataset.origin=origin;bucket.open=state.expanded.has(origin);
     const summary=el('summary','source-summary');summary.append(el('h2','',label),el('span','',String(buckets[origin].length)));bucket.append(summary);
     bucket.addEventListener('toggle',()=>{if(!bucket.isConnected)return;bucket.open?state.expanded.add(origin):state.expanded.delete(origin);});
     const contents=el('div','source-contents');
     if(!buckets[origin].length)contents.append(el('p','muted','В этом списке пока нет задач'));
-    ownerIds().forEach(id=>{
+    if(origin==='spec'){
+      groupSpecTasks(buckets.spec,state.board.pages||[],state.board.spec_sections||[]).forEach(section=>{
+        const group=el('details','spec-page-group');group.dataset.specSection=section.id;group.open=state.specExpanded.has(section.id);
+        const heading=el('summary','spec-page-summary');heading.append(el('h3','',section.title),el('span','group-counter',String(section.tasks.length)));group.append(heading);
+        group.addEventListener('toggle',()=>{if(!group.isConnected)return;group.open?state.specExpanded.add(section.id):state.specExpanded.delete(section.id);});
+        section.tasks.forEach(t=>group.append(renderTask(t,{level:4,showOwner:true})));contents.append(group);
+      });
+    }else ownerIds().forEach(id=>{
       const tasks=buckets[origin].filter(t=>t.owner===id);if(!tasks.length)return;
       const group=el('section','task-group'),heading=el('div','group-heading'),h=el('h3','',member(id).name);
       heading.append(h,el('span','group-counter',String(tasks.length)),el('span','group-rule'));group.append(heading);

@@ -80,3 +80,18 @@ export function deadlineMatches(task,filter,today){
   return true;
 }
 function deadlineSortKey(task){return ['done','obsolete'].includes(task.status)?'9999-99-99':task.due_date||'9999-99-99';}
+
+// Imported source sections retain the document's tab order. Each task appears once.
+export function groupSpecTasks(tasks,pages=[],sections=[]){
+  const sourceKey=value=>{try{const u=new URL(value);return u.origin+u.pathname.replace(/\/edit$/,'')+'?tab='+(u.searchParams.get('tab')||'');}catch{return '';}};
+  const bySource=new Map(sections.map(s=>[sourceKey(s.source_url),s]));
+  const groups=new Map();
+  for(const task of tasks){
+    const section=bySource.get(sourceKey(task.source_url));
+    const page=pages.find(p=>(task.page_ids||[]).includes(p.id));
+    const id=section?'source:'+section.tab_id:page?'page:'+page.id:'general';
+    if(!groups.has(id))groups.set(id,{id,title:section?.title||page?.title||'Общие задачи',order:section?Number(section.order):1000+(page?pages.indexOf(page):pages.length),tasks:[]});
+    groups.get(id).tasks.push(task);
+  }
+  return [...groups.values()].sort((a,b)=>a.order-b.order);
+}
