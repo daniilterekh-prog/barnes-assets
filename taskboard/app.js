@@ -1,3 +1,4 @@
+import {createPersistence,normalizeView,SESSION_KEY} from './persistence.js?v=20261019-resume';
 import {setupGateway} from './gateway.js?v=20261019-gateway';
 import {setupAttachments,imageFileError} from './attachments.js?v=20261019-upload-form';
 import {setupDiscussion} from './discussion.js?v=20261019-gateway';
@@ -8,14 +9,16 @@ import { STATUSES, selectTasks, summarize, safeSource, safeHttps, taskDateLabel,
 import {renderWiki} from './wiki.js?v=20261019-page-cards';
 
 const $ = id => document.getElementById(id);
-const SESSION_KEY = 'barn-taskboard-session-v1';
+const browserStorage=name=>{try{return window[name];}catch{return null;}};
+const persistence=createPersistence(browserStorage('localStorage'),browserStorage('sessionStorage'));
+let persistenceReady=false,restoringView=false,scrollTimer;
 const state = { session: null, board: null, owner: 'all', status: 'open', urgent: false, query: '', busy: new Set(), signature: '', fetching: false, toastTimer: null };
 const ownerIds = () => state.board?.members.filter(m=>!['tatyana','team'].includes(m.id)).map(m=>m.id) || [];
 let taskImage=null,taskImagePreview=null;
 let createRequestId=null, creatingTask=false, editingTask=null, editingPage=null, savingPage=false;
 state.screen='gateway';state.mineBrowse=null;state.mineOrigin=null;state.createFromGateway=false;
 state.scope='mine'; state.creator='all'; state.questionsTo=null;state.deadline='all';
-state.view='tasks'; state.expanded=new Set(); state.openPages=new Set(); state.pageQuery='';state.selectedPage=null;state.wikiScope='mine';state.wikiStatus='open';
+state.detailsExpanded=new Set();state.view='tasks'; state.expanded=new Set(); state.openPages=new Set(); state.pageQuery='';state.selectedPage=null;state.wikiScope='mine';state.wikiStatus='open';
 const dateFormat = new Intl.DateTimeFormat('ru', {day:'numeric',month:'short',hour:'2-digit',minute:'2-digit',timeZone:'Europe/Moscow'});
 const attachments=setupAttachments({api,getSession:()=>state.session,getBoard:()=>state.board,acceptBoard,member,toast,onUnauthorized:showLogin});
 const gateway=setupGateway(chooseDestination);
@@ -81,6 +84,25 @@ function acceptBoard(data) {
   discussion.refresh();attachments.refresh();
   setConnection(true,'Сохранено');
 }
+function saveView(force=false){
+  if(!persistenceReady||restoringView||!state.session||!state.board||state.screen==='login'||(document.hidden&&force!==true))return;
+  const {screen,view,scope,owner,creator,query,pageQuery,status,deadline,urgent,mineOrigin,mineBrowse,selectedPage,wikiScope,wikiStatus}=state;
+  persistence.writeView(state.session.member,{screen:state.createFromGateway?'gateway':screen,view,scope,owner,creator,query,pageQuery,status,deadline,urgent,mineOrigin,mineBrowse,selectedPage,wikiScope,wikiStatus,
+    expanded:[...state.expanded],specExpanded:[...(state.specExpanded||[])],detailsExpanded:[...state.detailsExpanded],scrollY:screen==='board'?window.scrollY:0});
+}
+function restoreLastView(){
+  const token=state.session.token,view=normalizeView(persistence.readView(state.session.member),state.board,state.session.member);
+  restoringView=true;
+  if(view){
+    Object.assign(state,view,{expanded:new Set(view.expanded),specExpanded:new Set(view.specExpanded),detailsExpanded:new Set(view.detailsExpanded)});
+    $('search').value=state.query;$('page-search').value=state.pageQuery;
+    $('nav-mine').open=state.scope==='mine';$('nav-assigned').open=state.scope==='assigned';
+  }
+  if(view?.screen==='board'){showBoard();render();}else showGateway();
+  persistenceReady=true;
+  const finish=()=>{if(state.session?.token!==token)return;if(document.documentElement.classList.contains('task-loading')){requestAnimationFrame(finish);return;}window.scrollTo({top:view?.screen==='board'?view.scrollY:0,behavior:'instant'});restoringView=false;saveView();};
+  requestAnimationFrame(finish);
+}
 function showBoard() {
   state.screen='board';$('gateway-view').hidden=true;$('skip-link').hidden=false;
   $('login-view').hidden = true; $('board-view').hidden = false;
@@ -92,7 +114,7 @@ function showGateway(){
   if(!state.session||!state.board)return;
   state.screen='gateway';state.createFromGateway=false;
   $('login-view').hidden=true;$('board-view').hidden=true;$('skip-link').hidden=true;
-  clearTimeout(state.toastTimer);$('toast').hidden=true;gateway.show();
+  clearTimeout(state.toastTimer);$('toast').hidden=true;gateway.show();saveView();
 }
 function chooseDestination(route){
   if(!state.session||!state.board)return;
@@ -103,15 +125,15 @@ function chooseDestination(route){
   const board=$('board-view');board.classList.remove('arriving');void board.offsetWidth;board.classList.add('arriving');
   if(route==='create'){state.createFromGateway=true;openTask();}
   else $('board-title').focus({preventScroll:true});
-  window.scrollTo({top:0,behavior:'instant'});
+  window.scrollTo({top:0,behavior:'instant'});saveView();
 }
 $('gateway-back').onclick=e=>{e.preventDefault();showGateway();};
-function showLogin(message = '') {
+function showLogin(message = '',clearStored=true) {
+  persistenceReady=false;restoringView=false;clearTimeout(scrollTimer);if(clearStored)persistence.clearSession(state.session?.token);
   gateway.reset();$('gateway-view').hidden=true;$('skip-link').hidden=false;state.screen='login';state.mineBrowse=null;state.mineOrigin=null;state.createFromGateway=false;
-  attachments.reset();discussion.reset();$('deadline-dialog').close();deadlineTask=null;state.deadline='all';state.questionsTo=null;state.session = null; state.board = null; state.signature = ''; state.busy.clear();state.expanded.clear();state.specExpanded?.clear();state.openPages.clear();state.selectedPage=null;state.wikiScope='mine';state.wikiStatus='open';state.pageQuery='';$('page-search').value='';state.view='tasks';state.owner='all';state.scope='mine';state.creator='all';
+  attachments.reset();discussion.reset();$('deadline-dialog').close();deadlineTask=null;state.deadline='all';state.questionsTo=null;state.session = null; state.board = null; state.signature = ''; state.busy.clear();state.detailsExpanded.clear();state.expanded.clear();state.specExpanded?.clear();state.openPages.clear();state.selectedPage=null;state.wikiScope='mine';state.wikiStatus='open';state.pageQuery='';$('page-search').value='';state.view='tasks';state.owner='all';state.scope='mine';state.creator='all';
   state.status='open';state.urgent=false;state.query='';$('search').value='';
   $('nav-mine').open=true;$('nav-assigned').open=false;
-  sessionStorage.removeItem(SESSION_KEY);
   $('board-view').hidden = true; $('login-view').hidden = false;
   $('history-dialog').close(); $('task-create-dialog').close(); $('page-dialog').close();
   $('login-error').textContent = message;
@@ -169,6 +191,7 @@ $('from-member').onchange=e=>{state.questionsTo=null;state.scope='mine';state.ow
 $('to-member').onchange=e=>{state.questionsTo=null;state.scope='assigned';state.creator='all';state.owner=e.target.value;render();};
 function render() {
   if (!state.board) return;
+  saveView();
   renderNav();
   $('tasks-view').hidden=state.view!=='tasks'; $('pages-view').hidden=state.view!=='pages';
   $('owner-nav').hidden=true; $('board-title').textContent=state.view==='pages'?'СТРАНИЦЫ.':'ЗАДАЧИ.';
@@ -213,14 +236,14 @@ function render() {
     if(browse&&!buckets[origin].length)return;
     const bucket=el('details','source-bucket');bucket.dataset.origin=origin;bucket.open=state.expanded.has(origin);
     const summary=el('summary','source-summary');summary.append(el('h2','',label),el('span','',String(buckets[origin].length)));bucket.append(summary);
-    bucket.addEventListener('toggle',()=>{if(!bucket.isConnected)return;bucket.open?state.expanded.add(origin):state.expanded.delete(origin);});
+    bucket.addEventListener('toggle',()=>{if(!bucket.isConnected)return;bucket.open?state.expanded.add(origin):state.expanded.delete(origin);saveView();});
     const contents=el('div','source-contents');
     if(!buckets[origin].length)contents.append(el('p','muted','В этом списке пока нет задач'));
     if(origin==='spec'){
       groupSpecTasks(buckets.spec,state.board.pages||[],state.board.spec_sections||[]).forEach(section=>{
         const group=el('details','spec-page-group');group.dataset.specSection=section.id;group.open=state.specExpanded.has(section.id);
         const heading=el('summary','spec-page-summary');heading.append(el('h3','',section.title),el('span','group-counter',String(section.tasks.length)));group.append(heading);
-        group.addEventListener('toggle',()=>{if(!group.isConnected)return;group.open?state.specExpanded.add(section.id):state.specExpanded.delete(section.id);});
+        group.addEventListener('toggle',()=>{if(!group.isConnected)return;group.open?state.specExpanded.add(section.id):state.specExpanded.delete(section.id);saveView();});
         section.tasks.forEach(t=>group.append(renderTask(t,{level:4,showOwner:true})));contents.append(group);
       });
     }else if(personal){buckets.telegram.forEach(t=>contents.append(renderTask(t,{level:3,showOwner:state.scope==='assigned'})));}
@@ -267,6 +290,7 @@ function renderMinePicker(list,model,visible){
 }
 function renderPages(){
   if(!state.board)return;
+  saveView();
   $('page-search').closest('label').hidden=!!state.selectedPage;
   renderWiki($('wiki-cards'),{pages:state.board.pages||[],tasks:state.board.tasks,query:state.pageQuery,selectedPage:state.selectedPage,taskScope:state.wikiScope,taskStatus:state.wikiStatus,me:state.session.member,
     onSelect:id=>{state.selectedPage=id;if(!id){state.pageQuery='';$('page-search').value='';}state.wikiScope='mine';state.wikiStatus='open';renderPages();(id?$('wiki-page-title'):$('board-title'))?.focus({preventScroll:true});$('pages-view').scrollIntoView({block:'start',behavior:'instant'});},
@@ -298,6 +322,7 @@ function renderTask(task,{level=3,showOwner=false}={}) {
   const deadline=deadlineInfo(task),dueButton=el('button','deadline-chip due-'+deadline.kind,deadline.label);dueButton.type='button';dueButton.prepend(icon('clock'));dueButton.setAttribute('aria-label','Дедлайн: '+task.title+' — '+deadline.label);dueButton.onclick=()=>openDeadline(task);meta.append(dueButton);
   const details=el('details','task-details'),summary=el('summary','','Подробнее');
   details.append(summary,el('p','',task.detail));
+  details.open=state.detailsExpanded.has(task.id);details.addEventListener('toggle',()=>{if(!details.isConnected)return;details.open?state.detailsExpanded.add(task.id):state.detailsExpanded.delete(task.id);saveView();});
   const source=safeHttps(task.source_url||task.source);
   if(source) { const link=el('a','',task.origin==='telegram'?'Поручение в Telegram ↗':'Открыть ТЗ ↗'); link.href=source; link.target='_blank'; link.rel='noopener noreferrer'; details.append(link); }
   const edit=el('button','text-button task-edit','Изменить задачу');edit.type='button';edit.onclick=()=>openTask(task);details.append(edit);
@@ -469,14 +494,14 @@ $('login-form').addEventListener('submit',async event=>{
   event.preventDefault(); $('login-error').textContent=''; $('login-submit').disabled=true;
   try {
     state.session=await api('login',{member:$('member').value});
-    sessionStorage.setItem(SESSION_KEY,JSON.stringify(state.session));
-    acceptBoard(await api('board')); showGateway();
+    persistenceReady=false;persistence.storeSession(state.session);
+    acceptBoard(await api('board')); restoreLastView();
   } catch(error) {
-    state.session=null; sessionStorage.removeItem(SESSION_KEY); $('login-error').textContent=error.message;
+    persistence.clearSession(state.session?.token);state.session=null; $('login-error').textContent=error.message;
   } finally { $('login-submit').disabled=false; }
 });
 $('retry-meta').onclick=loadMembers;
-$('logout').onclick=async()=>{try{await api('logout',{});}catch{}showLogin();};
+$('logout').onclick=async()=>{persistenceReady=false;if(state.session){persistence.clearView(state.session.member);persistence.clearSession(state.session.token);}try{await api('logout',{});}catch{}showLogin();};
 $('refresh').onclick=()=>refresh(true);
 $('tab-mine').onclick=()=>setScope('mine');
 $('tab-assigned').onclick=()=>setScope('assigned');
@@ -489,15 +514,17 @@ document.querySelectorAll('[data-stat]').forEach(button=>{button.onclick=()=>{st
 $('history-open').onclick=openHistory; $('mobile-history').onclick=openHistory;
 $('history-close').onclick=()=>$('history-dialog').close();
 window.addEventListener('online',()=>refresh(true));
-document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh();});
+document.addEventListener('visibilitychange',()=>{if(document.hidden)saveView(true);else refresh();});
 setInterval(()=>refresh(),2000);
+if('scrollRestoration' in history)history.scrollRestoration='manual';
+window.addEventListener('scroll',()=>{clearTimeout(scrollTimer);scrollTimer=setTimeout(saveView,150);},{passive:true});
+window.addEventListener('pagehide',()=>saveView(true));
+window.addEventListener('storage',event=>{if(event.key===SESSION_KEY&&!event.newValue&&state.session){persistence.clearView(state.session.member);showLogin('Сессия завершена в другом окне.');}});
 await loadMembers();
-try {
-  const saved=JSON.parse(sessionStorage.getItem(SESSION_KEY)||'null');
-  if (saved?.token && saved.expires_at>Date.now()/1000) {
-    state.session=saved;
-    try { acceptBoard(await api('board')); showGateway(); }
-    catch(error) { showLogin(error.status===401?error.message:'Нет связи с доской. Войдите ещё раз, когда интернет восстановится.'); }
-  } else sessionStorage.removeItem(SESSION_KEY);
-} catch { sessionStorage.removeItem(SESSION_KEY); }
+const saved=persistence.readSession();
+if(saved){
+  state.session=saved;persistence.storeSession(saved);
+  try {acceptBoard(await api('board'));restoreLastView();}
+  catch(error){showLogin(error.status===401?error.message:'Нет связи с доской. Обнови страницу, когда интернет восстановится.',error.status===401);}
+}else persistence.clearSession();
 document.dispatchEvent(new Event('barn:ready'));
