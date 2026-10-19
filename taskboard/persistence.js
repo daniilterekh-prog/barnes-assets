@@ -28,7 +28,7 @@ export function normalizeView(raw,board,me){
     screen:raw.screen,view:choice(raw.view,['tasks','pages'],'tasks'),scope:choice(raw.scope,['mine','assigned'],'mine'),
     owner:choice(raw.owner,['all',...ids],'all'),creator:choice(raw.creator,['all','unknown',...ids],'all'),questionsTo:null,
     query:text(raw.query),pageQuery:text(raw.pageQuery),status:choice(raw.status,statuses,'open'),deadline:choice(raw.deadline,['all','overdue','today','week','none'],'all'),urgent:raw.urgent===true,
-    mineOrigin,mineBrowse,selectedPage:pages.includes(raw.selectedPage)?raw.selectedPage:null,wikiScope:choice(raw.wikiScope,['mine','assigned','all'],'mine'),wikiStatus:choice(raw.wikiStatus,statuses,'open'),
+    mineOrigin,mineBrowse,selectedTask:tasks.includes(raw.selectedTask)?raw.selectedTask:null,selectedPage:pages.includes(raw.selectedPage)?raw.selectedPage:null,wikiScope:choice(raw.wikiScope,['mine','assigned','all'],'mine'),wikiStatus:choice(raw.wikiStatus,statuses,'open'),
     expanded:unique(raw.expanded,['spec','telegram']),specExpanded:unique(raw.specExpanded,['general',...pages.map(id=>'page:'+id),...sections.map(id=>'source:'+id)]),detailsExpanded:unique(raw.detailsExpanded,tasks),
     scrollY:typeof raw.scrollY==='number'&&Number.isFinite(raw.scrollY)?Math.max(0,Math.min(raw.scrollY,1000000)):0
   };

@@ -1,4 +1,5 @@
-import {createPersistence,normalizeView,SESSION_KEY} from './persistence.js?v=20261019-resume';
+import {setupTaskCard} from './task-card.js?v=20261019-task-card';
+import {createPersistence,normalizeView,SESSION_KEY} from './persistence.js?v=20261019-task-card';
 import {setupGateway} from './gateway.js?v=20261019-gateway';
 import {setupAttachments,imageFileError} from './attachments.js?v=20261019-upload-form';
 import {setupDiscussion} from './discussion.js?v=20261019-gateway';
@@ -18,11 +19,13 @@ let taskImage=null,taskImagePreview=null;
 let createRequestId=null, creatingTask=false, editingTask=null, editingPage=null, savingPage=false;
 state.screen='gateway';state.mineBrowse=null;state.mineOrigin=null;state.createFromGateway=false;
 state.scope='mine'; state.creator='all'; state.questionsTo=null;state.deadline='all';
-state.detailsExpanded=new Set();state.view='tasks'; state.expanded=new Set(); state.openPages=new Set(); state.pageQuery='';state.selectedPage=null;state.wikiScope='mine';state.wikiStatus='open';
+state.selectedTask=null;state.detailsExpanded=new Set();state.view='tasks'; state.expanded=new Set(); state.openPages=new Set(); state.pageQuery='';state.selectedPage=null;state.wikiScope='mine';state.wikiStatus='open';
 const dateFormat = new Intl.DateTimeFormat('ru', {day:'numeric',month:'short',hour:'2-digit',minute:'2-digit',timeZone:'Europe/Moscow'});
 const attachments=setupAttachments({api,getSession:()=>state.session,getBoard:()=>state.board,acceptBoard,member,toast,onUnauthorized:showLogin});
 const gateway=setupGateway(chooseDestination);
 const discussion=setupDiscussion({api,getSession:()=>state.session,getBoard:()=>state.board,acceptBoard,member,toast,onUnauthorized:showLogin});
+const taskCard=setupTaskCard({getTask:id=>state.board?.tasks.find(t=>t.id===id),isBusy:id=>state.busy.has(id),renderTask,onSelect:id=>{state.selectedTask=id;saveView();}});
+[['task-create-dialog','.task-edit'],['deadline-dialog','.deadline-chip'],['discussion-dialog','.discussion-open:not(.attachments-open)'],['attachments-dialog','.attachments-open']].forEach(([id,selector])=>$(id).addEventListener('close',()=>taskCard.focusAction(selector)));
 
 function el(tag, className, text) {
   const node = document.createElement(tag);
@@ -86,8 +89,8 @@ function acceptBoard(data) {
 }
 function saveView(force=false){
   if(!persistenceReady||restoringView||!state.session||!state.board||state.screen==='login'||(document.hidden&&force!==true))return;
-  const {screen,view,scope,owner,creator,query,pageQuery,status,deadline,urgent,mineOrigin,mineBrowse,selectedPage,wikiScope,wikiStatus}=state;
-  persistence.writeView(state.session.member,{screen:state.createFromGateway?'gateway':screen,view,scope,owner,creator,query,pageQuery,status,deadline,urgent,mineOrigin,mineBrowse,selectedPage,wikiScope,wikiStatus,
+  const {screen,view,scope,owner,creator,query,pageQuery,status,deadline,urgent,mineOrigin,mineBrowse,selectedPage,wikiScope,wikiStatus,selectedTask}=state;
+  persistence.writeView(state.session.member,{screen:state.createFromGateway?'gateway':screen,view,scope,owner,creator,query,pageQuery,status,deadline,urgent,mineOrigin,mineBrowse,selectedPage,wikiScope,wikiStatus,selectedTask,
     expanded:[...state.expanded],specExpanded:[...(state.specExpanded||[])],detailsExpanded:[...state.detailsExpanded],scrollY:screen==='board'?window.scrollY:0});
 }
 function restoreLastView(){
@@ -100,7 +103,7 @@ function restoreLastView(){
   }
   if(view?.screen==='board'){showBoard();render();}else showGateway();
   persistenceReady=true;
-  const finish=()=>{if(state.session?.token!==token)return;if(document.documentElement.classList.contains('task-loading')){requestAnimationFrame(finish);return;}window.scrollTo({top:view?.screen==='board'?view.scrollY:0,behavior:'instant'});restoringView=false;saveView();};
+  const finish=()=>{if(state.session?.token!==token)return;if(document.documentElement.classList.contains('task-loading')){requestAnimationFrame(finish);return;}window.scrollTo({top:view?.screen==='board'?view.scrollY:0,behavior:'instant'});restoringView=false;if(view?.screen==='board'&&state.selectedTask)taskCard.open(state.selectedTask);saveView();};
   requestAnimationFrame(finish);
 }
 function showBoard() {
@@ -131,7 +134,7 @@ $('gateway-back').onclick=e=>{e.preventDefault();showGateway();};
 function showLogin(message = '',clearStored=true) {
   persistenceReady=false;restoringView=false;clearTimeout(scrollTimer);if(clearStored)persistence.clearSession(state.session?.token);
   gateway.reset();$('gateway-view').hidden=true;$('skip-link').hidden=false;state.screen='login';state.mineBrowse=null;state.mineOrigin=null;state.createFromGateway=false;
-  attachments.reset();discussion.reset();$('deadline-dialog').close();deadlineTask=null;state.deadline='all';state.questionsTo=null;state.session = null; state.board = null; state.signature = ''; state.busy.clear();state.detailsExpanded.clear();state.expanded.clear();state.specExpanded?.clear();state.openPages.clear();state.selectedPage=null;state.wikiScope='mine';state.wikiStatus='open';state.pageQuery='';$('page-search').value='';state.view='tasks';state.owner='all';state.scope='mine';state.creator='all';
+  taskCard.reset();attachments.reset();discussion.reset();$('deadline-dialog').close();deadlineTask=null;state.deadline='all';state.questionsTo=null;state.session = null; state.board = null; state.signature = ''; state.busy.clear();state.detailsExpanded.clear();state.expanded.clear();state.specExpanded?.clear();state.openPages.clear();state.selectedPage=null;state.wikiScope='mine';state.wikiStatus='open';state.pageQuery='';$('page-search').value='';state.view='tasks';state.owner='all';state.scope='mine';state.creator='all';
   state.status='open';state.urgent=false;state.query='';$('search').value='';
   $('nav-mine').open=true;$('nav-assigned').open=false;
   $('board-view').hidden = true; $('login-view').hidden = false;
@@ -191,7 +194,7 @@ $('from-member').onchange=e=>{state.questionsTo=null;state.scope='mine';state.ow
 $('to-member').onchange=e=>{state.questionsTo=null;state.scope='assigned';state.creator='all';state.owner=e.target.value;render();};
 function render() {
   if (!state.board) return;
-  saveView();
+  taskCard.refresh();saveView();
   renderNav();
   $('tasks-view').hidden=state.view!=='tasks'; $('pages-view').hidden=state.view!=='pages';
   $('owner-nav').hidden=true; $('board-title').textContent=state.view==='pages'?'СТРАНИЦЫ.':'ЗАДАЧИ.';
@@ -301,8 +304,8 @@ function renderPages(){
 function switchView(view){state.view=view;render();}
 $('view-tasks').onclick=()=>switchView('tasks');$('view-pages').onclick=()=>switchView('pages');
 $('page-search').oninput=e=>{state.pageQuery=e.target.value;renderPages();};
-function renderTask(task,{level=3,showOwner=false}={}) {
-  const row=el('article','task-row is-'+task.status), symbol=el('button','task-toggle');
+function renderTask(task,{level=3,showOwner=false,isCard=false}={}) {
+  const row=el('article','task-row is-'+task.status+(isCard?' task-card-detail':'')), symbol=el('button','task-toggle');
   row.dataset.task=task.id;
   symbol.type='button'; symbol.setAttribute('role','checkbox');
   symbol.setAttribute('aria-checked',String(task.status==='done'));
@@ -314,24 +317,28 @@ function renderTask(task,{level=3,showOwner=false}={}) {
   mark.setAttribute('aria-hidden','true'); symbol.append(mark);
   symbol.onclick=()=>changeStatus(task.id,task.status==='done'?'unmarked':'done',true);
   const main=el('div','task-main'),title=el('h'+level,'task-title',task.title),meta=el('div','task-meta');
-  if(showOwner)meta.append(el('span','task-assignee',member(task.owner).name));
+  if(!isCard){title.replaceChildren();const titleButton=el('button','task-title-open',task.title);titleButton.type='button';titleButton.onclick=()=>taskCard.open(task.id);title.append(titleButton);}
+  meta.append(el('span','task-current-status',STATUSES[task.status].label));
+  if(showOwner)meta.append(el('span','task-assignee',(isCard?'Исполнитель: ':'')+member(task.owner).name));
   meta.append(el('span','task-date',taskDateLabel(task)));
   meta.append(el('span','task-author',task.created_by?'От: '+member(task.created_by).name:'Автор не указан'));
   if (Number(task.urgent)&&!['done','obsolete'].includes(task.status)) {const badge=el('span','priority');const fire=icon('flame','fire');fire.setAttribute('aria-hidden','true');badge.append(fire,document.createTextNode(' Срочно'));meta.append(badge);}
-  if (task.updated_at) meta.append(el('span','',member(task.updated_by).name+' · '+displayDate(task.updated_at)));
+  if (isCard&&task.updated_at) meta.append(el('span','','Изменил: '+member(task.updated_by).name+' · '+displayDate(task.updated_at)));
   const deadline=deadlineInfo(task),dueButton=el('button','deadline-chip due-'+deadline.kind,deadline.label);dueButton.type='button';dueButton.prepend(icon('clock'));dueButton.setAttribute('aria-label','Дедлайн: '+task.title+' — '+deadline.label);dueButton.onclick=()=>openDeadline(task);meta.append(dueButton);
   const details=el('details','task-details'),summary=el('summary','','Подробнее');
-  details.append(summary,el('p','',task.detail));
-  details.open=state.detailsExpanded.has(task.id);details.addEventListener('toggle',()=>{if(!details.isConnected)return;details.open?state.detailsExpanded.add(task.id):state.detailsExpanded.delete(task.id);saveView();});
+  details.append(summary,el('p','task-description',task.detail||'Описание пока не добавлено.'));
+  if(isCard)summary.after(el('h3','task-card-section-title','Описание'));
+  details.open=isCard||state.detailsExpanded.has(task.id);if(!isCard)details.addEventListener('toggle',()=>{if(!details.isConnected)return;details.open?state.detailsExpanded.add(task.id):state.detailsExpanded.delete(task.id);saveView();});
   const source=safeHttps(task.source_url||task.source);
   if(source) { const link=el('a','',task.origin==='telegram'?'Поручение в Telegram ↗':'Открыть ТЗ ↗'); link.href=source; link.target='_blank'; link.rel='noopener noreferrer'; details.append(link); }
   const edit=el('button','text-button task-edit','Изменить задачу');edit.type='button';edit.onclick=()=>openTask(task);details.append(edit);
-  const related=el('div','task-page-links');(task.page_ids||[]).forEach(id=>{const p=state.board.pages?.find(p=>p.id===id);if(!p)return;const button=el('button','page-chip',p.title);button.type='button';button.onclick=()=>{state.selectedPage=id;state.wikiScope='mine';state.wikiStatus='open';switchView('pages');$('wiki-page-title')?.focus({preventScroll:true});};related.append(button);});
+  const related=el('div','task-page-links');(task.page_ids||[]).forEach(id=>{const p=state.board.pages?.find(p=>p.id===id);if(!p)return;const button=el('button','page-chip',p.title);button.type='button';button.onclick=()=>{if(isCard)taskCard.close();state.selectedPage=id;state.wikiScope='mine';state.wikiStatus='open';switchView('pages');$('wiki-page-title')?.focus({preventScroll:true});};related.append(button);});
   const discuss=el('button','discussion-open','Обсуждение'+(task.comment_count?' · '+task.comment_count:''));discuss.type='button';discuss.prepend(icon('message-circle'));discuss.setAttribute('aria-label','Обсудить задачу: '+task.title);discuss.onclick=()=>discussion.open(task.id);
   if(task.open_question_count)discuss.append(el('span','question-counter','Вопросы: '+task.open_question_count));
   const images=el('button','discussion-open attachments-open',(task.attachment_count?'Скриншоты':'Прикрепить скриншот')+(task.attachment_count?' · '+task.attachment_count:''));images.type='button';images.prepend(icon('plus'));images.setAttribute('aria-label','Прикрепить скриншот к задаче: '+task.title);images.onclick=()=>attachments.open(task.id);
   const actions=el('div','task-extra-actions');actions.append(discuss,images);
-  main.append(title,meta,related,actions,details);
+  if(isCard)main.append(title,meta,details,related,actions);
+  else{const open=el('button','primary task-open','Открыть задачу');open.type='button';open.append(icon('arrow-up-right'));open.setAttribute('aria-label','Открыть задачу: '+task.title);open.onclick=()=>taskCard.open(task.id);main.append(title,meta,open);row.onclick=event=>{if(event.target.closest('button,a,input,select,textarea,summary')||window.getSelection()?.toString().trim())return;taskCard.open(task.id);};}
   const controls=el('div','status-controls'); controls.setAttribute('role','group'); controls.setAttribute('aria-label','Статус задачи «'+task.title+'»');
   ['progress','done','obsolete'].forEach(status=>{
     const button=el('button','status-option '+status,STATUSES[status].label);
@@ -347,7 +354,7 @@ function renderTask(task,{level=3,showOwner=false}={}) {
     reset.setAttribute('aria-label','Сбросить статус: '+task.title); reset.disabled=state.busy.has(task.id);
     reset.onclick=()=>changeStatus(task.id,'unmarked'); controls.append(reset);
   }
-  row.append(symbol,main,controls); return row;
+  row.append(symbol,main);if(isCard)row.append(controls);return row;
 }
 async function changeStatus(id,status,fromCheckbox=false) {
   if (state.busy.has(id)) return;
@@ -370,7 +377,7 @@ async function changeStatus(id,status,fromCheckbox=false) {
     state.busy.delete(id);
     if (state.session && state.board) {
       render();
-      const scope=state.view==='pages'?$('pages-view'):$('tasks');
+      const scope=taskCard.isOpenFor(id)?$('task-card-body'):state.view==='pages'?$('pages-view'):$('tasks');
       const target=scope.querySelector('[data-task="'+id+'"] '+(fromCheckbox?'.task-toggle':'[data-status="'+status+'"]'));
       if(target?.getClientRects().length)target.focus({preventScroll:true});else $('task-create-open').focus({preventScroll:true});
     }
