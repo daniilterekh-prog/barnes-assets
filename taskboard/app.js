@@ -12,7 +12,7 @@ const SESSION_KEY = 'barn-taskboard-session-v1';
 const state = { session: null, board: null, owner: 'all', status: 'open', urgent: false, query: '', busy: new Set(), signature: '', fetching: false, toastTimer: null };
 const ownerIds = () => state.board?.members.filter(m=>!['tatyana','team'].includes(m.id)).map(m=>m.id) || [];
 let createRequestId=null, creatingTask=false, editingTask=null, editingPage=null, savingPage=false;
-state.screen='gateway';state.mineBrowse=null;state.createFromGateway=false;
+state.screen='gateway';state.mineBrowse=null;state.mineOrigin=null;state.createFromGateway=false;
 state.scope='mine'; state.creator='all'; state.questionsTo=null;state.deadline='all';
 state.view='tasks'; state.expanded=new Set(); state.openPages=new Set(); state.pageQuery='';
 const dateFormat = new Intl.DateTimeFormat('ru', {day:'numeric',month:'short',hour:'2-digit',minute:'2-digit',timeZone:'Europe/Moscow'});
@@ -95,7 +95,7 @@ function showGateway(){
 }
 function chooseDestination(route){
   if(!state.session||!state.board)return;
-  state.mineBrowse=null;state.query='';$('search').value='';state.owner='all';state.creator='all';state.questionsTo=null;state.deadline='all';state.status='open';state.urgent=false;
+  state.mineBrowse=null;state.mineOrigin=null;state.query='';$('search').value='';state.owner='all';state.creator='all';state.questionsTo=null;state.deadline='all';state.status='open';state.urgent=false;
   state.pageQuery='';$('page-search').value='';state.expanded.clear();state.specExpanded?.clear();state.scope=route==='assigned'?'assigned':'mine';state.view=route==='site'?'pages':'tasks';
   $('nav-mine').open=state.scope==='mine';$('nav-assigned').open=state.scope==='assigned';
   showBoard();render();
@@ -107,7 +107,7 @@ function chooseDestination(route){
 }
 $('gateway-back').onclick=e=>{e.preventDefault();showGateway();};
 function showLogin(message = '') {
-  gateway.reset();$('gateway-view').hidden=true;$('skip-link').hidden=false;state.screen='login';state.mineBrowse=null;state.createFromGateway=false;
+  gateway.reset();$('gateway-view').hidden=true;$('skip-link').hidden=false;state.screen='login';state.mineBrowse=null;state.mineOrigin=null;state.createFromGateway=false;
   attachments.reset();discussion.reset();$('deadline-dialog').close();deadlineTask=null;state.deadline='all';state.questionsTo=null;state.session = null; state.board = null; state.signature = ''; state.busy.clear();state.expanded.clear();state.specExpanded?.clear();state.openPages.clear();state.view='tasks';state.owner='all';state.scope='mine';state.creator='all';
   state.status='open';state.urgent=false;state.query='';$('search').value='';
   $('nav-mine').open=true;$('nav-assigned').open=false;
@@ -155,7 +155,7 @@ function renderNav() {
   $('from-member').value=state.creator;
   $('to-member').value=state.scope==='assigned'?state.owner:'all';
 }
-function setScope(scope) { if(scope==='mine'&&state.scope!=='mine')state.mineBrowse=null;state.questionsTo=null; state.scope=scope;state.owner='all';state.creator='all';if(scope!=='all')$('nav-'+scope).open=true;render(); }
+function setScope(scope) { if(scope==='mine'&&state.scope!=='mine'){state.mineBrowse=null;state.mineOrigin=null;}state.questionsTo=null; state.scope=scope;state.owner='all';state.creator='all';if(scope!=='all')$('nav-'+scope).open=true;render(); }
 function setOwner(id) { state.questionsTo=null; state.scope='all';state.creator='all';state.owner=id;render(); }
 $('scope-questions').onclick=()=>{state.scope='all';state.owner='all';state.creator='all';state.status='all';state.urgent=false;state.query='';$('search').value='';state.questionsTo=state.session.member;render();};
 $('scope-all').onclick=()=>setScope('all');
@@ -195,7 +195,9 @@ function render() {
   $('visible-count').textContent='Показано '+visible.length+' из '+counts.total;
   const list=$('tasks'); list.replaceChildren();
   const personal=state.scope==='mine'&&!state.questionsTo;
-  const browse=personal?personalBrowseModel(visible,state.board.pages||[],state.board.spec_sections||[],state.mineBrowse,!!state.query.trim()||state.status!=='open'||state.deadline!=='all'||state.creator!=='all'):null;
+  const personalRows=visible.filter(t=>state.mineOrigin==='telegram'?t.origin==='telegram':t.origin!=='telegram');
+  const browse=personal?personalBrowseModel(personalRows,state.board.pages||[],state.board.spec_sections||[],state.mineBrowse,state.mineOrigin==='telegram'||!!state.query.trim()||state.status!=='open'||state.deadline!=='all'||state.creator!=='all'):null;
+  if(browse){browse.urgent=splitTaskBuckets(visible).urgent;if(!state.mineOrigin){browse.selected=[];browse.ready=false;}}
   const buckets=splitTaskBuckets(browse?[...browse.urgent,...browse.selected]:visible);
   if(browse)$('visible-count').textContent= browse.ready?'Показано '+(browse.urgent.length+browse.selected.length)+' из '+visible.length+' моих задач':'Срочные · '+browse.urgent.length;
   if(buckets.urgent.length){
@@ -204,7 +206,7 @@ function render() {
     heading.append(fire,el('span','','Срочные'),el('span','group-counter',String(buckets.urgent.length)));
     urgent.append(heading);buckets.urgent.forEach(t=>urgent.append(renderTask(t,{level:3,showOwner:true})));list.append(urgent);
   }
-  if(browse){renderMinePicker(list,browse);if(!browse.ready)return;}
+  if(browse){renderMinePicker(list,browse,visible);if(!browse.ready)return;}
   state.specExpanded ||= new Set();
   [['telegram','Telegram'],['spec','ТЗ']].forEach(([origin,label])=>{
     if(browse&&!buckets[origin].length)return;
@@ -220,38 +222,47 @@ function render() {
         group.addEventListener('toggle',()=>{if(!group.isConnected)return;group.open?state.specExpanded.add(section.id):state.specExpanded.delete(section.id);});
         section.tasks.forEach(t=>group.append(renderTask(t,{level:4,showOwner:true})));contents.append(group);
       });
-    }else ownerIds().forEach(id=>{
+    }else if(personal){buckets.telegram.forEach(t=>contents.append(renderTask(t,{level:3})));}
+    else ownerIds().forEach(id=>{
       const tasks=buckets[origin].filter(t=>t.owner===id);if(!tasks.length)return;
       const group=el('section','task-group'),heading=el('div','group-heading'),h=el('h3','',member(id).name);
       heading.append(h,el('span','group-counter',String(tasks.length)),el('span','group-rule'));group.append(heading);
       tasks.forEach(t=>group.append(renderTask(t,{level:4})));contents.append(group);
     });
-    bucket.append(contents);list.append(bucket);
+    if(personal)list.append(contents);else{bucket.append(contents);list.append(bucket);}
   });
 }
-function renderMinePicker(list,model){
+function renderMinePicker(list,model,visible){
   const section=el('section','mine-browser'),heading=el('h2','','Остальные задачи');
+  const sources=el('div','mine-source-choices');sources.setAttribute('role','group');sources.setAttribute('aria-label','Источник задач');
+  const ordinary=splitTaskBuckets(visible);
+  [['spec','Экстра ТЗ',ordinary.spec.length],['telegram','Telegram',ordinary.telegram.length]].forEach(([id,label,count])=>{
+    const button=el('button','mine-source-choice',label);button.type='button';button.id='mine-source-'+id;button.setAttribute('aria-pressed',String(state.mineOrigin===id));button.append(el('span','',String(count)));
+    button.onclick=()=>{state.mineOrigin=id;state.mineBrowse=null;render();$('mine-source-'+id).focus({preventScroll:true});};sources.append(button);
+  });
+  section.append(heading,sources);list.append(section);
+  if(!state.mineOrigin)return;
+  if(state.mineOrigin==='telegram'){if(!model.selected.length)section.append(el('p','muted','Задач из Telegram по текущим условиям нет.'));return;}
   const controls=el('div','mine-browser-controls');
   [['page','Страница сайта',model.pageOptions,'Выбери страницу'],['section','Раздел Экстра ТЗ',model.sectionOptions,'Или раздел Экстра ТЗ']].forEach(([kind,label,options,prompt])=>{
     const field=el('div','mine-browser-field'),id='mine-'+kind,caption=el('label','',label),select=el('select','');caption.htmlFor=id;select.id=id;
     const empty=el('option','',prompt);empty.value='';select.append(empty);
-    options.forEach(item=>{const option=el('option','',item.title+' · '+item.count);option.value=item.id;select.append(option);});
+    options.forEach(item=>{const option=el('option','',(item.id==='outside'?'Другие задачи ТЗ':item.title)+' · '+item.count);option.value=item.id;select.append(option);});
     select.disabled=!options.length;select.value=state.mineBrowse?.kind===kind?state.mineBrowse.id:'';
     select.onchange=()=>{state.mineBrowse=select.value?{kind,id:select.value}:null;
       if(state.mineBrowse){
-        const visible=selectTasks(state.board.tasks,{...state,me:state.session.member});
+        const visible=selectTasks(state.board.tasks,{...state,me:state.session.member}).filter(t=>t.origin!=='telegram');
         const chosen=personalBrowseModel(visible,state.board.pages||[],state.board.spec_sections||[],state.mineBrowse);
         chosen.selected.forEach(t=>state.expanded.add(t.origin==='telegram'?'telegram':'spec'));state.specExpanded ||= new Set();
         groupSpecTasks(chosen.selected.filter(t=>t.origin!=='telegram'),state.board.pages||[],state.board.spec_sections||[]).forEach(s=>state.specExpanded.add(s.id));
       }render();$(id)?.focus({preventScroll:true});};field.append(caption,select);controls.append(field);
   });
   if(state.mineBrowse){const reset=el('button','filter-button','Сбросить выбор');reset.type='button';reset.onclick=()=>{state.mineBrowse=null;render();$('mine-page').focus({preventScroll:true});};controls.append(reset);}
-  section.append(heading,controls);
+  section.append(controls);
   if(!model.urgent.length&&!model.ready)section.append(el('p','muted','Срочных задач нет. Выбери страницу или раздел ниже, чтобы открыть остальные задачи.'));
   else if(!model.ready)section.append(el('p','muted','Выбери страницу или раздел, чтобы открыть остальные задачи.'));
   if(model.ready&&!model.selected.length)section.append(el('p','muted','По этому выбору других задач нет.'));
   else if(!model.totalOrdinary)section.append(el('p','muted','Других задач по текущим условиям нет.'));
-  list.append(section);
 }
 function renderPages(){
   if(!state.board)return;

@@ -110,3 +110,6 @@ select,select option,select optgroup{color:#f4f3ef;background-color:#101010;colo
 .gateway-wheel.entering{animation:wheel-enter .6s cubic-bezier(.22,1,.36,1) both}
 .gateway-sector:disabled{opacity:1;cursor:default}
 .gateway-wheel.choosing .gateway-sector:not(.chosen){opacity:.12}
+
+/* Direct source choice before personal page/section filters. */
+.mine-source-choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:22px}.mine-source-choice{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:18px 14px;border:1px solid #666;background:transparent;color:var(--ink);font-weight:700;font-size:16px;min-height:60px}.mine-source-choice span{font-size:12px;font-weight:400}.mine-source-choice[aria-pressed=true]{background:var(--ink);color:var(--paper);border-color:var(--ink)}.mine-source-choice:hover{border-color:var(--ink)}
