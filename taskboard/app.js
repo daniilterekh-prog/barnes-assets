@@ -4,7 +4,8 @@ import { STATUSES, selectTasks, summarize, safeSource } from './domain.js?v=2026
 const $ = id => document.getElementById(id);
 const SESSION_KEY = 'barn-taskboard-session-v1';
 const state = { session: null, board: null, owner: 'all', status: 'all', urgent: false, query: '', busy: new Set(), signature: '', fetching: false, toastTimer: null };
-const owners = ['vova','andrey','irina','victoria','jenya','daniil'];
+const ownerIds = () => state.board?.members.filter(m=>!['tatyana','team'].includes(m.id)).map(m=>m.id) || [];
+let createRequestId=null, creatingTask=false;
 const dateFormat = new Intl.DateTimeFormat('ru', {day:'numeric',month:'short',hour:'2-digit',minute:'2-digit',timeZone:'Europe/Moscow'});
 
 function el(tag, className, text) {
@@ -51,6 +52,8 @@ function acceptBoard(data) {
   if (state.board) {
     const previous = new Map(state.board.tasks.map(t => [t.id,t]));
     data.tasks = data.tasks.map(t => Number(previous.get(t.id)?.revision) > Number(t.revision) ? previous.get(t.id) : t);
+    const incomingIds=new Set(data.tasks.map(t=>t.id));
+    data.tasks.push(...state.board.tasks.filter(t=>!incomingIds.has(t.id)));
     const events = new Map([...state.board.history,...data.history].map(h => [Number(h.id),h]));
     data.history = [...events.values()].sort((a,b) => Number(b.id)-Number(a.id)).slice(0,50);
   }
@@ -72,7 +75,7 @@ function showLogin(message = '') {
   state.session = null; state.board = null; state.signature = ''; state.busy.clear();
   sessionStorage.removeItem(SESSION_KEY);
   $('board-view').hidden = true; $('login-view').hidden = false;
-  $('history-dialog').close();
+  $('history-dialog').close(); $('task-create-dialog').close();
   $('login-error').textContent = message;
 }
 async function refresh(manual = false) {
@@ -97,7 +100,7 @@ function renderNav() {
   all.type='button'; all.setAttribute('aria-pressed',String(state.owner === 'all'));
   all.append(el('span','nav-symbol','▦'),el('span','','Все'),el('span','',String(state.board.tasks.length)));
   all.onclick=()=>setOwner('all'); nav.append(all);
-  owners.forEach(id => {
+  ownerIds().forEach(id => {
     const tasks=state.board.tasks.filter(t=>t.owner===id);
     if (!tasks.length) return;
     const m=member(id), button=el('button','owner-button' + (state.owner === id ? ' active' : ''));
@@ -132,7 +135,7 @@ function render() {
     empty.append(el('strong','','Здесь пока нет задач'),el('p','','Измени фильтры или поисковый запрос.'));
     list.append(empty); return;
   }
-  owners.forEach(id => {
+  ownerIds().forEach(id => {
     const tasks=visible.filter(t=>t.owner===id).sort((a,b)=>Number(b.urgent)-Number(a.urgent));
     if (!tasks.length) return;
     const m=member(id),group=el('section','task-group'),heading=el('div','group-heading'),h=el('h2','',m.name);
@@ -202,6 +205,38 @@ async function changeStatus(id,status,fromCheckbox=false) {
     }
   }
 }
+function openCreateTask() {
+  $('task-create-form').reset(); $('task-create-error').textContent='';
+  const select=$('task-owner'); select.replaceChildren();
+  state.board.members.filter(m=>!['tatyana','team'].includes(m.id)).forEach(m=>{
+    const option=el('option','',m.name); option.value=m.id; select.append(option);
+  });
+  select.value=state.owner==='all'?state.session.member:state.owner;
+  createRequestId=crypto.randomUUID(); $('task-create-dialog').showModal(); $('task-title').focus();
+}
+$('task-create-open').onclick=openCreateTask;
+$('task-create-close').onclick=()=>{if(!creatingTask)$('task-create-dialog').close();};
+$('task-create-dialog').addEventListener('cancel',event=>{if(creatingTask)event.preventDefault();});
+$('task-create-form').addEventListener('submit',async event=>{
+  event.preventDefault(); if(creatingTask)return;
+  const title=$('task-title').value.trim();
+  if(!title){$('task-create-error').textContent='Напиши, что нужно сделать.';$('task-title').focus();return;}
+  const token=state.session?.token;
+  creatingTask=true; $('task-create-submit').disabled=true; $('task-create-close').disabled=true;
+  $('task-create-error').textContent='';
+  try {
+    const owner=$('task-owner').value;
+    const data=await api('create',{request_id:createRequestId,title,owner,detail:$('task-detail').value.trim(),urgent:$('task-urgent').checked});
+    if(state.session?.token!==token)return;
+    state.owner=owner; state.status='all'; state.urgent=false; state.query=''; $('search').value='';
+    acceptBoard(data); render(); $('task-create-dialog').close(); toast('Задача добавлена');
+    $('tasks').querySelector('[data-task="'+data.created_task_id+'"] .task-toggle')?.focus();
+  } catch(error) {
+    if(state.session?.token!==token)return;
+    if(error.status===401)showLogin(error.message);
+    else $('task-create-error').textContent=error.message;
+  } finally {creatingTask=false;$('task-create-submit').disabled=false;$('task-create-close').disabled=false;}
+});
 function renderHistory() {
   const list=$('history-list'); list.replaceChildren();
   if (!state.board?.history.length) { list.append(el('p','lead','Здесь появятся изменения статусов. Пока всё впереди.')); return; }

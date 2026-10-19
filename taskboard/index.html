@@ -10,10 +10,10 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src https://turkish-property.ru http://127.0.0.1:8788; object-src 'none'; base-uri 'none'; form-action 'self'">
   <title>Рабочая доска — BARN Estate</title>
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="./style.css?v=20261019-select-fix">
+  <link rel="stylesheet" href="./style.css?v=20261019-create">
   <link rel="stylesheet" href="./preloader.css">
   <script type="module" src="./preloader.js"></script>
-  <script type="module" src="./app.js?v=20261019-name-only"></script>
+  <script type="module" src="./app.js?v=20261019-create"></script>
 </head>
 <body>
   <a class="skip" href="#tasks">К задачам</a>
@@ -45,7 +45,7 @@
     <div class="main-shell">
       <header class="topbar"><button id="refresh" class="icon-button" type="button" aria-label="Обновить задачи" title="Обновить">↻</button><button id="mobile-history" class="icon-button" type="button" aria-label="История изменений" title="История">◷</button></header>
       <main class="main-content">
-        <div class="page-heading"><h1>ЗАДАЧИ.</h1></div>
+        <div class="page-heading"><h1>ЗАДАЧИ.</h1><button id="task-create-open" class="primary" type="button">Добавить задачу <span aria-hidden="true">+</span></button></div>
         <section class="overview" aria-label="Прогресс команды">
           <div class="progress-summary"><div class="summary-top"><span>Общий прогресс</span><span id="progress-label">0 / 25</span></div><div class="progress-track"><progress id="progress" max="25" value="0" aria-label="Выполненные задачи"></progress></div><span id="progress-note" class="sr-only">Всё начинается с первого шага</span></div>
           <button class="metric" data-stat="unmarked"><span class="metric-label"><i class="dot unmarked"></i>Не отмечено</span><strong id="count-unmarked">—</strong></button>
@@ -63,6 +63,15 @@
       </main>
     </div>
   </div>
+  <dialog id="task-create-dialog" aria-labelledby="task-create-title">
+    <div class="dialog-head"><h2 id="task-create-title">Новая задача</h2><button id="task-create-close" class="icon-button" type="button" aria-label="Закрыть новую задачу">×</button></div>
+    <form id="task-create-form">
+      <label for="task-title">Задача</label><input id="task-title" name="title" required maxlength="150" placeholder="Что нужно сделать" autocomplete="off">
+      <label for="task-owner">Исполнитель</label><select id="task-owner" name="owner" required></select>
+      <details class="create-details"><summary>Описание и срочность</summary><label for="task-detail">Описание</label><textarea id="task-detail" name="detail" maxlength="600" rows="3" placeholder="Детали, если нужны"></textarea><label class="urgent-choice"><input id="task-urgent" name="urgent" type="checkbox"> Срочная задача</label></details>
+      <p id="task-create-error" class="error" role="alert"></p><button id="task-create-submit" class="primary" type="submit">Добавить <span aria-hidden="true">↗</span></button>
+    </form>
+  </dialog>
   <dialog id="history-dialog" aria-labelledby="history-title"><div class="dialog-head"><div><h2 id="history-title">История изменений</h2></div><button id="history-close" class="icon-button" type="button" aria-label="Закрыть историю">×</button></div><div id="history-list"></div></dialog>
   <div id="toast" class="toast" role="status" hidden></div>
   <div id="preloader" class="task-preloader" aria-hidden="true">
