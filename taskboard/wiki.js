@@ -1,5 +1,5 @@
-import {icon} from './icons.js?v=20261019-images';
-import {safeHttps} from './domain.js?v=20261019-images';
+import {icon} from './icons.js?v=20261019-open';
+import {safeHttps} from './domain.js?v=20261019-open';
 const node=(tag,cls,text)=>{const e=document.createElement(tag);e.className=cls||'';if(text!==undefined)e.textContent=text;return e;};
 export function renderWiki(container,{pages,tasks,query,openPages,onToggle,onEdit,onTask,renderTask}) {
   container.replaceChildren();
@@ -23,7 +23,7 @@ export function renderWiki(container,{pages,tasks,query,openPages,onToggle,onEdi
     });card.append(sources);
     const linked=tasks.filter(t=>(t.page_ids||[]).includes(p.id));
     const controls=node('div','wiki-task-actions'),add=node('button','filter-button','Добавить задачу');add.prepend(icon('plus'));add.type='button';add.setAttribute('aria-label','Добавить задачу к странице: '+p.title);add.onclick=()=>onTask(p.id);
-    const details=node('details','wiki-linked');details.open=openPages.has(p.id);const summary=node('summary','',`Задачи · ${linked.length}`);summary.prepend(icon('list-todo'));details.append(summary);
+    const details=node('details','wiki-linked');details.open=openPages.has(p.id);const summary=node('summary','',`Открытые задачи · ${linked.length}`);summary.prepend(icon('list-todo'));details.append(summary);
     details.addEventListener('toggle',()=>{if(details.isConnected)onToggle(p.id,details.open);});
     const list=node('div','wiki-task-list');if(!linked.length)list.append(node('p','muted','Связанных задач пока нет'));
     linked.forEach(t=>list.append(renderTask(t,{level:3,showOwner:true})));details.append(list);controls.append(add);card.append(controls,details);container.append(card);

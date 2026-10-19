@@ -12,7 +12,7 @@ export function selectTasks(tasks, filters) {
     && (!filters.scope || filters.scope==='all' || (filters.scope==='mine' ? t.owner===filters.me : t.created_by===filters.me))
     && (!filters.creator || filters.creator==='all' || (filters.creator==='unknown' ? !t.created_by : t.created_by===filters.creator))
     && (filters.owner === 'all' || t.owner === filters.owner)
-    && (filters.status === 'all' || t.status === filters.status)
+    && (filters.status === 'all' || (filters.status === 'open' ? !['done','obsolete'].includes(t.status) : t.status === filters.status))
     && (!filters.urgent || (Number(t.urgent) === 1 && !['done','obsolete'].includes(t.status)))
     && (!query || (t.title + ' ' + t.detail + ' ' + t.id).toLocaleLowerCase('ru').includes(query))).sort((a,b)=>deadlineSortKey(a).localeCompare(deadlineSortKey(b)));
 }
