@@ -81,7 +81,7 @@ function acceptBoard(data) {
     data.history = [...events.values()].sort((a,b) => Number(b.id)-Number(a.id)).slice(0,50);
   }
   state.board = data;
-  const signature = todayMoscow()+':'+data.tasks.map(t => t.id + ':' + t.revision + ':' + (t.discussion_revision||0) + ':' + (t.attachment_revision||0)).join(',') + ':' + (data.history[0]?.id || '')+':'+(data.pages||[]).map(p=>p.id+':'+p.revision).join(',')+':'+JSON.stringify(data.spec_sections||[]);
+  const signature = todayMoscow()+':'+data.tasks.map(t => t.id + ':' + t.revision + ':' + (t.discussion_revision||0) + ':' + (t.attachment_revision||0)).join(',') + ':' + (data.history[0]?.id || '')+':'+(data.pages||[]).map(p=>p.id+':'+p.revision).join(',')+':'+JSON.stringify(data.spec_sections||[])+':'+JSON.stringify(data.members.map(m=>[m.id,m.name]));
   if (signature !== state.signature) {
     state.signature = signature; render();
     if ($('history-dialog').open) renderHistory();
