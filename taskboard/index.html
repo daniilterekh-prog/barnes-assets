@@ -10,10 +10,10 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src https://turkish-property.ru http://127.0.0.1:8788; object-src 'none'; base-uri 'none'; form-action 'self'">
   <title>Рабочая доска — BARN Estate</title>
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="./style.css?v=20261019-mono">
+  <link rel="stylesheet" href="./style.css?v=20261019-name-only">
   <link rel="stylesheet" href="./preloader.css">
   <script type="module" src="./preloader.js"></script>
-  <script type="module" src="./app.js?v=20261019-mono"></script>
+  <script type="module" src="./app.js?v=20261019-name-only"></script>
 </head>
 <body>
   <a class="skip" href="#tasks">К задачам</a>
@@ -24,8 +24,6 @@
         <form id="login-form">
           <label for="member">Имя</label>
           <select id="member" name="member" required disabled><option value="">Загружаем команду…</option></select>
-          <label for="access-code">Код доступа</label>
-          <div class="code-wrap"><input id="access-code" name="code" type="password" autocomplete="current-password" required maxlength="128" placeholder="Код команды"><button id="show-code" type="button" aria-label="Показать код" aria-pressed="false">Показать</button></div>
           <p id="login-error" class="error" role="alert"></p>
           <button id="login-submit" class="primary" type="submit" disabled>Войти <span aria-hidden="true">↗</span></button>
         </form>

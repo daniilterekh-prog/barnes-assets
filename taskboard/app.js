@@ -227,20 +227,14 @@ async function loadMembers() {
 $('login-form').addEventListener('submit',async event=>{
   event.preventDefault(); $('login-error').textContent=''; $('login-submit').disabled=true;
   try {
-    state.session=await api('login',{member:$('member').value,code:$('access-code').value});
+    state.session=await api('login',{member:$('member').value});
     sessionStorage.setItem(SESSION_KEY,JSON.stringify(state.session));
-    $('access-code').value='';
     acceptBoard(await api('board')); showBoard();
     $('tasks').focus({preventScroll:true});
   } catch(error) {
     state.session=null; sessionStorage.removeItem(SESSION_KEY); $('login-error').textContent=error.message;
   } finally { $('login-submit').disabled=false; }
 });
-$('show-code').onclick=()=>{
-  const show=$('access-code').type==='password';
-  $('access-code').type=show?'text':'password'; $('show-code').textContent=show?'Скрыть':'Показать';
-  $('show-code').setAttribute('aria-label',show?'Скрыть код':'Показать код'); $('show-code').setAttribute('aria-pressed',String(show));
-};
 $('retry-meta').onclick=loadMembers;
 $('logout').onclick=async()=>{try{await api('logout',{});}catch{}showLogin();};
 $('refresh').onclick=()=>refresh(true);
