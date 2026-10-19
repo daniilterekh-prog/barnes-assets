@@ -1,5 +1,5 @@
 /* Source: daniilterekh-prog/word-preloader. Only the loader, no demo styles. */
-.task-preloader{--loader-ease:cubic-bezier(.76,0,.24,1);position:fixed;inset:0;z-index:9999;background:#090909;color:#f4f3ef;display:grid;place-items:center;overflow:hidden;font-family:Arial,Helvetica,sans-serif;animation:task-curtain 700ms var(--loader-ease) 2450ms both}
+.task-preloader{--loader-ease:cubic-bezier(.76,0,.24,1);position:fixed;inset:0;z-index:9999;background:var(--paper,#090909);color:var(--ink,#f4f3ef);display:grid;place-items:center;overflow:hidden;font-family:Arial,Helvetica,sans-serif;animation:task-curtain 700ms var(--loader-ease) 2450ms both}
 .task-preloader.js-controlled{animation:none}
 .task-preloader.is-leaving{animation:task-curtain 700ms var(--loader-ease) both}
 .loader-word{position:absolute;inset:0;display:grid;place-items:center}
@@ -7,9 +7,9 @@
 .loader-word.long span{font-size:min(15vw,25svh);animation-delay:700ms}
 .loader-word:nth-child(3) span{animation-delay:1260ms}
 .loader-word:nth-child(4) span{animation:task-pop-last 630ms 1820ms both}
-.task-preloader .loader-note{position:absolute;left:clamp(24px,4vw,64px);bottom:32px;font-size:10px;letter-spacing:.18em;color:#888}
-.loader-progress{position:absolute;left:0;bottom:0;width:100%;height:2px;background:#272727}
-.loader-progress:after{content:"";display:block;width:100%;height:100%;background:#f4f3ef;transform:scaleX(0);transform-origin:left;animation:task-loader-progress 2450ms linear both}
+.task-preloader .loader-note{position:absolute;left:clamp(24px,4vw,64px);bottom:32px;font-size:10px;letter-spacing:.18em;color:var(--muted,#888)}
+.loader-progress{position:absolute;left:0;bottom:0;width:100%;height:2px;background:var(--track,#272727)}
+.loader-progress:after{content:"";display:block;width:100%;height:100%;background:var(--ink,#f4f3ef);transform:scaleX(0);transform-origin:left;animation:task-loader-progress 2450ms linear both}
 html.task-loading{overflow:hidden}
 @keyframes task-pop{0%{opacity:0;transform:translateY(65%) scale(.86)}12%{opacity:1}40%{opacity:1;transform:translateY(-5%) scale(1.025);animation-timing-function:ease-out}61%{opacity:1;transform:translateY(1%) scale(.995)}74%,83%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-50%) scale(.98)}}
 @keyframes task-pop-last{0%{opacity:0;transform:translateY(65%) scale(.86)}12%{opacity:1}36%{opacity:1;transform:translateY(-5%) scale(1.025)}56%{opacity:1;transform:translateY(1%) scale(.995)}72%,100%{opacity:1;transform:translateY(0) scale(1)}}

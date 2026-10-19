@@ -10,14 +10,16 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; connect-src https://turkish-property.ru http://127.0.0.1:8788; object-src 'none'; base-uri 'none'; form-action 'self'">
   <title>Рабочая доска — BARN Estate</title>
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="./style.css?v=20261019-upload-form">
-  <link rel="stylesheet" href="./preloader.css">
+  <script src="./theme.js?v=20261019-theme"></script>
+  <link rel="stylesheet" href="./style.css?v=20261019-theme">
+  <link rel="stylesheet" href="./preloader.css?v=20261019-theme">
   <script type="module" src="./preloader.js"></script>
   <script type="module" src="./app.js?v=20261019-upload-form"></script>
 </head>
 <body>
   <a id="skip-link" class="skip" href="#tasks">К задачам</a>
   <div id="login-view" class="entry">
+    <button class="theme-switch theme-entry" type="button" data-theme-toggle aria-label="Включить светлую тему" aria-pressed="false"><svg class="ui-icon theme-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg><svg class="ui-icon theme-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 13.5A9 9 0 0 1 10.5 3.5 9 9 0 1 0 20.5 13.5Z"/></svg><span data-theme-label>Тёмная</span></button>
     <main class="entry-main">
       <div class="entry-form">
         <h1>ВХОД.</h1>
@@ -33,6 +35,7 @@
   </div>
 
   <main id="gateway-view" class="gateway" aria-label="Выбери раздел" hidden>
+    <button class="theme-switch theme-entry" type="button" data-theme-toggle aria-label="Включить светлую тему" aria-pressed="false"><svg class="ui-icon theme-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg><svg class="ui-icon theme-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 13.5A9 9 0 0 1 10.5 3.5 9 9 0 1 0 20.5 13.5Z"/></svg><span data-theme-label>Тёмная</span></button>
     <div id="gateway-wheel" class="gateway-wheel" role="group" aria-label="Разделы рабочей доски">
       <button class="gateway-sector sector-mine" type="button" data-route="mine"><span>Мои<br>задачи</span></button>
       <button class="gateway-sector sector-assigned" type="button" data-route="assigned"><span>Поставленные<br>мной</span></button>
@@ -58,7 +61,7 @@
       </div>
     </aside>
     <div class="main-shell">
-      <header class="topbar"><button id="refresh" class="icon-button" type="button" aria-label="Обновить задачи" title="Обновить"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-gateway#refresh-cw"></use></svg></button><button id="mobile-history" class="icon-button" type="button" aria-label="История изменений" title="История"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-gateway#rotate-ccw"></use></svg></button></header>
+      <header class="topbar"><button class="theme-switch " type="button" data-theme-toggle aria-label="Включить светлую тему" aria-pressed="false"><svg class="ui-icon theme-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg><svg class="ui-icon theme-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 13.5A9 9 0 0 1 10.5 3.5 9 9 0 1 0 20.5 13.5Z"/></svg><span data-theme-label>Тёмная</span></button><button id="refresh" class="icon-button" type="button" aria-label="Обновить задачи" title="Обновить"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-gateway#refresh-cw"></use></svg></button><button id="mobile-history" class="icon-button" type="button" aria-label="История изменений" title="История"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-gateway#rotate-ccw"></use></svg></button></header>
       <main class="main-content">
         <div class="page-heading"><h1 id="board-title" tabindex="-1">ЗАДАЧИ.</h1><div class="heading-actions"><button id="page-create-open" class="filter-button" type="button" hidden>Добавить страницу <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-gateway#plus"></use></svg></button><button id="task-create-open" class="primary" type="button">Добавить задачу <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-gateway#plus"></use></svg></button></div></div>
         <div id="tasks-view">
