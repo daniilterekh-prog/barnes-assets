@@ -13,3 +13,12 @@ dialog{color:var(--ink);background:var(--paper);border:1px solid var(--line);wid
 .task-row{align-items:start}.status-controls{align-items:flex-start}
 #list-description{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
 @media(max-width:760px){.overview{display:block}.overview .metric{display:none}.progress-summary{border:0;padding:18px 0}.side-brand{margin-bottom:16px}#owner-nav{padding-bottom:12px}.page-heading h1{margin-bottom:24px}.list-caption{margin-bottom:20px}}
+
+/* Native popup menus need their own opaque background in Chrome. */
+select,select option,select optgroup{color:#f4f3ef;background-color:#101010;color-scheme:dark}
+.page-heading{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-bottom:42px}.page-heading h1{margin:0}.page-heading .primary{flex-shrink:0;font-size:13px;padding:13px 18px;min-height:48px}
+#task-create-form label{display:block;font-size:12px;color:var(--muted);margin:20px 0 9px}
+#task-create-form input:not([type=checkbox]),#task-create-form select,#task-create-form textarea{width:100%;background:#101010;color:var(--ink);border:1px solid #555;padding:13px;font:inherit;border-radius:0;min-height:48px}
+#task-create-form textarea{resize:vertical;line-height:1.5;min-height:100px}textarea:focus-visible{outline:2px solid var(--ink);outline-offset:4px}
+#task-create-form .primary{width:100%;margin-top:24px}.create-details{margin-top:18px}.create-details summary{min-height:44px;display:flex;align-items:center;font-size:12px;color:var(--muted);cursor:pointer;list-style:none}.create-details summary:after{content:'+';margin-left:auto}.create-details[open] summary:after{content:'−'}#task-create-form .urgent-choice{display:flex;align-items:center;gap:12px;min-height:44px;color:var(--ink)}.urgent-choice input{accent-color:var(--ink);width:20px;min-height:20px;height:20px;margin:0}
+@media(max-width:760px){.page-heading{align-items:flex-start;flex-direction:column;gap:24px;margin-bottom:28px}.page-heading h1{margin:0}.page-heading .primary{width:100%;font-size:13px}.create-details summary{font-size:13px}}
