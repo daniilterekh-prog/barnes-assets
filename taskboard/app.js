@@ -1,13 +1,13 @@
 import {setupTaskCard} from './task-card.js?v=20261019-progress-deadline';
-import {createPersistence,normalizeView,SESSION_KEY} from './persistence.js?v=20261019-task-card';
+import {createPersistence,normalizeView,SESSION_KEY} from './persistence.js?v=20261019-site-categories';
 import {setupGateway} from './gateway.js?v=20261019-gateway';
 import {setupAttachments,imageFileError} from './attachments.js?v=20261019-upload-form';
 import {setupDiscussion} from './discussion.js?v=20261019-gateway';
 import {icon} from './icons.js?v=20261019-gateway';
 import { API_URL } from './config.js';
-import { STATUSES, selectTasks, summarize, safeSource, safeHttps, taskDateLabel, splitTaskBuckets, groupSpecTasks, programmerMood, mergeTask, deadlineInfo, moscowDay, shiftDay, personalBrowseModel } from './domain.js?v=20261019-merged-destination';
+import { STATUSES, selectTasks, summarize, safeSource, safeHttps, taskDateLabel, splitTaskBuckets, groupSpecTasks, programmerMood, mergeTask, deadlineInfo, moscowDay, shiftDay, personalBrowseModel, taskDestination, taskSourceCategory, SITE_TASKS_ID, SITE_TASKS_TITLE } from './domain.js?v=20261019-site-categories';
 
-import {renderWiki} from './wiki.js?v=20261019-page-cards';
+import {renderWiki} from './wiki.js?v=20261019-site-categories';
 
 const $ = id => document.getElementById(id);
 const browserStorage=name=>{try{return window[name];}catch{return null;}};
@@ -222,7 +222,7 @@ function render() {
   $('visible-count').textContent='Показано '+visible.length+' из '+counts.total;
   const list=$('tasks'); list.replaceChildren();
   const personal=['mine','assigned'].includes(state.scope)&&!state.questionsTo;
-  const personalRows=visible.filter(t=>state.mineOrigin==='telegram'?t.origin==='telegram':t.origin!=='telegram');
+  const personalRows=visible.filter(t=>taskSourceCategory(t)===(state.mineOrigin||'spec'));
   const browse=personal?personalBrowseModel(personalRows,state.board.pages||[],state.board.spec_sections||[],state.mineBrowse,state.mineOrigin==='telegram'||!!state.query.trim()||state.status!=='open'||state.deadline!=='all'||state.creator!=='all'):null;
   if(browse){browse.urgent=splitTaskBuckets(visible).urgent;if(!state.mineOrigin){browse.selected=[];browse.ready=false;}}
   const buckets=splitTaskBuckets(browse?[...browse.urgent,...browse.selected]:visible);
@@ -263,7 +263,8 @@ function renderMinePicker(list,model,visible){
   const section=el('section','mine-browser'),heading=el('h2','','Остальные задачи');
   const sources=el('div','mine-source-choices');sources.setAttribute('role','group');sources.setAttribute('aria-label','Источник задач');
   const ordinary=splitTaskBuckets(visible);
-  [['spec','Экстра ТЗ',ordinary.spec.length],['telegram','Telegram',ordinary.telegram.length]].forEach(([id,label,count])=>{
+  [['spec','Экстра финальное ТЗ'],['telegram','Telegram'],['other','Другие ТЗ']].forEach(([id,label])=>{
+    const count=[...ordinary.spec,...ordinary.telegram].filter(t=>taskSourceCategory(t)===id).length;if(id==='other'&&!count&&state.mineOrigin!==id)return;
     const button=el('button','mine-source-choice',label);button.type='button';button.id='mine-source-'+id;button.setAttribute('aria-pressed',String(state.mineOrigin===id));button.append(el('span','',String(count)));
     button.onclick=()=>{state.mineOrigin=id;state.mineBrowse=null;render();$('mine-source-'+id).focus({preventScroll:true});};sources.append(button);
   });
@@ -296,7 +297,7 @@ function renderPages(){
   if(!state.board)return;
   saveView();
   $('page-search').closest('label').hidden=!!state.selectedPage;
-  renderWiki($('wiki-cards'),{pages:state.board.pages||[],tasks:state.board.tasks,query:state.pageQuery,selectedPage:state.selectedPage,taskScope:state.wikiScope,taskStatus:state.wikiStatus,me:state.session.member,
+  renderWiki($('wiki-cards'),{pages:state.board.pages||[],sections:state.board.spec_sections||[],tasks:state.board.tasks,query:state.pageQuery,selectedPage:state.selectedPage,taskScope:state.wikiScope,taskStatus:state.wikiStatus,me:state.session.member,
     onSelect:id=>{state.selectedPage=id;if(!id){state.pageQuery='';$('page-search').value='';}state.wikiScope='mine';state.wikiStatus='open';renderPages();(id?$('wiki-page-title'):$('board-title'))?.focus({preventScroll:true});$('pages-view').scrollIntoView({block:'start',behavior:'instant'});},
     onScope:scope=>{state.wikiScope=scope;renderPages();$('wiki-cards').querySelector('[data-wiki-scope="'+scope+'"]')?.focus({preventScroll:true});},
     onStatus:status=>{state.wikiStatus=status;renderPages();$('wiki-task-status')?.focus({preventScroll:true});},
@@ -333,7 +334,7 @@ function renderTask(task,{level=3,showOwner=false,isCard=false}={}) {
   const source=safeHttps(task.source_url||task.source);
   if(source) { const link=el('a','',task.origin==='telegram'?'Поручение в Telegram ↗':'Открыть ТЗ ↗'); link.href=source; link.target='_blank'; link.rel='noopener noreferrer'; details.append(link); }
   const edit=el('button','text-button task-edit','Изменить задачу');edit.type='button';edit.onclick=()=>openTask(task);details.append(edit);
-  const related=el('div','task-page-links');(task.page_ids||[]).forEach(id=>{const p=state.board.pages?.find(p=>p.id===id);if(!p)return;const button=el('button','page-chip',p.title);button.type='button';button.onclick=()=>{if(isCard)taskCard.close();state.selectedPage=id;state.wikiScope='mine';state.wikiStatus='open';switchView('pages');$('wiki-page-title')?.focus({preventScroll:true});};related.append(button);});
+  const related=el('div','task-page-links');[taskDestination(task,state.board.pages||[],state.board.spec_sections||[])].forEach(id=>{const p=id===SITE_TASKS_ID?{id,title:SITE_TASKS_TITLE}:state.board.pages?.find(p=>p.id===id);if(!p)return;const button=el('button','page-chip',p.title);button.type='button';button.onclick=()=>{if(isCard)taskCard.close();state.selectedPage=id;state.wikiScope='mine';state.wikiStatus='open';switchView('pages');$('wiki-page-title')?.focus({preventScroll:true});};related.append(button);});
   const discuss=el('button','discussion-open','Обсуждение'+(task.comment_count?' · '+task.comment_count:''));discuss.type='button';discuss.prepend(icon('message-circle'));discuss.setAttribute('aria-label','Обсудить задачу: '+task.title);discuss.onclick=()=>discussion.open(task.id);
   if(task.open_question_count)discuss.append(el('span','question-counter','Вопросы: '+task.open_question_count));
   const images=el('button','discussion-open attachments-open',(task.attachment_count?'Скриншоты':'Прикрепить скриншот')+(task.attachment_count?' · '+task.attachment_count:''));images.type='button';images.prepend(icon('plus'));images.setAttribute('aria-label','Прикрепить скриншот к задаче: '+task.title);images.onclick=()=>attachments.open(task.id);
@@ -451,7 +452,7 @@ $('task-create-form').addEventListener('submit',async event=>{
     state.createFromGateway=false;
     if(state.view==='pages'){state.wikiScope=state.scope;state.wikiStatus='open';}
     const created=data.tasks.find(t=>t.id===data.created_task_id);
-    {state.mineOrigin=body.origin;const group=created?groupSpecTasks([created],data.pages||[],data.spec_sections||[])[0]:null;state.mineBrowse=body.origin==='telegram'?null:body.page_ids.length?{kind:'page',id:body.page_ids[0]}:{kind:'section',id:group?.id.startsWith('source:')?group.id.slice(7):'outside'};}
+    {const task=created||body;state.mineOrigin=taskSourceCategory(task);state.mineBrowse=body.origin==='telegram'?null:{kind:'page',id:taskDestination(task,data.pages||[],data.spec_sections||[])};}
     if(created?.origin==='spec'){state.specExpanded ||= new Set();groupSpecTasks([created],data.pages||[],data.spec_sections||[]).forEach(s=>state.specExpanded.add(s.id));}
     acceptBoard(data);render();$('task-create-dialog').close();toast(editingTask?'Задача сохранена':'Задача добавлена');
     if(chosenImage)await attachments.open(data.created_task_id,chosenImage,true);

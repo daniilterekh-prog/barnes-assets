@@ -98,34 +98,44 @@ export function groupSpecTasks(tasks,pages=[],sections=[]){
   return [...groups.values()].sort((a,b)=>a.order-b.order);
 }
 
+export const SITE_TASKS_ID='site-wide';
+export const SITE_TASKS_TITLE='Задачи по сайту';
+const sourceKey=value=>{try{const u=new URL(value);return u.origin+u.pathname.replace(/\/edit$/,'')+'?tab='+(u.searchParams.get('tab')||'');}catch{return '';}};
+const titleKey=value=>(value||'').toLocaleLowerCase('ru').replace(/ё/g,'е').replace(/[^а-яa-z0-9]/g,'');
+const sectionAliases={узелгородская:'city',узелгородскаянедвижимость:'city',узелзагородная:'country',узелзагороднаянедвижимость:'country',узелзарубежная:'international',узелзарубежнаянедвижимость:'international',узелкурортная:'resort',узелкурортнаянедвижимость:'resort',узелкоммерческая:'commercial',узелкоммерческаянедвижимость:'commercial',узелвторичная:'secondary',узелновостройки:'newbuilds',собственникпродажа:'owner-sale',собственникаренда:'owner-rent',амбассадоры:'partners',узловаясобственикам:'owners',узловаясобственникам:'owners'};
+function sectionPage(section,pages){return pages.find(p=>p.id===section.page_id)||pages.find(p=>titleKey(p.title)===titleKey(section.title))||pages.find(p=>p.id===sectionAliases[titleKey(section.title)]);}
+// Shared requirements have one destination; original page links remain intact in storage.
+export function taskDestination(task,pages=[],sections=[]){
+  const linked=[...new Set(task.page_ids||[])];
+  if(linked.length>1)return SITE_TASKS_ID;
+  if(linked.length===1)return linked[0];
+  const section=task.origin==='spec'&&sections.find(s=>sourceKey(s.source_url)===sourceKey(task.source_url));
+  return section&&sectionPage(section,pages)?.id||SITE_TASKS_ID;
+}
+export function taskSourceCategory(task){
+  if(task.origin==='telegram')return 'telegram';
+  try{const u=new URL(task.source_url);if(u.origin==='https://docs.google.com'&&/^\/document\/d\/10h2UBtZCoKiUJGEKvC43um7Xax_V-sTJ3soDRDN-2iY(?:\/|$)/.test(u.pathname))return 'spec';}catch{}
+  return 'other';
+}
 export function personalBrowseModel(tasks,pages,sections,choice=null,explicit=false){
   const {urgent,...rest}=splitTaskBuckets(tasks),ordinary=[...rest.telegram,...rest.spec];
-  const sourceKey=value=>{try{const u=new URL(value);return u.origin+u.pathname.replace(/\/edit$/,'')+'?tab='+(u.searchParams.get('tab')||'');}catch{return '';}};
-  const sectionSources=new Map(sections.map(s=>[sourceKey(s.source_url),s.tab_id]));
-  const sectionOf=t=>t.origin==='spec'?sectionSources.get(sourceKey(t.source_url))||'outside':'outside';
-  const titleKey=value=>(value||'').toLocaleLowerCase('ru').replace(/ё/g,'е').replace(/[^а-яa-z0-9]/g,'');
-  const aliases={узелгородская:'city',узелгородскаянедвижимость:'city',узелзагородная:'country',узелзагороднаянедвижимость:'country',узелзарубежная:'international',узелзарубежнаянедвижимость:'international',узелкурортная:'resort',узелкурортнаянедвижимость:'resort',узелкоммерческая:'commercial',узелкоммерческаянедвижимость:'commercial',узелвторичная:'secondary',узелновостройки:'newbuilds',собственникпродажа:'owner-sale',собственникаренда:'owner-rent',амбассадоры:'partners',узловаясобственикам:'owners',узловаясобственникам:'owners'};
-  const pageFor=s=>pages.find(p=>titleKey(p.title)===titleKey(s.title))||pages.find(p=>p.id===aliases[titleKey(s.title)]);
-  const groups=pages.map(p=>({kind:'page',id:p.id,title:p.title,sectionIds:sections.filter(s=>pageFor(s)?.id===p.id).map(s=>s.tab_id)}));
-  const remaining=new Map();
-  sections.filter(s=>!pageFor(s)).forEach(s=>{const key=titleKey(s.title)||s.tab_id;if(!remaining.has(key)){const group={kind:'section',id:s.tab_id,title:s.title,sectionIds:[]};remaining.set(key,group);groups.push(group);}remaining.get(key).sectionIds.push(s.tab_id);});
-  groups.push({kind:'page',id:'none',title:'Без страницы',sectionIds:[]},{kind:'section',id:'outside',title:'Другие задачи ТЗ',sectionIds:[]});
-  const matches=(t,g)=>g.kind==='page'&&g.id==='none'?!t.page_ids?.length:g.kind==='section'&&g.id==='outside'?sectionOf(t)==='outside':(g.kind==='page'&&(t.page_ids||[]).includes(g.id))||g.sectionIds.includes(sectionOf(t));
-  let current=choice?groups.find(g=>g.kind===choice.kind&&g.id===choice.id||choice.kind==='section'&&g.sectionIds.includes(choice.id)):null;
-  const options=groups.map(g=>({...g,count:ordinary.filter(t=>matches(t,g)).length}));
-  // General tasks with no page/source should not appear twice under two names.
-  const none=options.find(g=>g.kind==='page'&&g.id==='none'),outside=options.find(g=>g.kind==='section'&&g.id==='outside');
-  const sameGeneral=none.count>0&&none.count===outside.count&&ordinary.every(t=>matches(t,none)===matches(t,outside));
-  if(sameGeneral){outside.title='Общие задачи ТЗ';if(current===groups.find(g=>g.kind==='page'&&g.id==='none'))current=groups.find(g=>g.kind==='section'&&g.id==='outside');}
-  const currentChoice=current?{kind:current.kind,id:current.id}:null;
-  const browseOptions=options.filter(g=>(g.count||current?.kind===g.kind&&current?.id===g.id)&&!(sameGeneral&&g.kind==='page'&&g.id==='none'));
+  const groups=[{kind:'page',id:SITE_TASKS_ID,title:SITE_TASKS_TITLE},...pages.map(p=>({kind:'page',id:p.id,title:p.title}))];
+  let currentChoice=choice;
+  if(choice?.kind==='section'){
+    const section=sections.find(s=>s.tab_id===choice.id);
+    currentChoice={kind:'page',id:section&&sectionPage(section,pages)?.id||SITE_TASKS_ID};
+  }else if(choice?.kind==='page'&&choice.id==='none')currentChoice={kind:'page',id:SITE_TASKS_ID};
+  const current=groups.find(g=>g.kind===currentChoice?.kind&&g.id===currentChoice?.id);
+  currentChoice=current?{kind:current.kind,id:current.id}:null;
+  const matches=(task,group)=>taskDestination(task,pages,sections)===group.id;
+  const browseOptions=groups.map(g=>({...g,count:ordinary.filter(t=>matches(t,g)).length})).filter(g=>g.count||g.id===current?.id);
   const selected=current?ordinary.filter(t=>matches(t,current)):!choice&&explicit?ordinary:[];
-  return {urgent,selected,browseOptions,currentChoice,pageOptions:browseOptions.filter(g=>g.kind==='page'),sectionOptions:browseOptions.filter(g=>g.kind==='section'),ready:!!choice||explicit,totalOrdinary:ordinary.length};
+  return {urgent,selected,browseOptions,currentChoice,pageOptions:browseOptions,sectionOptions:[],ready:!!choice||explicit,totalOrdinary:ordinary.length};
 }
 
 // A page card never includes tasks linked only to another page.
-export function pageTaskModel(tasks,pageId,me,scope='mine',status='open'){
-  const linked=tasks.filter(t=>(t.page_ids||[]).includes(pageId));
+export function pageTaskModel(tasks,pageId,me,scope='mine',status='open',pages=[],sections=[]){
+  const linked=tasks.filter(t=>taskDestination(t,pages,sections)===pageId);
   const filters={owner:'all',creator:'all',query:'',urgent:false,me};
   const scoped=selectTasks(linked,{...filters,scope,status:'all'});
   const modes=['mine','assigned','all'].map(id=>({id,count:selectTasks(linked,{...filters,scope:id,status}).length}));

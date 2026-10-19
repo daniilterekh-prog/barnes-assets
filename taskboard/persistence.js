@@ -21,14 +21,14 @@ export function normalizeView(raw,board,me){
   const ids=(board.members||[]).map(m=>m.id),pages=(board.pages||[]).map(p=>p.id),sections=(board.spec_sections||[]).map(s=>s.tab_id),tasks=(board.tasks||[]).map(t=>t.id);
   const unique=(value,allowed)=>(Array.isArray(value)?[...new Set(value)].filter(id=>allowed.includes(id)):[]).slice(0,1000);
   const statuses=['open','all','unmarked','progress','done','obsolete'];
-  const mineOrigin=choice(raw.mineOrigin,['spec','telegram'],null);
+  const mineOrigin=choice(raw.mineOrigin,['spec','telegram','other'],null);
   let mineBrowse=null;
-  if(mineOrigin==='spec'&&raw.mineBrowse){const c=raw.mineBrowse;if(c.kind==='page'&&[...pages,'none'].includes(c.id)||c.kind==='section'&&[...sections,'outside'].includes(c.id))mineBrowse={kind:c.kind,id:c.id};}
+  if(['spec','other'].includes(mineOrigin)&&raw.mineBrowse){const c=raw.mineBrowse;if(c.kind==='page'&&[...pages,'none','site-wide'].includes(c.id)||c.kind==='section'&&[...sections,'outside'].includes(c.id))mineBrowse={kind:c.kind,id:c.id};}
   return {
     screen:raw.screen,view:choice(raw.view,['tasks','pages'],'tasks'),scope:choice(raw.scope,['mine','assigned'],'mine'),
     owner:choice(raw.owner,['all',...ids],'all'),creator:choice(raw.creator,['all','unknown',...ids],'all'),questionsTo:null,
     query:text(raw.query),pageQuery:text(raw.pageQuery),status:choice(raw.status,statuses,'open'),deadline:choice(raw.deadline,['all','overdue','today','week','none'],'all'),urgent:raw.urgent===true,
-    mineOrigin,mineBrowse,selectedTask:tasks.includes(raw.selectedTask)?raw.selectedTask:null,selectedPage:pages.includes(raw.selectedPage)?raw.selectedPage:null,wikiScope:choice(raw.wikiScope,['mine','assigned','all'],'mine'),wikiStatus:choice(raw.wikiStatus,statuses,'open'),
+    mineOrigin,mineBrowse,selectedTask:tasks.includes(raw.selectedTask)?raw.selectedTask:null,selectedPage:[...pages,'site-wide'].includes(raw.selectedPage)?raw.selectedPage:null,wikiScope:choice(raw.wikiScope,['mine','assigned','all'],'mine'),wikiStatus:choice(raw.wikiStatus,statuses,'open'),
     expanded:unique(raw.expanded,['spec','telegram']),specExpanded:unique(raw.specExpanded,['general',...pages.map(id=>'page:'+id),...sections.map(id=>'source:'+id)]),detailsExpanded:unique(raw.detailsExpanded,tasks),
     scrollY:typeof raw.scrollY==='number'&&Number.isFinite(raw.scrollY)?Math.max(0,Math.min(raw.scrollY,1000000)):0
   };
