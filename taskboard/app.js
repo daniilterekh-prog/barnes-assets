@@ -1,20 +1,23 @@
-import {setupAttachments} from './attachments.js?v=20261019-open';
-import {setupDiscussion} from './discussion.js?v=20261019-open';
-import {icon} from './icons.js?v=20261019-open';
+import {setupGateway} from './gateway.js?v=20261019-gateway';
+import {setupAttachments} from './attachments.js?v=20261019-gateway';
+import {setupDiscussion} from './discussion.js?v=20261019-gateway';
+import {icon} from './icons.js?v=20261019-gateway';
 import { API_URL } from './config.js';
-import { STATUSES, selectTasks, summarize, safeSource, safeHttps, taskDateLabel, splitTaskBuckets, groupSpecTasks, programmerMood, mergeTask, deadlineInfo, moscowDay, shiftDay } from './domain.js?v=20261019-open';
+import { STATUSES, selectTasks, summarize, safeSource, safeHttps, taskDateLabel, splitTaskBuckets, groupSpecTasks, programmerMood, mergeTask, deadlineInfo, moscowDay, shiftDay, personalBrowseModel } from './domain.js?v=20261019-gateway';
 
-import {renderWiki} from './wiki.js?v=20261019-open';
+import {renderWiki} from './wiki.js?v=20261019-gateway';
 
 const $ = id => document.getElementById(id);
 const SESSION_KEY = 'barn-taskboard-session-v1';
 const state = { session: null, board: null, owner: 'all', status: 'open', urgent: false, query: '', busy: new Set(), signature: '', fetching: false, toastTimer: null };
 const ownerIds = () => state.board?.members.filter(m=>!['tatyana','team'].includes(m.id)).map(m=>m.id) || [];
 let createRequestId=null, creatingTask=false, editingTask=null, editingPage=null, savingPage=false;
+state.screen='gateway';state.mineBrowse=null;state.createFromGateway=false;
 state.scope='mine'; state.creator='all'; state.questionsTo=null;state.deadline='all';
 state.view='tasks'; state.expanded=new Set(); state.openPages=new Set(); state.pageQuery='';
 const dateFormat = new Intl.DateTimeFormat('ru', {day:'numeric',month:'short',hour:'2-digit',minute:'2-digit',timeZone:'Europe/Moscow'});
 const attachments=setupAttachments({api,getSession:()=>state.session,getBoard:()=>state.board,acceptBoard,member,toast,onUnauthorized:showLogin});
+const gateway=setupGateway(chooseDestination);
 const discussion=setupDiscussion({api,getSession:()=>state.session,getBoard:()=>state.board,acceptBoard,member,toast,onUnauthorized:showLogin});
 
 function el(tag, className, text) {
@@ -78,12 +81,33 @@ function acceptBoard(data) {
   setConnection(true,'Сохранено');
 }
 function showBoard() {
+  state.screen='board';$('gateway-view').hidden=true;$('skip-link').hidden=false;
   $('login-view').hidden = true; $('board-view').hidden = false;
   $('my-name').textContent = member(state.session.member).name;
   $('my-avatar').className = 'avatar ' + member(state.session.member).color;
   $('my-avatar').textContent = member(state.session.member).initials;
 }
+function showGateway(){
+  if(!state.session||!state.board)return;
+  state.screen='gateway';state.createFromGateway=false;
+  $('login-view').hidden=true;$('board-view').hidden=true;$('skip-link').hidden=true;
+  clearTimeout(state.toastTimer);$('toast').hidden=true;gateway.show();
+}
+function chooseDestination(route){
+  if(!state.session||!state.board)return;
+  state.mineBrowse=null;state.query='';$('search').value='';state.owner='all';state.creator='all';state.questionsTo=null;state.deadline='all';state.status='open';state.urgent=false;
+  state.pageQuery='';$('page-search').value='';state.expanded.clear();state.specExpanded?.clear();state.scope=route==='assigned'?'assigned':'mine';state.view=route==='site'?'pages':'tasks';
+  $('nav-mine').open=state.scope==='mine';$('nav-assigned').open=state.scope==='assigned';
+  showBoard();render();
+  const board=$('board-view');board.classList.remove('arriving');void board.offsetWidth;board.classList.add('arriving');
+  if(route==='create'){state.createFromGateway=true;openTask();}
+  else if(route==='site')$('page-search').focus({preventScroll:true});
+  else $('board-title').focus({preventScroll:true});
+  window.scrollTo({top:0,behavior:'instant'});
+}
+$('gateway-back').onclick=e=>{e.preventDefault();showGateway();};
 function showLogin(message = '') {
+  gateway.reset();$('gateway-view').hidden=true;$('skip-link').hidden=false;state.screen='login';state.mineBrowse=null;state.createFromGateway=false;
   attachments.reset();discussion.reset();$('deadline-dialog').close();deadlineTask=null;state.deadline='all';state.questionsTo=null;state.session = null; state.board = null; state.signature = ''; state.busy.clear();state.expanded.clear();state.specExpanded?.clear();state.openPages.clear();state.view='tasks';state.owner='all';state.scope='mine';state.creator='all';
   state.status='open';state.urgent=false;state.query='';$('search').value='';
   $('nav-mine').open=true;$('nav-assigned').open=false;
@@ -131,7 +155,7 @@ function renderNav() {
   $('from-member').value=state.creator;
   $('to-member').value=state.scope==='assigned'?state.owner:'all';
 }
-function setScope(scope) { state.questionsTo=null; state.scope=scope;state.owner='all';state.creator='all';if(scope!=='all')$('nav-'+scope).open=true;render(); }
+function setScope(scope) { if(scope==='mine'&&state.scope!=='mine')state.mineBrowse=null;state.questionsTo=null; state.scope=scope;state.owner='all';state.creator='all';if(scope!=='all')$('nav-'+scope).open=true;render(); }
 function setOwner(id) { state.questionsTo=null; state.scope='all';state.creator='all';state.owner=id;render(); }
 $('scope-questions').onclick=()=>{state.scope='all';state.owner='all';state.creator='all';state.status='all';state.urgent=false;state.query='';$('search').value='';state.questionsTo=state.session.member;render();};
 $('scope-all').onclick=()=>setScope('all');
@@ -170,15 +194,20 @@ function render() {
   const visible=selectTasks(state.board.tasks,{...state,me:state.session?.member});
   $('visible-count').textContent='Показано '+visible.length+' из '+counts.total;
   const list=$('tasks'); list.replaceChildren();
-  const buckets=splitTaskBuckets(visible);
+  const personal=state.scope==='mine'&&!state.questionsTo;
+  const browse=personal?personalBrowseModel(visible,state.board.pages||[],state.board.spec_sections||[],state.mineBrowse,!!state.query.trim()||state.status!=='open'||state.deadline!=='all'||state.creator!=='all'):null;
+  const buckets=splitTaskBuckets(browse?[...browse.urgent,...browse.selected]:visible);
+  if(browse)$('visible-count').textContent= browse.ready?'Показано '+(browse.urgent.length+browse.selected.length)+' из '+visible.length+' моих задач':'Срочные · '+browse.urgent.length;
   if(buckets.urgent.length){
     const urgent=el('section','urgent-block'),heading=el('h2','urgent-heading');
     const fire=icon('flame','fire');fire.setAttribute('aria-hidden','true');
     heading.append(fire,el('span','','Срочные'),el('span','group-counter',String(buckets.urgent.length)));
     urgent.append(heading);buckets.urgent.forEach(t=>urgent.append(renderTask(t,{level:3,showOwner:true})));list.append(urgent);
   }
+  if(browse){renderMinePicker(list,browse);if(!browse.ready)return;}
   state.specExpanded ||= new Set();
   [['telegram','Telegram'],['spec','ТЗ']].forEach(([origin,label])=>{
+    if(browse&&!buckets[origin].length)return;
     const bucket=el('details','source-bucket');bucket.dataset.origin=origin;bucket.open=state.expanded.has(origin);
     const summary=el('summary','source-summary');summary.append(el('h2','',label),el('span','',String(buckets[origin].length)));bucket.append(summary);
     bucket.addEventListener('toggle',()=>{if(!bucket.isConnected)return;bucket.open?state.expanded.add(origin):state.expanded.delete(origin);});
@@ -199,6 +228,30 @@ function render() {
     });
     bucket.append(contents);list.append(bucket);
   });
+}
+function renderMinePicker(list,model){
+  const section=el('section','mine-browser'),heading=el('h2','','Остальные задачи');
+  const controls=el('div','mine-browser-controls');
+  [['page','Страница сайта',model.pageOptions,'Выбери страницу'],['section','Раздел Экстра ТЗ',model.sectionOptions,'Или раздел Экстра ТЗ']].forEach(([kind,label,options,prompt])=>{
+    const field=el('div','mine-browser-field'),id='mine-'+kind,caption=el('label','',label),select=el('select','');caption.htmlFor=id;select.id=id;
+    const empty=el('option','',prompt);empty.value='';select.append(empty);
+    options.forEach(item=>{const option=el('option','',item.title+' · '+item.count);option.value=item.id;select.append(option);});
+    select.disabled=!options.length;select.value=state.mineBrowse?.kind===kind?state.mineBrowse.id:'';
+    select.onchange=()=>{state.mineBrowse=select.value?{kind,id:select.value}:null;
+      if(state.mineBrowse){
+        const visible=selectTasks(state.board.tasks,{...state,me:state.session.member});
+        const chosen=personalBrowseModel(visible,state.board.pages||[],state.board.spec_sections||[],state.mineBrowse);
+        chosen.selected.forEach(t=>state.expanded.add(t.origin==='telegram'?'telegram':'spec'));state.specExpanded ||= new Set();
+        groupSpecTasks(chosen.selected.filter(t=>t.origin!=='telegram'),state.board.pages||[],state.board.spec_sections||[]).forEach(s=>state.specExpanded.add(s.id));
+      }render();$(id)?.focus({preventScroll:true});};field.append(caption,select);controls.append(field);
+  });
+  if(state.mineBrowse){const reset=el('button','filter-button','Сбросить выбор');reset.type='button';reset.onclick=()=>{state.mineBrowse=null;render();$('mine-page').focus({preventScroll:true});};controls.append(reset);}
+  section.append(heading,controls);
+  if(!model.urgent.length&&!model.ready)section.append(el('p','muted','Срочных задач нет. Выбери страницу или раздел ниже, чтобы открыть остальные задачи.'));
+  else if(!model.ready)section.append(el('p','muted','Выбери страницу или раздел, чтобы открыть остальные задачи.'));
+  if(model.ready&&!model.selected.length)section.append(el('p','muted','По этому выбору других задач нет.'));
+  else if(!model.totalOrdinary)section.append(el('p','muted','Других задач по текущим условиям нет.'));
+  list.append(section);
 }
 function renderPages(){
   if(!state.board)return;
@@ -321,6 +374,7 @@ function openTask(task=null,pageId=null) {
 $('task-create-open').onclick=()=>openTask();
 $('task-create-close').onclick=()=>{if(!creatingTask)$('task-create-dialog').close();};
 $('task-create-dialog').addEventListener('cancel',event=>{if(creatingTask)event.preventDefault();});
+$('task-create-dialog').addEventListener('close',()=>{if(state.createFromGateway){state.createFromGateway=false;showGateway();}});
 $('task-create-form').addEventListener('submit',async event=>{
   event.preventDefault();if(creatingTask)return;
   const title=$('task-title').value.trim();if(!title){$('task-create-error').textContent='Напиши, что нужно сделать.';$('task-title').focus();return;}
@@ -331,6 +385,9 @@ $('task-create-form').addEventListener('submit',async event=>{
     const data=await api(editingTask?'task_save':'create',editingTask?{...body,id:editingTask.id,revision:Number(editingTask.revision)}:{...body,request_id:createRequestId});
     if(state.session?.token!==token)return;
     state.scope='all';state.creator='all';state.questionsTo=null;state.deadline='all';state.owner=body.owner;state.status='open';state.urgent=false;state.query='';$('search').value='';state.expanded.add(body.origin);
+    state.createFromGateway=false;
+    const created=data.tasks.find(t=>t.id===data.created_task_id);
+    if(created?.origin==='spec'){state.specExpanded ||= new Set();groupSpecTasks([created],data.pages||[],data.spec_sections||[]).forEach(s=>state.specExpanded.add(s.id));}
     acceptBoard(data);render();$('task-create-dialog').close();toast(editingTask?'Задача сохранена':'Задача добавлена');
     if(state.view==='tasks')$('tasks').querySelector('[data-task="'+data.created_task_id+'"] .task-toggle')?.focus();
   }catch(error){
@@ -385,8 +442,7 @@ $('login-form').addEventListener('submit',async event=>{
   try {
     state.session=await api('login',{member:$('member').value});
     sessionStorage.setItem(SESSION_KEY,JSON.stringify(state.session));
-    acceptBoard(await api('board')); showBoard();
-    $('tasks').focus({preventScroll:true});
+    acceptBoard(await api('board')); showGateway();
   } catch(error) {
     state.session=null; sessionStorage.removeItem(SESSION_KEY); $('login-error').textContent=error.message;
   } finally { $('login-submit').disabled=false; }
@@ -413,7 +469,7 @@ try {
   const saved=JSON.parse(sessionStorage.getItem(SESSION_KEY)||'null');
   if (saved?.token && saved.expires_at>Date.now()/1000) {
     state.session=saved;
-    try { acceptBoard(await api('board')); showBoard(); }
+    try { acceptBoard(await api('board')); showGateway(); }
     catch(error) { showLogin(error.status===401?error.message:'Нет связи с доской. Войдите ещё раз, когда интернет восстановится.'); }
   } else sessionStorage.removeItem(SESSION_KEY);
 } catch { sessionStorage.removeItem(SESSION_KEY); }

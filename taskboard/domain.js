@@ -97,3 +97,21 @@ export function groupSpecTasks(tasks,pages=[],sections=[]){
   }
   return [...groups.values()].sort((a,b)=>a.order-b.order);
 }
+
+export function personalBrowseModel(tasks,pages,sections,choice=null,explicit=false){
+  const {urgent,...rest}=splitTaskBuckets(tasks),ordinary=[...rest.telegram,...rest.spec];
+  const sourceKey=value=>{try{const u=new URL(value);return u.origin+u.pathname.replace(/\/edit$/,'')+'?tab='+(u.searchParams.get('tab')||'');}catch{return '';}};
+  const sectionSources=new Map(sections.map(s=>[sourceKey(s.source_url),s.tab_id]));
+  const sectionOf=t=>t.origin==='spec'?sectionSources.get(sourceKey(t.source_url))||'outside':'outside';
+  const pageOptions=pages.map(p=>({id:p.id,title:p.title,count:ordinary.filter(t=>(t.page_ids||[]).includes(p.id)).length})).filter(p=>p.count||choice?.kind==='page'&&choice.id===p.id);
+  const noPage=ordinary.filter(t=>!t.page_ids?.length).length;
+  if(noPage||choice?.kind==='page'&&choice.id==='none')pageOptions.push({id:'none',title:'Без страницы',count:noPage});
+  const sectionOptions=sections.map(s=>({id:s.tab_id,title:s.title,count:ordinary.filter(t=>sectionOf(t)===s.tab_id).length})).filter(s=>s.count||choice?.kind==='section'&&choice.id===s.id);
+  const outside=ordinary.filter(t=>sectionOf(t)==='outside').length;
+  if(outside||choice?.kind==='section'&&choice.id==='outside')sectionOptions.push({id:'outside',title:'Вне Экстра ТЗ',count:outside});
+  let selected=[];
+  if(choice?.kind==='page')selected=ordinary.filter(t=>choice.id==='none'?!t.page_ids?.length:(t.page_ids||[]).includes(choice.id));
+  else if(choice?.kind==='section')selected=ordinary.filter(t=>sectionOf(t)===choice.id);
+  else if(explicit)selected=ordinary;
+  return {urgent,selected,pageOptions,sectionOptions,ready:!!choice||explicit,totalOrdinary:ordinary.length};
+}

@@ -1,5 +1,5 @@
-import {icon} from './icons.js?v=20261019-open';
-import {safeHttps} from './domain.js?v=20261019-open';
+import {icon} from './icons.js?v=20261019-gateway';
+import {safeHttps} from './domain.js?v=20261019-gateway';
 const node=(tag,cls,text)=>{const e=document.createElement(tag);e.className=cls||'';if(text!==undefined)e.textContent=text;return e;};
 export function renderWiki(container,{pages,tasks,query,openPages,onToggle,onEdit,onTask,renderTask}) {
   container.replaceChildren();

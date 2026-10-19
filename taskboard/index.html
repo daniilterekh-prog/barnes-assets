@@ -10,13 +10,13 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; connect-src https://turkish-property.ru http://127.0.0.1:8788; object-src 'none'; base-uri 'none'; form-action 'self'">
   <title>Рабочая доска — BARN Estate</title>
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="./style.css?v=20261019-open">
+  <link rel="stylesheet" href="./style.css?v=20261019-gateway">
   <link rel="stylesheet" href="./preloader.css">
   <script type="module" src="./preloader.js"></script>
-  <script type="module" src="./app.js?v=20261019-open"></script>
+  <script type="module" src="./app.js?v=20261019-gateway"></script>
 </head>
 <body>
-  <a class="skip" href="#tasks">К задачам</a>
+  <a id="skip-link" class="skip" href="#tasks">К задачам</a>
   <div id="login-view" class="entry">
     <main class="entry-main">
       <div class="entry-form">
@@ -25,16 +25,24 @@
           <label for="member">Имя</label>
           <select id="member" name="member" required disabled><option value="">Загружаем команду…</option></select>
           <p id="login-error" class="error" role="alert"></p>
-          <button id="login-submit" class="primary" type="submit" disabled>Войти <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-open#arrow-up-right"></use></svg></button>
+          <button id="login-submit" class="primary" type="submit" disabled>Войти <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-gateway#arrow-up-right"></use></svg></button>
         </form>
         <button id="retry-meta" class="text-button" type="button" hidden>Повторить загрузку</button>
       </div>
     </main>
   </div>
 
+  <main id="gateway-view" class="gateway" aria-label="Выбери раздел" hidden>
+    <div id="gateway-wheel" class="gateway-wheel" role="group" aria-label="Разделы рабочей доски">
+      <button class="gateway-sector sector-mine" type="button" data-route="mine"><span>Мои<br>задачи</span></button>
+      <button class="gateway-sector sector-assigned" type="button" data-route="assigned"><span>Поставленные<br>мной</span></button>
+      <button class="gateway-sector sector-create" type="button" data-route="create"><span>Новая<br>задача</span></button>
+      <button class="gateway-sector sector-site" type="button" data-route="site"><span>Сайт</span></button>
+    </div>
+  </main>
   <div id="board-view" class="workspace" hidden>
     <aside class="sidebar">
-      <a class="wordmark side-brand" href="./" aria-label="BARN Estate — рабочая доска">BARN.</a>
+      <a id="gateway-back" class="wordmark side-brand" href="#start" aria-label="Вернуться к выбору раздела">BARN.</a>
       <nav class="workspace-views" aria-label="Разделы"><button id="view-tasks" class="view-tab active" type="button">Задачи</button><button id="view-pages" class="view-tab" type="button">Страницы сайта</button></nav>
       <nav id="owner-nav" aria-label="Задачи по участникам">
         <details id="nav-mine" class="scope-group" open><summary>Мои задачи <span id="nav-mine-count"></span></summary><label class="nav-filter" for="from-member">От кого<select id="from-member"></select></label></details>
@@ -45,18 +53,18 @@
       </nav>
       <div class="sidebar-bottom">
         <div class="connection"><span id="connection-dot" class="live-dot"></span><span id="sync-label" role="status">Подключение…</span></div>
-        <button id="history-open" class="sidebar-action" type="button"><span aria-hidden="true"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-open#rotate-ccw"></use></svg></span> История изменений</button>
-        <div class="identity"><span id="my-avatar" class="avatar"></span><span id="my-name"></span><button id="logout" type="button" aria-label="Выйти из рабочей доски" title="Выйти"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-open#log-out"></use></svg></button></div>
+        <button id="history-open" class="sidebar-action" type="button"><span aria-hidden="true"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-gateway#rotate-ccw"></use></svg></span> История изменений</button>
+        <div class="identity"><span id="my-avatar" class="avatar"></span><span id="my-name"></span><button id="logout" type="button" aria-label="Выйти из рабочей доски" title="Выйти"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-gateway#log-out"></use></svg></button></div>
       </div>
     </aside>
     <div class="main-shell">
-      <header class="topbar"><button id="refresh" class="icon-button" type="button" aria-label="Обновить задачи" title="Обновить"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-open#refresh-cw"></use></svg></button><button id="mobile-history" class="icon-button" type="button" aria-label="История изменений" title="История"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-open#rotate-ccw"></use></svg></button></header>
+      <header class="topbar"><button id="refresh" class="icon-button" type="button" aria-label="Обновить задачи" title="Обновить"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-gateway#refresh-cw"></use></svg></button><button id="mobile-history" class="icon-button" type="button" aria-label="История изменений" title="История"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-gateway#rotate-ccw"></use></svg></button></header>
       <main class="main-content">
-        <div class="page-heading"><h1 id="board-title">ЗАДАЧИ.</h1><div class="heading-actions"><button id="page-create-open" class="filter-button" type="button" hidden>Добавить страницу <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-open#plus"></use></svg></button><button id="task-create-open" class="primary" type="button">Добавить задачу <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-open#plus"></use></svg></button></div></div>
+        <div class="page-heading"><h1 id="board-title" tabindex="-1">ЗАДАЧИ.</h1><div class="heading-actions"><button id="page-create-open" class="filter-button" type="button" hidden>Добавить страницу <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-gateway#plus"></use></svg></button><button id="task-create-open" class="primary" type="button">Добавить задачу <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-gateway#plus"></use></svg></button></div></div>
         <div id="tasks-view">
         <section class="overview" aria-label="Прогресс команды">
           <div id="progress-scene" class="progress-summary mood-fire">
-            <div class="summary-top"><span>Общий прогресс</span><button id="urgent-summary" class="urgent-summary" type="button" aria-pressed="false"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-open#flame"></use></svg> Срочные <strong id="count-urgent">0</strong></button></div>
+            <div class="summary-top"><span>Общий прогресс</span><button id="urgent-summary" class="urgent-summary" type="button" aria-pressed="false"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-gateway#flame"></use></svg> Срочные <strong id="count-urgent">0</strong></button></div>
             <div class="programmer-stage"><div class="progress-story"><strong id="progress-percent">0%</strong><span id="progress-mood">Всё горит. Жду первую галочку.</span><span id="progress-label">0 / 25</span></div>
             <svg class="programmer" viewBox="0 0 280 160" aria-hidden="true">
               <g class="flames" fill="#ff743d"><path class="flame f1" d="M30 138Q5 114 27 87Q24 108 39 103Q42 77 53 67Q46 103 67 114Q83 139 60 146Z"/><path class="flame f2" d="M216 144Q194 117 221 91Q212 115 229 109Q235 76 246 65Q235 108 256 119Q270 144 246 148Z"/><path class="flame f3" d="M96 148Q73 133 94 106Q91 123 103 120Q109 102 119 95Q109 128 125 139L121 150Z"/></g>
@@ -78,28 +86,28 @@
         <div id="board-error" class="board-error" role="alert" hidden></div>
         <div class="toolbar">
           <div class="view-tabs" aria-label="Список задач"><button id="tab-mine" class="view-tab active" type="button">Мои задачи</button><button id="tab-assigned" class="view-tab" type="button">Я поставил</button><button id="tab-all" class="view-tab" type="button">Все задачи <span id="total-count">25</span></button></div>
-          <div class="toolbar-tools"><label class="search"><span aria-hidden="true"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-open#search"></use></svg></span><input id="search" type="search" placeholder="Найти задачу" aria-label="Поиск задач"></label><label class="sr-only" for="status-filter">Статус задач</label><select id="status-filter"><option value="open">Открытые задачи</option><option value="all">Все статусы</option><option value="unmarked">Не отмечено</option><option value="progress">В работе</option><option value="done">Сделано</option><option value="obsolete">Не актуально</option></select><label class="sr-only" for="deadline-filter">Сроки задач</label><select id="deadline-filter"><option value="all">Все сроки</option><option value="overdue">Просрочено</option><option value="today">Сегодня</option><option value="week">Ближайшие 7 дней</option><option value="none">Без срока</option></select><button id="urgent-filter" class="filter-button" type="button" aria-pressed="false"><span aria-hidden="true"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-open#flag"></use></svg></span> Срочные</button></div>
+          <div class="toolbar-tools"><label class="search"><span aria-hidden="true"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-gateway#search"></use></svg></span><input id="search" type="search" placeholder="Найти задачу" aria-label="Поиск задач"></label><label class="sr-only" for="status-filter">Статус задач</label><select id="status-filter"><option value="open">Открытые задачи</option><option value="all">Все статусы</option><option value="unmarked">Не отмечено</option><option value="progress">В работе</option><option value="done">Сделано</option><option value="obsolete">Не актуально</option></select><label class="sr-only" for="deadline-filter">Сроки задач</label><select id="deadline-filter"><option value="all">Все сроки</option><option value="overdue">Просрочено</option><option value="today">Сегодня</option><option value="week">Ближайшие 7 дней</option><option value="none">Без срока</option></select><button id="urgent-filter" class="filter-button" type="button" aria-pressed="false"><span aria-hidden="true"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-gateway#flag"></use></svg></span> Срочные</button></div>
         </div>
         <div class="list-caption"><span id="list-description">Все исполнители</span><span id="visible-count"></span></div>
         <section id="tasks" class="task-list" aria-label="Задачи команды" tabindex="-1"></section>
         </div>
-        <section id="pages-view" hidden aria-label="Страницы сайта"><label class="search wiki-search"><span aria-hidden="true"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-open#search"></use></svg></span><input id="page-search" type="search" aria-label="Поиск страниц" placeholder="Найти страницу"></label><div id="wiki-cards"></div></section>
+        <section id="pages-view" hidden aria-label="Страницы сайта"><label class="search wiki-search"><span aria-hidden="true"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-gateway#search"></use></svg></span><input id="page-search" type="search" aria-label="Поиск страниц" placeholder="Найти страницу"></label><div id="wiki-cards"></div></section>
       </main>
     </div>
   </div>
   <dialog id="task-create-dialog" aria-labelledby="task-create-title">
-    <div class="dialog-head"><h2 id="task-create-title">Новая задача</h2><button id="task-create-close" class="icon-button" type="button" aria-label="Закрыть новую задачу"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-open#x"></use></svg></button></div>
+    <div class="dialog-head"><h2 id="task-create-title">Новая задача</h2><button id="task-create-close" class="icon-button" type="button" aria-label="Закрыть новую задачу"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-gateway#x"></use></svg></button></div>
     <form id="task-create-form">
       <label for="task-title">Задача</label><input id="task-title" name="title" required maxlength="150" placeholder="Что нужно сделать" autocomplete="off">
       <label for="task-owner">Исполнитель</label><select id="task-owner" name="owner" required></select>
       <div class="task-field-row"><div><label for="task-origin">Источник</label><select id="task-origin"><option value="spec">ТЗ</option><option value="telegram">Telegram</option></select></div><div><label for="task-date">Дата постановки</label><input id="task-date" type="date" required></div></div>
       <label for="task-due">Дедлайн</label><input id="task-due" type="date"><p class="field-hint">До конца выбранного дня по Москве. Можно оставить пустым.</p>
       <details class="create-details"><summary>Описание и срочность</summary><label for="task-detail">Описание</label><textarea id="task-detail" name="detail" maxlength="600" rows="3" placeholder="Детали, если нужны"></textarea><label for="task-source">Ссылка на поручение</label><input id="task-source" type="url" pattern="https://.*" maxlength="600" placeholder="https://…"><fieldset id="task-pages"><legend>Страницы сайта</legend></fieldset><label class="urgent-choice"><input id="task-urgent" name="urgent" type="checkbox"> Срочная задача</label></details>
-      <p id="task-create-error" class="error" role="alert"></p><button id="task-create-submit" class="primary" type="submit">Добавить <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-open#arrow-up-right"></use></svg></button>
+      <p id="task-create-error" class="error" role="alert"></p><button id="task-create-submit" class="primary" type="submit">Добавить <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-gateway#arrow-up-right"></use></svg></button>
     </form>
   </dialog>
   <dialog id="page-dialog" aria-labelledby="page-dialog-title">
-    <div class="dialog-head"><h2 id="page-dialog-title">Страница сайта</h2><button id="page-close" class="icon-button" type="button" aria-label="Закрыть страницу"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-open#x"></use></svg></button></div>
+    <div class="dialog-head"><h2 id="page-dialog-title">Страница сайта</h2><button id="page-close" class="icon-button" type="button" aria-label="Закрыть страницу"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-gateway#x"></use></svg></button></div>
     <form id="page-form"><label for="page-name">Название</label><input id="page-name" required maxlength="100" autocomplete="off">
       <div class="page-version-fields"><h3>Фронт</h3><label for="page-front-url">Ссылка на фронт</label><input id="page-front-url" type="url" pattern="https://.*" maxlength="600" placeholder="https://…"><label for="page-front-version">Версия фронта</label><input id="page-front-version" maxlength="80" placeholder="Коммит, дата или название версии"></div>
       <div class="page-version-fields"><h3>Живой сайт</h3><label for="page-live-url">Ссылка на живую страницу</label><input id="page-live-url" type="url" pattern="https://.*" maxlength="600" placeholder="https://…"><label for="page-live-version">Версия на сайте</label><input id="page-live-version" maxlength="80" placeholder="Дата публикации или версия"></div>
@@ -109,11 +117,11 @@
     </form>
   </dialog>
   <dialog id="deadline-dialog" aria-labelledby="deadline-title">
-    <div class="dialog-head"><div><span class="discussion-eyebrow">Дедлайн задачи</span><h2 id="deadline-title"></h2></div><button id="deadline-close" class="icon-button" type="button" aria-label="Закрыть дедлайн"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="./icons.svg?v=20261019-open#x"></use></svg></button></div>
+    <div class="dialog-head"><div><span class="discussion-eyebrow">Дедлайн задачи</span><h2 id="deadline-title"></h2></div><button id="deadline-close" class="icon-button" type="button" aria-label="Закрыть дедлайн"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="./icons.svg?v=20261019-gateway#x"></use></svg></button></div>
     <form id="deadline-form"><label for="deadline-date">Выполнить до</label><input id="deadline-date" type="date"><p class="field-hint">До 23:59 выбранного дня по Москве.</p><div class="deadline-presets"><button type="button" data-due-offset="0" class="filter-button">Сегодня</button><button type="button" data-due-offset="1" class="filter-button">Завтра</button><button type="button" data-due-offset="7" class="filter-button">Через неделю</button><button id="deadline-clear" type="button" class="filter-button">Без срока</button></div><p id="deadline-error" class="error" role="alert"></p><button id="deadline-submit" type="submit" class="primary">Сохранить срок</button></form>
   </dialog>
   <dialog id="discussion-dialog" aria-labelledby="discussion-title">
-    <div class="dialog-head"><div><span class="discussion-eyebrow">Обсуждение задачи</span><h2 id="discussion-title"></h2></div><button id="discussion-close" class="icon-button" type="button" aria-label="Закрыть обсуждение"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-open#x"></use></svg></button></div>
+    <div class="dialog-head"><div><span class="discussion-eyebrow">Обсуждение задачи</span><h2 id="discussion-title"></h2></div><button id="discussion-close" class="icon-button" type="button" aria-label="Закрыть обсуждение"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-gateway#x"></use></svg></button></div>
     <div id="discussion-scroll"><button id="discussion-earlier" class="filter-button" type="button" hidden>Показать ранние сообщения</button><div id="discussion-messages" aria-label="Сообщения"></div><p id="discussion-count" class="sr-only" role="status"></p></div>
     <form id="discussion-form"><div class="discussion-fields"><div><label for="discussion-kind">Тип сообщения</label><select id="discussion-kind"><option value="comment">Комментарий</option><option value="completion">Отчёт о выполнении</option><option value="question">Вопрос</option></select></div><div id="discussion-recipient-field" hidden><label for="discussion-recipient">Кому вопрос</label><select id="discussion-recipient"></select></div></div>
     <div id="discussion-reply" class="reply-banner" hidden><span id="discussion-reply-label"></span><button id="discussion-reply-cancel" class="text-button" type="button">Отменить ответ</button></div>
@@ -132,7 +140,7 @@
     </form>
     <div id="attachment-gallery" class="attachment-gallery" aria-live="polite"></div>
   </dialog>
-  <dialog id="history-dialog" aria-labelledby="history-title"><div class="dialog-head"><div><h2 id="history-title">История изменений</h2></div><button id="history-close" class="icon-button" type="button" aria-label="Закрыть историю"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-open#x"></use></svg></button></div><div id="history-list"></div></dialog>
+  <dialog id="history-dialog" aria-labelledby="history-title"><div class="dialog-head"><div><h2 id="history-title">История изменений</h2></div><button id="history-close" class="icon-button" type="button" aria-label="Закрыть историю"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-gateway#x"></use></svg></button></div><div id="history-list"></div></dialog>
   <div id="toast" class="toast" role="status" hidden></div>
   <div id="preloader" class="task-preloader" aria-hidden="true">
     <div class="loader-word"><span>МЫ</span></div>

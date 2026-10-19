@@ -76,3 +76,37 @@ select,select option,select optgroup{color:#f4f3ef;background-color:#101010;colo
 .attachment-file-picker:focus-within{outline:2px solid currentColor;outline-offset:3px}
 #attachment-filename{overflow-wrap:anywhere;font-size:13px}
 #attachment-submit{background:#f4f3ef;color:#090909;border:1px solid #888}
+
+/* A single circle is the whole entry navigation. No new assets or dependencies. */
+.gateway{min-height:100svh;display:grid;place-items:center;padding:16px;overflow:hidden;background:var(--paper)}
+.gateway[hidden]{display:none}
+.gateway-wheel{--wheel-size:min(calc(100vw - 32px),86svh,680px);width:var(--wheel-size);height:var(--wheel-size);border-radius:50%;overflow:hidden;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));border:1px solid #888;isolation:isolate;transition:transform .52s cubic-bezier(.22,1,.36,1),opacity .52s ease}
+.gateway-sector{position:relative;border:0;background:var(--paper);color:var(--ink);display:grid;place-items:center;text-align:center;font-family:Arial Black,Arial,sans-serif;font-size:clamp(14px,min(3.1vw,3.5svh),25px);font-weight:900;letter-spacing:-.045em;line-height:1.15;text-transform:uppercase;padding:0;transition:background .2s,color .2s,opacity .4s,transform .52s cubic-bezier(.22,1,.36,1)}
+.gateway-sector span{pointer-events:none;transform:translate(var(--tx),var(--ty));transition:transform .52s cubic-bezier(.22,1,.36,1)}
+.sector-mine{--tx:15%;--ty:24%;border-right:1px solid #888;border-bottom:1px solid #888}
+.sector-assigned{--tx:-11%;--ty:24%;border-bottom:1px solid #888}
+.sector-create{--tx:15%;--ty:-24%;border-right:1px solid #888}
+.sector-site{--tx:-20%;--ty:-24%}
+.gateway-sector:hover,.gateway-sector:focus-visible,.gateway-sector.chosen{background:var(--ink);color:var(--paper)}
+.gateway-sector:focus-visible{outline:0;box-shadow:inset 0 0 0 5px #a7a7a7;z-index:1}
+.gateway-wheel.choosing{transform:scale(1.14) rotate(-5deg);opacity:.04;pointer-events:none}
+.gateway-wheel.choosing .gateway-sector:not(.chosen){opacity:.12;transform:scale(.94)}
+.gateway-wheel.choosing .chosen{z-index:2;transform:scale(1.08)}
+.gateway-wheel.choosing .chosen span{transform:translate(var(--tx),var(--ty)) scale(1.08)}
+.workspace.arriving .main-content{animation:destination-enter .45s cubic-bezier(.22,1,.36,1) both}
+@keyframes wheel-enter{from{opacity:0;transform:scale(.88) rotate(8deg)}to{opacity:1;transform:scale(1) rotate(0)}}
+@keyframes destination-enter{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.mine-browser{border-top:1px solid var(--line);padding:28px 0 8px;margin:24px 0}
+.mine-browser h2{font-size:23px;text-transform:uppercase;letter-spacing:-.04em;margin:0 0 22px}
+.mine-browser-controls{display:flex;gap:14px;align-items:flex-end;flex-wrap:wrap}
+.mine-browser-field{flex:1;min-width:180px}
+.mine-browser-field label{display:block;color:var(--muted);font-size:12px;margin-bottom:10px}
+.mine-browser-field select{width:100%;max-width:100%;padding:13px 10px;min-height:48px;font:inherit;font-size:13px;border:1px solid #666;text-overflow:ellipsis}
+.mine-browser-controls .filter-button{min-height:48px}
+.mine-browser .muted{margin-top:18px;max-width:680px}
+@media(max-width:500px){.mine-browser-field{flex-basis:100%;min-width:0}.mine-browser h2{font-size:20px}.mine-browser{padding-top:22px}}
+@media(prefers-reduced-motion:reduce){.gateway-wheel,.gateway-sector,.gateway-sector span,.workspace.arriving .main-content{animation:none!important;transition:none!important}}
+
+.gateway-wheel.entering{animation:wheel-enter .6s cubic-bezier(.22,1,.36,1) both}
+.gateway-sector:disabled{opacity:1;cursor:default}
+.gateway-wheel.choosing .gateway-sector:not(.chosen){opacity:.12}
