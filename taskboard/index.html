@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="./style.css?v=20261019-sources">
   <link rel="stylesheet" href="./preloader.css">
   <script type="module" src="./preloader.js"></script>
-  <script type="module" src="./app.js?v=20261019-sources"></script>
+  <script type="module" src="./app.js?v=20261019-personal-counts"></script>
 </head>
 <body>
   <a id="skip-link" class="skip" href="#tasks">К задачам</a>
@@ -62,9 +62,9 @@
       <main class="main-content">
         <div class="page-heading"><h1 id="board-title" tabindex="-1">ЗАДАЧИ.</h1><div class="heading-actions"><button id="page-create-open" class="filter-button" type="button" hidden>Добавить страницу <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-gateway#plus"></use></svg></button><button id="task-create-open" class="primary" type="button">Добавить задачу <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-gateway#plus"></use></svg></button></div></div>
         <div id="tasks-view">
-        <section class="overview" aria-label="Прогресс команды">
+        <section class="overview" aria-label="Прогресс выбранного личного списка">
           <div id="progress-scene" class="progress-summary mood-fire">
-            <div class="summary-top"><span>Общий прогресс</span><button id="urgent-summary" class="urgent-summary" type="button" aria-pressed="false"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-gateway#flame"></use></svg> Срочные <strong id="count-urgent">0</strong></button></div>
+            <div class="summary-top"><span id="progress-title">Мой прогресс</span><button id="urgent-summary" class="urgent-summary" type="button" aria-pressed="false"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-gateway#flame"></use></svg> Срочные <strong id="count-urgent">0</strong></button></div>
             <div class="programmer-stage"><div class="progress-story"><strong id="progress-percent">0%</strong><span id="progress-mood">Всё горит. Жду первую галочку.</span><span id="progress-label">0 / 25</span></div>
             <svg class="programmer" viewBox="0 0 280 160" aria-hidden="true">
               <g class="flames" fill="#ff743d"><path class="flame f1" d="M30 138Q5 114 27 87Q24 108 39 103Q42 77 53 67Q46 103 67 114Q83 139 60 146Z"/><path class="flame f2" d="M216 144Q194 117 221 91Q212 115 229 109Q235 76 246 65Q235 108 256 119Q270 144 246 148Z"/><path class="flame f3" d="M96 148Q73 133 94 106Q91 123 103 120Q109 102 119 95Q109 128 125 139L121 150Z"/></g>
@@ -85,7 +85,7 @@
         </section>
         <div id="board-error" class="board-error" role="alert" hidden></div>
         <div class="toolbar">
-          <div class="view-tabs" aria-label="Список задач"><button id="tab-mine" class="view-tab active" type="button">Мои задачи</button><button id="tab-assigned" class="view-tab" type="button">Я поставил</button><button id="tab-all" class="view-tab" type="button">Все задачи <span id="total-count">25</span></button></div>
+          <div class="view-tabs" aria-label="Список задач"><button id="tab-mine" class="view-tab active" type="button">Мои задачи</button><button id="tab-assigned" class="view-tab" type="button">Я поставил</button></div>
           <div class="toolbar-tools"><label class="search"><span aria-hidden="true"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-gateway#search"></use></svg></span><input id="search" type="search" placeholder="Найти задачу" aria-label="Поиск задач"></label><label class="sr-only" for="status-filter">Статус задач</label><select id="status-filter"><option value="open">Открытые задачи</option><option value="all">Все статусы</option><option value="unmarked">Не отмечено</option><option value="progress">В работе</option><option value="done">Сделано</option><option value="obsolete">Не актуально</option></select><label class="sr-only" for="deadline-filter">Сроки задач</label><select id="deadline-filter"><option value="all">Все сроки</option><option value="overdue">Просрочено</option><option value="today">Сегодня</option><option value="week">Ближайшие 7 дней</option><option value="none">Без срока</option></select><button id="urgent-filter" class="filter-button" type="button" aria-pressed="false"><span aria-hidden="true"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-gateway#flag"></use></svg></span> Срочные</button></div>
         </div>
         <div class="list-caption"><span id="list-description">Все исполнители</span><span id="visible-count"></span></div>

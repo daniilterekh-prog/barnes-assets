@@ -175,9 +175,10 @@ function render() {
   $('page-create-open').hidden=state.view!=='pages';
   ['tasks','pages'].forEach(view=>{$('view-'+view).classList.toggle('active',state.view===view);$('view-'+view).setAttribute('aria-pressed',String(state.view===view));});
   renderPages();
-  const counts=summarize(state.board.tasks);
+  const relevantTasks=state.board.tasks.filter(t=>state.scope==='assigned'?t.created_by===state.session.member:t.owner===state.session.member);
+  const counts=summarize(relevantTasks);
+  $('progress-title').textContent=state.scope==='assigned'?'Прогресс моих поручений':'Мой прогресс';
   Object.keys(STATUSES).forEach(status => { $('count-'+status).textContent=String(counts[status]); });
-  $('total-count').textContent=String(counts.total);
   $('progress').max=counts.total || 1; $('progress').value=counts.done;
   $('progress-label').textContent=counts.done+' / '+counts.total;
   $('progress-note').textContent=counts.done ? 'Готово '+Math.round(counts.done/Math.max(counts.total,1)*100)+'% · не актуально: '+counts.obsolete : 'Пока нет выполненных задач';
@@ -185,9 +186,9 @@ function render() {
   $('progress-scene').className='progress-summary mood-'+mood.id;
   $('progress-percent').textContent=percent+'%';$('progress-mood').textContent=mood.label;
   $('progress-label').textContent=counts.done+' из '+counts.total+' сделано';
-  $('count-urgent').textContent=state.board.tasks.filter(t=>Number(t.urgent)&&!['done','obsolete'].includes(t.status)).length;
+  $('count-urgent').textContent=relevantTasks.filter(t=>Number(t.urgent)&&!['done','obsolete'].includes(t.status)).length;
   $('urgent-summary').setAttribute('aria-pressed',String(state.urgent));
-  ['all','mine','assigned'].forEach(scope=>{$('tab-'+scope).classList.toggle('active',state.scope===scope);$('tab-'+scope).setAttribute('aria-pressed',String(state.scope===scope));});
+  ['mine','assigned'].forEach(scope=>{$('tab-'+scope).classList.toggle('active',state.scope===scope);$('tab-'+scope).setAttribute('aria-pressed',String(state.scope===scope));});
   $('status-filter').value=state.status;$('deadline-filter').value=state.deadline;
   $('urgent-filter').setAttribute('aria-pressed',String(state.urgent));
   $('list-description').textContent=state.questionsTo?'Открытые вопросы мне':state.scope==='mine'?'Мои задачи · '+(state.creator==='all'?'от всех':state.creator==='unknown'?'автор не указан':'от '+member(state.creator).name):state.scope==='assigned'?'Я поставил · '+(state.owner==='all'?'всем':'для '+member(state.owner).name):state.owner==='all'?'Все задачи':'Задачи: '+member(state.owner).name;
@@ -395,9 +396,10 @@ $('task-create-form').addEventListener('submit',async event=>{
     const body={title,owner:$('task-owner').value,detail:$('task-detail').value.trim(),urgent:$('task-urgent').checked,due_date:$('task-due').value,origin:$('task-origin').value,created_at:$('task-date').value,source_url:$('task-source').value.trim(),page_ids:[...$('task-pages').querySelectorAll('input:checked')].map(e=>e.value)};
     const data=await api(editingTask?'task_save':'create',editingTask?{...body,id:editingTask.id,revision:Number(editingTask.revision)}:{...body,request_id:createRequestId});
     if(state.session?.token!==token)return;
-    state.scope='all';state.creator='all';state.questionsTo=null;state.deadline='all';state.owner=body.owner;state.status='open';state.urgent=false;state.query='';$('search').value='';state.expanded.add(body.origin);
+    state.scope=body.owner===state.session.member?'mine':'assigned';state.creator='all';state.questionsTo=null;state.deadline='all';state.owner='all';state.status='open';state.urgent=false;state.query='';$('search').value='';state.expanded.add(body.origin);
     state.createFromGateway=false;
     const created=data.tasks.find(t=>t.id===data.created_task_id);
+    if(state.scope==='mine'){state.mineOrigin=body.origin;const group=created?groupSpecTasks([created],data.pages||[],data.spec_sections||[])[0]:null;state.mineBrowse=body.origin==='telegram'?null:body.page_ids.length?{kind:'page',id:body.page_ids[0]}:{kind:'section',id:group?.id.startsWith('source:')?group.id.slice(7):'outside'};}
     if(created?.origin==='spec'){state.specExpanded ||= new Set();groupSpecTasks([created],data.pages||[],data.spec_sections||[]).forEach(s=>state.specExpanded.add(s.id));}
     acceptBoard(data);render();$('task-create-dialog').close();toast(editingTask?'Задача сохранена':'Задача добавлена');
     if(state.view==='tasks')$('tasks').querySelector('[data-task="'+data.created_task_id+'"] .task-toggle')?.focus();
@@ -461,7 +463,6 @@ $('login-form').addEventListener('submit',async event=>{
 $('retry-meta').onclick=loadMembers;
 $('logout').onclick=async()=>{try{await api('logout',{});}catch{}showLogin();};
 $('refresh').onclick=()=>refresh(true);
-$('tab-all').onclick=()=>setScope('all');
 $('tab-mine').onclick=()=>setScope('mine');
 $('tab-assigned').onclick=()=>setScope('assigned');
 $('urgent-summary').onclick=()=>{state.urgent=!state.urgent;state.status='open';render();};
