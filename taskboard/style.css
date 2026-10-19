@@ -57,3 +57,22 @@ select,select option,select optgroup{color:#f4f3ef;background-color:#101010;colo
 .spec-page-summary h3{margin:0;font-size:18px;line-height:1.3;overflow-wrap:anywhere}
 .spec-page-summary .group-counter{margin-left:auto}
 .spec-page-summary:focus-visible{outline:2px solid currentColor;outline-offset:3px}
+
+.task-extra-actions{display:flex;flex-wrap:wrap;gap:8px}.task-extra-actions .discussion-open{margin:8px 0}
+#attachments-dialog{width:min(760px,calc(100% - 24px));max-height:90dvh;overflow:auto}
+#attachment-form{border-bottom:1px solid var(--line,#ccc);padding-bottom:22px;margin-bottom:24px}
+#attachment-form label{display:block;font-weight:700;margin-bottom:10px}
+#attachment-file{width:100%;padding:12px;border:1px solid #aaa;border-radius:8px;background:#fff;color:#090909}
+#attachment-file::file-selector-button{font:inherit;padding:10px 16px;border:1px solid #090909;border-radius:5px;background:#090909;color:#fff;cursor:pointer;margin-right:12px;min-height:44px}
+.attachment-preview{display:block;max-width:100%;max-height:260px;object-fit:contain;margin:16px auto}.attachment-preview[hidden]{display:none}
+.attachment-gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.attachment-card{margin:0;min-width:0}.attachment-image{display:flex;align-items:center;justify-content:center;min-height:140px;background:#e7e5e0;border-radius:8px;overflow:hidden}
+.attachment-image img{display:block;width:100%;height:180px;object-fit:contain}.attachment-card figcaption{display:flex;flex-direction:column;gap:6px;padding-top:10px;overflow-wrap:anywhere}.attachment-card .text-button{align-self:flex-start;min-height:44px}
+#attachment-hint{font-size:13px;line-height:1.6}#attachment-submit{min-height:46px;padding:12px 22px;background:#090909;color:#fff;border-radius:6px;border:0;font:inherit;font-weight:700;cursor:pointer}#attachment-submit:disabled{opacity:.45;cursor:default}
+@media(max-width:500px){.attachment-gallery{grid-template-columns:1fr}.attachment-image img{height:220px}#attachment-file{font-size:13px}}
+
+.attachment-file-picker{position:relative;display:flex;align-items:center;justify-content:center;min-height:48px;padding:12px 16px;border:1px solid #aaa;border-radius:6px;overflow:hidden;font-weight:700}
+.attachment-file-picker #attachment-file{position:absolute;inset:0;opacity:0;padding:0;width:100%;height:100%;cursor:pointer}
+.attachment-file-picker:focus-within{outline:2px solid currentColor;outline-offset:3px}
+#attachment-filename{overflow-wrap:anywhere;font-size:13px}
+#attachment-submit{background:#f4f3ef;color:#090909;border:1px solid #888}

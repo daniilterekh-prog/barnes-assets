@@ -56,6 +56,8 @@ export function mergeTask(previous,incoming){
   const task=Number(previous.revision)>Number(incoming.revision)?{...previous}:{...incoming};
   const discussion=Number(previous.discussion_revision||0)>Number(incoming.discussion_revision||0)?previous:incoming;
   for(const key of ['discussion_revision','comment_count','open_question_count','open_question_recipients','open_questions_by_recipient'])task[key]=discussion[key];
+  const files=Number(previous.attachment_revision||0)>Number(incoming.attachment_revision||0)?previous:incoming;
+  for(const key of ['attachment_revision','attachment_count'])task[key]=files[key];
   return task;
 }
 

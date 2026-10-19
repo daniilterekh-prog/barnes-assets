@@ -1,9 +1,10 @@
-import {setupDiscussion} from './discussion.js?v=20261019-mine';
-import {icon} from './icons.js?v=20261019-mine';
+import {setupAttachments} from './attachments.js?v=20261019-images';
+import {setupDiscussion} from './discussion.js?v=20261019-images';
+import {icon} from './icons.js?v=20261019-images';
 import { API_URL } from './config.js';
-import { STATUSES, selectTasks, summarize, safeSource, safeHttps, taskDateLabel, splitTaskBuckets, groupSpecTasks, programmerMood, mergeTask, deadlineInfo, moscowDay, shiftDay } from './domain.js?v=20261019-mine';
+import { STATUSES, selectTasks, summarize, safeSource, safeHttps, taskDateLabel, splitTaskBuckets, groupSpecTasks, programmerMood, mergeTask, deadlineInfo, moscowDay, shiftDay } from './domain.js?v=20261019-images';
 
-import {renderWiki} from './wiki.js?v=20261019-mine';
+import {renderWiki} from './wiki.js?v=20261019-images';
 
 const $ = id => document.getElementById(id);
 const SESSION_KEY = 'barn-taskboard-session-v1';
@@ -13,6 +14,7 @@ let createRequestId=null, creatingTask=false, editingTask=null, editingPage=null
 state.scope='mine'; state.creator='all'; state.questionsTo=null;state.deadline='all';
 state.view='tasks'; state.expanded=new Set(); state.openPages=new Set(); state.pageQuery='';
 const dateFormat = new Intl.DateTimeFormat('ru', {day:'numeric',month:'short',hour:'2-digit',minute:'2-digit',timeZone:'Europe/Moscow'});
+const attachments=setupAttachments({api,getSession:()=>state.session,getBoard:()=>state.board,acceptBoard,member,toast,onUnauthorized:showLogin});
 const discussion=setupDiscussion({api,getSession:()=>state.session,getBoard:()=>state.board,acceptBoard,member,toast,onUnauthorized:showLogin});
 
 function el(tag, className, text) {
@@ -34,19 +36,21 @@ function setConnection(ok, text) {
   $('sync-label').textContent = text;
 }
 function showError(message) { $('board-error').textContent = message; $('board-error').hidden = !message; }
-async function api(action, body) {
+async function api(action, body, binary=false) {
+  const multipart=body instanceof FormData;
   const token = state.session?.token;
   let response;
   try {
     response = await fetch(API_URL + '?action=' + action, {
       method: body === undefined ? 'GET' : 'POST',
-      headers: { ...(body === undefined ? {} : {'Content-Type':'application/json'}), ...(token ? {Authorization:'Bearer ' + token} : {}) },
-      ...(body === undefined ? {} : {body:JSON.stringify(body)}),
-      cache:'no-store', signal:AbortSignal.timeout(12000), credentials:'omit'
+      headers: { ...(body === undefined || multipart ? {} : {'Content-Type':'application/json'}), ...(token ? {Authorization:'Bearer ' + token} : {}) },
+      ...(body === undefined ? {} : {body:multipart?body:JSON.stringify(body)}),
+      cache:'no-store', signal:AbortSignal.timeout(multipart?30000:12000), credentials:'omit'
     });
   } catch {
     throw Object.assign(new Error('Нет связи с сервером. Изменения не сохранены. Проверьте интернет и повторите.'), {status:0});
   }
+  if(binary&&response.ok)return response.blob();
   let data;
   try { data = await response.json(); }
   catch { throw new Error('Сервер вернул неожиданный ответ. Попробуйте обновить страницу.'); }
@@ -65,12 +69,12 @@ function acceptBoard(data) {
     data.history = [...events.values()].sort((a,b) => Number(b.id)-Number(a.id)).slice(0,50);
   }
   state.board = data;
-  const signature = todayMoscow()+':'+data.tasks.map(t => t.id + ':' + t.revision + ':' + (t.discussion_revision||0)).join(',') + ':' + (data.history[0]?.id || '')+':'+(data.pages||[]).map(p=>p.id+':'+p.revision).join(',')+':'+JSON.stringify(data.spec_sections||[]);
+  const signature = todayMoscow()+':'+data.tasks.map(t => t.id + ':' + t.revision + ':' + (t.discussion_revision||0) + ':' + (t.attachment_revision||0)).join(',') + ':' + (data.history[0]?.id || '')+':'+(data.pages||[]).map(p=>p.id+':'+p.revision).join(',')+':'+JSON.stringify(data.spec_sections||[]);
   if (signature !== state.signature) {
     state.signature = signature; render();
     if ($('history-dialog').open) renderHistory();
   }
-  discussion.refresh();
+  discussion.refresh();attachments.refresh();
   setConnection(true,'Сохранено');
 }
 function showBoard() {
@@ -80,7 +84,7 @@ function showBoard() {
   $('my-avatar').textContent = member(state.session.member).initials;
 }
 function showLogin(message = '') {
-  discussion.reset();$('deadline-dialog').close();deadlineTask=null;state.deadline='all';state.questionsTo=null;state.session = null; state.board = null; state.signature = ''; state.busy.clear();state.expanded.clear();state.specExpanded?.clear();state.openPages.clear();state.view='tasks';state.owner='all';state.scope='mine';state.creator='all';
+  attachments.reset();discussion.reset();$('deadline-dialog').close();deadlineTask=null;state.deadline='all';state.questionsTo=null;state.session = null; state.board = null; state.signature = ''; state.busy.clear();state.expanded.clear();state.specExpanded?.clear();state.openPages.clear();state.view='tasks';state.owner='all';state.scope='mine';state.creator='all';
   state.status='all';state.urgent=false;state.query='';$('search').value='';
   $('nav-mine').open=true;$('nav-assigned').open=false;
   sessionStorage.removeItem(SESSION_KEY);
@@ -232,7 +236,9 @@ function renderTask(task,{level=3,showOwner=false}={}) {
   const related=el('div','task-page-links');(task.page_ids||[]).forEach(id=>{const p=state.board.pages?.find(p=>p.id===id);if(!p)return;const button=el('button','page-chip',p.title);button.type='button';button.onclick=()=>{state.openPages.add(id);state.pageQuery=p.title;$('page-search').value=p.title;switchView('pages');};related.append(button);});
   const discuss=el('button','discussion-open','Обсуждение'+(task.comment_count?' · '+task.comment_count:''));discuss.type='button';discuss.prepend(icon('message-circle'));discuss.setAttribute('aria-label','Обсудить задачу: '+task.title);discuss.onclick=()=>discussion.open(task.id);
   if(task.open_question_count)discuss.append(el('span','question-counter','Вопросы: '+task.open_question_count));
-  main.append(title,meta,related,discuss,details);
+  const images=el('button','discussion-open attachments-open','Изображения'+(task.attachment_count?' · '+task.attachment_count:''));images.type='button';images.prepend(icon('plus'));images.setAttribute('aria-label','Изображения задачи: '+task.title);images.onclick=()=>attachments.open(task.id);
+  const actions=el('div','task-extra-actions');actions.append(discuss,images);
+  main.append(title,meta,related,actions,details);
   const controls=el('div','status-controls'); controls.setAttribute('role','group'); controls.setAttribute('aria-label','Статус задачи «'+task.title+'»');
   ['progress','done','obsolete'].forEach(status=>{
     const button=el('button','status-option '+status,STATUSES[status].label);
