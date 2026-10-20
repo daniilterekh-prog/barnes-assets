@@ -17,3 +17,5 @@
 - [Визуальное превью кита собственников](https://daniilterekh-prog.github.io/barnes-assets/ui-kit/) · [библиотека собственников](../blocks/README.md).
 
 При расхождении базового кита и более позднего варианта применяйте уточнение только к указанному компоненту. Compact ContactSelector **не меняет** высоту обычных ActionButton. Контент амбассадорской программы не становится общим правилом бренда.
+
+Текущий агентский логотип: [BARN Estate](../brand/barn-estate/README.md), источник — barn-estate.ru, 20.10.2026. Новые страницы используют его вместо BARNES Moscow / International Realty.
