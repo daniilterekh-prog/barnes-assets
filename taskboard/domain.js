@@ -1,3 +1,6 @@
+// Archived page cards stay in server storage; their tasks remain accessible site-wide.
+export const ARCHIVED_PAGE_IDS=new Set(['owner-international']);
+export const visiblePages=pages=>pages.filter(p=>!ARCHIVED_PAGE_IDS.has(p.id));
 export const STATUSES = {
   unmarked: { label: 'Не отмечено', short: 'Не отмечено', symbol: '○' },
   progress: { label: 'В работе', short: 'В работе', symbol: '◷' },
@@ -119,7 +122,7 @@ function sectionPage(section,pages){return pages.find(p=>p.id===section.page_id)
 export function taskDestination(task,pages=[],sections=[]){
   const linked=[...new Set(task.page_ids||[])];
   if(linked.length>1)return SITE_TASKS_ID;
-  if(linked.length===1)return linked[0];
+  if(linked.length===1)return ARCHIVED_PAGE_IDS.has(linked[0])?SITE_TASKS_ID:linked[0];
   const section=task.origin==='spec'&&sections.find(s=>sourceKey(s.source_url)===sourceKey(task.source_url));
   return section&&sectionPage(section,pages)?.id||SITE_TASKS_ID;
 }

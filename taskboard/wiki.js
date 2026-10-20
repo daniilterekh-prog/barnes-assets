@@ -1,5 +1,5 @@
 import {icon} from './icons.js?v=20261019-gateway';
-import {safeHttps,pageTaskModel,SITE_TASKS_ID,SITE_TASKS_TITLE,taskSourceCategory,taskDestination,PAGE_STAGES,pageOverview} from './domain.js?v=20261020-done-label';
+import {safeHttps,pageTaskModel,SITE_TASKS_ID,SITE_TASKS_TITLE,taskSourceCategory,taskDestination,PAGE_STAGES,pageOverview} from './domain.js?v=20261020-page-assignment';
 const node=(tag,cls,text)=>{const e=document.createElement(tag);e.className=cls||'';if(text!==undefined)e.textContent=text;return e;};
 function renderPageLinks(container,page,{general=false}={}){
   const nav=node('nav','wiki-quick-links');nav.setAttribute('aria-label',general?'Сайт и GitHub':'Ссылки страницы: '+page.title);
