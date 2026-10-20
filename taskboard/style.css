@@ -143,3 +143,6 @@ select,select option,select optgroup{color:var(--ink);background-color:var(--sur
 @media(max-width:760px){.wiki-quick-links{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.wiki-quick-link{font-size:12px;padding:12px;min-height:56px}.wiki-quick-link>.ui-icon{width:16px;height:16px}.wiki-back{margin-bottom:0}}
 
 .telegram-task-list{margin-top:24px}.wiki-source-filter{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px}.wiki-source-filter .filter-button{flex:1;min-height:52px;font-size:13px;line-height:1.35}.wiki-source-filter [aria-pressed=true]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+
+/* Compact brand lockup fits alongside the mobile identity controls. */
+.wordmark small{display:block;font-size:10px;line-height:1.4;font-weight:700;letter-spacing:.26em;margin-top:4px}
