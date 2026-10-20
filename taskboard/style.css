@@ -138,3 +138,6 @@ select,select option,select optgroup{color:var(--ink);background-color:var(--sur
 
 .assignee-open{width:100%;min-height:56px;margin:16px 0;justify-content:center;white-space:normal;text-align:center}
 #assignee-form{display:grid;gap:16px}#assignee-select{width:100%;min-height:52px}#assignee-form .primary{width:100%;min-height:56px}
+
+.wiki-quick-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:0 0 24px}.wiki-quick-link{display:flex;align-items:center;flex-wrap:wrap;gap:8px;min-height:56px;padding:14px;border:1px solid var(--control-line);color:var(--ink);text-decoration:none;font-size:13px;line-height:1.35;min-width:0}.wiki-quick-link>span{flex:1;min-width:0;overflow-wrap:anywhere}.wiki-quick-link>small{flex-basis:100%;font-size:11px;color:var(--muted);overflow-wrap:anywhere}.wiki-quick-link:hover{background:var(--hover);border-color:var(--ink)}.wiki-quick-link.is-missing{color:var(--muted);border-color:var(--line)}.wiki-quick-link>.ui-icon{width:17px;height:17px}.wiki-task-actions{margin:0 0 24px}.wiki-task-actions .primary{width:100%;min-height:56px}
+@media(max-width:760px){.wiki-quick-links{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.wiki-quick-link{font-size:12px;padding:12px;min-height:56px}.wiki-quick-link>.ui-icon{width:16px;height:16px}.wiki-back{margin-bottom:0}}

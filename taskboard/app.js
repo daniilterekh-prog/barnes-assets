@@ -8,7 +8,7 @@ import {icon} from './icons.js?v=20261019-gateway';
 import { API_URL } from './config.js';
 import { STATUSES, selectTasks, summarize, safeSource, safeHttps, taskDateLabel, splitTaskBuckets, groupSpecTasks, programmerMood, mergeTask, deadlineInfo, moscowDay, shiftDay, personalBrowseModel, taskDestination, taskSourceCategory, SITE_TASKS_ID, SITE_TASKS_TITLE } from './domain.js?v=20261019-site-categories';
 
-import {renderWiki} from './wiki.js?v=20261019-site-categories';
+import {renderWiki} from './wiki.js?v=20261020-quick-links';
 
 const $ = id => document.getElementById(id);
 const browserStorage=name=>{try{return window[name];}catch{return null;}};
@@ -299,6 +299,8 @@ function renderPages(){
   if(!state.board)return;
   saveView();
   $('page-search').closest('label').hidden=!!state.selectedPage;
+  const reading=state.view==='pages'&&!!state.selectedPage;
+  $('task-create-open').hidden=reading;$('page-create-open').hidden=state.view!=='pages'||reading;
   renderWiki($('wiki-cards'),{pages:state.board.pages||[],sections:state.board.spec_sections||[],tasks:state.board.tasks,query:state.pageQuery,selectedPage:state.selectedPage,taskScope:state.wikiScope,taskStatus:state.wikiStatus,me:state.session.member,
     onSelect:id=>{state.selectedPage=id;if(!id){state.pageQuery='';$('page-search').value='';}state.wikiScope='mine';state.wikiStatus='open';renderPages();(id?$('wiki-page-title'):$('board-title'))?.focus({preventScroll:true});$('pages-view').scrollIntoView({block:'start',behavior:'instant'});},
     onScope:scope=>{state.wikiScope=scope;renderPages();$('wiki-cards').querySelector('[data-wiki-scope="'+scope+'"]')?.focus({preventScroll:true});},
@@ -360,6 +362,7 @@ function renderTask(task,{level=3,showOwner=false,isCard=false}={}) {
   }
   row.append(symbol,main);if(isCard)row.append(controls);return row;
 }
+function taskAddButton(){return state.view==='pages'&&$('wiki-task-add')||$('task-create-open');}
 async function changeStatus(id,status,fromCheckbox=false) {
   if (state.busy.has(id)) return;
   const task=state.board.tasks.find(t=>t.id===id);
@@ -387,7 +390,7 @@ async function changeStatus(id,status,fromCheckbox=false) {
       else{
       const scope=taskCard.isOpenFor(id)?$('task-card-body'):state.view==='pages'?$('pages-view'):$('tasks');
       const target=scope.querySelector('[data-task="'+id+'"] '+(fromCheckbox?'.task-toggle':'[data-status="'+status+'"]'));
-      if(target?.getClientRects().length)target.focus({preventScroll:true});else $('task-create-open').focus({preventScroll:true});
+      if(target?.getClientRects().length)target.focus({preventScroll:true});else taskAddButton().focus({preventScroll:true});
       }
     }
   }
@@ -406,7 +409,7 @@ $('deadline-form').addEventListener('submit',async e=>{
   $('deadline-form').querySelectorAll('button,input').forEach(el=>el.disabled=true);$('deadline-close').disabled=true;$('deadline-error').textContent='';const token=state.session?.token,id=deadlineTask.id;
   try{
     const data=await api('deadline',{...deadlineTask,due_date:$('deadline-date').value});if(state.session?.token!==token)return;acceptBoard(data);$('deadline-dialog').close();toast('Дедлайн сохранён');
-    const row=$('tasks').querySelector('[data-task="'+id+'"] .deadline-chip');if(row?.checkVisibility())row.focus();else $('task-create-open').focus();
+    const row=$('tasks').querySelector('[data-task="'+id+'"] .deadline-chip');if(row?.checkVisibility())row.focus();else taskAddButton().focus();
   }catch(error){if(state.session?.token!==token)return;if(error.status===401)showLogin(error.message);else{if(error.status===409&&error.data.board){acceptBoard(error.data.board);const task=state.board.tasks.find(t=>t.id===id);if(task)deadlineTask.revision=Number(task.revision);}$('deadline-error').textContent=error.message;}}
   finally{savingDeadline=false;$('deadline-form').querySelectorAll('button,input').forEach(el=>el.disabled=false);$('deadline-close').disabled=false;}
 });
