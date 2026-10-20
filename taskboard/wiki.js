@@ -14,10 +14,10 @@ function renderPageLinks(container,page,{general=false}={}){
   }
   container.append(nav);
 }
-export function renderWiki(container,{pages,sections=[],tasks,query,selectedPage,taskScope,taskStatus,source='all',me,onSelect,onScope,onStatus,onSource,onEdit,onTask,renderTask}) {
+export function renderWiki(container,{pages,sections=[],tasks,query,selectedPage,taskScope,taskStatus,source='other',me,onSelect,onScope,onStatus,onSource,onEdit,onTask,renderTask}) {
   container.replaceChildren();
-  const sourceTasks=source==='spec'?tasks.filter(t=>taskSourceCategory(t)==='spec'):tasks;
-  const sourceFilter=parent=>{const group=node('div','wiki-source-filter');group.setAttribute('role','group');group.setAttribute('aria-label','Источник задач сайта');[['all','Все источники'],['spec','Экстра финальное ТЗ']].forEach(([id,label])=>{const button=node('button','filter-button',label);button.type='button';button.dataset.wikiSource=id;button.setAttribute('aria-pressed',String(source===id));button.onclick=()=>onSource(id);group.append(button);});parent.append(group);};
+  const sourceTasks=tasks.filter(t=>(taskSourceCategory(t)==='spec')===(source==='spec'));
+  const sourceFilter=parent=>{const group=node('div','wiki-source-filter');group.setAttribute('role','group');group.setAttribute('aria-label','Источник задач сайта');[['spec','Экстра финальное ТЗ'],['other','Остальные']].forEach(([id,label])=>{const button=node('button','filter-button',label);button.type='button';button.dataset.wikiSource=id;button.setAttribute('aria-pressed',String(source===id));button.onclick=()=>onSource(id);group.append(button);});parent.append(group);};
   const realPages=pages;pages=[{id:SITE_TASKS_ID,title:SITE_TASKS_TITLE,front_url:'',live_url:'',github_url:''},...pages];
   const destinations=new Set(sourceTasks.map(t=>taskDestination(t,realPages,sections)));
   const visible=pages.filter(p=> (source!=='spec'||destinations.has(p.id))&&(p.title+' '+p.front_url+' '+p.live_url+' '+p.github_url).toLocaleLowerCase('ru').includes(query.trim().toLocaleLowerCase('ru')));

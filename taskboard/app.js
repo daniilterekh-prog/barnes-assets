@@ -1,6 +1,6 @@
 import {setupAssignee} from './assignee.js?v=20261019-assignee';
 import {setupTaskCard} from './task-card.js?v=20261019-progress-deadline';
-import {createPersistence,normalizeView,SESSION_KEY} from './persistence.js?v=20261020-telegram-main';
+import {createPersistence,normalizeView,SESSION_KEY} from './persistence.js?v=20261020-source-split';
 import {setupGateway} from './gateway.js?v=20261019-gateway';
 import {setupAttachments,imageFileError} from './attachments.js?v=20261019-upload-form';
 import {setupDiscussion} from './discussion.js?v=20261019-gateway';
@@ -8,7 +8,7 @@ import {icon} from './icons.js?v=20261019-gateway';
 import { API_URL } from './config.js';
 import { STATUSES, selectTasks, summarize, safeSource, safeHttps, taskDateLabel, mainTaskBuckets, personalMainTasks, programmerMood, mergeTask, deadlineInfo, moscowDay, shiftDay, taskDestination, taskSourceCategory, SITE_TASKS_ID, SITE_TASKS_TITLE } from './domain.js?v=20261020-personal-progress';
 
-import {renderWiki} from './wiki.js?v=20261020-telegram-main';
+import {renderWiki} from './wiki.js?v=20261020-source-split';
 
 const $ = id => document.getElementById(id);
 const browserStorage=name=>{try{return window[name];}catch{return null;}};
@@ -20,7 +20,7 @@ let taskImage=null,taskImagePreview=null;
 let createRequestId=null, creatingTask=false, editingTask=null, editingPage=null, savingPage=false;
 state.screen='gateway';state.mineBrowse=null;state.mineOrigin=null;state.createFromGateway=false;
 state.scope='mine'; state.creator='all'; state.questionsTo=null;state.deadline='all';
-state.selectedTask=null;state.detailsExpanded=new Set();state.view='tasks'; state.expanded=new Set(); state.openPages=new Set(); state.pageQuery='';state.selectedPage=null;state.wikiScope='mine';state.wikiStatus='open';state.wikiSource='all';
+state.selectedTask=null;state.detailsExpanded=new Set();state.view='tasks'; state.expanded=new Set(); state.openPages=new Set(); state.pageQuery='';state.selectedPage=null;state.wikiScope='mine';state.wikiStatus='open';state.wikiSource='other';
 const dateFormat = new Intl.DateTimeFormat('ru', {day:'numeric',month:'short',hour:'2-digit',minute:'2-digit',timeZone:'Europe/Moscow'});
 const attachments=setupAttachments({api,getSession:()=>state.session,getBoard:()=>state.board,acceptBoard,member,toast,onUnauthorized:showLogin});
 const gateway=setupGateway(chooseDestination);
@@ -124,7 +124,7 @@ function showGateway(){
 function chooseDestination(route){
   if(!state.session||!state.board)return;
   state.mineBrowse=null;state.mineOrigin=null;state.query='';$('search').value='';state.owner='all';state.creator='all';state.questionsTo=null;state.deadline='all';state.status='open';state.urgent=false;
-  state.pageQuery='';state.selectedPage=null;state.wikiScope='mine';state.wikiStatus='open';state.wikiSource='all';$('page-search').value='';state.expanded.clear();state.specExpanded?.clear();state.scope=route==='assigned'?'assigned':'mine';state.view=route==='site'?'pages':'tasks';
+  state.pageQuery='';state.selectedPage=null;state.wikiScope='mine';state.wikiStatus='open';state.wikiSource='other';$('page-search').value='';state.expanded.clear();state.specExpanded?.clear();state.scope=route==='assigned'?'assigned':'mine';state.view=route==='site'?'pages':'tasks';
   $('nav-mine').open=state.scope==='mine';$('nav-assigned').open=state.scope==='assigned';
   showBoard();render();
   const board=$('board-view');board.classList.remove('arriving');void board.offsetWidth;board.classList.add('arriving');
@@ -136,7 +136,7 @@ $('gateway-back').onclick=e=>{e.preventDefault();showGateway();};
 function showLogin(message = '',clearStored=true) {
   persistenceReady=false;restoringView=false;clearTimeout(scrollTimer);if(clearStored)persistence.clearSession(state.session?.token);
   gateway.reset();$('gateway-view').hidden=true;$('skip-link').hidden=false;state.screen='login';state.mineBrowse=null;state.mineOrigin=null;state.createFromGateway=false;
-  assignee.reset();taskCard.reset();attachments.reset();discussion.reset();$('deadline-dialog').close();deadlineTask=null;state.deadline='all';state.questionsTo=null;state.session = null; state.board = null; state.signature = ''; state.busy.clear();state.detailsExpanded.clear();state.expanded.clear();state.specExpanded?.clear();state.openPages.clear();state.selectedPage=null;state.wikiScope='mine';state.wikiStatus='open';state.wikiSource='all';state.pageQuery='';$('page-search').value='';state.view='tasks';state.owner='all';state.scope='mine';state.creator='all';
+  assignee.reset();taskCard.reset();attachments.reset();discussion.reset();$('deadline-dialog').close();deadlineTask=null;state.deadline='all';state.questionsTo=null;state.session = null; state.board = null; state.signature = ''; state.busy.clear();state.detailsExpanded.clear();state.expanded.clear();state.specExpanded?.clear();state.openPages.clear();state.selectedPage=null;state.wikiScope='mine';state.wikiStatus='open';state.wikiSource='other';state.pageQuery='';$('page-search').value='';state.view='tasks';state.owner='all';state.scope='mine';state.creator='all';
   state.status='open';state.urgent=false;state.query='';$('search').value='';
   $('nav-mine').open=true;$('nav-assigned').open=false;
   $('board-view').hidden = true; $('login-view').hidden = false;
@@ -400,9 +400,9 @@ $('task-create-form').addEventListener('submit',async event=>{
     const created=data.tasks.find(t=>t.id===data.created_task_id);
     {const task=created||body;state.mineOrigin=taskSourceCategory(task);state.mineBrowse=body.origin==='telegram'?null:{kind:'page',id:taskDestination(task,data.pages||[],data.spec_sections||[])};}
     if(body.origin!=='telegram'){
-      state.view='pages';state.selectedPage=taskDestination(created||body,data.pages||[],data.spec_sections||[]);state.wikiSource=taskSourceCategory(created||body)==='spec'?'spec':'all';
+      state.view='pages';state.selectedPage=taskDestination(created||body,data.pages||[],data.spec_sections||[]);state.wikiSource=taskSourceCategory(created||body)==='spec'?'spec':'other';
       state.wikiScope=created?.owner===state.session.member?'mine':created?.created_by===state.session.member?'assigned':'all';state.wikiStatus='open';
-    }else if(state.view==='pages')state.wikiSource='all';
+    }else if(state.view==='pages')state.wikiSource='other';
     acceptBoard(data);render();$('task-create-dialog').close();toast(editingTask?'Задача сохранена':'Задача добавлена');
     if(chosenImage)await attachments.open(data.created_task_id,chosenImage,true);
     else if(state.view==='tasks')$('tasks').querySelector('[data-task="'+data.created_task_id+'"] .task-toggle')?.focus();
