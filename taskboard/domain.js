@@ -13,7 +13,7 @@ export function selectTasks(tasks, filters) {
     && (!filters.scope || filters.scope==='all' || (filters.scope==='mine' ? t.owner===filters.me : t.created_by===filters.me))
     && (!filters.creator || filters.creator==='all' || (filters.creator==='unknown' ? !t.created_by : t.created_by===filters.creator))
     && (filters.owner === 'all' || t.owner === filters.owner)
-    && (filters.status === 'all' || (filters.status === 'open' ? !['done','obsolete'].includes(t.status) : t.status === filters.status))
+    && (filters.status === 'all' || (filters.status === 'open' ? !['done','obsolete','review'].includes(t.status) : t.status === filters.status))
     && (!filters.urgent || (Number(t.urgent) === 1 && !['done','obsolete'].includes(t.status)))
     && (!query || (t.title + ' ' + t.detail + ' ' + t.id).toLocaleLowerCase('ru').includes(query))).sort((a,b)=>deadlineSortKey(a).localeCompare(deadlineSortKey(b)));
 }
@@ -36,7 +36,7 @@ export function taskDateLabel(task) {
   return (task.created_basis==='imported'?'В доске с ':'От ')+label;
 }
 export function splitTaskBuckets(tasks) {
-  const urgent=tasks.filter(t=>Number(t.urgent)&&!['done','obsolete'].includes(t.status));
+  const urgent=tasks.filter(t=>Number(t.urgent)&&!['done','obsolete','review'].includes(t.status));
   const ids=new Set(urgent.map(t=>t.id)),rest=tasks.filter(t=>!ids.has(t.id));
   return {urgent,telegram:rest.filter(t=>t.origin==='telegram'),spec:rest.filter(t=>t.origin!=='telegram')};
 }
@@ -162,7 +162,8 @@ export function pageOverview(tasks,pageId,pages=[],sections=[]){
 
 export function normalizeReviewTask(task){return task.review?.outcome==='pending'?{...task,status:'review'}:task;}
 export function reviewInbox(tasks,me){
- const pending=tasks.filter(t=>t.review?.outcome==='pending'&&t.review.reviewers?.some(p=>p.member===me));
+ const pending=tasks.filter(t=>t.review?.outcome==='pending');
  pending.sort((a,b)=>(Number(b.urgent)||0)-(Number(a.urgent)||0)||a.review.created_at.localeCompare(b.review.created_at));
- return {actionable:pending.filter(t=>!t.review.reviewers.find(p=>p.member===me).approved_at),waiting:pending.filter(t=>!!t.review.reviewers.find(p=>p.member===me).approved_at)};
+ const mine=t=>t.review.reviewers?.find(p=>p.member===me);
+ return {actionable:pending.filter(t=>mine(t)&&!mine(t).approved_at),waiting:pending.filter(t=>mine(t)?.approved_at),submitted:pending.filter(t=>!mine(t)&&(t.owner===me||t.review.submitted_by===me))};
 }

@@ -1,15 +1,15 @@
-import {setupReviews} from './reviews.js?v=20261020-reviews';
+import {setupReviews} from './reviews.js?v=20261020-review-category';
 import {setupAssignee} from './assignee.js?v=20261019-assignee';
 import {setupTaskCard} from './task-card.js?v=20261019-progress-deadline';
-import {createPersistence,normalizeView,SESSION_KEY} from './persistence.js?v=20261020-reviews';
+import {createPersistence,normalizeView,SESSION_KEY} from './persistence.js?v=20261020-review-category';
 import {setupGateway} from './gateway.js?v=20261019-gateway';
 import {setupAttachments,imageFileError} from './attachments.js?v=20261019-upload-form';
-import {setupDiscussion} from './discussion.js?v=20261020-reviews';
+import {setupDiscussion} from './discussion.js?v=20261020-review-category';
 import {icon} from './icons.js?v=20261019-gateway';
 import { API_URL } from './config.js';
-import { STATUSES, selectTasks, summarize, safeSource, safeHttps, taskDateLabel, mainTaskBuckets, personalMainTasks, programmerMood, mergeTask, deadlineInfo, moscowDay, shiftDay, taskDestination, taskSourceCategory, SITE_TASKS_ID, SITE_TASKS_TITLE, PAGE_STAGES, normalizeReviewTask } from './domain.js?v=20261020-reviews';
+import { STATUSES, selectTasks, summarize, safeSource, safeHttps, taskDateLabel, mainTaskBuckets, personalMainTasks, programmerMood, mergeTask, deadlineInfo, moscowDay, shiftDay, taskDestination, taskSourceCategory, SITE_TASKS_ID, SITE_TASKS_TITLE, PAGE_STAGES, normalizeReviewTask } from './domain.js?v=20261020-review-category';
 
-import {renderWiki} from './wiki.js?v=20261020-reviews';
+import {renderWiki} from './wiki.js?v=20261020-review-category';
 
 const $ = id => document.getElementById(id);
 const browserStorage=name=>{try{return window[name];}catch{return null;}};
@@ -217,7 +217,7 @@ function render() {
   $('progress-scene').className='progress-summary mood-'+mood.id;
   $('progress-percent').textContent=percent+'%';$('progress-mood').textContent=mood.label;
   $('progress-label').textContent=counts.done+' из '+counts.total+' сделано';
-  $('count-urgent').textContent=relevantTasks.filter(t=>Number(t.urgent)&&!['done','obsolete'].includes(t.status)).length;
+  $('count-urgent').textContent=relevantTasks.filter(t=>Number(t.urgent)&&!['done','obsolete','review'].includes(t.status)).length;
   $('urgent-summary').setAttribute('aria-pressed',String(state.urgent));
   ['mine','assigned'].forEach(scope=>{$('tab-'+scope).classList.toggle('active',state.scope===scope);$('tab-'+scope).setAttribute('aria-pressed',String(state.scope===scope));});
   $('status-filter').value=state.status;$('deadline-filter').value=state.deadline;
@@ -268,7 +268,8 @@ function renderTask(task,{level=3,showOwner=false,isCard=false}={}) {
   symbol.onclick=()=>task.status==='review'?taskCard.open(task.id):changeStatus(task.id,task.status==='done'?'unmarked':'done',true);
   const main=el('div','task-main'),title=el('h'+level,'task-title',task.title),meta=el('div','task-meta');
   if(!isCard){title.replaceChildren();const titleButton=el('button','task-title-open',task.title);titleButton.type='button';titleButton.onclick=()=>taskCard.open(task.id);title.append(titleButton);}
-  meta.append(el('span','task-current-status',STATUSES[task.status].label));
+  if(task.status!=='review')meta.append(el('span','task-current-status',STATUSES[task.status].label));
+  else{const banner=el('div','task-review-status','НА ПРОВЕРКЕ');banner.prepend(icon('clock'));main.append(banner);}
   if(showOwner)meta.append(el('span','task-assignee',(isCard?'Исполнитель: ':'')+member(task.owner).name));
   meta.append(el('span','task-date',taskDateLabel(task)));
   meta.append(el('span','task-author',task.created_by?'От: '+member(task.created_by).name:'Автор не указан'));

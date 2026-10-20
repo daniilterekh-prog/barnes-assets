@@ -1,5 +1,5 @@
 import {icon} from './icons.js?v=20261019-gateway';
-import {reviewInbox} from './domain.js?v=20261020-reviews';
+import {reviewInbox} from './domain.js?v=20261020-review-category';
 const node=(tag,cls,text)=>{const e=document.createElement(tag);e.className=cls||'';if(text!==undefined)e.textContent=text;return e;};
 export function setupReviews({api,getSession,getBoard,acceptBoard,member,toast,onUnauthorized,onChange,renderTask}){
   const dialog=document.getElementById('review-return-dialog'),form=document.getElementById('review-return-form'),reason=document.getElementById('review-return-reason'),error=document.getElementById('review-return-error'),submit=document.getElementById('review-return-submit'),close=document.getElementById('review-return-close');
@@ -21,7 +21,7 @@ export function setupReviews({api,getSession,getBoard,acceptBoard,member,toast,o
   function block(task,{controls=false}={}){
     const review=task.review;if(!review)return null;const box=node('section','review-note');box.setAttribute('aria-label','Проверка выполнения');
     const people=review.reviewers||[];const me=getSession()?.member,person=people.find(p=>p.member===me),waiting=review.outcome==='pending';
-    box.append(node('strong','',waiting?'На проверке':review.outcome==='returned'?'Возвращено в работу':task.status==='done'?'Проверка пройдена':'Предыдущая проверка пройдена'));
+    box.append(node('strong','',waiting?'Проверяющие':review.outcome==='returned'?'Возвращено в работу':task.status==='done'?'Проверка пройдена':'Предыдущая проверка пройдена'));
     if(review.outcome==='returned'){box.append(node('p','review-reason',member(review.returned_by).name+': '+review.reason));}
     else box.append(node('p','review-people',people.map(p=>member(p.member).name+' — '+(p.approved_at?'принято':review.outcome==='approved'?'подтверждение не требуется':'ждём')).join(' · ')));
     if(waiting&&person&&controls){const actions=node('div','review-actions');
@@ -31,11 +31,11 @@ export function setupReviews({api,getSession,getBoard,acceptBoard,member,toast,o
     return box;
   }
   function render(){
-    const board=getBoard(),me=getSession()?.member;if(!board||!me)return;const {actionable,waiting}=reviewInbox(board.tasks,me);document.getElementById('review-count').textContent=String(actionable.length);
+    const board=getBoard(),me=getSession()?.member;if(!board||!me)return;const {actionable,waiting,submitted}=reviewInbox(board.tasks,me);document.getElementById('review-count').textContent=String(actionable.length+waiting.length+submitted.length);
     const list=document.getElementById('review-list');list.replaceChildren();
     const section=(title,rows)=>{if(!rows.length)return;const group=node('section','review-group');group.append(node('h2','',title+' · '+rows.length));rows.forEach(task=>group.append(renderTask(task,{level:3,showOwner:true})));list.append(group);};
-    if(!actionable.length)list.append(node('p','muted','Нет задач, ожидающих твоего решения.'));
-    section('Ждут твоей проверки',actionable);section('Проверено тобой',waiting);
+    if(!actionable.length&&!waiting.length&&!submitted.length)list.append(node('p','muted','Нет задач на проверке.'));
+    section('Ждут твоей проверки',actionable);section('Проверено тобой',waiting);section('Мои задачи на проверке',submitted);
   }
   return {render,block,busy:id=>pending.has(id),reset(){pending.clear();target=null;dialog.close();}};
 }
