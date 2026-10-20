@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="./style.css?v=20261020-notifications">
   <link rel="stylesheet" href="./preloader.css?v=20261020-no-caption">
   <script type="module" src="./preloader.js"></script>
-  <script type="module" src="./app.js?v=20261020-notifications"></script>
+  <script type="module" src="./app.js?v=20261020-done-label"></script>
 </head>
 <body>
   <a id="skip-link" class="skip" href="#tasks">К задачам</a>
@@ -84,13 +84,13 @@
           </div>
           <button class="metric" data-stat="unmarked"><span class="metric-label"><i class="dot unmarked"></i>Не отмечено</span><strong id="count-unmarked">—</strong></button>
           <button class="metric" data-stat="progress"><span class="metric-label"><i class="dot progress"></i>В работе</span><strong id="count-progress">—</strong></button>
-          <button class="metric" data-stat="done"><span class="metric-label"><i class="dot done"></i>Сделано</span><strong id="count-done">—</strong></button>
+          <button class="metric" data-stat="done"><span class="metric-label"><i class="dot done"></i>Готово</span><strong id="count-done">—</strong></button>
           <button class="metric" data-stat="obsolete"><span class="metric-label"><i class="dot obsolete"></i>Не актуально</span><strong id="count-obsolete">—</strong></button>
         </section>
         <div id="board-error" class="board-error" role="alert" hidden></div>
         <div class="toolbar">
           <div class="view-tabs" aria-label="Список задач"><button id="tab-mine" class="view-tab active" type="button">Мои задачи</button><button id="tab-assigned" class="view-tab" type="button">Я поставил</button></div>
-          <div class="toolbar-tools"><label class="search"><span aria-hidden="true"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-gateway#search"></use></svg></span><input id="search" type="search" placeholder="Найти задачу" aria-label="Поиск задач"></label><label class="sr-only" for="status-filter">Статус задач</label><select id="status-filter"><option value="open">Открытые задачи</option><option value="all">Все статусы</option><option value="unmarked">Не отмечено</option><option value="progress">В работе</option><option value="review">На проверке</option><option value="done">Принято</option><option value="obsolete">Не актуально</option></select><label class="sr-only" for="deadline-filter">Сроки задач</label><select id="deadline-filter"><option value="all">Все сроки</option><option value="overdue">Просрочено</option><option value="today">Сегодня</option><option value="week">Ближайшие 7 дней</option><option value="none">Без срока</option></select><button id="urgent-filter" class="filter-button" type="button" aria-pressed="false"><span aria-hidden="true"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-gateway#flag"></use></svg></span> Срочные</button></div>
+          <div class="toolbar-tools"><label class="search"><span aria-hidden="true"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-gateway#search"></use></svg></span><input id="search" type="search" placeholder="Найти задачу" aria-label="Поиск задач"></label><label class="sr-only" for="status-filter">Статус задач</label><select id="status-filter"><option value="open">Открытые задачи</option><option value="all">Все статусы</option><option value="unmarked">Не отмечено</option><option value="progress">В работе</option><option value="review">На проверке</option><option value="done">Готово</option><option value="obsolete">Не актуально</option></select><label class="sr-only" for="deadline-filter">Сроки задач</label><select id="deadline-filter"><option value="all">Все сроки</option><option value="overdue">Просрочено</option><option value="today">Сегодня</option><option value="week">Ближайшие 7 дней</option><option value="none">Без срока</option></select><button id="urgent-filter" class="filter-button" type="button" aria-pressed="false"><span aria-hidden="true"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-gateway#flag"></use></svg></span> Срочные</button></div>
         </div>
         <div class="list-caption"><span id="list-description">Все исполнители</span><span id="visible-count"></span></div>
         <section id="tasks" class="task-list" aria-label="Задачи команды" tabindex="-1"></section>

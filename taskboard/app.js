@@ -8,9 +8,9 @@ import {setupAttachments,imageFileError} from './attachments.js?v=20261019-uploa
 import {setupDiscussion} from './discussion.js?v=20261020-notifications';
 import {icon} from './icons.js?v=20261019-gateway';
 import { API_URL } from './config.js';
-import { STATUSES, selectTasks, summarize, safeSource, safeHttps, taskDateLabel, mainTaskBuckets, personalMainTasks, programmerMood, mergeTask, deadlineInfo, moscowDay, shiftDay, taskDestination, taskSourceCategory, SITE_TASKS_ID, SITE_TASKS_TITLE, PAGE_STAGES, normalizeReviewTask, mergeNotificationInbox } from './domain.js?v=20261020-notifications';
+import { STATUSES, selectTasks, summarize, safeSource, safeHttps, taskDateLabel, mainTaskBuckets, personalMainTasks, programmerMood, mergeTask, deadlineInfo, moscowDay, shiftDay, taskDestination, taskSourceCategory, SITE_TASKS_ID, SITE_TASKS_TITLE, PAGE_STAGES, normalizeReviewTask, mergeNotificationInbox } from './domain.js?v=20261020-done-label';
 
-import {renderWiki} from './wiki.js?v=20261020-notifications';
+import {renderWiki} from './wiki.js?v=20261020-done-label';
 
 const $ = id => document.getElementById(id);
 const browserStorage=name=>{try{return window[name];}catch{return null;}};

@@ -2,7 +2,7 @@ export const STATUSES = {
   unmarked: { label: 'Не отмечено', short: 'Не отмечено', symbol: '○' },
   progress: { label: 'В работе', short: 'В работе', symbol: '◷' },
   review: { label: 'На проверке', short: 'На проверке', symbol: '◷' },
-  done: { label: 'Принято', short: 'Принято', symbol: '✓' },
+  done: { label: 'Готово', short: 'Готово', symbol: '✓' },
   obsolete: { label: 'Не актуально', short: 'Не актуально', symbol: '−' }
 };
 export function selectTasks(tasks, filters) {

@@ -1,5 +1,5 @@
 import {icon} from './icons.js?v=20261019-gateway';
-import {safeHttps,pageTaskModel,SITE_TASKS_ID,SITE_TASKS_TITLE,taskSourceCategory,taskDestination,PAGE_STAGES,pageOverview} from './domain.js?v=20261020-notifications';
+import {safeHttps,pageTaskModel,SITE_TASKS_ID,SITE_TASKS_TITLE,taskSourceCategory,taskDestination,PAGE_STAGES,pageOverview} from './domain.js?v=20261020-done-label';
 const node=(tag,cls,text)=>{const e=document.createElement(tag);e.className=cls||'';if(text!==undefined)e.textContent=text;return e;};
 function renderPageLinks(container,page,{general=false}={}){
   const nav=node('nav','wiki-quick-links');nav.setAttribute('aria-label',general?'Сайт и GitHub':'Ссылки страницы: '+page.title);
@@ -49,7 +49,7 @@ export function renderWiki(container,{pages,sections=[],tasks,query,selectedPage
     const labels={mine:'На мне',assigned:'Я поставил',all:'Все'};
     model.modes.forEach(({id,count})=>{const button=node('button','filter-button',labels[id]);button.type='button';button.dataset.wikiScope=id;button.setAttribute('aria-pressed',String(taskScope===id));button.append(node('span','',String(count)));button.onclick=()=>onScope(id);modes.append(button);});taskArea.append(modes);
     const filters=node('div','wiki-task-filters'),label=node('label','','Статус'),select=node('select','');label.htmlFor='wiki-task-status';select.id='wiki-task-status';
-    [['open','Открытые'],['all','Все статусы'],['unmarked','Не отмечено'],['progress','В работе'],['review','На проверке'],['done','Принято'],['obsolete','Не актуально']].forEach(([value,text])=>{const option=node('option','',text);option.value=value;select.append(option);});select.value=taskStatus;select.onchange=()=>onStatus(select.value);filters.append(label,select);taskArea.append(filters);
+    [['open','Открытые'],['all','Все статусы'],['unmarked','Не отмечено'],['progress','В работе'],['review','На проверке'],['done','Готово'],['obsolete','Не актуально']].forEach(([value,text])=>{const option=node('option','',text);option.value=value;select.append(option);});select.value=taskStatus;select.onchange=()=>onStatus(select.value);filters.append(label,select);taskArea.append(filters);
     const progress=node('p','muted',`${model.counts.done} из ${model.counts.total} выполнено`);taskArea.append(progress);
     const list=node('div','wiki-task-list');
     if(!model.rows.length)list.append(node('p','muted',taskScope==='mine'?'На тебе нет задач этой страницы по выбранному статусу.':taskScope==='assigned'?'Твоих поручений по этой странице и статусу пока нет.':'Задач этой страницы по выбранному статусу нет.'));
