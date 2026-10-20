@@ -1,14 +1,15 @@
+import {setupReviews} from './reviews.js?v=20261020-reviews';
 import {setupAssignee} from './assignee.js?v=20261019-assignee';
 import {setupTaskCard} from './task-card.js?v=20261019-progress-deadline';
-import {createPersistence,normalizeView,SESSION_KEY} from './persistence.js?v=20261020-source-split';
+import {createPersistence,normalizeView,SESSION_KEY} from './persistence.js?v=20261020-reviews';
 import {setupGateway} from './gateway.js?v=20261019-gateway';
 import {setupAttachments,imageFileError} from './attachments.js?v=20261019-upload-form';
-import {setupDiscussion} from './discussion.js?v=20261019-gateway';
+import {setupDiscussion} from './discussion.js?v=20261020-reviews';
 import {icon} from './icons.js?v=20261019-gateway';
 import { API_URL } from './config.js';
-import { STATUSES, selectTasks, summarize, safeSource, safeHttps, taskDateLabel, mainTaskBuckets, personalMainTasks, programmerMood, mergeTask, deadlineInfo, moscowDay, shiftDay, taskDestination, taskSourceCategory, SITE_TASKS_ID, SITE_TASKS_TITLE, PAGE_STAGES } from './domain.js?v=20261020-page-readiness';
+import { STATUSES, selectTasks, summarize, safeSource, safeHttps, taskDateLabel, mainTaskBuckets, personalMainTasks, programmerMood, mergeTask, deadlineInfo, moscowDay, shiftDay, taskDestination, taskSourceCategory, SITE_TASKS_ID, SITE_TASKS_TITLE, PAGE_STAGES, normalizeReviewTask } from './domain.js?v=20261020-reviews';
 
-import {renderWiki} from './wiki.js?v=20261020-page-readiness';
+import {renderWiki} from './wiki.js?v=20261020-reviews';
 
 const $ = id => document.getElementById(id);
 const browserStorage=name=>{try{return window[name];}catch{return null;}};
@@ -22,10 +23,11 @@ state.screen='gateway';state.mineBrowse=null;state.mineOrigin=null;state.createF
 state.scope='mine'; state.creator='all'; state.questionsTo=null;state.deadline='all';
 state.selectedTask=null;state.detailsExpanded=new Set();state.view='tasks'; state.expanded=new Set(); state.openPages=new Set(); state.pageQuery='';state.selectedPage=null;state.wikiScope='mine';state.wikiStatus='open';state.wikiSource='other';
 const dateFormat = new Intl.DateTimeFormat('ru', {day:'numeric',month:'short',hour:'2-digit',minute:'2-digit',timeZone:'Europe/Moscow'});
+const reviews=setupReviews({api,getSession:()=>state.session,getBoard:()=>state.board,acceptBoard,member,toast,onUnauthorized:showLogin,onChange:()=>render(),renderTask});
 const attachments=setupAttachments({api,getSession:()=>state.session,getBoard:()=>state.board,acceptBoard,member,toast,onUnauthorized:showLogin});
 const gateway=setupGateway(chooseDestination);
 const discussion=setupDiscussion({api,getSession:()=>state.session,getBoard:()=>state.board,acceptBoard,member,toast,onUnauthorized:showLogin});
-const taskCard=setupTaskCard({getTask:id=>state.board?.tasks.find(t=>t.id===id),isBusy:id=>state.busy.has(id),renderTask,onSelect:id=>{state.selectedTask=id;saveView();}});
+const taskCard=setupTaskCard({getTask:id=>state.board?.tasks.find(t=>t.id===id),isBusy:id=>state.busy.has(id)||reviews.busy(id),renderTask,onSelect:id=>{state.selectedTask=id;saveView();}});
 const assignee=setupAssignee({api,getBoard:()=>state.board,getSession:()=>state.session,acceptBoard,toast,onUnauthorized:showLogin,onSaved:()=>taskCard.focusAction('.assignee-open')});
 [['task-create-dialog','.task-edit'],['assignee-dialog','.assignee-open'],['deadline-dialog','.deadline-chip'],['discussion-dialog','.discussion-open:not(.attachments-open)'],['attachments-dialog','.attachments-open']].forEach(([id,selector])=>$(id).addEventListener('close',()=>taskCard.focusAction(selector)));
 
@@ -70,6 +72,7 @@ async function api(action, body, binary=false) {
   return data;
 }
 function acceptBoard(data) {
+  data.tasks=data.tasks.map(normalizeReviewTask);
   data.tasks=data.tasks.filter(t=>!['tatyana','team'].includes(t.owner));
   // An older poll response must never overwrite a newer status save.
   if (state.board) {
@@ -136,7 +139,7 @@ $('gateway-back').onclick=e=>{e.preventDefault();showGateway();};
 function showLogin(message = '',clearStored=true) {
   persistenceReady=false;restoringView=false;clearTimeout(scrollTimer);if(clearStored)persistence.clearSession(state.session?.token);
   gateway.reset();$('gateway-view').hidden=true;$('skip-link').hidden=false;state.screen='login';state.mineBrowse=null;state.mineOrigin=null;state.createFromGateway=false;
-  assignee.reset();taskCard.reset();attachments.reset();discussion.reset();$('deadline-dialog').close();deadlineTask=null;state.deadline='all';state.questionsTo=null;state.session = null; state.board = null; state.signature = ''; state.busy.clear();state.detailsExpanded.clear();state.expanded.clear();state.specExpanded?.clear();state.openPages.clear();state.selectedPage=null;state.wikiScope='mine';state.wikiStatus='open';state.wikiSource='other';state.pageQuery='';$('page-search').value='';state.view='tasks';state.owner='all';state.scope='mine';state.creator='all';
+  reviews.reset();assignee.reset();taskCard.reset();attachments.reset();discussion.reset();$('deadline-dialog').close();deadlineTask=null;state.deadline='all';state.questionsTo=null;state.session = null; state.board = null; state.signature = ''; state.busy.clear();state.detailsExpanded.clear();state.expanded.clear();state.specExpanded?.clear();state.openPages.clear();state.selectedPage=null;state.wikiScope='mine';state.wikiStatus='open';state.wikiSource='other';state.pageQuery='';$('page-search').value='';state.view='tasks';state.owner='all';state.scope='mine';state.creator='all';
   state.status='open';state.urgent=false;state.query='';$('search').value='';
   $('nav-mine').open=true;$('nav-assigned').open=false;
   $('board-view').hidden = true; $('login-view').hidden = false;
@@ -198,15 +201,15 @@ function render() {
   if (!state.board) return;
   taskCard.refresh();saveView();
   renderNav();
-  $('tasks-view').hidden=state.view!=='tasks'; $('pages-view').hidden=state.view!=='pages';
-  $('owner-nav').hidden=true; $('board-title').textContent=state.view==='pages'?'СТРАНИЦЫ.':'ЗАДАЧИ.';
+  $('tasks-view').hidden=state.view!=='tasks'; $('pages-view').hidden=state.view!=='pages';$('review-view').hidden=state.view!=='review';
+  $('owner-nav').hidden=true; $('board-title').textContent=state.view==='pages'?'СТРАНИЦЫ.':state.view==='review'?'ПРОВЕРКА.':'ЗАДАЧИ.';
   $('page-create-open').hidden=state.view!=='pages';
-  ['tasks','pages'].forEach(view=>{$('view-'+view).classList.toggle('active',state.view===view);$('view-'+view).setAttribute('aria-pressed',String(state.view===view));});
-  renderPages();
+  ['tasks','pages','review'].forEach(view=>{$('view-'+view).classList.toggle('active',state.view===view);$('view-'+view).setAttribute('aria-pressed',String(state.view===view));});
+  renderPages();reviews.render();
   const relevantTasks=personalMainTasks(state.board.tasks,state.session.member,state.scope);
   const counts=summarize(relevantTasks);
   $('progress-title').textContent=state.scope==='assigned'?'Прогресс моих поручений':'Мой прогресс';
-  Object.keys(STATUSES).forEach(status => { $('count-'+status).textContent=String(counts[status]); });
+  Object.keys(STATUSES).forEach(status => { if($('count-'+status))$('count-'+status).textContent=String(counts[status]); });
   $('progress').max=counts.total || 1; $('progress').value=counts.done;
   $('progress-label').textContent=counts.done+' / '+counts.total;
   $('progress-note').textContent=counts.done ? 'Готово '+Math.round(counts.done/Math.max(counts.total,1)*100)+'% · не актуально: '+counts.obsolete : 'Пока нет выполненных задач';
@@ -240,7 +243,7 @@ function renderPages(){
   saveView();
   $('page-search').closest('label').hidden=!!state.selectedPage;
   const reading=state.view==='pages'&&!!state.selectedPage;
-  $('task-create-open').hidden=reading;$('page-create-open').hidden=state.view!=='pages'||reading;
+  $('task-create-open').hidden=reading||state.view==='review';$('page-create-open').hidden=state.view!=='pages'||reading;
   renderWiki($('wiki-cards'),{pages:state.board.pages||[],sections:state.board.spec_sections||[],tasks:state.board.tasks,query:state.pageQuery,selectedPage:state.selectedPage,taskScope:state.wikiScope,taskStatus:state.wikiStatus,source:state.wikiSource,me:state.session.member,
     onSelect:id=>{state.selectedPage=id;if(!id){state.pageQuery='';$('page-search').value='';}state.wikiScope='mine';state.wikiStatus='open';renderPages();(id?$('wiki-page-title'):$('board-title'))?.focus({preventScroll:true});$('pages-view').scrollIntoView({block:'start',behavior:'instant'});},
     onScope:scope=>{state.wikiScope=scope;renderPages();$('wiki-cards').querySelector('[data-wiki-scope="'+scope+'"]')?.focus({preventScroll:true});},
@@ -249,20 +252,20 @@ function renderPages(){
     onEdit:openPage,onTask:id=>openTask(null,id),renderTask});
 }
 function switchView(view){state.view=view;render();}
-$('view-tasks').onclick=()=>switchView('tasks');$('view-pages').onclick=()=>switchView('pages');
+$('view-tasks').onclick=()=>switchView('tasks');$('view-pages').onclick=()=>switchView('pages');$('view-review').onclick=()=>switchView('review');
 $('page-search').oninput=e=>{state.pageQuery=e.target.value;renderPages();};
 function renderTask(task,{level=3,showOwner=false,isCard=false}={}) {
   const row=el('article','task-row is-'+task.status+(isCard?' task-card-detail':'')), symbol=el('button','task-toggle');
   row.dataset.task=task.id;
   symbol.type='button'; symbol.setAttribute('role','checkbox');
-  symbol.setAttribute('aria-checked',String(task.status==='done'));
+  symbol.setAttribute('aria-checked',task.status==='review'?'mixed':String(task.status==='done'));
   symbol.setAttribute('aria-label','Готово: '+task.title);
-  symbol.title=task.status==='done'?'Снять отметку':'Отметить выполненной';
+  symbol.title=task.status==='review'?'Открыть проверку':task.status==='done'?'Снять отметку':'Готово — отправить на проверку';
   symbol.disabled=state.busy.has(task.id);
   const mark=el('span','task-check');
-  if(task.status!=='unmarked')mark.append(icon({done:'check',progress:'clock',obsolete:'minus'}[task.status]));
+  if(task.status!=='unmarked')mark.append(icon({done:'check',review:'clock',progress:'clock',obsolete:'minus'}[task.status]));
   mark.setAttribute('aria-hidden','true'); symbol.append(mark);
-  symbol.onclick=()=>changeStatus(task.id,task.status==='done'?'unmarked':'done',true);
+  symbol.onclick=()=>task.status==='review'?taskCard.open(task.id):changeStatus(task.id,task.status==='done'?'unmarked':'done',true);
   const main=el('div','task-main'),title=el('h'+level,'task-title',task.title),meta=el('div','task-meta');
   if(!isCard){title.replaceChildren();const titleButton=el('button','task-title-open',task.title);titleButton.type='button';titleButton.onclick=()=>taskCard.open(task.id);title.append(titleButton);}
   meta.append(el('span','task-current-status',STATUSES[task.status].label));
@@ -278,7 +281,7 @@ function renderTask(task,{level=3,showOwner=false,isCard=false}={}) {
   details.open=isCard||state.detailsExpanded.has(task.id);if(!isCard)details.addEventListener('toggle',()=>{if(!details.isConnected)return;details.open?state.detailsExpanded.add(task.id):state.detailsExpanded.delete(task.id);saveView();});
   const source=safeHttps(task.source_url||task.source);
   if(source) { const link=el('a','',task.origin==='telegram'?'Поручение в Telegram ↗':'Открыть ТЗ ↗'); link.href=source; link.target='_blank'; link.rel='noopener noreferrer'; details.append(link); }
-  const edit=el('button','text-button task-edit','Изменить задачу');edit.type='button';edit.onclick=()=>openTask(task);details.append(edit);
+  const edit=el('button','text-button task-edit','Изменить задачу');edit.type='button';edit.disabled=task.status==='review';edit.onclick=()=>openTask(task);details.append(edit);
   const related=el('div','task-page-links');[taskDestination(task,state.board.pages||[],state.board.spec_sections||[])].forEach(id=>{const p=id===SITE_TASKS_ID?{id,title:SITE_TASKS_TITLE}:state.board.pages?.find(p=>p.id===id);if(!p)return;const button=el('button','page-chip',p.title);button.type='button';button.onclick=()=>{if(isCard)taskCard.close();state.selectedPage=id;state.wikiScope='mine';state.wikiStatus='open';switchView('pages');$('wiki-page-title')?.focus({preventScroll:true});};related.append(button);});
   const discuss=el('button','discussion-open','Обсуждение'+(task.comment_count?' · '+task.comment_count:''));discuss.type='button';discuss.prepend(icon('message-circle'));discuss.setAttribute('aria-label','Обсудить задачу: '+task.title);discuss.onclick=()=>discussion.open(task.id);
   if(task.open_question_count)discuss.append(el('span','question-counter','Вопросы: '+task.open_question_count));
@@ -286,19 +289,20 @@ function renderTask(task,{level=3,showOwner=false,isCard=false}={}) {
   const actions=el('div','task-extra-actions');actions.append(discuss,images);
   if(isCard){const assign=el('button','filter-button assignee-open','Ответственный: '+member(task.owner).name+' · Изменить');assign.type='button';assign.disabled=state.busy.has(task.id);assign.onclick=()=>assignee.open(task);main.append(title,meta,assign,details,related,actions);}
   else{const open=el('button','primary task-open','Открыть задачу');open.type='button';open.append(icon('arrow-up-right'));open.setAttribute('aria-label','Открыть задачу: '+task.title);open.onclick=()=>taskCard.open(task.id);main.append(title,meta,open);row.onclick=event=>{if(event.target.closest('button,a,input,select,textarea,summary')||window.getSelection()?.toString().trim())return;taskCard.open(task.id);};}
+  const reviewInfo=reviews.block(task,{controls:isCard||state.view==='review'});if(reviewInfo)main.append(reviewInfo);
   const controls=el('div','status-controls'); controls.setAttribute('role','group'); controls.setAttribute('aria-label','Статус задачи «'+task.title+'»');
   ['progress','done','obsolete'].forEach(status=>{
-    const button=el('button','status-option '+status,STATUSES[status].label);
+    const button=el('button','status-option '+status,status==='done'?'Готово — на проверку':STATUSES[status].label);
     button.prepend(icon({progress:'clock',done:'check',obsolete:'minus'}[status]));
     button.type='button'; button.dataset.status=status; button.setAttribute('aria-pressed',String(task.status===status));
     button.setAttribute('aria-label',STATUSES[status].short+': '+task.title);
-    button.disabled=state.busy.has(task.id);
+    button.disabled=state.busy.has(task.id)||task.status==='review';
     button.onclick=()=>changeStatus(task.id,status);
     controls.append(button);
   });
   if(task.status!=='unmarked') {
     const reset=el('button','reset-status','Сбросить'); reset.type='button'; reset.dataset.status='unmarked';
-    reset.setAttribute('aria-label','Сбросить статус: '+task.title); reset.disabled=state.busy.has(task.id);
+    reset.setAttribute('aria-label','Сбросить статус: '+task.title); reset.disabled=state.busy.has(task.id)||task.status==='review';
     reset.onclick=()=>changeStatus(task.id,'unmarked'); controls.append(reset);
   }
   row.append(symbol,main);if(isCard)row.append(controls);return row;
@@ -315,7 +319,7 @@ async function changeStatus(id,status,fromCheckbox=false) {
   try {
     const data=await api('status',{id,status,revision:Number(task.revision)});
     if (state.session?.token!==token) return;
-    acceptBoard(data);statusSaved=true; showError(''); toast('Сохранено');
+    acceptBoard(data);statusSaved=true; showError(''); toast(status==='done'?'Отправлено на проверку постановщику и Даниилу':'Сохранено');
   } catch(error) {
     if (state.session?.token!==token) return;
     if (error.status===401) { showLogin(error.message); return; }
@@ -329,7 +333,7 @@ async function changeStatus(id,status,fromCheckbox=false) {
       const current=state.board.tasks.find(t=>t.id===id);
       if(statusSaved&&status==='progress'&&current?.status==='progress')openDeadline(current);
       else{
-      const scope=taskCard.isOpenFor(id)?$('task-card-body'):state.view==='pages'?$('pages-view'):$('tasks');
+      const scope=taskCard.isOpenFor(id)?$('task-card-body'):state.view==='pages'?$('pages-view'):state.view==='review'?$('review-list'):$('tasks');
       const target=scope.querySelector('[data-task="'+id+'"] '+(fromCheckbox?'.task-toggle':'[data-status="'+status+'"]'));
       if(target?.getClientRects().length)target.focus({preventScroll:true});else taskAddButton().focus({preventScroll:true});
       }

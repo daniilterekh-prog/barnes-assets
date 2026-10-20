@@ -11,10 +11,10 @@
   <title>Рабочая доска — BARN Estate</title>
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
   <script src="./theme.js?v=20261020-light-header"></script>
-  <link rel="stylesheet" href="./style.css?v=20261020-page-readiness">
+  <link rel="stylesheet" href="./style.css?v=20261020-reviews">
   <link rel="stylesheet" href="./preloader.css?v=20261020-no-caption">
   <script type="module" src="./preloader.js"></script>
-  <script type="module" src="./app.js?v=20261020-page-readiness"></script>
+  <script type="module" src="./app.js?v=20261020-reviews"></script>
 </head>
 <body>
   <a id="skip-link" class="skip" href="#tasks">К задачам</a>
@@ -47,7 +47,7 @@
   <div id="board-view" class="workspace" hidden>
     <aside class="sidebar">
       <header class="sidebar-header"><a id="gateway-back" class="wordmark side-brand" href="#start" aria-label="BARN DIGITAL — вернуться к выбору раздела"><span>BARN.</span><small>DIGITAL</small></a><button class="theme-switch theme-header" type="button" data-theme-toggle aria-label="Включить светлую тему" aria-pressed="false"><svg class="ui-icon theme-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg><svg class="ui-icon theme-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 13.5A9 9 0 0 1 10.5 3.5 9 9 0 1 0 20.5 13.5Z"/></svg><span data-theme-label class="sr-only">Тёмная</span></button><div class="identity"><span id="my-avatar" class="avatar"></span><span id="my-name"></span><button id="logout" type="button" aria-label="Выйти из рабочей доски" title="Выйти"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-gateway#log-out"></use></svg></button></div></header>
-      <nav class="workspace-views" aria-label="Разделы"><button id="view-tasks" class="view-tab active" type="button">Задачи</button><button id="view-pages" class="view-tab" type="button">Страницы сайта</button></nav>
+      <nav class="workspace-views" aria-label="Разделы"><button id="view-tasks" class="view-tab active" type="button">Задачи</button><button id="view-pages" class="view-tab" type="button">Страницы сайта</button><button id="view-review" class="view-tab" type="button">Проверка <span id="review-count">0</span></button></nav>
       <nav id="owner-nav" aria-label="Задачи по участникам" hidden>
         <details id="nav-mine" class="scope-group" open><summary>Мои задачи <span id="nav-mine-count"></span></summary><label class="nav-filter" for="from-member">От кого<select id="from-member"></select></label></details>
         <details id="nav-assigned" class="scope-group"><summary>Я поставил <span id="nav-assigned-count"></span></summary><label class="nav-filter" for="to-member">Кому<select id="to-member"></select></label></details>
@@ -90,12 +90,13 @@
         <div id="board-error" class="board-error" role="alert" hidden></div>
         <div class="toolbar">
           <div class="view-tabs" aria-label="Список задач"><button id="tab-mine" class="view-tab active" type="button">Мои задачи</button><button id="tab-assigned" class="view-tab" type="button">Я поставил</button></div>
-          <div class="toolbar-tools"><label class="search"><span aria-hidden="true"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-gateway#search"></use></svg></span><input id="search" type="search" placeholder="Найти задачу" aria-label="Поиск задач"></label><label class="sr-only" for="status-filter">Статус задач</label><select id="status-filter"><option value="open">Открытые задачи</option><option value="all">Все статусы</option><option value="unmarked">Не отмечено</option><option value="progress">В работе</option><option value="done">Сделано</option><option value="obsolete">Не актуально</option></select><label class="sr-only" for="deadline-filter">Сроки задач</label><select id="deadline-filter"><option value="all">Все сроки</option><option value="overdue">Просрочено</option><option value="today">Сегодня</option><option value="week">Ближайшие 7 дней</option><option value="none">Без срока</option></select><button id="urgent-filter" class="filter-button" type="button" aria-pressed="false"><span aria-hidden="true"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-gateway#flag"></use></svg></span> Срочные</button></div>
+          <div class="toolbar-tools"><label class="search"><span aria-hidden="true"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-gateway#search"></use></svg></span><input id="search" type="search" placeholder="Найти задачу" aria-label="Поиск задач"></label><label class="sr-only" for="status-filter">Статус задач</label><select id="status-filter"><option value="open">Открытые задачи</option><option value="all">Все статусы</option><option value="unmarked">Не отмечено</option><option value="progress">В работе</option><option value="review">На проверке</option><option value="done">Принято</option><option value="obsolete">Не актуально</option></select><label class="sr-only" for="deadline-filter">Сроки задач</label><select id="deadline-filter"><option value="all">Все сроки</option><option value="overdue">Просрочено</option><option value="today">Сегодня</option><option value="week">Ближайшие 7 дней</option><option value="none">Без срока</option></select><button id="urgent-filter" class="filter-button" type="button" aria-pressed="false"><span aria-hidden="true"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-gateway#flag"></use></svg></span> Срочные</button></div>
         </div>
         <div class="list-caption"><span id="list-description">Все исполнители</span><span id="visible-count"></span></div>
         <section id="tasks" class="task-list" aria-label="Задачи команды" tabindex="-1"></section>
         </div>
         <section id="pages-view" hidden aria-label="Страницы сайта"><label class="search wiki-search"><span aria-hidden="true"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-gateway#search"></use></svg></span><input id="page-search" type="search" aria-label="Поиск страниц" placeholder="Выбери раздел или найди страницу"></label><div id="wiki-cards"></div></section>
+        <section id="review-view" hidden aria-label="Проверка выполненных задач"><p class="muted">Задачи ждут приёмки у постановщика и Даниила. Для приёмки достаточно одного подтверждения.</p><div id="review-list"></div></section>
       </main>
     </div>
   </div>
@@ -112,6 +113,7 @@
       <p id="task-create-error" class="error" role="alert"></p><button id="task-create-submit" class="primary" type="submit">Добавить <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-gateway#arrow-up-right"></use></svg></button>
     </form>
   </dialog>
+  <dialog id="review-return-dialog" aria-labelledby="review-return-title"><div class="dialog-head"><h2 id="review-return-title">Вернуть с замечаниями</h2><button id="review-return-close" class="icon-button" type="button" aria-label="Закрыть возврат задачи">×</button></div><form id="review-return-form"><label for="review-return-reason">Что нужно исправить</label><textarea id="review-return-reason" required maxlength="1000" rows="4"></textarea><p id="review-return-error" class="error" role="alert"></p><button id="review-return-submit" class="primary" type="submit">Вернуть исполнителю</button></form></dialog>
   <dialog id="page-dialog" aria-labelledby="page-dialog-title">
     <div class="dialog-head"><h2 id="page-dialog-title">Страница сайта</h2><button id="page-close" class="icon-button" type="button" aria-label="Закрыть страницу"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-gateway#x"></use></svg></button></div>
     <form id="page-form"><label for="page-name">Название</label><input id="page-name" required maxlength="100" autocomplete="off">

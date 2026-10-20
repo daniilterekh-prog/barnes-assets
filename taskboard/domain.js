@@ -1,7 +1,8 @@
 export const STATUSES = {
   unmarked: { label: 'Не отмечено', short: 'Не отмечено', symbol: '○' },
   progress: { label: 'В работе', short: 'В работе', symbol: '◷' },
-  done: { label: 'Сделано', short: 'Сделано', symbol: '✓' },
+  review: { label: 'На проверке', short: 'На проверке', symbol: '◷' },
+  done: { label: 'Принято', short: 'Принято', symbol: '✓' },
   obsolete: { label: 'Не актуально', short: 'Не актуально', symbol: '−' }
 };
 export function selectTasks(tasks, filters) {
@@ -17,7 +18,7 @@ export function selectTasks(tasks, filters) {
     && (!query || (t.title + ' ' + t.detail + ' ' + t.id).toLocaleLowerCase('ru').includes(query))).sort((a,b)=>deadlineSortKey(a).localeCompare(deadlineSortKey(b)));
 }
 export function summarize(tasks) {
-  const counts = { unmarked: 0, progress: 0, done: 0, obsolete: 0 };
+  const counts = { unmarked: 0, progress: 0, review: 0, done: 0, obsolete: 0 };
   tasks.forEach(t => { if (Object.hasOwn(counts, t.status)) counts[t.status]++; });
   return { ...counts, total: tasks.length, closed: counts.done + counts.obsolete };
 }
@@ -157,4 +158,11 @@ export function pageOverview(tasks,pageId,pages=[],sections=[]){
   const relevant=tasks.filter(t=>t.status!=='obsolete'&&taskDestination(t,pages,sections)===pageId);
   const done=relevant.filter(t=>t.status==='done').length,total=relevant.length;
   return {done,total,percent:total?Math.round(done/total*100):0};
+}
+
+export function normalizeReviewTask(task){return task.review?.outcome==='pending'?{...task,status:'review'}:task;}
+export function reviewInbox(tasks,me){
+ const pending=tasks.filter(t=>t.review?.outcome==='pending'&&t.review.reviewers?.some(p=>p.member===me));
+ pending.sort((a,b)=>(Number(b.urgent)||0)-(Number(a.urgent)||0)||a.review.created_at.localeCompare(b.review.created_at));
+ return {actionable:pending.filter(t=>!t.review.reviewers.find(p=>p.member===me).approved_at),waiting:pending.filter(t=>!!t.review.reviewers.find(p=>p.member===me).approved_at)};
 }

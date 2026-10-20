@@ -13,7 +13,7 @@ export function setupDiscussion({api,getSession,getBoard,acceptBoard,member,toas
     if(kind!=='comment')replyTo=null;
     $('discussion-reply').hidden=!replyTo;
     if(replyTo)$('discussion-reply-label').textContent='Ответ: '+member(replyTo.actor).name+' — '+replyTo.text.slice(0,100);
-    $('discussion-submit').textContent=kind==='completion'?'Сохранить и выполнить':'Отправить';
+    $('discussion-submit').textContent=kind==='completion'?'Сохранить и на проверку':'Отправить';
     $('discussion-submit').prepend(icon(kind==='completion'?'check':'send'));
     $('discussion-text-label').textContent=kind==='question'?'Вопрос':kind==='completion'?'Что сделано':'Сообщение';
   }
@@ -103,7 +103,7 @@ export function setupDiscussion({api,getSession,getBoard,acceptBoard,member,toas
     try{
       const data=await api('comment',body);if(epoch!==current||getSession()?.token!==token)return;
       acceptBoard(data.board);apply(data.discussion);$('discussion-text').value='';replyTo=null;requestId=null;drafts.delete(taskId);$('discussion-kind').value='comment';$('discussion-recipient').value='';mode();$('discussion-scroll').scrollTop=$('discussion-scroll').scrollHeight;
-      toast(body.kind==='completion'?'Отчёт сохранён · задача выполнена':body.kind==='question'?'Вопрос сохранён':'Комментарий сохранён');
+      toast(body.kind==='completion'?'Отчёт сохранён · задача на проверке':body.kind==='question'?'Вопрос сохранён':'Комментарий сохранён');
     }catch(error){if(epoch!==current||getSession()?.token!==token)return;if(error.status===401)onUnauthorized(error.message);else{if(error.data?.board)acceptBoard(error.data.board);$('discussion-error').textContent=error.message;}}
     finally{if(epoch===current){setBusy(false);render();$('discussion-text').focus();saveDraft();}}
   });
