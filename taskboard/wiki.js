@@ -1,5 +1,5 @@
 import {icon} from './icons.js?v=20261019-gateway';
-import {safeHttps,pageTaskModel,SITE_TASKS_ID,SITE_TASKS_TITLE} from './domain.js?v=20261019-site-categories';
+import {safeHttps,pageTaskModel,SITE_TASKS_ID,SITE_TASKS_TITLE,taskSourceCategory,taskDestination} from './domain.js?v=20261020-telegram-main';
 const node=(tag,cls,text)=>{const e=document.createElement(tag);e.className=cls||'';if(text!==undefined)e.textContent=text;return e;};
 function renderPageLinks(container,page,{general=false}={}){
   const nav=node('nav','wiki-quick-links');nav.setAttribute('aria-label',general?'Сайт и GitHub':'Ссылки страницы: '+page.title);
@@ -14,14 +14,17 @@ function renderPageLinks(container,page,{general=false}={}){
   }
   container.append(nav);
 }
-export function renderWiki(container,{pages,sections=[],tasks,query,selectedPage,taskScope,taskStatus,me,onSelect,onScope,onStatus,onEdit,onTask,renderTask}) {
+export function renderWiki(container,{pages,sections=[],tasks,query,selectedPage,taskScope,taskStatus,source='all',me,onSelect,onScope,onStatus,onSource,onEdit,onTask,renderTask}) {
   container.replaceChildren();
+  const sourceTasks=source==='spec'?tasks.filter(t=>taskSourceCategory(t)==='spec'):tasks;
+  const sourceFilter=parent=>{const group=node('div','wiki-source-filter');group.setAttribute('role','group');group.setAttribute('aria-label','Источник задач сайта');[['all','Все источники'],['spec','Экстра финальное ТЗ']].forEach(([id,label])=>{const button=node('button','filter-button',label);button.type='button';button.dataset.wikiSource=id;button.setAttribute('aria-pressed',String(source===id));button.onclick=()=>onSource(id);group.append(button);});parent.append(group);};
   const realPages=pages;pages=[{id:SITE_TASKS_ID,title:SITE_TASKS_TITLE,front_url:'',live_url:'',github_url:''},...pages];
-  const visible=pages.filter(p=>(p.title+' '+p.front_url+' '+p.live_url+' '+p.github_url).toLocaleLowerCase('ru').includes(query.trim().toLocaleLowerCase('ru')));
-  if(!selectedPage&&!visible.length){container.append(node('p','empty','Страницы не найдены'));return;}
+  const destinations=new Set(sourceTasks.map(t=>taskDestination(t,realPages,sections)));
+  const visible=pages.filter(p=> (source!=='spec'||destinations.has(p.id))&&(p.title+' '+p.front_url+' '+p.live_url+' '+p.github_url).toLocaleLowerCase('ru').includes(query.trim().toLocaleLowerCase('ru')));
   const selected=pages.find(p=>p.id===selectedPage);
   if(!selected){
-    renderPageLinks(container,realPages.find(p=>p.id==='home')||{title:'Сайт'},{general:true});
+    renderPageLinks(container,realPages.find(p=>p.id==='home')||{title:'Сайт'},{general:true});sourceFilter(container);
+    if(!visible.length){container.append(node('p','empty','Страницы не найдены'));return;}
     const grid=node('div','wiki-page-choices');grid.setAttribute('role','group');grid.setAttribute('aria-label','Выбери раздел сайта');
     visible.forEach(p=>{const button=node('button','wiki-page-choice',p.title);button.type='button';button.dataset.pageChoice=p.id;button.append(icon('arrow-up-right'));button.onclick=()=>onSelect(p.id);grid.append(button);});container.append(grid);return;
   }
@@ -31,9 +34,10 @@ export function renderWiki(container,{pages,sections=[],tasks,query,selectedPage
     edit.prepend(icon('pencil'));edit.type='button';edit.setAttribute('aria-label','Изменить страницу: '+p.title);edit.onclick=()=>onEdit(p);header.append(title);if(p.id!==SITE_TASKS_ID)header.append(edit);card.append(header);
     title.id='wiki-page-title';title.tabIndex=-1;
     renderPageLinks(card,p.id===SITE_TASKS_ID?(realPages.find(p=>p.id==='home')||{title:'Сайт'}):p,{general:p.id===SITE_TASKS_ID});
-    const model=pageTaskModel(tasks,p.id,me,taskScope,taskStatus,realPages,sections);
+    const model=pageTaskModel(sourceTasks,p.id,me,taskScope,taskStatus,realPages,sections);
     const controls=node('div','wiki-task-actions'),add=node('button','primary','Добавить задачу');add.prepend(icon('plus'));add.id='wiki-task-add';add.type='button';add.setAttribute('aria-label',p.id===SITE_TASKS_ID?'Добавить задачу по сайту':'Добавить задачу к странице: '+p.title);add.onclick=()=>onTask(p.id===SITE_TASKS_ID?null:p.id);controls.append(add);card.append(controls);
     const taskArea=node('section','wiki-page-tasks');taskArea.setAttribute('aria-label','Задачи страницы: '+p.title);if(p.id!==SITE_TASKS_ID)taskArea.append(node('h3','wiki-tasks-title','Задачи страницы'));
+    sourceFilter(taskArea);
     const modes=node('div','wiki-task-scopes');modes.setAttribute('role','group');modes.setAttribute('aria-label','Чьи задачи показать');
     const labels={mine:'На мне',assigned:'Я поставил',all:'Все'};
     model.modes.forEach(({id,count})=>{const button=node('button','filter-button',labels[id]);button.type='button';button.dataset.wikiScope=id;button.setAttribute('aria-pressed',String(taskScope===id));button.append(node('span','',String(count)));button.onclick=()=>onScope(id);modes.append(button);});taskArea.append(modes);

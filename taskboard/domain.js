@@ -40,6 +40,12 @@ export function splitTaskBuckets(tasks) {
   return {urgent,telegram:rest.filter(t=>t.origin==='telegram'),spec:rest.filter(t=>t.origin!=='telegram')};
 }
 
+// The main list is urgent work first, then Telegram. Site requirements live in wiki.
+export function mainTaskBuckets(tasks,{questions=false}={}){
+  const {urgent}=splitTaskBuckets(tasks),ids=new Set(urgent.map(t=>t.id));
+  return {urgent,ordinary:tasks.filter(t=>!ids.has(t.id)&&(questions||t.origin==='telegram'))};
+}
+
 export function programmerMood(percent) {
   if(percent>=100)return {id:'party',label:'Всё готово. Можно выдохнуть!'};
   if(percent>=85)return {id:'finish',label:'Финишная прямая!'};
