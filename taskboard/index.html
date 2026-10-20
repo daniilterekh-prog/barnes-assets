@@ -1,17 +1,17 @@
 <!doctype html>
-<html lang="ru">
+<html lang="ru" data-theme="light">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow,noarchive">
   <meta name="referrer" content="no-referrer">
-  <meta name="theme-color" content="#090909">
+  <meta name="theme-color" content="#f7f5ef">
   <meta name="description" content="Рабочая доска BARN Estate: задачи команды, статусы и общий прогресс.">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; connect-src https://turkish-property.ru http://127.0.0.1:8788; object-src 'none'; base-uri 'none'; form-action 'self'">
   <title>Рабочая доска — BARN Estate</title>
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
-  <script src="./theme.js?v=20261019-theme"></script>
-  <link rel="stylesheet" href="./style.css?v=20261020-barn-digital">
+  <script src="./theme.js?v=20261020-light-header"></script>
+  <link rel="stylesheet" href="./style.css?v=20261020-light-header">
   <link rel="stylesheet" href="./preloader.css?v=20261019-theme">
   <script type="module" src="./preloader.js"></script>
   <script type="module" src="./app.js?v=20261020-personal-progress"></script>
@@ -46,7 +46,7 @@
   </main>
   <div id="board-view" class="workspace" hidden>
     <aside class="sidebar">
-      <a id="gateway-back" class="wordmark side-brand" href="#start" aria-label="BARN DIGITAL — вернуться к выбору раздела"><span>BARN.</span><small>DIGITAL</small></a>
+      <div class="sidebar-header"><a id="gateway-back" class="wordmark side-brand" href="#start" aria-label="BARN DIGITAL — вернуться к выбору раздела"><span>BARN.</span><small>DIGITAL</small></a><button class="theme-switch theme-header" type="button" data-theme-toggle aria-label="Включить светлую тему" aria-pressed="false"><svg class="ui-icon theme-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg><svg class="ui-icon theme-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 13.5A9 9 0 0 1 10.5 3.5 9 9 0 1 0 20.5 13.5Z"/></svg><span data-theme-label class="sr-only">Тёмная</span></button></div>
       <nav class="workspace-views" aria-label="Разделы"><button id="view-tasks" class="view-tab active" type="button">Задачи</button><button id="view-pages" class="view-tab" type="button">Страницы сайта</button></nav>
       <nav id="owner-nav" aria-label="Задачи по участникам" hidden>
         <details id="nav-mine" class="scope-group" open><summary>Мои задачи <span id="nav-mine-count"></span></summary><label class="nav-filter" for="from-member">От кого<select id="from-member"></select></label></details>
@@ -62,7 +62,7 @@
       </div>
     </aside>
     <div class="main-shell">
-      <header class="topbar"><button class="theme-switch " type="button" data-theme-toggle aria-label="Включить светлую тему" aria-pressed="false"><svg class="ui-icon theme-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg><svg class="ui-icon theme-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 13.5A9 9 0 0 1 10.5 3.5 9 9 0 1 0 20.5 13.5Z"/></svg><span data-theme-label>Тёмная</span></button><button id="refresh" class="icon-button" type="button" aria-label="Обновить задачи" title="Обновить"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-gateway#refresh-cw"></use></svg></button><button id="mobile-history" class="icon-button" type="button" aria-label="История изменений" title="История"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-gateway#rotate-ccw"></use></svg></button></header>
+      <header class="topbar"><button id="refresh" class="icon-button" type="button" aria-label="Обновить задачи" title="Обновить"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-gateway#refresh-cw"></use></svg></button><button id="mobile-history" class="icon-button" type="button" aria-label="История изменений" title="История"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-gateway#rotate-ccw"></use></svg></button></header>
       <main class="main-content">
         <div class="page-heading"><h1 id="board-title" tabindex="-1">ЗАДАЧИ.</h1><div class="heading-actions"><button id="page-create-open" class="filter-button" type="button" hidden>Добавить страницу <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-gateway#plus"></use></svg></button><button id="task-create-open" class="primary" type="button">Добавить задачу <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-gateway#plus"></use></svg></button></div></div>
         <div id="tasks-view">

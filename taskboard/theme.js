@@ -1,6 +1,6 @@
 // Apply before the stylesheet paints; explicit preference is local to this browser.
 (()=>{
-  const key='barn-taskboard-theme-v1',root=document.documentElement,system=matchMedia('(prefers-color-scheme: light)');
+  const key='barn-taskboard-theme-v1',root=document.documentElement;
   let saved=null;
   try{const value=localStorage.getItem(key);if(['light','dark'].includes(value))saved=value;}catch{}
   function apply(theme){
@@ -12,11 +12,10 @@
       button.title=button.getAttribute('aria-label');button.querySelector('[data-theme-label]').textContent=theme==='light'?'Светлая':'Тёмная';
     });
   }
-  apply(saved||(system.matches?'light':'dark'));
+  apply(saved||'light');
   function setup(){apply(root.dataset.theme);document.querySelectorAll('[data-theme-toggle]').forEach(button=>button.addEventListener('click',()=>{
     saved=root.dataset.theme==='light'?'dark':'light';try{localStorage.setItem(key,saved);}catch{}apply(saved);
   }));}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup,{once:true});else setup();
-  system.addEventListener('change',()=>{if(!saved)apply(system.matches?'light':'dark');});
-  window.addEventListener('storage',event=>{if(event.key!==key&&event.key!==null)return;saved=['light','dark'].includes(event.newValue)?event.newValue:null;apply(saved||(system.matches?'light':'dark'));});
+  window.addEventListener('storage',event=>{if(event.key!==key&&event.key!==null)return;saved=['light','dark'].includes(event.newValue)?event.newValue:null;apply(saved||'light');});
 })();
