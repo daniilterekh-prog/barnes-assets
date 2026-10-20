@@ -1,5 +1,5 @@
 import {icon} from './icons.js?v=20261019-gateway';
-import {safeHttps,pageTaskModel,SITE_TASKS_ID,SITE_TASKS_TITLE,taskSourceCategory,taskDestination} from './domain.js?v=20261020-telegram-main';
+import {safeHttps,pageTaskModel,SITE_TASKS_ID,SITE_TASKS_TITLE,taskSourceCategory,taskDestination,PAGE_STAGES,pageOverview} from './domain.js?v=20261020-page-readiness';
 const node=(tag,cls,text)=>{const e=document.createElement(tag);e.className=cls||'';if(text!==undefined)e.textContent=text;return e;};
 function renderPageLinks(container,page,{general=false}={}){
   const nav=node('nav','wiki-quick-links');nav.setAttribute('aria-label',general?'Сайт и GitHub':'Ссылки страницы: '+page.title);
@@ -14,6 +14,13 @@ function renderPageLinks(container,page,{general=false}={}){
   }
   container.append(nav);
 }
+function renderOverview(parent,page,tasks,pages,sections){
+  const info=pageOverview(tasks,page.id,pages,sections),wrap=node('span','wiki-page-overview');
+  if(page.id!==SITE_TASKS_ID){const stage=node('span','wiki-page-stage',PAGE_STAGES[page.workflow_status]||'Статус не задан');stage.dataset.stage=page.workflow_status||'';wrap.append(stage);}
+  const caption=info.total?'Вся команда: '+info.done+' из '+info.total+' выполнено · '+info.percent+'%':'Пока нет актуальных задач';
+  const bar=node('progress','wiki-mini-progress');bar.max=info.total||1;bar.value=info.done;bar.setAttribute('aria-label',page.title+': '+caption);bar.title='Все исполнители и источники; неактуальные задачи исключены';
+  wrap.append(bar,node('span','wiki-progress-caption',caption));parent.append(wrap);
+}
 export function renderWiki(container,{pages,sections=[],tasks,query,selectedPage,taskScope,taskStatus,source='other',me,onSelect,onScope,onStatus,onSource,onEdit,onTask,renderTask}) {
   container.replaceChildren();
   const sourceTasks=tasks.filter(t=>(taskSourceCategory(t)==='spec')===(source==='spec'));
@@ -26,12 +33,12 @@ export function renderWiki(container,{pages,sections=[],tasks,query,selectedPage
     renderPageLinks(container,realPages.find(p=>p.id==='home')||{title:'Сайт'},{general:true});sourceFilter(container);
     if(!visible.length){container.append(node('p','empty','Страницы не найдены'));return;}
     const grid=node('div','wiki-page-choices');grid.setAttribute('role','group');grid.setAttribute('aria-label','Выбери раздел сайта');
-    visible.forEach(p=>{const button=node('button','wiki-page-choice',p.title);button.type='button';button.dataset.pageChoice=p.id;button.append(icon('arrow-up-right'));button.onclick=()=>onSelect(p.id);grid.append(button);});container.append(grid);return;
+    visible.forEach(p=>{const button=node('button','wiki-page-choice');button.type='button';button.dataset.pageChoice=p.id;button.append(node('span','wiki-choice-title',p.title),icon('arrow-up-right'));renderOverview(button,p,tasks,realPages,sections);button.onclick=()=>onSelect(p.id);grid.append(button);});container.append(grid);return;
   }
   const p=selected,back=node('button','filter-button wiki-back','Все разделы');back.type='button';back.onclick=()=>onSelect(null);container.append(back);
     const card=node('article','wiki-card');card.dataset.page=p.id;
     const header=node('div','wiki-heading'),title=node('h2','',p.title),edit=node('button','wiki-edit','Изменить');
-    edit.prepend(icon('pencil'));edit.type='button';edit.setAttribute('aria-label','Изменить страницу: '+p.title);edit.onclick=()=>onEdit(p);header.append(title);if(p.id!==SITE_TASKS_ID)header.append(edit);card.append(header);
+    edit.prepend(icon('pencil'));edit.type='button';edit.setAttribute('aria-label','Изменить страницу: '+p.title);edit.onclick=()=>onEdit(p);header.append(title);if(p.id!==SITE_TASKS_ID)header.append(edit);card.append(header);renderOverview(card,p,tasks,realPages,sections);
     title.id='wiki-page-title';title.tabIndex=-1;
     renderPageLinks(card,p.id===SITE_TASKS_ID?(realPages.find(p=>p.id==='home')||{title:'Сайт'}):p,{general:p.id===SITE_TASKS_ID});
     const model=pageTaskModel(sourceTasks,p.id,me,taskScope,taskStatus,realPages,sections);

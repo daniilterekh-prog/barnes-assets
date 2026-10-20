@@ -6,9 +6,9 @@ import {setupAttachments,imageFileError} from './attachments.js?v=20261019-uploa
 import {setupDiscussion} from './discussion.js?v=20261019-gateway';
 import {icon} from './icons.js?v=20261019-gateway';
 import { API_URL } from './config.js';
-import { STATUSES, selectTasks, summarize, safeSource, safeHttps, taskDateLabel, mainTaskBuckets, personalMainTasks, programmerMood, mergeTask, deadlineInfo, moscowDay, shiftDay, taskDestination, taskSourceCategory, SITE_TASKS_ID, SITE_TASKS_TITLE } from './domain.js?v=20261020-personal-progress';
+import { STATUSES, selectTasks, summarize, safeSource, safeHttps, taskDateLabel, mainTaskBuckets, personalMainTasks, programmerMood, mergeTask, deadlineInfo, moscowDay, shiftDay, taskDestination, taskSourceCategory, SITE_TASKS_ID, SITE_TASKS_TITLE, PAGE_STAGES } from './domain.js?v=20261020-page-readiness';
 
-import {renderWiki} from './wiki.js?v=20261020-source-split';
+import {renderWiki} from './wiki.js?v=20261020-page-readiness';
 
 const $ = id => document.getElementById(id);
 const browserStorage=name=>{try{return window[name];}catch{return null;}};
@@ -411,9 +411,10 @@ $('task-create-form').addEventListener('submit',async event=>{
     if(error.status===401)showLogin(error.message);else{if(error.status===409&&error.data.board)acceptBoard(error.data.board);$('task-create-error').textContent=error.message;}
   }finally{creatingTask=false;$('task-image').disabled=false;$('task-image-remove').disabled=false;$('task-create-submit').disabled=false;$('task-create-close').disabled=false;}
 });
+Object.entries(PAGE_STAGES).forEach(([value,label])=>{const option=el('option','',label);option.value=value;$('page-stage').append(option);});
 function openPage(page=null){
   editingPage=page||{id:'P-'+crypto.randomUUID(),revision:0};$('page-form').reset();$('page-error').textContent='';
-  $('page-name').value=page?.title||'';
+  $('page-name').value=page?.title||'';$('page-stage').value=page?.workflow_status||'';
   ['front','live','preview'].forEach(key=>{$('page-'+key+'-url').value=page?.[key+'_url']||'';$('page-'+key+'-version').value=page?.[key+'_version']||'';});
   $('page-github-url').value=page?.github_url||'';$('page-file-url').value=page?.source_file_url||'';$('page-blocks-url').value=page?.blocks_url||'';
   $('page-dialog').showModal();$('page-name').focus();
@@ -424,7 +425,7 @@ $('page-form').addEventListener('submit',async e=>{
   e.preventDefault();if(savingPage)return;savingPage=true;$('page-submit').disabled=true;$('page-close').disabled=true;$('page-error').textContent='';
   const token=state.session?.token;
   try{
-    const body={id:editingPage.id,revision:Number(editingPage.revision),title:$('page-name').value.trim(),github_url:$('page-github-url').value.trim(),source_file_url:$('page-file-url').value.trim(),blocks_url:$('page-blocks-url').value.trim()};
+    const body={id:editingPage.id,revision:Number(editingPage.revision),title:$('page-name').value.trim(),workflow_status:$('page-stage').value,github_url:$('page-github-url').value.trim(),source_file_url:$('page-file-url').value.trim(),blocks_url:$('page-blocks-url').value.trim()};
     ['front','live','preview'].forEach(key=>{body[key+'_url']=$('page-'+key+'-url').value.trim();body[key+'_version']=$('page-'+key+'-version').value.trim();});
     const data=await api('page_save',body);if(state.session?.token!==token)return;
     acceptBoard(data);$('page-dialog').close();state.pageQuery='';state.selectedPage=null;state.wikiScope='mine';state.wikiStatus='open';state.selectedPage=body.id;$('page-search').value='';switchView('pages');toast('Страница сохранена');

@@ -170,3 +170,5 @@ select,select option,select optgroup{color:var(--ink);background-color:var(--sur
 
 /* Manual toolbar is hidden; live polling continues without a redundant action row. */
 .main-content{padding-top:24px}
+
+.wiki-page-choice{display:grid;grid-template-columns:minmax(0,1fr) 22px;gap:12px;align-content:start}.wiki-choice-title{overflow-wrap:anywhere}.wiki-page-overview{display:grid;gap:8px;min-width:0;margin:0 0 22px}.wiki-page-choice .wiki-page-overview{grid-column:1/-1;margin:0}.wiki-page-stage,.wiki-progress-caption{font-size:11px;font-weight:400;line-height:1.45;color:var(--muted);overflow-wrap:anywhere}.wiki-page-stage{font-weight:700}.wiki-mini-progress{height:4px;width:100%}.wiki-page-choice:hover .wiki-page-stage,.wiki-page-choice:hover .wiki-progress-caption{color:inherit}.wiki-page-choice:hover .wiki-mini-progress{--ink:var(--paper)}#page-stage{width:100%;min-height:48px;padding:12px;border:1px solid var(--control-line);background:var(--surface)}

@@ -11,10 +11,10 @@
   <title>Рабочая доска — BARN Estate</title>
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
   <script src="./theme.js?v=20261020-light-header"></script>
-  <link rel="stylesheet" href="./style.css?v=20261020-sticky-header">
+  <link rel="stylesheet" href="./style.css?v=20261020-page-readiness">
   <link rel="stylesheet" href="./preloader.css?v=20261020-no-caption">
   <script type="module" src="./preloader.js"></script>
-  <script type="module" src="./app.js?v=20261020-source-split"></script>
+  <script type="module" src="./app.js?v=20261020-page-readiness"></script>
 </head>
 <body>
   <a id="skip-link" class="skip" href="#tasks">К задачам</a>
@@ -115,6 +115,7 @@
   <dialog id="page-dialog" aria-labelledby="page-dialog-title">
     <div class="dialog-head"><h2 id="page-dialog-title">Страница сайта</h2><button id="page-close" class="icon-button" type="button" aria-label="Закрыть страницу"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-gateway#x"></use></svg></button></div>
     <form id="page-form"><label for="page-name">Название</label><input id="page-name" required maxlength="100" autocomplete="off">
+      <label for="page-stage">Готовность страницы</label><select id="page-stage"><option value="">Статус не задан</option></select>
       <div class="page-version-fields"><h3>Фронт</h3><label for="page-front-url">Ссылка на фронт</label><input id="page-front-url" type="url" pattern="https://.*" maxlength="600" placeholder="https://…"><label for="page-front-version">Версия фронта</label><input id="page-front-version" maxlength="80" placeholder="Коммит, дата или название версии"></div>
       <div class="page-version-fields"><h3>Живой сайт</h3><label for="page-live-url">Ссылка на живую страницу</label><input id="page-live-url" type="url" pattern="https://.*" maxlength="600" placeholder="https://…"><label for="page-live-version">Версия на сайте</label><input id="page-live-version" maxlength="80" placeholder="Дата публикации или версия"></div>
       <div class="page-version-fields"><h3>Референс Даниил GitHub</h3><label for="page-preview-url">Ссылка на референс Даниил GitHub</label><input id="page-preview-url" type="url" pattern="https://.*" maxlength="600" placeholder="https://…"><label for="page-preview-version">Версия референса</label><input id="page-preview-version" maxlength="80" placeholder="Дата, коммит или название"></div>

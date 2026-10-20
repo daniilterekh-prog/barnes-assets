@@ -109,7 +109,7 @@ export function groupSpecTasks(tasks,pages=[],sections=[]){
 }
 
 export const SITE_TASKS_ID='site-wide';
-export const SITE_TASKS_TITLE='Задачи по сайту';
+export const SITE_TASKS_TITLE='Общие задачи по сайту (без привязки к странице)';
 const sourceKey=value=>{try{const u=new URL(value);return u.origin+u.pathname.replace(/\/edit$/,'')+'?tab='+(u.searchParams.get('tab')||'');}catch{return '';}};
 const titleKey=value=>(value||'').toLocaleLowerCase('ru').replace(/ё/g,'е').replace(/[^а-яa-z0-9]/g,'');
 const sectionAliases={узелгородская:'city',узелгородскаянедвижимость:'city',узелзагородная:'country',узелзагороднаянедвижимость:'country',узелзарубежная:'international',узелзарубежнаянедвижимость:'international',узелкурортная:'resort',узелкурортнаянедвижимость:'resort',узелкоммерческая:'commercial',узелкоммерческаянедвижимость:'commercial',узелвторичная:'secondary',узелновостройки:'newbuilds',собственникпродажа:'owner-sale',собственникаренда:'owner-rent',амбассадоры:'partners',узловаясобственикам:'owners',узловаясобственникам:'owners'};
@@ -150,4 +150,11 @@ export function pageTaskModel(tasks,pageId,me,scope='mine',status='open',pages=[
   const scoped=selectTasks(linked,{...filters,scope,status:'all'});
   const modes=['mine','assigned','all'].map(id=>({id,count:selectTasks(linked,{...filters,scope:id,status}).length}));
   return {rows:selectTasks(scoped,{...filters,scope:'all',status}),counts:summarize(scoped),modes};
+}
+
+export const PAGE_STAGES={ready:'Полностью готова',corrections:'Готова, но есть корректировки',checking:'Готов шаблон, идёт проверка',awaiting_it:'ТЗ готово, ждём IT',awaiting_spec:'Ждём ТЗ'};
+export function pageOverview(tasks,pageId,pages=[],sections=[]){
+  const relevant=tasks.filter(t=>t.status!=='obsolete'&&taskDestination(t,pages,sections)===pageId);
+  const done=relevant.filter(t=>t.status==='done').length,total=relevant.length;
+  return {done,total,percent:total?Math.round(done/total*100):0};
 }
