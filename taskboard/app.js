@@ -6,7 +6,7 @@ import {setupAttachments,imageFileError} from './attachments.js?v=20261019-uploa
 import {setupDiscussion} from './discussion.js?v=20261019-gateway';
 import {icon} from './icons.js?v=20261019-gateway';
 import { API_URL } from './config.js';
-import { STATUSES, selectTasks, summarize, safeSource, safeHttps, taskDateLabel, mainTaskBuckets, programmerMood, mergeTask, deadlineInfo, moscowDay, shiftDay, taskDestination, taskSourceCategory, SITE_TASKS_ID, SITE_TASKS_TITLE } from './domain.js?v=20261020-telegram-main';
+import { STATUSES, selectTasks, summarize, safeSource, safeHttps, taskDateLabel, mainTaskBuckets, personalMainTasks, programmerMood, mergeTask, deadlineInfo, moscowDay, shiftDay, taskDestination, taskSourceCategory, SITE_TASKS_ID, SITE_TASKS_TITLE } from './domain.js?v=20261020-personal-progress';
 
 import {renderWiki} from './wiki.js?v=20261020-telegram-main';
 
@@ -164,8 +164,8 @@ function renderNav() {
   $('nav-question-count').textContent=tasks.reduce((n,t)=>n+Number(t.open_questions_by_recipient?.[me]||0),0);
   $('scope-questions').classList.toggle('active',!!state.questionsTo);$('scope-questions').setAttribute('aria-pressed',String(!!state.questionsTo));
   $('nav-total').textContent=tasks.length;
-  $('nav-mine-count').textContent=tasks.filter(t=>t.owner===me).length;
-  $('nav-assigned-count').textContent=tasks.filter(t=>t.created_by===me).length;
+  $('nav-mine-count').textContent=personalMainTasks(tasks,me).length;
+  $('nav-assigned-count').textContent=personalMainTasks(tasks,me,'assigned').length;
   $('scope-all').classList.toggle('active',state.scope==='all'&&!state.questionsTo);
   $('scope-all').setAttribute('aria-pressed',String(state.scope==='all'&&!state.questionsTo));
   ['mine','assigned'].forEach(scope=>$('nav-'+scope).classList.toggle('active',state.scope===scope));
@@ -203,7 +203,7 @@ function render() {
   $('page-create-open').hidden=state.view!=='pages';
   ['tasks','pages'].forEach(view=>{$('view-'+view).classList.toggle('active',state.view===view);$('view-'+view).setAttribute('aria-pressed',String(state.view===view));});
   renderPages();
-  const relevantTasks=state.board.tasks.filter(t=>state.scope==='assigned'?t.created_by===state.session.member:t.owner===state.session.member);
+  const relevantTasks=personalMainTasks(state.board.tasks,state.session.member,state.scope);
   const counts=summarize(relevantTasks);
   $('progress-title').textContent=state.scope==='assigned'?'Прогресс моих поручений':'Мой прогресс';
   Object.keys(STATUSES).forEach(status => { $('count-'+status).textContent=String(counts[status]); });

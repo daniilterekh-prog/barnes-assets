@@ -41,7 +41,11 @@ export function splitTaskBuckets(tasks) {
 }
 
 // The main list is urgent work first, then Telegram. Site requirements live in wiki.
+export function personalMainTasks(tasks,me,scope='mine'){
+  return tasks.filter(t=>(scope==='assigned'?t.created_by===me:t.owner===me)&&taskSourceCategory(t)!=='spec');
+}
 export function mainTaskBuckets(tasks,{questions=false}={}){
+  if(!questions)tasks=tasks.filter(t=>taskSourceCategory(t)!=='spec');
   const {urgent}=splitTaskBuckets(tasks),ids=new Set(urgent.map(t=>t.id));
   return {urgent,ordinary:tasks.filter(t=>!ids.has(t.id)&&(questions||t.origin==='telegram'))};
 }
