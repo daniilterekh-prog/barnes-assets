@@ -1,5 +1,5 @@
 import {icon} from './icons.js?v=20261019-gateway';
-import {reviewInbox} from './domain.js?v=20261020-review-category';
+import {reviewInbox} from './domain.js?v=20261020-notifications';
 const node=(tag,cls,text)=>{const e=document.createElement(tag);e.className=cls||'';if(text!==undefined)e.textContent=text;return e;};
 export function setupReviews({api,getSession,getBoard,acceptBoard,member,toast,onUnauthorized,onChange,renderTask}){
   const dialog=document.getElementById('review-return-dialog'),form=document.getElementById('review-return-form'),reason=document.getElementById('review-return-reason'),error=document.getElementById('review-return-error'),submit=document.getElementById('review-return-submit'),close=document.getElementById('review-return-close');

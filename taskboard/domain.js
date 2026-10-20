@@ -167,3 +167,9 @@ export function reviewInbox(tasks,me){
  const mine=t=>t.review.reviewers?.find(p=>p.member===me);
  return {actionable:pending.filter(t=>mine(t)&&!mine(t).approved_at),waiting:pending.filter(t=>mine(t)?.approved_at),submitted:pending.filter(t=>!mine(t)&&(t.owner===me||t.review.submitted_by===me))};
 }
+
+// An older poll must not undo notification read state shared by devices.
+export function mergeNotificationInbox(previous,incoming){
+ const empty={revision:0,unread:0,items:[]};
+ return previous&&Number(previous.revision)>Number(incoming?.revision||0)?previous:(incoming||empty);
+}

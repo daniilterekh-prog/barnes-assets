@@ -11,10 +11,10 @@
   <title>Рабочая доска — BARN Estate</title>
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
   <script src="./theme.js?v=20261020-light-header"></script>
-  <link rel="stylesheet" href="./style.css?v=20261020-review-category">
+  <link rel="stylesheet" href="./style.css?v=20261020-notifications">
   <link rel="stylesheet" href="./preloader.css?v=20261020-no-caption">
   <script type="module" src="./preloader.js"></script>
-  <script type="module" src="./app.js?v=20261020-review-category"></script>
+  <script type="module" src="./app.js?v=20261020-notifications"></script>
 </head>
 <body>
   <a id="skip-link" class="skip" href="#tasks">К задачам</a>
@@ -46,7 +46,7 @@
   </main>
   <div id="board-view" class="workspace" hidden>
     <aside class="sidebar">
-      <header class="sidebar-header"><a id="gateway-back" class="wordmark side-brand" href="#start" aria-label="BARN DIGITAL — вернуться к выбору раздела"><span>BARN.</span><small>DIGITAL</small></a><button class="theme-switch theme-header" type="button" data-theme-toggle aria-label="Включить светлую тему" aria-pressed="false"><svg class="ui-icon theme-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg><svg class="ui-icon theme-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 13.5A9 9 0 0 1 10.5 3.5 9 9 0 1 0 20.5 13.5Z"/></svg><span data-theme-label class="sr-only">Тёмная</span></button><div class="identity"><span id="my-avatar" class="avatar"></span><span id="my-name"></span><button id="logout" type="button" aria-label="Выйти из рабочей доски" title="Выйти"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-gateway#log-out"></use></svg></button></div></header>
+      <header class="sidebar-header"><a id="gateway-back" class="wordmark side-brand" href="#start" aria-label="BARN DIGITAL — вернуться к выбору раздела"><span>BARN.</span><small>DIGITAL</small></a><button class="theme-switch theme-header" type="button" data-theme-toggle aria-label="Включить светлую тему" aria-pressed="false"><svg class="ui-icon theme-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg><svg class="ui-icon theme-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 13.5A9 9 0 0 1 10.5 3.5 9 9 0 1 0 20.5 13.5Z"/></svg><span data-theme-label class="sr-only">Тёмная</span></button><div class="identity"><span id="my-avatar" class="avatar"></span><span id="my-name"></span><button id="notifications-open" class="notifications-bell" type="button" aria-label="Уведомления" title="Уведомления"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg><span id="notifications-count" hidden>0</span></button><button id="logout" type="button" aria-label="Выйти из рабочей доски" title="Выйти"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-gateway#log-out"></use></svg></button></div></header>
       <nav class="workspace-views" aria-label="Разделы"><button id="view-tasks" class="view-tab active" type="button">Задачи</button><button id="view-pages" class="view-tab" type="button">Страницы сайта</button><button id="view-review" class="view-tab" type="button">На проверке <span id="review-count">0</span></button></nav>
       <nav id="owner-nav" aria-label="Задачи по участникам" hidden>
         <details id="nav-mine" class="scope-group" open><summary>Мои задачи <span id="nav-mine-count"></span></summary><label class="nav-filter" for="from-member">От кого<select id="from-member"></select></label></details>
@@ -100,6 +100,7 @@
       </main>
     </div>
   </div>
+  <dialog id="notifications-dialog" aria-labelledby="notifications-title"><div class="dialog-head"><h2 id="notifications-title" tabindex="-1">Уведомления</h2><button id="notifications-close" class="icon-button" type="button" aria-label="Закрыть уведомления">×</button></div><button id="notifications-read-all" class="filter-button" type="button">Прочитать все</button><p id="notifications-error" class="error" role="alert"></p><div id="notifications-list"></div></dialog>
   <dialog id="task-card-dialog" aria-labelledby="task-card-title"><div class="dialog-head task-card-heading"><div><span class="discussion-eyebrow">Карточка задачи</span><h2 id="task-card-title" tabindex="-1"></h2></div><button id="task-card-close" class="icon-button" type="button" aria-label="Закрыть карточку задачи">×</button></div><div id="task-card-body"></div></dialog>
   <dialog id="task-create-dialog" aria-labelledby="task-create-title">
     <div class="dialog-head"><h2 id="task-create-title">Новая задача</h2><button id="task-create-close" class="icon-button" type="button" aria-label="Закрыть новую задачу"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-gateway#x"></use></svg></button></div>
