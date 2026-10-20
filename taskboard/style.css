@@ -147,9 +147,26 @@ select,select option,select optgroup{color:var(--ink);background-color:var(--sur
 /* Compact brand lockup fits alongside the mobile identity controls. */
 .wordmark small{display:block;font-size:10px;line-height:1.4;font-weight:700;letter-spacing:.26em;margin-top:4px}
 
-/* Brand and theme share the header; the mobile identity keeps its own space. */
-.sidebar-header{display:flex;align-items:center;gap:8px;margin:0 12px 24px}.sidebar-header .side-brand{display:flex;flex-direction:column;align-items:flex-start;text-align:left;margin:0;line-height:1}.sidebar-header .theme-header{margin-left:auto;flex-shrink:0;width:44px;height:44px;padding:0}.sidebar-header .wordmark small{text-align:left}
-@media(max-width:760px){.sidebar-header{margin:0 0 16px;padding-right:118px;min-height:54px}.sidebar-header .side-brand{font-size:30px}.sidebar-bottom{top:27px;right:20px}.identity>span{max-width:75px}.sidebar-header .theme-header{margin-left:auto}}
+/* Header elements share a grid instead of absolute mobile offsets. */
+.sidebar{background:var(--paper);z-index:30}
+.sidebar-header{display:grid;grid-template-columns:minmax(0,1fr) 44px;align-items:center;gap:14px 8px;margin:0 12px 24px}
+.sidebar-header .side-brand{display:flex;flex-direction:column;align-items:flex-start;text-align:left;margin:0;line-height:1}
+.sidebar-header .wordmark small{text-align:left}
+.sidebar-header .theme-header{margin:0;width:44px;height:44px;padding:0}
+.sidebar-header .identity{grid-column:1/-1;min-width:0;margin:0;padding:12px 0 0}
+.identity #logout{display:inline-flex;align-items:center;justify-content:center;flex:0 0 44px;padding:0;min-height:44px}
+.workspace-views{margin:0 10px 28px}
+@media(max-width:760px){
+  html{scroll-padding-top:calc(144px + env(safe-area-inset-top,0px))}
+  .sidebar{position:sticky;top:0;height:auto;padding:calc(16px + env(safe-area-inset-top,0px)) 20px 0}
+  .sidebar-header{grid-template-columns:minmax(80px,1fr) 44px auto;gap:10px;margin:0 0 12px;padding:0;min-height:0}
+  .sidebar-header .side-brand{font-size:30px;width:max-content}
+  .sidebar-header .identity{grid-column:auto;border:0;padding:0;gap:6px}
+  .identity>span{max-width:80px;font-size:12px}
+  .sidebar-bottom{display:none}
+  .workspace-views{margin:0;gap:12px}
+  .workspace-views .view-tab{min-height:48px}
+}
 
 /* Manual toolbar is hidden; live polling continues without a redundant action row. */
 .main-content{padding-top:24px}

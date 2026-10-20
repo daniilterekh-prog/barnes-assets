@@ -11,7 +11,7 @@
   <title>Рабочая доска — BARN Estate</title>
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
   <script src="./theme.js?v=20261020-light-header"></script>
-  <link rel="stylesheet" href="./style.css?v=20261020-clean-toolbar">
+  <link rel="stylesheet" href="./style.css?v=20261020-sticky-header">
   <link rel="stylesheet" href="./preloader.css?v=20261020-no-caption">
   <script type="module" src="./preloader.js"></script>
   <script type="module" src="./app.js?v=20261020-personal-progress"></script>
@@ -46,7 +46,7 @@
   </main>
   <div id="board-view" class="workspace" hidden>
     <aside class="sidebar">
-      <div class="sidebar-header"><a id="gateway-back" class="wordmark side-brand" href="#start" aria-label="BARN DIGITAL — вернуться к выбору раздела"><span>BARN.</span><small>DIGITAL</small></a><button class="theme-switch theme-header" type="button" data-theme-toggle aria-label="Включить светлую тему" aria-pressed="false"><svg class="ui-icon theme-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg><svg class="ui-icon theme-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 13.5A9 9 0 0 1 10.5 3.5 9 9 0 1 0 20.5 13.5Z"/></svg><span data-theme-label class="sr-only">Тёмная</span></button></div>
+      <header class="sidebar-header"><a id="gateway-back" class="wordmark side-brand" href="#start" aria-label="BARN DIGITAL — вернуться к выбору раздела"><span>BARN.</span><small>DIGITAL</small></a><button class="theme-switch theme-header" type="button" data-theme-toggle aria-label="Включить светлую тему" aria-pressed="false"><svg class="ui-icon theme-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg><svg class="ui-icon theme-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 13.5A9 9 0 0 1 10.5 3.5 9 9 0 1 0 20.5 13.5Z"/></svg><span data-theme-label class="sr-only">Тёмная</span></button><div class="identity"><span id="my-avatar" class="avatar"></span><span id="my-name"></span><button id="logout" type="button" aria-label="Выйти из рабочей доски" title="Выйти"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-gateway#log-out"></use></svg></button></div></header>
       <nav class="workspace-views" aria-label="Разделы"><button id="view-tasks" class="view-tab active" type="button">Задачи</button><button id="view-pages" class="view-tab" type="button">Страницы сайта</button></nav>
       <nav id="owner-nav" aria-label="Задачи по участникам" hidden>
         <details id="nav-mine" class="scope-group" open><summary>Мои задачи <span id="nav-mine-count"></span></summary><label class="nav-filter" for="from-member">От кого<select id="from-member"></select></label></details>
@@ -58,7 +58,7 @@
       <div class="sidebar-bottom">
         <div class="connection"><span id="connection-dot" class="live-dot"></span><span id="sync-label" role="status">Подключение…</span></div>
         <button id="history-open" class="sidebar-action" type="button"><span aria-hidden="true"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-gateway#rotate-ccw"></use></svg></span> История изменений</button>
-        <div class="identity"><span id="my-avatar" class="avatar"></span><span id="my-name"></span><button id="logout" type="button" aria-label="Выйти из рабочей доски" title="Выйти"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="./icons.svg?v=20261019-gateway#log-out"></use></svg></button></div>
+
       </div>
     </aside>
     <div class="main-shell">
