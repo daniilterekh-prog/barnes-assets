@@ -150,3 +150,6 @@ select,select option,select optgroup{color:var(--ink);background-color:var(--sur
 /* Brand and theme share the header; the mobile identity keeps its own space. */
 .sidebar-header{display:flex;align-items:center;gap:8px;margin:0 12px 24px}.sidebar-header .side-brand{display:flex;flex-direction:column;align-items:flex-start;text-align:left;margin:0;line-height:1}.sidebar-header .theme-header{margin-left:auto;flex-shrink:0;width:44px;height:44px;padding:0}.sidebar-header .wordmark small{text-align:left}
 @media(max-width:760px){.sidebar-header{margin:0 0 16px;padding-right:118px;min-height:54px}.sidebar-header .side-brand{font-size:30px}.sidebar-bottom{top:27px;right:20px}.identity>span{max-width:75px}.sidebar-header .theme-header{margin-left:auto}}
+
+/* Manual toolbar is hidden; live polling continues without a redundant action row. */
+.main-content{padding-top:24px}
