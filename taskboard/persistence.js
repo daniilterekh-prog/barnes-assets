@@ -25,7 +25,7 @@ export function normalizeView(raw,board,me){
   let mineBrowse=null;
   if(['spec','other'].includes(mineOrigin)&&raw.mineBrowse){const c=raw.mineBrowse;if(c.kind==='page'&&[...pages,'none','site-wide'].includes(c.id)||c.kind==='section'&&[...sections,'outside'].includes(c.id))mineBrowse={kind:c.kind,id:c.id};}
   return {
-    screen:raw.screen,view:choice(raw.view,['tasks','pages','review'],'tasks'),scope:choice(raw.scope,['mine','assigned'],'mine'),
+    screen:raw.screen,view:choice(raw.view,me==='daniil'?['tasks','pages','review','private']:['tasks','pages','review'],'tasks'),scope:choice(raw.scope,['mine','assigned'],'mine'),
     owner:choice(raw.owner,['all','unassigned',...ids],'all'),creator:choice(raw.creator,['all','unknown',...ids],'all'),questionsTo:null,
     query:text(raw.query),pageQuery:text(raw.pageQuery),status:choice(raw.status,statuses,'open'),deadline:choice(raw.deadline,['all','overdue','today','week','none'],'all'),urgent:raw.urgent===true,
     mineOrigin,mineBrowse,selectedTask:tasks.includes(raw.selectedTask)?raw.selectedTask:null,selectedPage:[...pages,'site-wide'].includes(raw.selectedPage)?raw.selectedPage:null,wikiScope:choice(raw.wikiScope,['mine','assigned','all'],'mine'),wikiStatus:choice(raw.wikiStatus,statuses,'open'),wikiSource:choice(raw.wikiSource,['other','spec'],'other'),

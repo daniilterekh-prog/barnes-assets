@@ -176,3 +176,8 @@ export function mergeNotificationInbox(previous,incoming){
  const empty={revision:0,unread:0,items:[]};
  return previous&&Number(previous.revision)>Number(incoming?.revision||0)?previous:(incoming||empty);
 }
+
+export function mergePersonalTasks(previous=[],incoming=[]){
+ const old=new Map(previous.map(t=>[t.id,t])),ids=new Set(incoming.map(t=>t.id));
+ return [...incoming.map(t=>Number(old.get(t.id)?.revision)>Number(t.revision)?old.get(t.id):t),...previous.filter(t=>!ids.has(t.id))];
+}

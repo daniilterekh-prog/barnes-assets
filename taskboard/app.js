@@ -1,16 +1,17 @@
+import {setupPersonal} from './personal.js?v=20261020-private';
 import {setupNotifications} from './notifications.js?v=20261020-notifications';
 import {setupReviews} from './reviews.js?v=20261020-notifications';
 import {setupAssignee} from './assignee.js?v=20261019-assignee';
 import {setupTaskCard} from './task-card.js?v=20261019-progress-deadline';
-import {createPersistence,normalizeView,SESSION_KEY} from './persistence.js?v=20261020-notifications';
+import {createPersistence,normalizeView,SESSION_KEY} from './persistence.js?v=20261020-private';
 import {setupGateway} from './gateway.js?v=20261019-gateway';
 import {setupAttachments,imageFileError} from './attachments.js?v=20261019-upload-form';
 import {setupDiscussion} from './discussion.js?v=20261020-notifications';
 import {icon} from './icons.js?v=20261019-gateway';
 import { API_URL } from './config.js';
-import { STATUSES, selectTasks, summarize, safeSource, safeHttps, taskDateLabel, mainTaskBuckets, personalMainTasks, programmerMood, mergeTask, deadlineInfo, moscowDay, shiftDay, taskDestination, taskSourceCategory, SITE_TASKS_ID, SITE_TASKS_TITLE, PAGE_STAGES, normalizeReviewTask, mergeNotificationInbox, visiblePages } from './domain.js?v=20261020-page-assignment';
+import { STATUSES, selectTasks, summarize, safeSource, safeHttps, taskDateLabel, mainTaskBuckets, personalMainTasks, programmerMood, mergeTask, deadlineInfo, moscowDay, shiftDay, taskDestination, taskSourceCategory, SITE_TASKS_ID, SITE_TASKS_TITLE, PAGE_STAGES, normalizeReviewTask, mergeNotificationInbox, visiblePages, mergePersonalTasks } from './domain.js?v=20261020-private';
 
-import {renderWiki} from './wiki.js?v=20261020-page-assignment';
+import {renderWiki} from './wiki.js?v=20261020-private';
 
 const $ = id => document.getElementById(id);
 const browserStorage=name=>{try{return window[name];}catch{return null;}};
@@ -29,6 +30,7 @@ const attachments=setupAttachments({api,getSession:()=>state.session,getBoard:()
 const gateway=setupGateway(chooseDestination);
 const discussion=setupDiscussion({api,getSession:()=>state.session,getBoard:()=>state.board,acceptBoard,member,toast,onUnauthorized:showLogin});
 const taskCard=setupTaskCard({getTask:id=>state.board?.tasks.find(t=>t.id===id),isBusy:id=>state.busy.has(id)||reviews.busy(id),renderTask,onSelect:id=>{state.selectedTask=id;saveView();}});
+const personal=setupPersonal({api,getSession:()=>state.session,getBoard:()=>state.board,acceptBoard,toast,onUnauthorized:showLogin});
 const notifications=setupNotifications({api,getSession:()=>state.session,getBoard:()=>state.board,acceptBoard,member,displayDate,toast,onUnauthorized:showLogin,onOpenTask:id=>{showBoard();taskCard.open(id);}});
 const assignee=setupAssignee({api,getBoard:()=>state.board,getSession:()=>state.session,acceptBoard,toast,onUnauthorized:showLogin,onSaved:()=>taskCard.focusAction('.assignee-open')});
 [['task-create-dialog','.task-edit'],['assignee-dialog','.assignee-open'],['deadline-dialog','.deadline-chip'],['discussion-dialog','.discussion-open:not(.attachments-open)'],['attachments-dialog','.attachments-open']].forEach(([id,selector])=>$(id).addEventListener('close',()=>taskCard.focusAction(selector)));
@@ -87,8 +89,9 @@ function acceptBoard(data) {
     data.history = [...events.values()].sort((a,b) => Number(b.id)-Number(a.id)).slice(0,50);
   }
   data.notifications=mergeNotificationInbox(state.board?.notifications,data.notifications);
+  data.private_tasks=state.session?.member==='daniil'?mergePersonalTasks(state.board?.private_tasks||[],data.private_tasks||[]):[];
   state.board = data;
-  const signature = todayMoscow()+':'+data.tasks.map(t => t.id + ':' + t.revision + ':' + (t.discussion_revision||0) + ':' + (t.attachment_revision||0)).join(',') + ':' + (data.history[0]?.id || '')+':'+(data.pages||[]).map(p=>p.id+':'+p.revision).join(',')+':'+JSON.stringify(data.spec_sections||[])+':'+JSON.stringify(data.members.map(m=>[m.id,m.name]))+':'+JSON.stringify(data.notifications);
+  const signature = todayMoscow()+':'+data.tasks.map(t => t.id + ':' + t.revision + ':' + (t.discussion_revision||0) + ':' + (t.attachment_revision||0)).join(',') + ':' + (data.history[0]?.id || '')+':'+(data.pages||[]).map(p=>p.id+':'+p.revision).join(',')+':'+JSON.stringify(data.spec_sections||[])+':'+JSON.stringify(data.members.map(m=>[m.id,m.name]))+':'+JSON.stringify(data.notifications)+':'+JSON.stringify(data.private_tasks.map(t=>[t.id,t.revision]));
   if (signature !== state.signature) {
     state.signature = signature; render();
     if ($('history-dialog').open) renderHistory();
@@ -143,7 +146,7 @@ $('gateway-back').onclick=e=>{e.preventDefault();showGateway();};
 function showLogin(message = '',clearStored=true) {
   persistenceReady=false;restoringView=false;clearTimeout(scrollTimer);if(clearStored)persistence.clearSession(state.session?.token);
   gateway.reset();$('gateway-view').hidden=true;$('skip-link').hidden=false;state.screen='login';state.mineBrowse=null;state.mineOrigin=null;state.createFromGateway=false;
-  notifications.reset();reviews.reset();assignee.reset();taskCard.reset();attachments.reset();discussion.reset();$('deadline-dialog').close();deadlineTask=null;state.deadline='all';state.questionsTo=null;state.session = null; state.board = null; state.signature = ''; state.busy.clear();state.detailsExpanded.clear();state.expanded.clear();state.specExpanded?.clear();state.openPages.clear();state.selectedPage=null;state.wikiScope='mine';state.wikiStatus='open';state.wikiSource='other';state.pageQuery='';$('page-search').value='';state.view='tasks';state.owner='all';state.scope='mine';state.creator='all';
+  personal.reset();notifications.reset();reviews.reset();assignee.reset();taskCard.reset();attachments.reset();discussion.reset();$('deadline-dialog').close();deadlineTask=null;state.deadline='all';state.questionsTo=null;state.session = null; state.board = null; state.signature = ''; state.busy.clear();state.detailsExpanded.clear();state.expanded.clear();state.specExpanded?.clear();state.openPages.clear();state.selectedPage=null;state.wikiScope='mine';state.wikiStatus='open';state.wikiSource='other';state.pageQuery='';$('page-search').value='';state.view='tasks';state.owner='all';state.scope='mine';state.creator='all';
   state.status='open';state.urgent=false;state.query='';$('search').value='';
   $('nav-mine').open=true;$('nav-assigned').open=false;
   $('board-view').hidden = true; $('login-view').hidden = false;
@@ -205,11 +208,12 @@ function render() {
   if (!state.board) return;
   taskCard.refresh();saveView();
   renderNav();
-  $('tasks-view').hidden=state.view!=='tasks'; $('pages-view').hidden=state.view!=='pages';$('review-view').hidden=state.view!=='review';
-  $('owner-nav').hidden=true; $('board-title').textContent=state.view==='pages'?'СТРАНИЦЫ.':state.view==='review'?'ПРОВЕРКА.':'ЗАДАЧИ.';
+  $('tasks-view').hidden=state.view!=='tasks'; $('pages-view').hidden=state.view!=='pages';$('review-view').hidden=state.view!=='review';$('private-view').hidden=state.view!=='private'||state.session.member!=='daniil';
+  $('view-private').hidden=state.session.member!=='daniil';document.querySelector('.workspace-views').classList.toggle('has-private',state.session.member==='daniil');
+  $('owner-nav').hidden=true; $('board-title').textContent=state.view==='pages'?'СТРАНИЦЫ.':state.view==='review'?'ПРОВЕРКА.':state.view==='private'?'ЛИЧНЫЕ.':'ЗАДАЧИ.';
   $('page-create-open').hidden=state.view!=='pages';
-  ['tasks','pages','review'].forEach(view=>{$('view-'+view).classList.toggle('active',state.view===view);$('view-'+view).setAttribute('aria-pressed',String(state.view===view));});
-  renderPages();reviews.render();notifications.render();
+  ['tasks','pages','review','private'].forEach(view=>{$('view-'+view).classList.toggle('active',state.view===view);$('view-'+view).setAttribute('aria-pressed',String(state.view===view));});
+  renderPages();reviews.render();notifications.render();personal.render();
   const relevantTasks=personalMainTasks(state.board.tasks,state.session.member,state.scope);
   const counts=summarize(relevantTasks);
   $('progress-title').textContent=state.scope==='assigned'?'Прогресс моих поручений':'Мой прогресс';
@@ -247,7 +251,7 @@ function renderPages(){
   saveView();
   $('page-search').closest('label').hidden=!!state.selectedPage;
   const reading=state.view==='pages'&&!!state.selectedPage;
-  $('task-create-open').hidden=reading||state.view==='review';$('page-create-open').hidden=state.view!=='pages'||reading;
+  $('task-create-open').hidden=reading||['review','private'].includes(state.view);$('page-create-open').hidden=state.view!=='pages'||reading;
   renderWiki($('wiki-cards'),{pages:state.board.pages||[],sections:state.board.spec_sections||[],tasks:state.board.tasks,query:state.pageQuery,selectedPage:state.selectedPage,taskScope:state.wikiScope,taskStatus:state.wikiStatus,source:state.wikiSource,me:state.session.member,
     onSelect:id=>{state.selectedPage=id;if(!id){state.pageQuery='';$('page-search').value='';}state.wikiScope='mine';state.wikiStatus='open';renderPages();(id?$('wiki-page-title'):$('board-title'))?.focus({preventScroll:true});$('pages-view').scrollIntoView({block:'start',behavior:'instant'});},
     onScope:scope=>{state.wikiScope=scope;renderPages();$('wiki-cards').querySelector('[data-wiki-scope="'+scope+'"]')?.focus({preventScroll:true});},
@@ -256,7 +260,7 @@ function renderPages(){
     onEdit:openPage,onTask:id=>openTask(null,id),renderTask});
 }
 function switchView(view){state.view=view;render();}
-$('view-tasks').onclick=()=>switchView('tasks');$('view-pages').onclick=()=>switchView('pages');$('view-review').onclick=()=>switchView('review');
+$('view-tasks').onclick=()=>switchView('tasks');$('view-pages').onclick=()=>switchView('pages');$('view-review').onclick=()=>switchView('review');$('view-private').onclick=()=>{if(state.session?.member==='daniil')switchView('private');};
 $('page-search').oninput=e=>{state.pageQuery=e.target.value;renderPages();};
 function renderTask(task,{level=3,showOwner=false,isCard=false}={}) {
   const row=el('article','task-row is-'+task.status+(isCard?' task-card-detail':'')), symbol=el('button','task-toggle');
