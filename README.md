@@ -2,6 +2,8 @@
 
 ## Библиотека блоков и UI-kit
 
+- [Возврат из проекта на узел Алтая или Турции](blocks/navigation/regional-return/README.md)
+
 - [Курортная: 15 блоков и 3 карточки узла первой степени](blocks/nodes/first-degree/README.md)
 - [Сводка обновлений шаблонов за 12.10.2026](docs/2026-10-12-first-degree-sync.md)
 - [Амбассадоры: каталог и перенос блоков](blocks/partners/README.md)

@@ -1,0 +1,11 @@
+a.barnes-hub-return,#allrecords a.barnes-hub-return{box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;gap:.65em;align-self:flex-start;width:fit-content;max-width:100%;min-height:40px;padding:9px 15px;border:1px solid rgba(255,255,255,.38);border-radius:999px;background:rgba(15,25,21,.32);color:#fbfaf6!important;font-family:inherit;font-size:13px;font-weight:500;line-height:1.4;letter-spacing:.02em;text-align:left;text-decoration:none!important;white-space:normal;transition:background .18s,border-color .18s}
+a.barnes-hub-return:hover,#allrecords a.barnes-hub-return:hover{background:rgba(15,25,21,.62);border-color:rgba(255,255,255,.78)}
+a.barnes-hub-return:focus-visible,#allrecords a.barnes-hub-return:focus-visible{outline:2px solid currentColor;outline-offset:4px}
+a.barnes-hub-return--hero{margin:0 0 18px}
+a.barnes-hub-return--related,#allrecords a.barnes-hub-return--related{margin-top:18px;padding:6px 0;min-height:36px;border-color:transparent;border-radius:0;background:transparent}
+a.barnes-hub-return--related:hover,#allrecords a.barnes-hub-return--related:hover{background:transparent;border-color:transparent;text-decoration:underline!important;text-underline-offset:5px}
+.barnes-hub-return__language{font-size:10px;letter-spacing:.08em;opacity:.8}
+@media(max-width:600px){a.barnes-hub-return,#allrecords a.barnes-hub-return{font-size:12px;min-height:40px}a.barnes-hub-return--hero{margin-bottom:14px}}
+@media(prefers-reduced-motion:reduce){a.barnes-hub-return,#allrecords a.barnes-hub-return{transition:none}}
+/* Legacy Altai layouts order named sections 1–16; keep the related block last. */
+.site-page .barnes-main>.barnes-altai-related{order:99!important}
