@@ -2,6 +2,8 @@
 
 ## Библиотека блоков и UI-kit
 
+- [Похожие проекты Алтая — графитовая палитра](related-projects/altai/graphite/README.md)
+
 - [Возврат из проекта на узел Алтая или Турции](blocks/navigation/regional-return/README.md)
 
 - [Курортная: 15 блоков и 3 карточки узла первой степени](blocks/nodes/first-degree/README.md)
