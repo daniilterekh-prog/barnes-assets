@@ -9,3 +9,5 @@ a.barnes-hub-return--related:hover,#allrecords a.barnes-hub-return--related:hove
 @media(prefers-reduced-motion:reduce){a.barnes-hub-return,#allrecords a.barnes-hub-return{transition:none}}
 /* Legacy Altai layouts order named sections 1–16; keep the related block last. */
 .site-page .barnes-main>.barnes-altai-related{order:99!important}
+/* Kedry uses a large H1 with a compressed line box: leave room for its glyphs. */
+.hero__main>a.barnes-hub-return--hero{position:relative;z-index:1;margin-bottom:48px}
