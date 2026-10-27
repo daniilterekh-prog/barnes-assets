@@ -1,0 +1,32 @@
+{
+  "saved": "2026-10-27",
+  "brand": "BARN Estate",
+  "status": "Additional supplied files; canonical logo.svg unchanged",
+  "files": [
+    {
+      "file": "Logo_BARN.svg",
+      "source": "User local Downloads/Logo_BARN.svg",
+      "sha256": "2c37bea0f9a919d578e9705b0e8eb08b737c47d5f889f3bd091e673152f334ac",
+      "bytes": 6769,
+      "viewBox": "0 0 327 91.11"
+    },
+    {
+      "file": "Logo_BARN_Estate_Black.png",
+      "source": "User local Downloads/Logo_BARN_Estate_Black.png",
+      "sha256": "d9ad0ac2aedc0ba168328725189cabf185ed393cb53dbe2d8ddfc3c424908dc9",
+      "bytes": 8234,
+      "width": 800,
+      "height": 278,
+      "mode": "RGBA"
+    },
+    {
+      "file": "Logo_BARN_Estate_White.png",
+      "source": "User local Downloads/Logo_BARN_Estate_White.png",
+      "sha256": "7fd6a7ccb4770468e094806f46b59a4f76c73455f2cd5a41927b01b416b0d894",
+      "bytes": 8153,
+      "width": 800,
+      "height": 278,
+      "mode": "RGBA"
+    }
+  ]
+}
