@@ -1,0 +1,110 @@
+{
+  "source_folder": "https://drive.google.com/drive/folders/18WhjzkDqTpewKa3D81Q0UWa-KKs-oG-I",
+  "saved": "2026-10-27",
+  "status": "Original files from the folder explicitly provided by the owner; no transformations",
+  "file_count": 10,
+  "files": [
+    {
+      "file": "Logo_BARN-Estate_black.png",
+      "source": "https://drive.google.com/file/d/15fB8tLREmnu8_xrYC9U9nA1IvTd_Wveq/view?usp=drivesdk",
+      "drive_id": "15fB8tLREmnu8_xrYC9U9nA1IvTd_Wveq",
+      "modified_time": "2026-10-21T09:45:00.887Z",
+      "bytes": 5433,
+      "sha256": "e105e808b7009ad4027566dcf66f82ea9928bd4bb87d0d2029dccb0a492a495d",
+      "width": 600,
+      "height": 212,
+      "mode": "RGBA"
+    },
+    {
+      "file": "Logo_BARN-Estate_black.svg",
+      "source": "https://drive.google.com/file/d/1QKLyl5oj2fPcJYG0NVVr8i2dYODj89c-/view?usp=drivesdk",
+      "drive_id": "1QKLyl5oj2fPcJYG0NVVr8i2dYODj89c-",
+      "modified_time": "2026-10-21T09:47:08.750Z",
+      "bytes": 6738,
+      "sha256": "14de08bb4b43f3e39cf6cb0d645b01a3115142f87fc4cd9b275ea4161d2a79fb",
+      "viewBox": "0 0 361.59 128.43"
+    },
+    {
+      "file": "Logo_BARN-Estate_round_black.png",
+      "source": "https://drive.google.com/file/d/1Eds5Ne9lsp55YMr0O0BOcIGKoVyDJqYR/view?usp=drivesdk",
+      "drive_id": "1Eds5Ne9lsp55YMr0O0BOcIGKoVyDJqYR",
+      "modified_time": "2026-10-21T10:02:53.161Z",
+      "bytes": 25780,
+      "sha256": "2bd43d7b53477a27138f0e012b597edf6240d06be88e835c17227cf7e11ef048",
+      "width": 600,
+      "height": 600,
+      "mode": "RGBA"
+    },
+    {
+      "file": "Logo_BARN-Estate_round_black.svg",
+      "source": "https://drive.google.com/file/d/1aUGBjaXSN75DgwgG3kXfuveJvu7X2RKB/view?usp=drivesdk",
+      "drive_id": "1aUGBjaXSN75DgwgG3kXfuveJvu7X2RKB",
+      "modified_time": "2026-10-21T10:05:54.660Z",
+      "bytes": 10099,
+      "sha256": "87994d8139aa7c150942b6e8eac3f9292ded5a25ba5fb36f9915280175bd6220",
+      "viewBox": "0 0 412.17 412.17"
+    },
+    {
+      "file": "Logo_BARN-Estate_round_color.jpg",
+      "source": "https://drive.google.com/file/d/1lnRgh8L3cN9KBgA9M3eCNI2Iom-YKgxo/view?usp=drivesdk",
+      "drive_id": "1lnRgh8L3cN9KBgA9M3eCNI2Iom-YKgxo",
+      "modified_time": "2026-10-21T10:00:43.798Z",
+      "bytes": 99534,
+      "sha256": "e679ce0a5b15589bf835a0ce48b38bea2190149fe32faf0263a20bb45ef16b78",
+      "width": 600,
+      "height": 600,
+      "mode": "RGB"
+    },
+    {
+      "file": "Logo_BARN-Estate_round_color.png",
+      "source": "https://drive.google.com/file/d/19fZGCG-YoiRJ52MBLBuvST43X1EBrnXA/view?usp=drivesdk",
+      "drive_id": "19fZGCG-YoiRJ52MBLBuvST43X1EBrnXA",
+      "modified_time": "2026-10-21T10:00:03.351Z",
+      "bytes": 39787,
+      "sha256": "abb141124e76fe4cdc5d4c036160eb1fadcf2a61484bb8bd78b40c756c631395",
+      "width": 600,
+      "height": 600,
+      "mode": "RGBA"
+    },
+    {
+      "file": "Logo_BARN-Estate_round_white.png",
+      "source": "https://drive.google.com/file/d/17gEUuxHQMmrLRwkcXTeV7ct-M_UWrEUV/view?usp=drivesdk",
+      "drive_id": "17gEUuxHQMmrLRwkcXTeV7ct-M_UWrEUV",
+      "modified_time": "2026-10-21T10:04:24.310Z",
+      "bytes": 27282,
+      "sha256": "d3ef1cd761e7603804d66737211c0dbc3384370787c283dcdd103a8255c451e9",
+      "width": 600,
+      "height": 600,
+      "mode": "RGBA"
+    },
+    {
+      "file": "Logo_BARN-Estate_round_white.svg",
+      "source": "https://drive.google.com/file/d/1mGnVMxG7byOSQxhXBNjzhwxDMwSm5Udm/view?usp=drivesdk",
+      "drive_id": "1mGnVMxG7byOSQxhXBNjzhwxDMwSm5Udm",
+      "modified_time": "2026-10-21T10:04:45.990Z",
+      "bytes": 3276,
+      "sha256": "f196ec628692bf77fcba8e14c0eca5ae4c2a1206582a1c33864a37364856a85f",
+      "viewBox": "0 0 412.17 412.17"
+    },
+    {
+      "file": "Logo_BARN-Estate_white.png",
+      "source": "https://drive.google.com/file/d/1XTO2fndqKewuMblgk2Sds273nvdXiVNv/view?usp=drivesdk",
+      "drive_id": "1XTO2fndqKewuMblgk2Sds273nvdXiVNv",
+      "modified_time": "2026-10-21T09:45:28.012Z",
+      "bytes": 5834,
+      "sha256": "9dd3c2dbe2d7240f01e74393f092957727fb3cba8162d6f1d2ea396519130996",
+      "width": 600,
+      "height": 212,
+      "mode": "RGBA"
+    },
+    {
+      "file": "Logo_BARN-Estate_white.svg",
+      "source": "https://drive.google.com/file/d/1wjoy6BnSSBgyehc6kV57VxuXfd-exSjn/view?usp=drivesdk",
+      "drive_id": "1wjoy6BnSSBgyehc6kV57VxuXfd-exSjn",
+      "modified_time": "2026-10-21T10:05:13.461Z",
+      "bytes": 10313,
+      "sha256": "2ebf5ccb3041ae518186083aba279f596c25a88e980d4c108a35837f676404dd",
+      "viewBox": "0 0 412.17 412.17"
+    }
+  ]
+}
