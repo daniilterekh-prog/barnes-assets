@@ -28,10 +28,24 @@ for view in snapshots:
 titles = {'header':'Хэдер hero', 'sticky-nav':'Хэдер после hero', 'hero':'Первый экран и поиск', 'start-sales':'Старты продаж', 'map':'Карта проектов', 'listing':'Фильтры и листинг ЖК / лотов', 'brand-intro':'BARNES Moscow / вводный блок', 'cta-central':'Центральный CTA с экспертом', 'directions':'Направления', 'news':'Новости', 'faq':'Вопросы и ответы', 'cta-bottom':'Нижний CTA', 'footer':'Футер', 'floating-expert':'Плавающий эксперт', 'request-modal':'Попап заявки'}
 titles.update({'card-start-sales':'Карточка старта продаж', 'card-project':'Карточка ЖК', 'card-lot':'Карточка лота'})
 urls = set()
+map_source = site / 'kurortnaya/js/map-projects.js'
+if not map_source.is_file():
+    map_source = site / 'kurortnaya/map-projects.js'
+map_rows = []
+if map_source.is_file():
+    match = re.search(r'BarnesMapProjects\s*=\s*(\[.*?\]);', map_source.read_text(), re.S)
+    if match:
+        map_rows = json.loads(match[1])
+        for item in map_rows:
+            item['image'] = urllib.parse.urljoin(origin + 'kurortnaya/', item['image'])
+            urls.add(item['image'])
 for rows in snapshots.values():
     for row in rows:
         urls.update(re.findall(r'\bsrc(?:set)?="(https?://[^\"\s,]+)', row['html']))
 css_files = ['source.css', 'ui-kit.css', 'listing-mode.css', 'start-sales-cards.css', 'owner-header.css', 'owner-footer.css', 'brand-filters.css']
+if (site / 'kurortnaya/css/home-reference.css').is_file():
+    css_files.append('home-reference.css')
+contract_version = '1.1.0' if 'home-reference.css' in css_files else '1.0.0'
 css_contents = {}
 css_bases = {}
 for file in css_files:
@@ -70,6 +84,10 @@ with concurrent.futures.ThreadPoolExecutor(max_workers=6) as pool:
     for url, name in pool.map(materialize, sorted(urls)):
         asset_map[url] = name
 (shared / 'asset-manifest.json').write_text(json.dumps(asset_map, ensure_ascii=False, indent=2) + '\n')
+if map_rows:
+    for item in map_rows:
+        item['image'] = '../../_shared/assets/' + asset_map[item['image']]
+    (root / 'map/panel/map-projects.js').write_text('window.BarnesMapProjects = ' + json.dumps(map_rows, ensure_ascii=False) + ';\nwindow.BarnesMapProjects.forEach(function(item){item.image=new URL(item.image,document.currentScript.src).href;});\n')
 for file, css in css_contents.items():
     def rewrite(match):
         quote, value = match[1], match[2]
@@ -109,13 +127,16 @@ for row in snapshots['desktop']:
     (folder / 'styles.css').write_text(''.join(f'@import url("../_shared/{file}");\n' for file in css_files + ['library.css']))
     (folder / 'index.html').write_text(page(id))
     manifest = {'id':f'first-degree-{id}', 'title':titles[id], 'version':'1.0.0', 'source':{'repo':'daniilterekh-prog/barn-estate-homepage-clone','commit':commit,'route':'kurortnaya','selector':row['selector']}, 'entry':'fragment.html','mobileEntry':'mobile.html','preview':'index.html','styles':['styles.css'],'runtime':'../_shared/runtime.js','contract':'../../../../ui-kit/first-degree.md','dependencies':['../_shared/'], 'hooks': {'map':['onMap'], 'listing':['onFilter','onSort'], 'hero':['onFilter','onSearch'], 'header':['onMenu','onSearch']}.get(id, ['onSubmit','onRequest'] if id in ('cta-central','cta-bottom','request-modal','floating-expert') else [])}
+    manifest['version'] = contract_version
+    if contract_version == '1.1.0':
+        manifest['referenceKit'] = {'version':'home-1.0.0', 'date':'2026-11-01', 'exceptions':['hero H1','FAQ']}
     (folder / 'block.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n')
     (folder / 'README.md').write_text(f'# {titles[id]}\n\nЭталон узла первой степени. Источник: `kurortnaya`, commit `{commit}`.\n\n- `fragment.html` — desktop/tablet; `mobile.html` — до 540 px.\n- `index.html` — самостоятельное превью.\n- `styles.css` — подключение общего слоя; копируйте `_shared` вместе с блоком.\n- `block.json` — источник, зависимости и интеграционные callbacks.\n\nИмпортируйте `mountNode` из `../_shared/runtime.js` и передайте URL папки и обработчики. Сохраняйте классы и `data-v-*`: они являются частью экспортированного CSS-контракта. Тексты, изображения, ссылки, телефоны и ID якорей заменяются под новый узел. Полная инструкция: [общий README](../README.md).\n')
     manifest['assembly'] = id != 'request-modal' and not id.startswith('card-')
     manifest['scripts'] = ['../_shared/start-sales.js'] if id == 'start-sales' else []
     (folder / 'block.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n')
     blocks.append(manifest)
-(root / 'manifest.json').write_text(json.dumps({'version':'1.0.0','reference':'kurortnaya','sourceCommit':commit,'blocks':blocks}, ensure_ascii=False, indent=2) + '\n')
+(root / 'manifest.json').write_text(json.dumps({'version':contract_version,'reference':'kurortnaya','sourceCommit':commit,'blocks':blocks}, ensure_ascii=False, indent=2) + '\n')
 (root / 'index.html').write_text(page())
 (root / 'catalog.html').write_text('<!doctype html><html lang="ru"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Блоки узла первой степени</title><body style="font:18px sans-serif;max-width:900px;margin:40px auto;padding:16px"><h1>Узел первой степени</h1><p><a href="index.html">Полная сборка</a> · <a href="README.md">Интеграция</a></p><ol>' + ''.join(f'<li style="margin:16px"><a href="{b["id"].removeprefix("first-degree-")}/index.html">{b["title"]}</a></li>' for b in blocks) + '</ol></body></html>\n')
 print(json.dumps({'blocks':len(blocks),'assets':len(asset_map),'sourceCommit':commit}))

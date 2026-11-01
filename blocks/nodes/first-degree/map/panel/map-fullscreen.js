@@ -21,7 +21,7 @@
   dialog.setAttribute('role', 'dialog');
   dialog.setAttribute('aria-modal', 'true');
   dialog.setAttribute('aria-label', 'Объекты на карте');
-  dialog.innerHTML = '<div class="map-browser__backdrop" aria-hidden="true"><img src="' + new URL('map-preview.png', assetsBase).href + '" alt=""></div>' +
+  dialog.innerHTML = '<div class="map-browser__backdrop" aria-hidden="true"><img src="' + new URL('../../_shared/assets/ae5a7d2b92aa35a6.png', assetsBase).href + '" alt=""></div>' +
     '<a class="map-browser__attribution" href="https://yandex.ru/maps/" target="_blank" rel="noopener">© Яндекс Карты</a>' +
     '<p class="map-browser__notice">Предпросмотр: карта статична, панель объектов работает.</p>' +
     '<button class="map-browser__close" aria-label="Закрыть полноэкранный режим карты">' + icon + '<path d="m6 6 12 12M18 6 6 18"/></svg></button>' +

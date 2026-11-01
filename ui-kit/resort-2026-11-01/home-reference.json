@@ -1,0 +1,70 @@
+{
+  "reference": "Home v1.0.0, 2026-11-01",
+  "resortVersion": "1.1.0",
+  "exceptions": [
+    "hero H1",
+    "FAQ"
+  ],
+  "checks": [
+    {
+      "width": 320,
+      "kit": true,
+      "exceptionsPreserved": true,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "kit": true,
+      "exceptionsPreserved": true,
+      "overflow": false
+    },
+    {
+      "width": 540,
+      "kit": true,
+      "exceptionsPreserved": true,
+      "overflow": false
+    },
+    {
+      "width": 768,
+      "kit": true,
+      "exceptionsPreserved": true,
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "kit": true,
+      "exceptionsPreserved": true,
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "kit": true,
+      "exceptionsPreserved": true,
+      "overflow": false
+    },
+    {
+      "width": 1441,
+      "kit": true,
+      "exceptionsPreserved": true,
+      "overflow": false
+    },
+    {
+      "width": 1920,
+      "kit": true,
+      "exceptionsPreserved": true,
+      "overflow": false
+    },
+    {
+      "width": 2560,
+      "kit": true,
+      "exceptionsPreserved": true,
+      "overflow": false
+    },
+    {
+      "width": 3840,
+      "kit": true,
+      "exceptionsPreserved": true,
+      "overflow": false
+    }
+  ]
+}
