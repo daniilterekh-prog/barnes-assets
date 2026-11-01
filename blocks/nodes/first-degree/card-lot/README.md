@@ -1,6 +1,6 @@
 # Карточка лота
 
-Эталон узла первой степени. Источник: `kurortnaya`, commit `14401c518b4a5f51e910121f1741d79efa164a80`.
+Эталон узла первой степени. Источник: `kurortnaya`, commit `62aee9e62e2fae669028433ffe411e2f18a01d84`.
 
 - `fragment.html` — desktop/tablet; `mobile.html` — до 540 px.
 - `index.html` — самостоятельное превью.

@@ -21,6 +21,15 @@ export function initNode(root, options = {}) {
   const controller = new AbortController();
   const listen = (target, type, callback) => target?.addEventListener(type, callback, {signal:controller.signal});
   const emit = (type, detail) => root.dispatchEvent(new CustomEvent(`barnes:${type}`, {bubbles:true, detail}));
+  const closeHeaderPanels = (event, restoreFocus = false) => {
+    root.querySelectorAll('.catalog-header-mobile-panel,.catalog-sticky__contact-panel').forEach(panel => {
+      const toggle=root.querySelector('[aria-controls="'+panel.id+'"]');
+      if(panel.hidden||panel.contains(event.target)||toggle?.contains(event.target))return;
+      panel.hidden=true;toggle?.setAttribute('aria-expanded','false');if(restoreFocus)toggle?.focus();
+    });
+  };
+  listen(document,'click',event=>closeHeaderPanels(event));
+  listen(document,'keydown',event=>{if(event.key==='Escape')closeHeaderPanels({target:document.body},true);});
   let modal = null, previousFocus = null, modalCleanup = null;
   const closeModal = () => { modalCleanup?.(); modalCleanup = null; modal?.remove(); modal = null; document.body.classList.remove('catalog-modal-open'); previousFocus?.focus(); };
   async function request(trigger) {
@@ -34,7 +43,7 @@ export function initNode(root, options = {}) {
     dialog.hidden = false;
     dialog.style.position = 'fixed';
     document.body.classList.add('catalog-modal-open');
-    if(trigger.matches('.catalog-sticky__callback'))dialog.querySelector('[data-channel="call"]')?.click();
+    if(trigger.matches('.catalog-sticky__callback'))dialog.querySelector('[data-channel="Звонок"],[data-channel="call"]')?.click();
     listen(modal,'click',e=>{if(e.target===dialog||e.target.closest('[data-catalog-modal-close]'))closeModal();});
     listen(modal,'keydown',e=>{
       if(e.key==='Escape'){closeModal();return;}
@@ -96,9 +105,13 @@ export function initNode(root, options = {}) {
       const value=root.querySelector('[name=preferredChannel]');if(value)value.value=trigger.textContent.trim();return;
     }
     if(trigger.matches('.catalog-projects-map__fullscreen')){if(options.referenceFilters)return;const map=trigger.closest('.catalog-projects-map');if(document.fullscreenElement)await document.exitFullscreen();else await map.requestFullscreen();return;}
+    if(trigger.matches('.catalog-header-mobile-toggle,.catalog-sticky__contact-toggle')){
+      const panel=root.querySelector('#'+trigger.getAttribute('aria-controls'));
+      if(panel){panel.hidden=!panel.hidden;trigger.setAttribute('aria-expanded',String(!panel.hidden));}return;
+    }
     if(trigger.matches('.site-header__search-btn')){e.preventDefault();options.onSearch?.({trigger,root});emit('search',{trigger});return;}
     if(trigger.matches('.site-header__menu-btn,.site-header__icon-btn')){options.onMenu?.({trigger,root});emit('menu',{trigger});return;}
-    if(trigger.matches('.catalog-sticky__request,.catalog-contact__card-submit,.floating-expert__card,.apartment-card__call-btn,.site-header__callback-btn,.site-footer__callback-btn')){e.preventDefault();await request(trigger);}
+    if(trigger.matches('.catalog-sticky__request,.catalog-header-request,.catalog-contact__card-submit,.floating-expert__card,.apartment-card__call-btn,.site-header__callback-btn,.site-footer__callback-btn')){e.preventDefault();await request(trigger);}
   });
   listen(root,'change',e=>{if(e.target.matches('.catalog-grid__sort-select')){options.onSort?.({value:e.target.value,root});emit('sort',{value:e.target.value});}});
   if(options.referenceFilters)listen(document,'barnes:filters-apply',()=>{

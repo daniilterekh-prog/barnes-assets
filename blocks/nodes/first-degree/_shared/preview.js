@@ -1,4 +1,4 @@
-import { mountNode } from './runtime.js';
+import { mountNode } from './runtime.js?v=20261101-1.1';
 import { bootReferenceFilters } from './reference-filters.js';
 const host = document.querySelector('.node-preview');
 const base = new URL('../',import.meta.url);

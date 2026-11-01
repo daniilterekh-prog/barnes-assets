@@ -505,4 +505,3 @@ html body.barnes-header-template :is(.owner-sale-sticky__logo,.catalog-sticky__l
   /* Keep the contact dropdown clickable; only the anchor list scrolls. */
   html body.barnes-header-template :is(.owner-sale-sticky,.catalog-sticky) { overflow:visible; }
 }
-

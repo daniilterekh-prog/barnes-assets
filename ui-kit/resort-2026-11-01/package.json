@@ -1,0 +1,281 @@
+{
+  "base": "http://127.0.0.1:8875/kurortnaya/",
+  "source": "self-contained kurortnaya",
+  "checks": [
+    {
+      "entry": "index.html",
+      "width": 320,
+      "overflow": false,
+      "broken": [],
+      "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif"
+    },
+    {
+      "entry": "index.html",
+      "width": 390,
+      "overflow": false,
+      "broken": [],
+      "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif"
+    },
+    {
+      "entry": "index.html",
+      "width": 540,
+      "overflow": false,
+      "broken": [],
+      "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif"
+    },
+    {
+      "entry": "index.html",
+      "width": 541,
+      "overflow": false,
+      "broken": [],
+      "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif"
+    },
+    {
+      "entry": "index.html",
+      "width": 768,
+      "overflow": false,
+      "broken": [],
+      "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif"
+    },
+    {
+      "entry": "index.html",
+      "width": 1440,
+      "overflow": false,
+      "broken": [],
+      "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif"
+    },
+    {
+      "entry": "index.html",
+      "width": 1920,
+      "overflow": false,
+      "broken": [],
+      "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif"
+    },
+    {
+      "entry": "index.html",
+      "width": 2560,
+      "overflow": false,
+      "broken": [],
+      "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif"
+    },
+    {
+      "entry": "blocks/header/index.html",
+      "width": 390,
+      "overflow": false,
+      "broken": []
+    },
+    {
+      "entry": "blocks/header/index.html",
+      "width": 1440,
+      "overflow": false,
+      "broken": []
+    },
+    {
+      "entry": "blocks/sticky-nav/index.html",
+      "width": 390,
+      "overflow": false,
+      "broken": []
+    },
+    {
+      "entry": "blocks/sticky-nav/index.html",
+      "width": 1440,
+      "overflow": false,
+      "broken": []
+    },
+    {
+      "entry": "blocks/hero/index.html",
+      "width": 390,
+      "overflow": false,
+      "broken": []
+    },
+    {
+      "entry": "blocks/hero/index.html",
+      "width": 1440,
+      "overflow": false,
+      "broken": []
+    },
+    {
+      "entry": "blocks/start-sales/index.html",
+      "width": 390,
+      "overflow": false,
+      "broken": []
+    },
+    {
+      "entry": "blocks/start-sales/index.html",
+      "width": 1440,
+      "overflow": false,
+      "broken": []
+    },
+    {
+      "entry": "blocks/map/index.html",
+      "width": 390,
+      "overflow": false,
+      "broken": []
+    },
+    {
+      "entry": "blocks/map/index.html",
+      "width": 1440,
+      "overflow": false,
+      "broken": []
+    },
+    {
+      "entry": "blocks/listing/index.html",
+      "width": 390,
+      "overflow": false,
+      "broken": []
+    },
+    {
+      "entry": "blocks/listing/index.html",
+      "width": 1440,
+      "overflow": false,
+      "broken": []
+    },
+    {
+      "entry": "blocks/brand-intro/index.html",
+      "width": 390,
+      "overflow": false,
+      "broken": []
+    },
+    {
+      "entry": "blocks/brand-intro/index.html",
+      "width": 1440,
+      "overflow": false,
+      "broken": []
+    },
+    {
+      "entry": "blocks/cta-central/index.html",
+      "width": 390,
+      "overflow": false,
+      "broken": []
+    },
+    {
+      "entry": "blocks/cta-central/index.html",
+      "width": 1440,
+      "overflow": false,
+      "broken": []
+    },
+    {
+      "entry": "blocks/directions/index.html",
+      "width": 390,
+      "overflow": false,
+      "broken": []
+    },
+    {
+      "entry": "blocks/directions/index.html",
+      "width": 1440,
+      "overflow": false,
+      "broken": []
+    },
+    {
+      "entry": "blocks/news/index.html",
+      "width": 390,
+      "overflow": false,
+      "broken": []
+    },
+    {
+      "entry": "blocks/news/index.html",
+      "width": 1440,
+      "overflow": false,
+      "broken": []
+    },
+    {
+      "entry": "blocks/faq/index.html",
+      "width": 390,
+      "overflow": false,
+      "broken": []
+    },
+    {
+      "entry": "blocks/faq/index.html",
+      "width": 1440,
+      "overflow": false,
+      "broken": []
+    },
+    {
+      "entry": "blocks/cta-bottom/index.html",
+      "width": 390,
+      "overflow": false,
+      "broken": []
+    },
+    {
+      "entry": "blocks/cta-bottom/index.html",
+      "width": 1440,
+      "overflow": false,
+      "broken": []
+    },
+    {
+      "entry": "blocks/footer/index.html",
+      "width": 390,
+      "overflow": false,
+      "broken": []
+    },
+    {
+      "entry": "blocks/footer/index.html",
+      "width": 1440,
+      "overflow": false,
+      "broken": []
+    },
+    {
+      "entry": "blocks/floating-expert/index.html",
+      "width": 390,
+      "overflow": false,
+      "broken": []
+    },
+    {
+      "entry": "blocks/floating-expert/index.html",
+      "width": 1440,
+      "overflow": false,
+      "broken": []
+    },
+    {
+      "entry": "blocks/request-modal/index.html",
+      "width": 390,
+      "overflow": false,
+      "broken": []
+    },
+    {
+      "entry": "blocks/request-modal/index.html",
+      "width": 1440,
+      "overflow": false,
+      "broken": []
+    },
+    {
+      "entry": "blocks/card-start-sales/index.html",
+      "width": 390,
+      "overflow": false,
+      "broken": []
+    },
+    {
+      "entry": "blocks/card-start-sales/index.html",
+      "width": 1440,
+      "overflow": false,
+      "broken": []
+    },
+    {
+      "entry": "blocks/card-project/index.html",
+      "width": 390,
+      "overflow": false,
+      "broken": []
+    },
+    {
+      "entry": "blocks/card-project/index.html",
+      "width": 1440,
+      "overflow": false,
+      "broken": []
+    },
+    {
+      "entry": "blocks/card-lot/index.html",
+      "width": 390,
+      "overflow": false,
+      "broken": []
+    },
+    {
+      "entry": "blocks/card-lot/index.html",
+      "width": 1440,
+      "overflow": false,
+      "broken": []
+    }
+  ],
+  "errors": [],
+  "externalResources": [],
+  "missingResources": []
+}

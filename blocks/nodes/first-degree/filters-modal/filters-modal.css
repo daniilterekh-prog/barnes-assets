@@ -1,4 +1,4 @@
-/* Geometry, colors and markup come from the original source.css modal contract. */
+/* Geometry, colors and markup come from the original css/source.css modal contract. */
 .resort-filters[hidden] { display: none !important; }
 .resort-filters.hero-filter-modal { z-index: 11000; }
 .resort-filters.hero-filter-modal--drawer { position: fixed; }

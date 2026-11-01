@@ -1,6 +1,10 @@
 # Узлы первой степени — «Курортная»
 
-Референс: [Курортная](https://daniilterekh-prog.github.io/barn-estate-homepage-clone/kurortnaya/). HTML/CSS и карточки пересобраны 12.10.2026 по commit `14401c5`: новый одобренный десктопный кадр с простой архитектурой, прежний мобильный оригинал. [Сводка дня](../../../docs/2026-10-12-first-degree-sync.md).
+**01.11.2026 · версия1.1.0:** сегодняшний кит главной v1.0.0, **кроме H1 hero и FAQ**. [Изменения/проверки](../../../docs/2026-11-01-resort-kit.md), [актуальный контракт](../../../ui-kit/first-degree.md). Внешний источник основного изменения — `62aee9e`; все18компонентов и прежние карточные пути обновлены. `_shared/home-reference.css` обязателен; активных медиа/шрифтов66, включая32фото карты.
+
+Полная страница теперь также доступна [самодостаточным узлом в репозитории сайта](https://github.com/daniilterekh-prog/barn-estate-homepage-clone/tree/master/kurortnaya): код, локальные медиа/шрифты, редактируемые исходники и отдельные блоки. [Схема упаковки и различия путей](../../../docs/2026-10-12-kurortnaya-package.md). Здесь остаётся каноническая библиотека со своей структурой `_shared`; не смешивать её пути с копией внутри страницы.
+
+Референс: [Курортная](https://daniilterekh-prog.github.io/barn-estate-homepage-clone/kurortnaya/). HTML/CSS и карточки пересобраны01.11.2026 по `62aee9e`; фотографии hero и исключения H1/FAQ сохранены. [Сводка обновления](../../../docs/2026-11-01-resort-kit.md). [История12октября](../../../docs/2026-10-12-first-degree-sync.md).
 
 [Каталог превью](catalog.html) · [Сборка](index.html) · [UI-контракт](../../../ui-kit/first-degree.md) · [Манифест](manifest.json).
 
@@ -10,7 +14,7 @@
 
 Дополнительно: card-start-sales, card-project, card-lot. Прежние пути `blocks/cards/{start-sales,listing-project,listing-lot}` также обновлены: актуальный HTML, общее оформление и ссылки на канонические карточки без копирования изображений.
 
-В каждой папке: fragment.html, mobile.html, styles.css, block.json, README.md, index.html. Общая папка `_shared` обязательна: CSS, runtime, карусель и 48 используемых локальных ассетов. Их происхождение записано в asset-manifest.json. Дополнительные папки `quick-filter-dropdowns`, `filters-modal` и `map/panel` содержат общий UI фильтров и полной карты.
+В каждой папке: fragment.html, mobile.html, styles.css, block.json, README.md, index.html. Общая папка `_shared` обязательна: CSS, runtime, карусель и66активных локальных ассетов. Их происхождение записано в asset-manifest.json. Дополнительные папки `quick-filter-dropdowns`, `filters-modal` и `map/panel` содержат общий UI фильтров и полной карты.
 
 Для общего хедера body должен иметь класс barnes-header-template; подключай owner-header.css после старых page-local CSS. Встроенные превью уже используют этот шаблон. Направления в Курортной намеренно отсутствуют, якоря остаются курортными.
 
