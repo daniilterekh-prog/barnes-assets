@@ -71,7 +71,7 @@ html body.barnes-header-template .catalog-grid__inner { row-gap:var(--resort-con
 /* Consume heading/content spacing once; legacy margins/padding added a second gap. */
 html body.barnes-header-template .catalog-mode-toolbar { margin-block:0!important; }
 html body.barnes-header-template .catalog-best-offers__header { margin-bottom:0!important; }
-html body.barnes-header-template .catalog-best-offers__slider { padding-block:var(--resort-content-gap)!important; }
+/* Start-sales carousel consumes the approved homepage slider spacing in its own stylesheet. */
 html body.barnes-header-template .departments-section__inner { row-gap:var(--resort-content-gap)!important; }
 html body.barnes-header-template .news-section__inner { row-gap:var(--resort-content-gap)!important; }
 html body.barnes-header-template .department-card__title { font-weight:300!important; }

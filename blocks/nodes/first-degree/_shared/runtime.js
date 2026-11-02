@@ -1,3 +1,4 @@
+import './start-sales.js?v=20261102-home-choice-9';
 import './header-layout.js?v=20261102-navigation-7';
 import './faq.js?v=20261102-faq-6';
 import './expert-quiz.js?v=20261102-expert-quiz-5';
@@ -22,6 +23,7 @@ export async function mountNode(host, folder, options = {}) {
 
 export function initNode(root, options = {}) {
   const cleanupFaq=window.BarnEstateFaq.mount(root);
+  const cleanupStarts=[...root.querySelectorAll('.catalog-best-offers')].map(section=>window.BarnEstateStartSales.mount(section));
   const controller = new AbortController();
   const listen = (target, type, callback) => target?.addEventListener(type, callback, {signal:controller.signal});
   const emit = (type, detail) => root.dispatchEvent(new CustomEvent(`barnes:${type}`, {bubbles:true, detail}));
@@ -96,7 +98,8 @@ export function initNode(root, options = {}) {
       const details=root.querySelector('.catalog-intro__details'),open=trigger.getAttribute('aria-expanded')!=='true';
       trigger.setAttribute('aria-expanded',String(open));details.setAttribute('aria-hidden',String(!open));details.hidden=!open;details.inert=!open;details.style.maxHeight=open?'none':'0px';const label=trigger.querySelector('.ui-more-link__label');if(label)label.textContent=open?'свернуть':'читать далее';return;
     }
-    if(trigger.matches('.launch-card__favorite,.apartment-card__favorite')){
+    if(trigger.matches('.launch-card__favorite')){emit('favorite',{trigger});return;}
+    if(trigger.matches('.apartment-card__favorite')){
       trigger.setAttribute('aria-pressed',String(trigger.getAttribute('aria-pressed')!=='true'));emit('favorite',{trigger});return;
     }
     if(trigger.matches('.floating-expert__close')){trigger.closest('.floating-expert').hidden=true;return;}
@@ -134,5 +137,5 @@ export function initNode(root, options = {}) {
     try{status.textContent=await options.onSubmit({data,form,root})||'Заявка обработана.';}catch{status.textContent='Не удалось отправить заявку.';}
   }));
   root.querySelectorAll('.catalog-projects-map').forEach(el=>options.onMap?.({element:el,root}));
-  return ()=>{cleanupFaq();controller.abort();closeModal();};
+  return ()=>{cleanupStarts.forEach(cleanup=>cleanup());cleanupFaq();controller.abort();closeModal();};
 }

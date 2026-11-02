@@ -125,7 +125,7 @@
     {
       "id": "first-degree-start-sales",
       "title": "Старты продаж",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "source": {
         "repo": "daniilterekh-prog/barn-estate-homepage-clone",
         "commit": "62aee9e62e2fae669028433ffe411e2f18a01d84",
@@ -155,7 +155,19 @@
       "assembly": true,
       "scripts": [
         "../_shared/start-sales.js"
-      ]
+      ],
+      "layoutReference": {
+        "page": "https://daniilterekh-prog.github.io/barn-estate-homepage-clone/exact-2026-10-21/",
+        "selector": ".barnes-choice",
+        "date": "2026-11-02",
+        "directions": false,
+        "cardHeight": {
+          "desktop": 500,
+          "phone": 410
+        },
+        "arrows": "below right",
+        "handoverBadge": "preserved resort content"
+      }
     },
     {
       "id": "first-degree-map",
@@ -581,7 +593,7 @@
     {
       "id": "first-degree-card-start-sales",
       "title": "Карточка старта продаж",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "source": {
         "repo": "daniilterekh-prog/barn-estate-homepage-clone",
         "commit": "62aee9e62e2fae669028433ffe411e2f18a01d84",
@@ -609,7 +621,19 @@
         ]
       },
       "assembly": false,
-      "scripts": []
+      "scripts": [],
+      "layoutReference": {
+        "page": "https://daniilterekh-prog.github.io/barn-estate-homepage-clone/exact-2026-10-21/",
+        "selector": ".barnes-choice",
+        "date": "2026-11-02",
+        "directions": false,
+        "cardHeight": {
+          "desktop": 500,
+          "phone": 410
+        },
+        "arrows": "below right",
+        "handoverBadge": "preserved resort content"
+      }
     },
     {
       "id": "first-degree-card-project",

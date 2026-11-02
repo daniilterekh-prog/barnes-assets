@@ -1,4 +1,4 @@
-import { mountNode } from './runtime.js?v=20261102-navigation-7';
+import { mountNode } from './runtime.js?v=20261102-home-choice-9';
 import { bootReferenceFilters } from './reference-filters.js';
 const host = document.querySelector('.node-preview');
 const base = new URL('../',import.meta.url);
@@ -19,8 +19,5 @@ if(host.dataset.node==='sticky-nav'){
   const sticky=host.querySelector('.catalog-sticky');sticky.classList.add('catalog-sticky--visible');sticky.inert=false;sticky.setAttribute('aria-hidden','false');
 }
 if(host.querySelector('.catalog-quick-filters__button,.catalog-projects-map__fullscreen,.catalog-hero-filters__filter-icon'))await bootReferenceFilters();
-if(host.querySelector('.catalog-best-offers')){
-  const script=document.createElement('script');script.src=new URL('./start-sales.js',import.meta.url);document.body.append(script);
-}
 
 window.BarnEstateHeaderLayout.mount(host);
