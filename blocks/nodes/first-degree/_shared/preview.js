@@ -1,5 +1,5 @@
 import { mountNode } from './runtime.js?v=20261102-catalog-filters-12';
-import { bootReferenceFilters } from './reference-filters.js';
+import { bootReferenceFilters } from './reference-filters.js?v=20261102-catalog-filters-12';
 const host = document.querySelector('.node-preview');
 const base = new URL('../',import.meta.url);
 if(host.dataset.node)await mountNode(host,new URL(`${host.dataset.node}/`,base),{referenceFilters:true});
