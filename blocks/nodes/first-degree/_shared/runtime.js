@@ -1,3 +1,4 @@
+import './faq.js?v=20261102-faq-6';
 import './expert-quiz.js?v=20261102-expert-quiz-5';
 /** Reusable interactions. Production data arrives through options or bubbling events. */
 export async function mountNode(host, folder, options = {}) {
@@ -19,6 +20,7 @@ export async function mountNode(host, folder, options = {}) {
 }
 
 export function initNode(root, options = {}) {
+  const cleanupFaq=window.BarnEstateFaq.mount(root);
   const controller = new AbortController();
   const listen = (target, type, callback) => target?.addEventListener(type, callback, {signal:controller.signal});
   const emit = (type, detail) => root.dispatchEvent(new CustomEvent(`barnes:${type}`, {bubbles:true, detail}));
@@ -89,10 +91,6 @@ export function initNode(root, options = {}) {
     if(trigger.matches('.catalog-hero-filters__toggle')){
       const panel=root.querySelector('.catalog-hero-filters__panel');if(panel){panel.hidden=!panel.hidden;trigger.setAttribute('aria-expanded',String(!panel.hidden));trigger.setAttribute('aria-label',panel.hidden?'Показать способы связи':'Скрыть способы связи');}return;
     }
-    if(trigger.matches('.catalog-faq__question')){
-      const item=trigger.closest('.catalog-faq__item'),answer=item.querySelector('.catalog-faq__answer'),open=trigger.getAttribute('aria-expanded')!=='true';
-      trigger.setAttribute('aria-expanded',String(open));item.classList.toggle('catalog-faq__item--open',open);answer.classList.toggle('catalog-faq__answer--open',open);return;
-    }
     if(trigger.matches('.catalog-intro__toggle')){
       const details=root.querySelector('.catalog-intro__details'),open=trigger.getAttribute('aria-expanded')!=='true';
       trigger.setAttribute('aria-expanded',String(open));details.setAttribute('aria-hidden',String(!open));details.hidden=!open;details.inert=!open;details.style.maxHeight=open?'none':'0px';const label=trigger.querySelector('.ui-more-link__label');if(label)label.textContent=open?'свернуть':'читать далее';return;
@@ -135,5 +133,5 @@ export function initNode(root, options = {}) {
     try{status.textContent=await options.onSubmit({data,form,root})||'Заявка обработана.';}catch{status.textContent='Не удалось отправить заявку.';}
   }));
   root.querySelectorAll('.catalog-projects-map').forEach(el=>options.onMap?.({element:el,root}));
-  return ()=>{controller.abort();closeModal();};
+  return ()=>{cleanupFaq();controller.abort();closeModal();};
 }

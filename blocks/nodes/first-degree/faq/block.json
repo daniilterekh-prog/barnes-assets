@@ -29,5 +29,14 @@
     ]
   },
   "assembly": true,
-  "scripts": []
+  "scripts": [],
+  "disclosure": {
+    "controller": "../_shared/faq.js",
+    "independentItems": true,
+    "keyboard": [
+      "Enter",
+      "Space"
+    ],
+    "approvedTypographyUnchanged": true
+  }
 }

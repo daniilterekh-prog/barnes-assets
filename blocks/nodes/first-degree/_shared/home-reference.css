@@ -205,3 +205,6 @@ html body.barnes-header-template :is(.catalog-header-request,.catalog-header-mob
 
 /* Disclosure state must override the captured display/max-height styles. */
 html body.barnes-header-template .catalog-intro__details[hidden] { display:none!important; }
+
+/* Keyboard affordance only; approved FAQ text geometry stays unchanged. */
+html body.barnes-header-template .catalog-faq__question:focus-visible { outline:2px solid #8b1d25!important; outline-offset:3px; }
