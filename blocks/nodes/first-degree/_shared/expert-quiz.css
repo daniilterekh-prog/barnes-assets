@@ -1,0 +1,47 @@
+/* Scoped adaptation of approved homepage 17-quiz; keep the current Denis portrait. */
+html body .catalog-feedback-modal.resort-quiz-active [hidden] { display:none!important; }
+html body .catalog-feedback-modal.resort-quiz-active .modal__content { height:min(820px,calc(100dvh - 32px)); max-width:1040px; overflow:clip; }
+html body .catalog-feedback-modal.resort-quiz-active .feedback-modal__layout { height:100%; min-height:0; grid-template-columns:minmax(0,1.2fr) minmax(0,1fr); }
+html body .catalog-feedback-modal.resort-quiz-active .feedback-modal__body { min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-gutter:stable; padding:32px; }
+html body .catalog-feedback-modal.resort-quiz-active .feedback-modal__title { text-align:left; margin-bottom:16px; outline:none; }
+html body .catalog-feedback-modal.resort-quiz-active .feedback-modal__intro { text-align:left; margin-bottom:24px; font-size:17px!important; font-weight:300; line-height:1.4; }
+html body .resort-quiz__top { margin-bottom:24px; }
+html body .resort-quiz__eyebrow { margin:0 0 12px; font-size:12px; line-height:1.4; letter-spacing:.12em; font-weight:400; color:#656462; }
+html body .resort-quiz__progress { margin:0 0 10px; font-size:13px; line-height:1.4; font-weight:400; color:#4f4d49; }
+html body .resort-quiz__track { height:2px; background:#e4e4e4; }
+html body .resort-quiz__track span { display:block; height:100%; background:#8b1d25; transition:width .2s; }
+html body :is(.resort-quiz__back,.resort-quiz__skip,.resort-quiz__summary button) { border:0; border-radius:1px; background:transparent; color:#656462; cursor:pointer; font:400 14px/1.4 var(--kit-font); padding:10px 0; min-height:44px; }
+html body .resort-quiz__back { margin:-10px 0 12px; }
+html body .resort-quiz__options { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+html body .resort-quiz__option { box-sizing:border-box; display:flex; align-items:center; justify-content:space-between; text-align:left; gap:8px; border:1px solid #b7b5b2; background:#fff; color:#1e1e1e; border-radius:1px; min-height:58px; padding:14px 16px; font:400 17px/1.2 var(--kit-font); cursor:pointer; width:100%; }
+html body .resort-quiz__option::after { content:""; width:14px; height:14px; border:1px solid #8b8986; border-radius:50%; flex-shrink:0; }
+html body .resort-quiz__option[aria-pressed=true] { border-color:#8b1d25; background:#f9f3f3; color:#8b1d25; }
+html body .resort-quiz__option[aria-pressed=true]::after { background:#8b1d25; border-color:#8b1d25; }
+html body .resort-quiz__options .resort-quiz__option:last-child:nth-child(2n+1) { grid-column:1/-1; }
+html body .resort-quiz__next { box-sizing:border-box; width:100%; height:64px; min-height:64px; margin-top:24px; border:1px solid #8b1d25; border-radius:1px; background:#8b1d25; color:#fff; font:400 17px/1.1 var(--kit-font); cursor:pointer; padding:0 36px; }
+html body .resort-quiz__next:disabled { background:#efedeb; border-color:#e4e4e4; color:#656462; cursor:default; }
+html body .resort-quiz__summary { border-left:2px solid #8b1d25; padding:12px 16px; margin-bottom:20px; background:#f9f3f3; }
+html body .resort-quiz__summary p { font:300 16px/1.4 var(--kit-font); margin:0; color:#4f4d49; overflow-wrap:anywhere; }
+html body .resort-quiz__budget { display:grid; grid-template-columns:minmax(0,1fr) 84px; gap:12px; margin-bottom:16px; }
+html body .resort-quiz__budget label { display:flex; flex-direction:column; gap:8px; color:#4f4d49; font:400 14px/1.4 var(--kit-font); }
+html body .resort-quiz__budget :is(input,select) { box-sizing:border-box; width:100%; min-width:0; min-height:52px; border:1px solid #b7b5b2; border-radius:1px; background:white; color:#1e1e1e; padding:12px; font:400 17px/1.2 var(--kit-font); }
+html body .resort-quiz-active :is(button,input,select,a):focus-visible { outline:2px solid #8b1d25; outline-offset:3px; }
+html body .catalog-feedback-modal [aria-invalid=true] { outline:1px solid #8b1d25; outline-offset:2px; }
+@media(hover:hover) { html body .resort-quiz__option:hover { border-color:#8b1d25; } html body :is(.resort-quiz__back,.resort-quiz__skip,.resort-quiz__summary button):hover { color:#8b1d25; } }
+@media(min-width:1441px) { html body .resort-quiz__next { font-size:19px; padding-inline:47px; } }
+@media(max-width:760px) { html body .resort-quiz__options { grid-template-columns:1fr; } }
+@media(max-width:580px) {
+ html body .catalog-feedback-modal.resort-quiz-active .modal__content { height:calc(100dvh - 16px); }
+ html body .catalog-feedback-modal.resort-quiz-active .feedback-modal__body { flex:1 1 auto; padding:24px 20px; }
+ html body .catalog-feedback-modal.resort-quiz-active .feedback-modal__hero { height:128px; flex-basis:128px; min-height:0; }
+ html body .catalog-feedback-modal.resort-quiz-active .feedback-modal__hero-image { position:absolute; inset:0 auto auto 50%; transform:translateX(-50%); width:220px; max-width:none; height:auto; object-position:center top; }
+ html body .catalog-feedback-modal.resort-quiz-active .feedback-modal__intro { font-size:15px!important; }
+ html body .resort-quiz__top { margin-bottom:20px; }
+ html body .resort-quiz__option { min-height:56px; padding:12px; font-size:16px; }
+ html body .resort-quiz__options { gap:8px; }
+ html body .resort-quiz__next { height:58px; min-height:58px; font-size:18px; margin-top:20px; padding-inline:24px; }
+}
+@media(max-height:480px) { html body .catalog-feedback-modal.resort-quiz-active .feedback-modal__hero { display:none; } html body .catalog-feedback-modal.resort-quiz-active .feedback-modal__layout { grid-template-columns:minmax(0,1fr); } }
+@media(prefers-reduced-motion:reduce) { html body .resort-quiz__track span { transition:none; } }
+
+html body .catalog-feedback-modal .feedback-modal__consent-input[aria-invalid=true] + .feedback-modal__consent-box { border-color:#8b1d25; }

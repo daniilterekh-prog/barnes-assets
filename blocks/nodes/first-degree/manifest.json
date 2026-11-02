@@ -485,7 +485,23 @@
         ]
       },
       "assembly": true,
-      "scripts": []
+      "scripts": [],
+      "expertQuiz": {
+        "controller": "../_shared/expert-quiz.js",
+        "styles": "../_shared/expert-quiz.css",
+        "steps": [
+          "goal",
+          "location",
+          "budget",
+          "contact"
+        ],
+        "payload": "quizAnswers",
+        "triggers": [
+          "floating-expert",
+          "data-expert-quiz"
+        ],
+        "directFormPreserved": true
+      }
     },
     {
       "id": "first-degree-request-modal",
@@ -521,7 +537,23 @@
         ]
       },
       "assembly": false,
-      "scripts": []
+      "scripts": [],
+      "expertQuiz": {
+        "controller": "../_shared/expert-quiz.js",
+        "styles": "../_shared/expert-quiz.css",
+        "steps": [
+          "goal",
+          "location",
+          "budget",
+          "contact"
+        ],
+        "payload": "quizAnswers",
+        "triggers": [
+          "floating-expert",
+          "data-expert-quiz"
+        ],
+        "directFormPreserved": true
+      }
     },
     {
       "id": "first-degree-card-start-sales",

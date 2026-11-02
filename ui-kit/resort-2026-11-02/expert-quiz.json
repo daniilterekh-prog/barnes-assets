@@ -1,0 +1,126 @@
+{
+  "checks": [
+    {
+      "width": 320,
+      "height": 640,
+      "fullFlow": true,
+      "back": true,
+      "skip": true,
+      "payload": true,
+      "validation": true,
+      "focus": true,
+      "directForm": true,
+      "noPost": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "fullFlow": true,
+      "back": true,
+      "skip": true,
+      "payload": true,
+      "validation": true,
+      "focus": true,
+      "directForm": true,
+      "noPost": true
+    },
+    {
+      "width": 540,
+      "height": 900,
+      "fullFlow": true,
+      "back": true,
+      "skip": true,
+      "payload": true,
+      "validation": true,
+      "focus": true,
+      "directForm": true,
+      "noPost": true
+    },
+    {
+      "width": 768,
+      "height": 900,
+      "fullFlow": true,
+      "back": true,
+      "skip": true,
+      "payload": true,
+      "validation": true,
+      "focus": true,
+      "directForm": true,
+      "noPost": true
+    },
+    {
+      "width": 1024,
+      "height": 900,
+      "fullFlow": true,
+      "back": true,
+      "skip": true,
+      "payload": true,
+      "validation": true,
+      "focus": true,
+      "directForm": true,
+      "noPost": true
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "fullFlow": true,
+      "back": true,
+      "skip": true,
+      "payload": true,
+      "validation": true,
+      "focus": true,
+      "directForm": true,
+      "noPost": true
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "fullFlow": true,
+      "back": true,
+      "skip": true,
+      "payload": true,
+      "validation": true,
+      "focus": true,
+      "directForm": true,
+      "noPost": true
+    },
+    {
+      "width": 2560,
+      "height": 1440,
+      "fullFlow": true,
+      "back": true,
+      "skip": true,
+      "payload": true,
+      "validation": true,
+      "focus": true,
+      "directForm": true,
+      "noPost": true
+    },
+    {
+      "width": 3840,
+      "height": 1600,
+      "fullFlow": true,
+      "back": true,
+      "skip": true,
+      "payload": true,
+      "validation": true,
+      "focus": true,
+      "directForm": true,
+      "noPost": true
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "fullFlow": true,
+      "back": true,
+      "skip": true,
+      "payload": true,
+      "validation": true,
+      "focus": true,
+      "directForm": true,
+      "noPost": true
+    }
+  ],
+  "errors": [],
+  "posts": []
+}
