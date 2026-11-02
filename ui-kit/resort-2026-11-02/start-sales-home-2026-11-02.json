@@ -1,0 +1,145 @@
+{
+  "reference": "https://daniilterekh-prog.github.io/barn-estate-homepage-clone/exact-2026-10-21/",
+  "checks": [
+    {
+      "width": 320,
+      "card": {
+        "width": 261,
+        "height": 410
+      },
+      "wrap": 305,
+      "arrowsBelow": false,
+      "footerBelow": true,
+      "overflow": false,
+      "typographyMatchesHomepage": true,
+      "navigation": true,
+      "favorites": true
+    },
+    {
+      "width": 390,
+      "card": {
+        "width": 331,
+        "height": 410
+      },
+      "wrap": 375,
+      "arrowsBelow": false,
+      "footerBelow": true,
+      "overflow": false,
+      "typographyMatchesHomepage": true,
+      "navigation": true,
+      "favorites": true
+    },
+    {
+      "width": 540,
+      "card": {
+        "width": 481,
+        "height": 410
+      },
+      "wrap": 525,
+      "arrowsBelow": false,
+      "footerBelow": true,
+      "overflow": false,
+      "typographyMatchesHomepage": true,
+      "navigation": true,
+      "favorites": true
+    },
+    {
+      "width": 541,
+      "card": {
+        "width": 450,
+        "height": 500
+      },
+      "wrap": 508.984375,
+      "arrowsBelow": false,
+      "footerBelow": true,
+      "overflow": false,
+      "typographyMatchesHomepage": true,
+      "navigation": true,
+      "favorites": true
+    },
+    {
+      "width": 768,
+      "card": {
+        "width": 355.984375,
+        "height": 500
+      },
+      "wrap": 735.984375,
+      "arrowsBelow": true,
+      "footerBelow": true,
+      "overflow": false,
+      "typographyMatchesHomepage": true,
+      "navigation": true,
+      "favorites": true
+    },
+    {
+      "width": 1024,
+      "card": {
+        "width": 454,
+        "height": 500
+      },
+      "wrap": 932,
+      "arrowsBelow": true,
+      "footerBelow": true,
+      "overflow": false,
+      "typographyMatchesHomepage": true,
+      "navigation": true,
+      "favorites": true
+    },
+    {
+      "width": 1440,
+      "card": {
+        "width": 413.4375,
+        "height": 500
+      },
+      "wrap": 1288.328125,
+      "arrowsBelow": true,
+      "footerBelow": true,
+      "overflow": false,
+      "typographyMatchesHomepage": true,
+      "navigation": true,
+      "favorites": true
+    },
+    {
+      "width": 1920,
+      "card": {
+        "width": 508.328125,
+        "height": 500
+      },
+      "wrap": 1705,
+      "arrowsBelow": true,
+      "footerBelow": true,
+      "overflow": false,
+      "typographyMatchesHomepage": true,
+      "navigation": true,
+      "favorites": true
+    },
+    {
+      "width": 2560,
+      "card": {
+        "width": 579.984375,
+        "height": 500
+      },
+      "wrap": 1920,
+      "arrowsBelow": true,
+      "footerBelow": true,
+      "overflow": false,
+      "typographyMatchesHomepage": true,
+      "navigation": true,
+      "favorites": true
+    },
+    {
+      "width": 3840,
+      "card": {
+        "width": 579.984375,
+        "height": 500
+      },
+      "wrap": 1920,
+      "arrowsBelow": true,
+      "footerBelow": true,
+      "overflow": false,
+      "typographyMatchesHomepage": true,
+      "navigation": true,
+      "favorites": true
+    }
+  ]
+}

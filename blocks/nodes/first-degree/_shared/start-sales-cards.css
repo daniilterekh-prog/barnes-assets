@@ -1,5 +1,153 @@
+/* Layout copied from approved homepage .barnes-choice, without direction controls. */
+.catalog-best-offers__nav-btn { align-items: center; background-color: transparent; border: 1px solid rgb(101, 100, 98); border-radius: 50%; color: rgb(101, 100, 98); cursor: pointer; display: inline-flex; font: inherit; height: 68px; justify-content: center; outline: none; padding: 0px; transition: border-color 0.2s, background-color 0.2s, opacity 0.2s; width: 68px; }
+@media screen and (max-width: 1440px) {
+.catalog-best-offers__nav-btn { height: 56px; width: 56px; }
+}
+@media screen and (max-width: 540px) {
+.catalog-best-offers__nav-btn { height: 48px; width: 48px; }
+}
+@media (min-width: 1025px) {
+.catalog-best-offers__nav-btn:hover { background: rgb(247, 247, 247); border-color: rgba(30, 30, 30, 0.35); }
+}
+.catalog-best-offers__nav-btn:disabled { cursor: not-allowed; opacity: 0.35; }
+.catalog-best-offers__nav-btn { background: rgb(255, 255, 255); flex-shrink: 0; position: absolute; top: 50%; transform: translateY(-50%); z-index: 5; }
+@media (max-width: 1920px) {
+.catalog-best-offers__nav-btn--prev { left: calc(-26.6667px + 6.59722vw); }
+}
+@media (max-width: 768px) {
+.catalog-best-offers__nav-btn--prev { left: calc(8.94118px + 1.96078vw); }
+}
+@media (max-width: 1920px) {
+.catalog-best-offers__nav-btn--next { right: calc(-26.6667px + 6.59722vw); }
+}
+@media (max-width: 768px) {
+.catalog-best-offers__nav-btn--next { right: calc(8.94118px + 1.96078vw); }
+}
+@media screen and (max-width: 540px) {
+.catalog-best-offers__nav-btn { display: none; }
+}
+.catalog-best-offers__nav-icon { font-size: 20px; }
+.catalog-best-offers__slider-row { align-items: center; display: flex; gap: 0px; justify-content: center; margin-inline: auto; max-width: 1920px; overflow: visible; position: relative; width: 100%; }
+@media screen and (max-width: 540px) {
+.catalog-best-offers__slider-row { display: block; }
+}
+.catalog-best-offers__slider-wrap { --catalog-best-offers-gap: 90px; --catalog-best-offers-slide-width: min(411px,calc(33.33333vw - 16px - var(--catalog-best-offers-gap)*2/3)); --catalog-best-offers-inactive-width: min(352px,calc(var(--catalog-best-offers-slide-width)*.86)); --catalog-best-offers-hover-pad-y: 28px; --catalog-best-offers-hover-pad-x: 28px; flex: 0 1 auto; margin-inline: auto; max-width: calc(var(--catalog-best-offers-slide-width)*3 + var(--catalog-best-offers-gap)*2); min-width: 0px; overflow: visible; position: relative; width: 100%; }
+@media screen and (max-width: 1440px) {
+.catalog-best-offers__slider-wrap { --catalog-best-offers-gap: 24px; --catalog-best-offers-slide-width: min(384px,calc(33.33333vw - 16px - var(--catalog-best-offers-gap)*2/3)); --catalog-best-offers-inactive-width: min(320px,calc(var(--catalog-best-offers-slide-width)*.86)); }
+}
+@media screen and (max-width: 1280px) {
+.catalog-best-offers__slider-wrap { --catalog-best-offers-gap: 20px; --catalog-best-offers-slide-width: min(340px,calc(33.33333vw - 16px - var(--catalog-best-offers-gap)*2/3)); --catalog-best-offers-inactive-width: min(292px,calc(var(--catalog-best-offers-slide-width)*.86)); --catalog-best-offers-hover-pad-x: 20px; }
+}
+@media screen and (max-width: 1024px) {
+.catalog-best-offers__slider-wrap { --catalog-best-offers-gap: 16px; --catalog-best-offers-slide-width: min(300px,calc(33.33333vw - 16px - var(--catalog-best-offers-gap)*2/3)); --catalog-best-offers-inactive-width: min(256px,calc(var(--catalog-best-offers-slide-width)*.86)); --catalog-best-offers-hover-pad-y: 20px; --catalog-best-offers-hover-pad-x: 16px; }
+}
+@media screen and (max-width: 768px) {
+.catalog-best-offers__slider-wrap { --catalog-best-offers-gap: 12px; --catalog-best-offers-slide-width: min(256px,calc(33.33333vw - 10.66667px - var(--catalog-best-offers-gap)*2/3)); --catalog-best-offers-inactive-width: min(219px,calc(var(--catalog-best-offers-slide-width)*.86)); --catalog-best-offers-hover-pad-y: 16px; --catalog-best-offers-hover-pad-x: 12px; }
+}
+@media screen and (max-width: 540px) {
+.catalog-best-offers__slider-wrap { --catalog-best-offers-gap: 0px; --catalog-best-offers-slide-width: 100%; --catalog-best-offers-inactive-width: 100%; --catalog-best-offers-hover-pad-y: 0px; --catalog-best-offers-hover-pad-x: 0px; margin-inline: auto; max-width: 1920px; overflow: hidden; }
+}
+@media screen and (max-width: 540px) and (max-width: 1920px) {
+.catalog-best-offers__slider-wrap { padding-inline: calc(-26.6667px + 6.59722vw); }
+}
+@media screen and (max-width: 540px) and (max-width: 768px) {
+.catalog-best-offers__slider-wrap { padding-inline: calc(8.94118px + 1.96078vw); }
+}
+.catalog-best-offers__slider { overflow: visible; padding-block: calc(44px + var(--catalog-best-offers-hover-pad-y)); padding-inline: var(--catalog-best-offers-hover-pad-x); width: 100%; }
+@media screen and (max-width: 1440px) {
+.catalog-best-offers__slider { padding-block: calc(32px + var(--catalog-best-offers-hover-pad-y)); }
+}
+@media screen and (max-width: 540px) {
+.catalog-best-offers__slider { overflow: hidden; padding-block: 0px; padding-inline: 0px; }
+}
+.catalog-best-offers__slider .splide { overflow: visible; visibility: visible; }
+.catalog-best-offers__slider .splide__track { margin-block: calc(var(--catalog-best-offers-hover-pad-y)*-1); margin-inline: calc(var(--catalog-best-offers-hover-pad-x)*-1); overflow: hidden; padding-block: var(--catalog-best-offers-hover-pad-y); padding-inline: var(--catalog-best-offers-hover-pad-x); }
+.catalog-best-offers__slider .splide__list { align-items: center; }
+.catalog-best-offers__slider .splide__slide { flex-shrink: 0; max-width: var(--catalog-best-offers-slide-width); overflow: visible; visibility: visible; width: var(--catalog-best-offers-slide-width); }
+@media screen and (max-width: 768px) {
+.catalog-best-offers__slider .splide__slide.is-active .apartment-card { transform: none; }
+}
+@media screen and (max-width: 540px) {
+.catalog-best-offers__slider .splide, .catalog-best-offers__slider .splide__track { margin: 0px; overflow: hidden; padding: 0px; }
+.catalog-best-offers__slider .splide__list { align-items: stretch; }
+.catalog-best-offers__slider .splide__slide { flex-shrink: 0; max-width: 100% !important; width: 100% !important; }
+.catalog-best-offers__slider .splide__pagination { align-items: center; display: flex; gap: 2px; justify-content: center; list-style: none; margin: 16px 0px 0px; padding: 0px; position: static; transform: none; }
+.catalog-best-offers__slider .splide__pagination__page { background: rgba(30, 30, 30, 0.25); border: 0px; border-radius: 999px; color: inherit; cursor: pointer; display: block; font: inherit; height: 8px; opacity: 1; outline: none; padding: 0px; transition: width 0.25s, background-color 0.25s; width: 8px; }
+.catalog-best-offers__slider .splide__pagination__page.is-active { background: rgb(139, 29, 37); width: 38px; }
+}
+.catalog-best-offers__slider .apartment-card { opacity: 1; transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), width 0.7s cubic-bezier(0.22, 1, 0.36, 1); }
+@media (min-width: 1025px) {
+.catalog-best-offers__slider .apartment-card:hover { transform: none; }
+}
+@media screen and (max-width: 540px) {
+.catalog-best-offers__slider .apartment-card { margin-inline: 0px; max-width: none; transition: none; width: 100%; }
+}
+.catalog-best-offers__slider .splide__slide.is-next .apartment-card, .catalog-best-offers__slider .splide__slide.is-prev .apartment-card { margin-inline: auto; max-width: 100%; opacity: 1; width: var(--catalog-best-offers-inactive-width); }
+@media (min-width: 1025px) {
+.catalog-best-offers__slider .splide__slide.is-next .apartment-card:hover, .catalog-best-offers__slider .splide__slide.is-prev .apartment-card:hover { z-index: 3; }
+}
+@media screen and (max-width: 540px) {
+.catalog-best-offers__slider .splide__slide.is-next .apartment-card, .catalog-best-offers__slider .splide__slide.is-prev .apartment-card { margin-inline: 0px; width: 100%; }
+}
+.catalog-best-offers__slider .splide__slide.is-active .apartment-card { opacity: 1; position: relative; width: 100%; z-index: 2; }
+@media (min-width: 1025px) {
+.catalog-best-offers__slider .splide__slide.is-active .apartment-card:hover { z-index: 4; }
+}
+.catalog-best-offers__slider .apartment-card__media { aspect-ratio: 440 / 420; transition: aspect-ratio 0.7s cubic-bezier(0.22, 1, 0.36, 1); }
+@media screen and (max-width: 540px) {
+.catalog-best-offers__slider .apartment-card__media { aspect-ratio: 290 / 188; transition: none; }
+}
+.catalog-best-offers__slider .splide__slide.is-active .apartment-card__media { aspect-ratio: 514 / 533; }
+@media screen and (max-width: 540px) {
+.catalog-best-offers__slider .splide__slide.is-active .apartment-card__media { aspect-ratio: 290 / 188; }
+}
+.catalog-best-offers__slider .apartment-card__details { margin-top: 16px; }
+.catalog-best-offers__footer { display: flex; justify-content: center; padding-top: 20px; padding-inline: 40px; }
+@media screen and (max-width: 1440px) {
+.catalog-best-offers__footer { padding-top: 16px; padding-inline: 28px; }
+}
+@media screen and (max-width: 768px) {
+.catalog-best-offers__footer { padding-inline: 20px; }
+}
+@media screen and (max-width: 540px) {
+.catalog-best-offers__footer { padding-top: 34px; padding-inline: 0px; }
+}
+.catalog-best-offers__action { min-width: min(100%, 320px); }
+@media screen and (max-width: 540px) {
+.catalog-best-offers__action { min-width: 100%; }
+}
+@media (min-width: 1441px) {
+}
+@media (max-width: 540px) {
+}
+@media (max-width: 540px) {
+html body.barnes-header-template .catalog-best-offers__slider-wrap { padding-inline: var(--resort-gutter) !important; }
+}
+@media (min-width: 541px) and (max-width: 767px) {
+html body.barnes-header-template .catalog-best-offers__slider .splide__slide { width: min(450px, 100% - 44px) !important; max-width: none !important; }
+}
+@media (min-width: 768px) and (max-width: 1024px) {
+html body.barnes-header-template .catalog-best-offers__slider .splide__slide { width: calc(50% - 12px) !important; max-width: none !important; }
+}
+@media (min-width: 768px) {
+html body.barnes-header-template .catalog-best-offers__slider-row { display: grid; grid-template-columns: minmax(0px, 1fr) auto auto; gap: 24px 12px; }
+html body.barnes-header-template .catalog-best-offers__slider-wrap { grid-area: 1 / 1 / auto / -1; }
+html body.barnes-header-template .catalog-best-offers__slider { padding-bottom: var(--catalog-best-offers-hover-pad-y); }
+html body.barnes-header-template .catalog-best-offers__slider .splide__track { padding-bottom: 0px; }
+html body.barnes-header-template .catalog-best-offers__nav-btn { position: relative; inset: auto; grid-row: 2; display: inline-flex; margin: 0px; padding: 0px; transform: none; }
+html body.barnes-header-template .catalog-best-offers__nav-btn--prev { grid-column: 2; justify-self: end; margin-left: 0px; }
+html body.barnes-header-template .catalog-best-offers__nav-btn--next { grid-column: 3; justify-self: end; margin-right: var(--start-sales-nav-inset, 24px); }
+html body.barnes-header-template .catalog-best-offers__nav-btn:focus-visible { outline: rgb(139, 29, 37) solid 1px; outline-offset: 3px; }
+html body.barnes-header-template .catalog-best-offers__footer { padding-top: 24px; }
+}
+@media (max-width: 767px) {
+html body.barnes-header-template .catalog-best-offers__nav-btn { display: none; }
+}
+@media (min-width: 1025px) {
+html body.barnes-header-template .catalog-best-offers__slider-wrap { width: calc(100% - var(--resort-gutter) * 2); max-width: none; --catalog-best-offers-slide-width: calc((100% - var(--catalog-best-offers-gap) * 2) / 3); }
+}
 .catalog-best-offers {
-  --start-sales-card-height: 438px;
+  --start-sales-card-height: 500px;
   --start-sales-card-pad: 24px;
   --start-sales-accent: #8b1d25;
 }
@@ -27,7 +175,7 @@
   height: var(--start-sales-card-height);
 }
 
-.catalog-best-offers #splide01 > .splide__pagination {
+.catalog-best-offers [id="resort-start-sales"] > .splide__pagination {
   display: none;
 }
 
@@ -167,8 +315,8 @@
   margin: 0 0 10px;
   overflow: hidden;
   color: rgba(255, 255, 255, 0.96);
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 14px!important;
+  font-weight: 500!important;
   line-height: 1.2;
   letter-spacing: 0.08em;
   text-align: left;
@@ -250,7 +398,8 @@
 }
 
 @media screen and (max-width: 540px) {
-  .catalog-best-offers #splide01 > .splide__pagination {
+  .catalog-best-offers { --start-sales-card-height:410px; }
+  .catalog-best-offers [id="resort-start-sales"] > .splide__pagination {
     display: flex;
   }
 
@@ -264,7 +413,7 @@
   .catalog-best-offers .launch-card .launch-card__region {
     gap: 7px;
     margin-bottom: 9px;
-    font-size: 13px;
+    font-size: 13px!important;
   }
 
   .catalog-best-offers .launch-card .launch-card__region-icon {
@@ -295,3 +444,21 @@
     transform: none;
   }
 }
+
+html body.barnes-header-template .catalog-best-offers__slider-wrap { box-sizing:border-box; }
+html body.barnes-header-template .catalog-best-offers__header { display:flex; flex-direction:column; align-items:center; padding:0; }
+html body.barnes-header-template .catalog-best-offers__title { font-size:var(--resort-heading); font-weight:300; line-height:1!important; text-transform:uppercase; }
+html body.barnes-header-template .catalog-best-offers__slider-row { margin-top:var(--resort-content-gap); }
+html body.barnes-header-template .catalog-best-offers__action {
+ display:inline-flex; align-items:center; justify-content:center; box-sizing:border-box;
+ height:var(--resort-action-height); min-height:var(--resort-action-height); padding:0 var(--resort-action-pad);
+ font-family:var(--kit-font); font-size:var(--resort-action); font-weight:400; line-height:1.1;
+ border:1px solid #8b1d25; border-radius:1px; background:#8b1d25; color:#fff; text-decoration:none;
+}
+html body.barnes-header-template .catalog-best-offers__action:focus-visible { outline:2px solid #8b1d25; outline-offset:3px; }
+@media(max-width:540px) { html body.barnes-header-template .catalog-best-offers__action { width:100%; } }
+@media(prefers-reduced-motion:reduce) { .catalog-best-offers *, .catalog-best-offers *::after { transition:none!important; } }
+/* The homepage keeps neighbours full-width and changes their height only. */
+html body.barnes-header-template .catalog-best-offers .splide__slide .launch-card { width:100%!important; max-width:none!important; }
+html body.barnes-header-template .catalog-best-offers .launch-card__region { color:rgba(255,255,255,.96)!important; line-height:1.2!important; letter-spacing:.08em!important; }
+html body.barnes-header-template .catalog-best-offers .apartment-card__delivery { position:absolute; display:block; }
