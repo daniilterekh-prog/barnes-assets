@@ -61,6 +61,10 @@ html body.barnes-header-template :is(.catalog-header-mobile-panel,.catalog-stick
   html body.barnes-header-template .catalog-header-ready .site-header__icon-btn {
     grid-column:1!important; grid-row:1!important; justify-self:start!important;
     width:44px!important; height:44px!important;
+    display:flex!important; justify-content:flex-start!important; align-items:center!important;
+  }
+  html body.barnes-header-template .catalog-header-ready .site-header__top {
+    grid-template-columns:minmax(0,1fr) auto minmax(0,1fr); column-gap:0;
   }
   html body.barnes-header-template .catalog-header-ready .site-header__logo { grid-column:2!important; grid-row:1!important; }
   html body.barnes-header-template .catalog-header-ready .catalog-header-mobile-toggle {
@@ -70,4 +74,22 @@ html body.barnes-header-template :is(.catalog-header-mobile-panel,.catalog-stick
   html body.barnes-header-template .catalog-sticky { color:#1e1e1e!important; }
   html body.barnes-header-template .catalog-sticky__contact-toggle { display:inline-flex!important; }
   html body.barnes-header-template .catalog-sticky__contact-panel { right:var(--resort-gutter)!important; }
+  /* Keep the visible request compact while retaining a 44px contacts target. */
+  html body.barnes-header-template .catalog-sticky__inner { padding-block:8px!important; }
+  html body.barnes-header-template .catalog-sticky__nav { gap:8px; }
+  html body.barnes-header-template .catalog-sticky__mobile-actions { align-items:center; gap:8px; height:44px; }
+  html body.barnes-header-template .catalog-sticky__mobile-actions .catalog-sticky__callback {
+    height:36px!important; min-height:36px!important; padding:0 12px!important;
+    font-size:14px!important; line-height:14px!important;
+  }
+  html body.barnes-header-template .catalog-sticky__contact-toggle svg { width:34px!important; height:34px!important; }
+  html body.barnes-header-template .catalog-sticky__list { height:44px; padding:0!important; }
+  html body.barnes-header-template .catalog-sticky__link {
+    box-sizing:border-box; display:inline-flex; align-items:center; min-height:44px;
+    padding:0!important; line-height:1!important; border-bottom:0; position:relative;
+  }
+  html body.barnes-header-template .catalog-sticky__link--active::after {
+    content:""; position:absolute; bottom:0; left:0; right:0; height:1px; background:currentColor;
+  }
+  html body.barnes-header-template .catalog-sticky__link:focus-visible { outline:2px solid #8b1d25; outline-offset:-2px; }
 }
