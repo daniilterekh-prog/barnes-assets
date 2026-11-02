@@ -102,7 +102,7 @@ html body.barnes-header-template :is(.catalog-consultation__method,.catalog-cont
   border-color:#8b8986!important;
 }
 html body.barnes-header-template :is(.catalog-consultation__method,.catalog-contact__method):is([aria-pressed=true],[aria-selected=true]) {
-  color:#8b1d25!important; border-color:#8b1d25!important; background:#f9f3f3!important;
+  color:#fff!important; border-color:#8b1d25!important; background:#8b1d25!important;
 }
 html body.barnes-header-template .feedback-modal__channels {
   display:grid!important; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px;
