@@ -1,0 +1,88 @@
+{
+  "base": "http://127.0.0.1:8875/kurortnaya/",
+  "checks": [
+    {
+      "width": 390,
+      "selector": ".catalog-consultation__methods",
+      "active": "wine",
+      "staleHighlight": false,
+      "keyboard": true
+    },
+    {
+      "width": 390,
+      "selector": ".catalog-contact__methods",
+      "active": "wine",
+      "staleHighlight": false,
+      "keyboard": true
+    },
+    {
+      "width": 1440,
+      "selector": ".catalog-consultation__methods",
+      "active": "wine",
+      "staleHighlight": false,
+      "keyboard": true
+    },
+    {
+      "width": 1440,
+      "selector": ".catalog-contact__methods",
+      "active": "wine",
+      "staleHighlight": false,
+      "keyboard": true
+    },
+    {
+      "width": 2560,
+      "selector": ".catalog-consultation__methods",
+      "active": "wine",
+      "staleHighlight": false,
+      "keyboard": true
+    },
+    {
+      "width": 2560,
+      "selector": ".catalog-contact__methods",
+      "active": "wine",
+      "staleHighlight": false,
+      "keyboard": true
+    }
+  ],
+  "sourceCommit": "8649293",
+  "blocks": [
+    {
+      "base": "http://127.0.0.1:8876/blocks/nodes/first-degree/cta-central/index.html",
+      "checks": [
+        {
+          "width": 390,
+          "selector": ".catalog-consultation__methods",
+          "active": "wine",
+          "staleHighlight": false,
+          "keyboard": true
+        },
+        {
+          "width": 1920,
+          "selector": ".catalog-consultation__methods",
+          "active": "wine",
+          "staleHighlight": false,
+          "keyboard": true
+        }
+      ]
+    },
+    {
+      "base": "http://127.0.0.1:8876/blocks/nodes/first-degree/cta-bottom/index.html",
+      "checks": [
+        {
+          "width": 390,
+          "selector": ".catalog-contact__methods",
+          "active": "wine",
+          "staleHighlight": false,
+          "keyboard": true
+        },
+        {
+          "width": 1920,
+          "selector": ".catalog-contact__methods",
+          "active": "wine",
+          "staleHighlight": false,
+          "keyboard": true
+        }
+      ]
+    }
+  ]
+}
