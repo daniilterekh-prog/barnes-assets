@@ -1,3 +1,4 @@
+import './catalog-filters.js?v=20261102-catalog-filters-12';
 import './start-sales.js?v=20261102-home-choice-9';
 import './header-layout.js?v=20261102-navigation-7';
 import './faq.js?v=20261102-faq-6';
@@ -22,6 +23,7 @@ export async function mountNode(host, folder, options = {}) {
 }
 
 export function initNode(root, options = {}) {
+  const cleanupCatalog=window.BarnEstateCatalogFilters.mount(root);
   const cleanupFaq=window.BarnEstateFaq.mount(root);
   const cleanupStarts=[...root.querySelectorAll('.catalog-best-offers')].map(section=>window.BarnEstateStartSales.mount(section));
   const controller = new AbortController();
@@ -137,5 +139,5 @@ export function initNode(root, options = {}) {
     try{status.textContent=await options.onSubmit({data,form,root})||'Заявка обработана.';}catch{status.textContent='Не удалось отправить заявку.';}
   }));
   root.querySelectorAll('.catalog-projects-map').forEach(el=>options.onMap?.({element:el,root}));
-  return ()=>{cleanupStarts.forEach(cleanup=>cleanup());cleanupFaq();controller.abort();closeModal();};
+  return ()=>{cleanupCatalog();cleanupStarts.forEach(cleanup=>cleanup());cleanupFaq();controller.abort();closeModal();};
 }

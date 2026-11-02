@@ -1,0 +1,68 @@
+{
+  "reference": "https://daniilterekh-prog.github.io/barn-estate-homepage-clone/katalog-nedvizhimosti/?direction=international",
+  "checks": [
+    {
+      "width": 320,
+      "referenceRoles": true,
+      "visibleQuickFields": 4,
+      "overflow": false,
+      "interactions": false
+    },
+    {
+      "width": 390,
+      "referenceRoles": true,
+      "visibleQuickFields": 4,
+      "overflow": false,
+      "interactions": true
+    },
+    {
+      "width": 540,
+      "referenceRoles": true,
+      "visibleQuickFields": 4,
+      "overflow": false,
+      "interactions": false
+    },
+    {
+      "width": 768,
+      "referenceRoles": true,
+      "visibleQuickFields": 2,
+      "overflow": false,
+      "interactions": false
+    },
+    {
+      "width": 1024,
+      "referenceRoles": true,
+      "visibleQuickFields": 2,
+      "overflow": false,
+      "interactions": false
+    },
+    {
+      "width": 1440,
+      "referenceRoles": true,
+      "visibleQuickFields": 2,
+      "overflow": false,
+      "interactions": true
+    },
+    {
+      "width": 1920,
+      "referenceRoles": true,
+      "visibleQuickFields": 2,
+      "overflow": false,
+      "interactions": false
+    },
+    {
+      "width": 2560,
+      "referenceRoles": true,
+      "visibleQuickFields": 2,
+      "overflow": false,
+      "interactions": false
+    },
+    {
+      "width": 3840,
+      "referenceRoles": true,
+      "visibleQuickFields": 2,
+      "overflow": false,
+      "interactions": false
+    }
+  ]
+}

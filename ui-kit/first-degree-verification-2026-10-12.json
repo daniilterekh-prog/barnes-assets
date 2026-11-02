@@ -1,5 +1,5 @@
 {
-  "sourceCommit": "0f389c4817414f05ab4704c6168791a6105ccd73",
+  "sourceCommit": "62aee9e62e2fae669028433ffe411e2f18a01d84",
   "checkedAt": "2026-10-12",
   "results": [
     {
@@ -8,7 +8,7 @@
       "pass": true,
       "overflow": false,
       "broken": [],
-      "height": 9960.25
+      "height": 10312.359375
     },
     {
       "id": "header",
@@ -16,7 +16,7 @@
       "pass": true,
       "overflow": false,
       "broken": [],
-      "height": 77
+      "height": 93
     },
     {
       "id": "sticky-nav",
@@ -24,7 +24,7 @@
       "pass": true,
       "overflow": false,
       "broken": [],
-      "height": 77
+      "height": 61
     },
     {
       "id": "hero",
@@ -40,7 +40,7 @@
       "pass": true,
       "overflow": false,
       "broken": [],
-      "height": 595.390625
+      "height": 698.40625
     },
     {
       "id": "map",
@@ -48,7 +48,7 @@
       "pass": true,
       "overflow": false,
       "broken": [],
-      "height": 605.28125
+      "height": 617.796875
     },
     {
       "id": "listing",
@@ -56,7 +56,7 @@
       "pass": true,
       "overflow": false,
       "broken": [],
-      "height": 1102.828125
+      "height": 1194.46875
     },
     {
       "id": "brand-intro",
@@ -64,7 +64,7 @@
       "pass": true,
       "overflow": false,
       "broken": [],
-      "height": 602.953125
+      "height": 690.171875
     },
     {
       "id": "cta-central",
@@ -72,7 +72,7 @@
       "pass": true,
       "overflow": false,
       "broken": [],
-      "height": 743.453125
+      "height": 746.859375
     },
     {
       "id": "directions",
@@ -80,7 +80,7 @@
       "pass": true,
       "overflow": false,
       "broken": [],
-      "height": 1321.171875
+      "height": 1351.1875
     },
     {
       "id": "news",
@@ -88,7 +88,7 @@
       "pass": true,
       "overflow": false,
       "broken": [],
-      "height": 1079.03125
+      "height": 1111.046875
     },
     {
       "id": "faq",
@@ -104,7 +104,7 @@
       "pass": true,
       "overflow": false,
       "broken": [],
-      "height": 670.390625
+      "height": 673.796875
     },
     {
       "id": "footer",
@@ -112,7 +112,7 @@
       "pass": true,
       "overflow": false,
       "broken": [],
-      "height": 1681.28125
+      "height": 1670.15625
     },
     {
       "id": "floating-expert",
@@ -136,7 +136,7 @@
       "pass": true,
       "overflow": false,
       "broken": [],
-      "height": 438
+      "height": 506
     },
     {
       "id": "card-project",
@@ -144,7 +144,7 @@
       "pass": true,
       "overflow": false,
       "broken": [],
-      "height": 492.9375
+      "height": 490.6875
     },
     {
       "id": "card-lot",
@@ -152,7 +152,7 @@
       "pass": true,
       "overflow": false,
       "broken": [],
-      "height": 497.734375
+      "height": 495.484375
     },
     {
       "id": "assembly",
@@ -160,7 +160,7 @@
       "pass": true,
       "overflow": false,
       "broken": [],
-      "height": 9256.90625
+      "height": 9744.59375
     },
     {
       "id": "header",
@@ -168,7 +168,7 @@
       "pass": true,
       "overflow": false,
       "broken": [],
-      "height": 111
+      "height": 167.390625
     },
     {
       "id": "sticky-nav",
@@ -176,7 +176,7 @@
       "pass": true,
       "overflow": false,
       "broken": [],
-      "height": 107
+      "height": 109
     },
     {
       "id": "hero",
@@ -192,7 +192,7 @@
       "pass": true,
       "overflow": false,
       "broken": [],
-      "height": 787.09375
+      "height": 1025.875
     },
     {
       "id": "map",
@@ -200,7 +200,7 @@
       "pass": true,
       "overflow": false,
       "broken": [],
-      "height": 607.6875
+      "height": 642.46875
     },
     {
       "id": "listing",
@@ -208,7 +208,7 @@
       "pass": true,
       "overflow": false,
       "broken": [],
-      "height": 1123.015625
+      "height": 1190.546875
     },
     {
       "id": "brand-intro",
@@ -216,7 +216,7 @@
       "pass": true,
       "overflow": false,
       "broken": [],
-      "height": 530.109375
+      "height": 639.0625
     },
     {
       "id": "cta-central",
@@ -224,7 +224,7 @@
       "pass": true,
       "overflow": false,
       "broken": [],
-      "height": 845.96875
+      "height": 853.5625
     },
     {
       "id": "directions",
@@ -232,7 +232,7 @@
       "pass": true,
       "overflow": false,
       "broken": [],
-      "height": 958.6875
+      "height": 981.46875
     },
     {
       "id": "news",
@@ -240,7 +240,7 @@
       "pass": true,
       "overflow": false,
       "broken": [],
-      "height": 1212.9375
+      "height": 1235.71875
     },
     {
       "id": "faq",
@@ -264,7 +264,7 @@
       "pass": true,
       "overflow": false,
       "broken": [],
-      "height": 1218.5625
+      "height": 1203.046875
     },
     {
       "id": "floating-expert",
@@ -288,7 +288,7 @@
       "pass": true,
       "overflow": false,
       "broken": [],
-      "height": 588
+      "height": 672.78125
     },
     {
       "id": "card-project",
@@ -296,7 +296,7 @@
       "pass": true,
       "overflow": false,
       "broken": [],
-      "height": 616.453125
+      "height": 614.203125
     },
     {
       "id": "card-lot",
@@ -304,7 +304,7 @@
       "pass": true,
       "overflow": false,
       "broken": [],
-      "height": 621.65625
+      "height": 619.40625
     },
     {
       "id": "assembly",
@@ -312,7 +312,7 @@
       "pass": true,
       "overflow": false,
       "broken": [],
-      "height": 9915.546875
+      "height": 10522.921875
     },
     {
       "id": "header",
@@ -320,7 +320,7 @@
       "pass": true,
       "overflow": false,
       "broken": [],
-      "height": 111
+      "height": 174.390625
     },
     {
       "id": "sticky-nav",
@@ -328,7 +328,7 @@
       "pass": true,
       "overflow": false,
       "broken": [],
-      "height": 108.765625
+      "height": 109
     },
     {
       "id": "hero",
@@ -344,7 +344,7 @@
       "pass": true,
       "overflow": false,
       "broken": [],
-      "height": 824.09375
+      "height": 1083.09375
     },
     {
       "id": "map",
@@ -352,7 +352,7 @@
       "pass": true,
       "overflow": false,
       "broken": [],
-      "height": 614.890625
+      "height": 668.890625
     },
     {
       "id": "listing",
@@ -360,7 +360,7 @@
       "pass": true,
       "overflow": false,
       "broken": [],
-      "height": 1262.125
+      "height": 1382.890625
     },
     {
       "id": "brand-intro",
@@ -368,7 +368,7 @@
       "pass": true,
       "overflow": false,
       "broken": [],
-      "height": 569.625
+      "height": 688.75
     },
     {
       "id": "cta-central",
@@ -384,7 +384,7 @@
       "pass": true,
       "overflow": false,
       "broken": [],
-      "height": 1093.890625
+      "height": 1133.890625
     },
     {
       "id": "news",
@@ -392,7 +392,7 @@
       "pass": true,
       "overflow": false,
       "broken": [],
-      "height": 1250.9375
+      "height": 1280.9375
     },
     {
       "id": "faq",
@@ -416,7 +416,7 @@
       "pass": true,
       "overflow": false,
       "broken": [],
-      "height": 1271.15625
+      "height": 1255.640625
     },
     {
       "id": "floating-expert",
@@ -440,7 +440,7 @@
       "pass": true,
       "overflow": false,
       "broken": [],
-      "height": 438
+      "height": 700
     },
     {
       "id": "card-project",
@@ -448,7 +448,7 @@
       "pass": true,
       "overflow": false,
       "broken": [],
-      "height": 616.453125
+      "height": 614.203125
     },
     {
       "id": "card-lot",
@@ -456,7 +456,7 @@
       "pass": true,
       "overflow": false,
       "broken": [],
-      "height": 621.65625
+      "height": 619.40625
     }
   ],
   "failures": 0

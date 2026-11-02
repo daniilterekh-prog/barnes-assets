@@ -47,7 +47,7 @@
     var toolbar = document.querySelector('.catalog-mode-toolbar');
     if (toolbar && !document.querySelector('[data-brand-context=listing]')) {
       var row = group('listing');
-      toolbar.appendChild(row);
+      (toolbar.closest('.catalog-grid').querySelector('.catalog-collections-row') || toolbar).prepend(row);
     }
     var reset = document.querySelector('.map-browser__reset');
     if (reset && !document.querySelector('[data-brand-context=map]')) {

@@ -1,10 +1,10 @@
 {
   "id": "first-degree-hero",
   "title": "Первый экран и поиск",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "source": {
     "repo": "daniilterekh-prog/barn-estate-homepage-clone",
-    "commit": "62aee9e62e2fae669028433ffe411e2f18a01d84",
+    "commit": "ee4176e",
     "route": "kurortnaya",
     "selector": "#catalog-hero"
   },
@@ -39,5 +39,15 @@
     "breadcrumbs": "above separator in header",
     "sections": "below separator; horizontal scrolling <=1024",
     "layoutController": "BarnEstateHeaderLayout.mount(parent)"
+  },
+  "filterReference": {
+    "version": "1.3.0",
+    "date": "2026-11-02",
+    "url": "https://daniilterekh-prog.github.io/barn-estate-homepage-clone/katalog-nedvizhimosti/?direction=international",
+    "state": "BarnesFilters",
+    "exceptions": [
+      "resort data",
+      "exclusive new-build/secondary"
+    ]
   }
 }

@@ -1,8 +1,8 @@
 (function () {
   'use strict';
-  var trigger = document.querySelector('.catalog-projects-map__fullscreen');
+  var trigger = document.querySelector('.catalog-projects-map__fullscreen') || document.querySelector('[data-open-resort-map]');
   var source = document.querySelector('.catalog-projects-map');
-  if (!trigger || !source || document.querySelector('.map-browser')) return;
+  if (!trigger || document.querySelector('.map-browser')) return;
   var assetsBase = new URL('.', document.currentScript.src);
   var style = document.createElement('link');
   style.rel = 'stylesheet';
@@ -17,6 +17,7 @@
   var filtersIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" aria-hidden="true"><path d="M4 6h3m4 0h9M4 12h8m4 0h4M4 18h4m4 0h8"/><circle cx="9" cy="6" r="2"/><circle cx="14" cy="12" r="2"/><circle cx="10" cy="18" r="2"/></svg>';
   var dialog = document.createElement('section');
   dialog.className = 'map-browser';
+  dialog.id = 'resort-map-browser';
   dialog.hidden = true;
   dialog.setAttribute('role', 'dialog');
   dialog.setAttribute('aria-modal', 'true');
@@ -30,7 +31,7 @@
     '<h2 class="map-browser__heading" aria-live="polite"></h2><div class="map-browser__search-row">' +
     '<label class="map-browser__search">' + parameterIcon + '<circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input type="search" aria-label="Поиск объектов на карте" placeholder="Поиск объектов"></label>' +
     '<button class="map-browser__filter-toggle" aria-label="Подробные фильтры" aria-expanded="false">' + filtersIcon + '</button></div>' +
-    '<div class="map-browser__filters"><div class="map-browser__market" role="group" aria-label="Рынок недвижимости"><button type="button" data-map-market="new-build" aria-pressed="false">Новостройки</button><button type="button" data-map-market="secondary" aria-pressed="false">Вторичка</button></div><label class="map-browser__field map-browser__field--select"><span class="map-browser__sr-only">Тип объекта</span>' + buildingIcon + '<select aria-label="Тип объекта" data-filter="type"><option value="">Тип объекта</option><option value="apartment">Апартаменты</option><option value="flat">Квартира</option><option value="penthouse">Пентхаус</option></select><span class="map-browser__chevron" aria-hidden="true"></span></label>' +
+    '<div class="map-browser__filters"><div class="map-browser__market" role="group" aria-label="Рынок недвижимости"><button type="button" data-map-market="new-build" aria-pressed="false">Новостройки</button><button type="button" data-map-market="secondary" aria-pressed="false">Вторичная</button></div><label class="map-browser__field map-browser__field--select"><span class="map-browser__sr-only">Тип объекта</span>' + buildingIcon + '<select aria-label="Тип объекта" data-filter="type"><option value="">Тип объекта</option><option value="apartment">Апартаменты</option><option value="flat">Квартира</option><option value="penthouse">Пентхаус</option></select><span class="map-browser__chevron" aria-hidden="true"></span></label>' +
     '<label class="map-browser__field"><span class="map-browser__sr-only">Цена до, ₽</span>' + priceIcon + '<input aria-label="Цена до, ₽" type="number" min="0" step="1000000" data-filter="price" placeholder="Стоимость"></label>' +
     '<label class="map-browser__field map-browser__field--select"><span class="map-browser__sr-only">Локация</span>' + locationIcon + '<select aria-label="Локация" data-filter="location"><option value="">Локация</option><option>Сочи</option><option>Анапа</option><option>Алтай</option><option>Архыз</option></select><span class="map-browser__chevron" aria-hidden="true"></span></label>' +
     '<label class="map-browser__field map-browser__field--select"><span class="map-browser__sr-only">Спальни</span>' + bedroomsIcon + '<select aria-label="Спальни" data-filter="bedrooms"><option value="">Спальни</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4+">Более 3</option></select><span class="map-browser__chevron" aria-hidden="true"></span></label>' +
@@ -61,7 +62,7 @@
   var market = 'new-build';
   var marketButtons = Array.from(dialog.querySelectorAll('[data-map-market]'));
   var metadataNotice = dialog.querySelector('.map-browser__metadata-notice');
-  var previousOverflow;
+  var previousOverflow, returnFocus=trigger;
   var inertElements = [];
   function isolate(element) {
     if (element !== dialog && !['SCRIPT', 'LINK', 'STYLE'].includes(element.tagName) &&
@@ -76,7 +77,11 @@
     });
   });
   function render() {
-    if (window.BarnesFilters) market = window.BarnesFilters.getState().market || 'new-build';
+    var shared=window.BarnesFilters ? window.BarnesFilters.getState() : {};
+    market=shared.market||market;
+    if(window.BarnesFilters){query.value=shared.query||'';type.value=(shared.propertyTypes||[])[0]||'';location.value=(shared.directions||[])[0]||'';bedrooms.value=shared.bedrooms||'';price.value=shared.priceMax||'';sort.value=shared.sort==='price_asc'?'asc':shared.sort==='price_desc'?'desc':'';}
+    [type,location,bedrooms,sort].forEach(function(select){select.dispatchEvent(new Event('change'));});
+    var priceRanges={'50m':[0,50000000],'50-100m':[50000000,100000000],'100-200m':[100000000,200000000],'200m+':[200000000,Infinity]};
     var term = query.value.trim().toLocaleLowerCase('ru');
     var hasTypes = items.some(function (item) { return Array.isArray(item.propertyTypes) && item.propertyTypes.length; });
     var hasLocations = items.some(function (item) { return Array.isArray(item.directions) && item.directions.length; });
@@ -92,12 +97,14 @@
     marketButtons.forEach(function (button) { button.setAttribute('aria-pressed',String(button.dataset.mapMarket === market)); });
     var result = items.filter(function (item) {
       return (!term || item.name.toLocaleLowerCase('ru').includes(term)) &&
-        (!type.value || !hasTypes || (item.propertyTypes || []).includes(type.value)) &&
+        (!(shared.propertyTypes||[]).length || !hasTypes || (shared.propertyTypes||[]).some(function(v){return (item.propertyTypes||[]).includes(v);})) &&
         (item.market === market) &&
-        (!location.value || !hasLocations || (item.directions || []).includes(location.value)) &&
+        (!(shared.directions||[]).length || !hasLocations || (shared.directions||[]).some(function(v){return (item.directions||[]).includes(v);})) &&
         (!bedrooms.value || !hasBedrooms || (item.bedrooms || []).includes(bedrooms.value)) &&
         (!brandFlags.length || !hasBrandFlags || brandFlags.some(function (flag) { return (item.brandFlags || []).includes(flag); })) &&
-        (!price.value || (item.priceRub !== null && item.priceRub <= Number(price.value)));
+        (!price.value || (item.priceRub !== null && item.priceRub <= Number(price.value))) &&
+        (!shared.priceMin || (item.priceRub!==null && item.priceRub>=Number(shared.priceMin))) &&
+        (!(shared.priceRanges||[]).length || (item.priceRub!==null && shared.priceRanges.some(function(v){var r=priceRanges[v];return r&&item.priceRub>=r[0]&&item.priceRub<=r[1];})));
     });
     if (sort.value) result.sort(function (a, b) {
       if (a.priceRub === null) return b.priceRub === null ? 0 : 1;
@@ -143,9 +150,13 @@
     document.body.style.overflow = previousOverflow;
     inertElements.forEach(function (entry) { entry.element.inert = entry.value; });
     inertElements = [];
-    trigger.focus({ preventScroll: true });
+    returnFocus.setAttribute('aria-expanded','false');
+    returnFocus.focus({ preventScroll: true });
   }
-  trigger.addEventListener('click', function () {
+  function open(opener) {
+    if(!dialog.hidden)return;
+    returnFocus=opener||trigger;
+    returnFocus.setAttribute('aria-controls',dialog.id);returnFocus.setAttribute('aria-expanded','true');
     previousOverflow = document.body.style.overflow;
     Array.from(document.body.children).forEach(isolate);
     observer.observe(document.body, { childList: true });
@@ -155,7 +166,9 @@
     expand(false);
     render();
     dialog.querySelector('.map-browser__close').focus();
-  });
+  }
+  trigger.addEventListener('click',function(){open(trigger);});
+  window.BarnesMapBrowser={open:open,close:close};
   dialog.querySelector('.map-browser__close').addEventListener('click', close);
   handle.addEventListener('click', function () { expand(handle.getAttribute('aria-expanded') !== 'true'); });
   query.addEventListener('focus', function () { if (window.innerWidth <= 540) expand(true); });
@@ -165,7 +178,14 @@
     event.currentTarget.setAttribute('aria-expanded', String(!extra.hidden));
     expand(true);
   });
-  [query, type, price, sort, location, bedrooms].forEach(function (input) { input.addEventListener('input', render); });
+  [query,type,price,sort,location,bedrooms].forEach(function(input){input.addEventListener('input',function(){
+    if(!window.BarnesFilters){render();return;}
+    var fields={};if(input===query)fields.query=input.value;if(input===type)fields.propertyTypes=input.value?[input.value]:[];
+    if(input===price){fields.priceMax=input.value;fields.priceRanges=[];}if(input===sort)fields.sort=input.value==='asc'?'price_asc':input.value==='desc'?'price_desc':'relevance';
+    if(input===location)fields.directions=input.value?[input.value]:[];if(input===bedrooms)fields.bedrooms=input.value;
+    window.BarnesFilters.patch(fields);
+  });});
+  dialog.addEventListener('focusin',function(event){if(window.innerWidth<=767&&event.target.closest('.map-browser__filters'))expand(true);});
   marketButtons.forEach(function (button) {
     button.addEventListener('click',function () {
       market = button.dataset.mapMarket;
@@ -175,7 +195,7 @@
   });
   dialog.querySelector('.map-browser__reset').addEventListener('click', function () {
     [query, type, price, sort, location, bedrooms].forEach(function (input) { input.value = ''; });
-    if (window.BarnesFilters) window.BarnesFilters.patch({ brandFlags: [] });
+    if (window.BarnesFilters) window.BarnesFilters.reset();
     render();
   });
   document.addEventListener('barnes:filters-apply', function () { if (!dialog.hidden) render(); });
