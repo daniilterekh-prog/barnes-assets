@@ -24,11 +24,14 @@
   var activeButton = null;
   var savedPopupInert = false;
   var selectConfigs = new Map();
+  var boundSelects = new WeakSet();
   function mountSelectDropdowns() {
-    document.querySelectorAll('.catalog-mode-toolbar .catalog-grid__sort select, .map-browser select[data-filter]').forEach(function (select) {
-      if (select.dataset.customDropdownReady) return;
+    document.querySelectorAll('.catalog-grid__sort select, .catalog-department select, .map-browser select[data-filter]').forEach(function (select) {
+      if (boundSelects.has(select)) return;
+      boundSelects.add(select);
       select.dataset.customDropdownReady = 'true';
-      var button = document.createElement('button');
+      var previous = select.previousElementSibling;
+      var button = previous && previous.matches('.resort-sort-trigger,.resort-select-trigger') ? previous : document.createElement('button');
       button.type = 'button';
       var sorting = select.matches('.catalog-grid__sort-select, [data-filter="sort"]');
       var title = sorting ? 'Сортировка' : select.getAttribute('aria-label');
@@ -51,7 +54,7 @@
       select.addEventListener('change',sync);
       sync();
     });
-    if (selectConfigs.size === 5 && selectObserver) selectObserver.disconnect();
+    // New map controls and portable blocks may be mounted after the first toolbar.
   }
   var selectObserver = new MutationObserver(mountSelectDropdowns);
   selectObserver.observe(document.body, { childList:true, subtree:true });
