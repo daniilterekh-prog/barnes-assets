@@ -94,7 +94,7 @@ export function initNode(root, options = {}) {
     }
     if(trigger.matches('.catalog-intro__toggle')){
       const details=root.querySelector('.catalog-intro__details'),open=trigger.getAttribute('aria-expanded')!=='true';
-      trigger.setAttribute('aria-expanded',String(open));details.setAttribute('aria-hidden',String(!open));details.style.maxHeight=open?`${details.scrollHeight}px`:'0px';return;
+      trigger.setAttribute('aria-expanded',String(open));details.setAttribute('aria-hidden',String(!open));details.hidden=!open;details.inert=!open;details.style.maxHeight=open?'none':'0px';const label=trigger.querySelector('.ui-more-link__label');if(label)label.textContent=open?'свернуть':'читать далее';return;
     }
     if(trigger.matches('.launch-card__favorite,.apartment-card__favorite')){
       trigger.setAttribute('aria-pressed',String(trigger.getAttribute('aria-pressed')!=='true'));emit('favorite',{trigger});return;

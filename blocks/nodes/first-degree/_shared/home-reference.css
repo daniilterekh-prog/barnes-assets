@@ -202,3 +202,6 @@ html body.barnes-header-template :is(.catalog-header-request,.catalog-header-mob
 @media(prefers-reduced-motion:reduce) {
   html body.barnes-header-template :is(.catalog-sticky,.catalog-sticky__request,.catalog-header-request) { transition:none; }
 }
+
+/* Disclosure state must override the captured display/max-height styles. */
+html body.barnes-header-template .catalog-intro__details[hidden] { display:none!important; }
