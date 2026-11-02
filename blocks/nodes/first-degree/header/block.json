@@ -1,7 +1,7 @@
 {
   "id": "first-degree-header",
   "title": "Хэдер hero",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "source": {
     "repo": "daniilterekh-prog/barn-estate-homepage-clone",
     "commit": "62aee9e62e2fae669028433ffe411e2f18a01d84",
@@ -32,5 +32,12 @@
     ]
   },
   "assembly": true,
-  "scripts": []
+  "scripts": [],
+  "headerNavigation": {
+    "reference": "exact-2026-10-21",
+    "updated": "2026-11-02",
+    "breadcrumbs": "above separator in header",
+    "sections": "below separator; horizontal scrolling <=1024",
+    "layoutController": "BarnEstateHeaderLayout.mount(parent)"
+  }
 }

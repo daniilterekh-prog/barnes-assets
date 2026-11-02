@@ -1,4 +1,4 @@
-import { mountNode } from './runtime.js?v=20261102-faq-6';
+import { mountNode } from './runtime.js?v=20261102-navigation-7';
 import { bootReferenceFilters } from './reference-filters.js';
 const host = document.querySelector('.node-preview');
 const base = new URL('../',import.meta.url);
@@ -22,3 +22,5 @@ if(host.querySelector('.catalog-quick-filters__button,.catalog-projects-map__ful
 if(host.querySelector('.catalog-best-offers')){
   const script=document.createElement('script');script.src=new URL('./start-sales.js',import.meta.url);document.body.append(script);
 }
+
+window.BarnEstateHeaderLayout.mount(host);

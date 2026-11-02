@@ -1,0 +1,95 @@
+{
+  "base": "local",
+  "checks": [
+    {
+      "width": 320,
+      "headerBottom": 145,
+      "crumbBottom": 93,
+      "navTop": 101,
+      "h1Top": 302.40625,
+      "navScroll": true,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "headerBottom": 145,
+      "crumbBottom": 93,
+      "navTop": 101,
+      "h1Top": 319.203125,
+      "navScroll": true,
+      "overflow": false
+    },
+    {
+      "width": 540,
+      "headerBottom": 145,
+      "crumbBottom": 93,
+      "navTop": 101,
+      "h1Top": 319.203125,
+      "navScroll": true,
+      "overflow": false
+    },
+    {
+      "width": 768,
+      "headerBottom": 167.1875,
+      "crumbBottom": 115.1875,
+      "navTop": 123.1875,
+      "h1Top": 327.546875,
+      "navScroll": true,
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "headerBottom": 168.59375,
+      "crumbBottom": 116.59375,
+      "navTop": 124.59375,
+      "h1Top": 326.5,
+      "navScroll": true,
+      "overflow": false
+    },
+    {
+      "width": 1280,
+      "headerBottom": 167.390625,
+      "crumbBottom": 123.390625,
+      "navTop": 149.390625,
+      "h1Top": 200,
+      "navScroll": false,
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "headerBottom": 167.390625,
+      "crumbBottom": 123.390625,
+      "navTop": 149.390625,
+      "h1Top": 200,
+      "navScroll": false,
+      "overflow": false
+    },
+    {
+      "width": 1920,
+      "headerBottom": 174.390625,
+      "crumbBottom": 130.390625,
+      "navTop": 156.390625,
+      "h1Top": 207,
+      "navScroll": false,
+      "overflow": false
+    },
+    {
+      "width": 2560,
+      "headerBottom": 174.390625,
+      "crumbBottom": 130.390625,
+      "navTop": 156.390625,
+      "h1Top": 207,
+      "navScroll": false,
+      "overflow": false
+    },
+    {
+      "width": 3840,
+      "headerBottom": 174.390625,
+      "crumbBottom": 130.390625,
+      "navTop": 156.390625,
+      "h1Top": 207,
+      "navScroll": false,
+      "overflow": false
+    }
+  ]
+}
