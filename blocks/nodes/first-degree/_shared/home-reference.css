@@ -68,6 +68,10 @@ html body.barnes-header-template .catalog-intro__text :is(p,li) {
 html body.barnes-header-template .catalog-map__text { color:#4f4d49!important; margin-top:var(--resort-copy-gap)!important; }
 html body.barnes-header-template .catalog-map__header { margin-bottom:var(--resort-content-gap)!important; }
 html body.barnes-header-template .catalog-grid__inner { row-gap:var(--resort-content-gap)!important; }
+/* Consume heading/content spacing once; legacy margins/padding added a second gap. */
+html body.barnes-header-template .catalog-mode-toolbar { margin-block:0!important; }
+html body.barnes-header-template .catalog-best-offers__header { margin-bottom:0!important; }
+html body.barnes-header-template .catalog-best-offers__slider { padding-block:var(--resort-content-gap)!important; }
 html body.barnes-header-template .departments-section__inner { row-gap:var(--resort-content-gap)!important; }
 html body.barnes-header-template .news-section__inner { row-gap:var(--resort-content-gap)!important; }
 html body.barnes-header-template .department-card__title { font-weight:300!important; }
@@ -136,19 +140,19 @@ html body.barnes-header-template .listing-card-fact__value { font-size:16px!impo
 @media(max-width:1024px) {
   html body.barnes-header-template .feedback-modal__title { font-size:20px!important; }
 }
-/* Header logo size approved 2026-11-02; SVG geometry and footer stay unchanged. */
+/* Header logo and request outline match the approved homepage exactly. */
 html body.barnes-header-template .catalog-sticky__inner { padding-block:30px!important; }
-html body.barnes-header-template .catalog-sticky__logo { width:auto!important; height:64px!important; }
+html body.barnes-header-template .catalog-sticky__logo { width:auto!important; height:48px!important; }
 html body.barnes-header-template .catalog-sticky__logo img {
-  width:auto!important; height:64px!important; max-width:none!important; aspect-ratio:auto!important;
+  width:auto!important; height:48px!important; max-width:none!important; aspect-ratio:auto!important;
 }
-html body.barnes-header-template .site-header__logo img { width:auto!important; height:64px!important; aspect-ratio:auto!important; }
+html body.barnes-header-template .site-header__logo img { width:auto!important; height:48px!important; aspect-ratio:auto!important; }
 @media(max-width:540px) {
-  html body.barnes-header-template .site-header__logo img { height:48px!important; }
+  html body.barnes-header-template .site-header__logo img { height:36px!important; }
 }
 html body.barnes-header-template :is(.catalog-sticky__request,.catalog-header-request) {
   box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center;
-  font-family:var(--kit-font); font-size:16px!important; font-weight:400!important; line-height:1.1;
+  font-family:var(--kit-font); font-size:16px!important; font-weight:400!important; line-height:1;
   height:44px!important; min-height:44px!important; padding:0 18px!important; border-radius:1px!important;
   background:transparent!important; border:1px solid #8b1d25!important; color:#8b1d25!important;
   cursor:pointer; white-space:nowrap;
