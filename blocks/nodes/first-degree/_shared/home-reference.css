@@ -136,15 +136,15 @@ html body.barnes-header-template .listing-card-fact__value { font-size:16px!impo
 @media(max-width:1024px) {
   html body.barnes-header-template .feedback-modal__title { font-size:20px!important; }
 }
-/* Both header states use the current logo/contact/button geometry. */
+/* Header logo size approved 2026-11-02; SVG geometry and footer stay unchanged. */
 html body.barnes-header-template .catalog-sticky__inner { padding-block:30px!important; }
-html body.barnes-header-template .catalog-sticky__logo { width:auto!important; height:48px!important; }
+html body.barnes-header-template .catalog-sticky__logo { width:auto!important; height:64px!important; }
 html body.barnes-header-template .catalog-sticky__logo img {
-  width:auto!important; height:48px!important; max-width:none!important; aspect-ratio:auto!important;
+  width:auto!important; height:64px!important; max-width:none!important; aspect-ratio:auto!important;
 }
-html body.barnes-header-template .site-header__logo img { width:auto!important; height:48px!important; aspect-ratio:auto!important; }
+html body.barnes-header-template .site-header__logo img { width:auto!important; height:64px!important; aspect-ratio:auto!important; }
 @media(max-width:540px) {
-  html body.barnes-header-template .site-header__logo img { height:36px!important; }
+  html body.barnes-header-template .site-header__logo img { height:48px!important; }
 }
 html body.barnes-header-template :is(.catalog-sticky__request,.catalog-header-request) {
   box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center;
