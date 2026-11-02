@@ -1,3 +1,4 @@
+import './expert-quiz.js?v=20261102-expert-quiz-5';
 /** Reusable interactions. Production data arrives through options or bubbling events. */
 export async function mountNode(host, folder, options = {}) {
   const base = new URL(folder, location.href);
@@ -31,8 +32,8 @@ export function initNode(root, options = {}) {
   listen(document,'click',event=>closeHeaderPanels(event));
   listen(document,'keydown',event=>{if(event.key==='Escape')closeHeaderPanels({target:document.body},true);});
   listen(window,'resize',()=>closeHeaderPanels({target:document.body}));
-  let modal = null, previousFocus = null, modalCleanup = null;
-  const closeModal = () => { modalCleanup?.(); modalCleanup = null; modal?.remove(); modal = null; document.body.classList.remove('catalog-modal-open'); previousFocus?.focus(); };
+  let modal = null, previousFocus = null, modalCleanup = null, backgroundState = [];
+  const closeModal = () => { modalCleanup?.(); modalCleanup = null; modal?.remove(); modal = null; document.body.classList.remove('catalog-modal-open'); backgroundState.forEach(([e,inert])=>e.inert=inert);backgroundState=[];previousFocus?.focus(); };
   async function request(trigger) {
     if (options.onRequest) return options.onRequest({trigger,root});
     if (modal) return;
@@ -41,9 +42,12 @@ export function initNode(root, options = {}) {
     modalCleanup = await mountNode(modal,new URL('../request-modal/',import.meta.url),options);
     document.body.appendChild(modal);
     const dialog = modal.querySelector('.catalog-feedback-modal');
+    const quiz=window.BarnEstateExpertQuiz.mount(dialog);
+    if(trigger.matches('.floating-expert__card,[data-expert-quiz]'))quiz.start();else quiz.stop();
     dialog.hidden = false;
     dialog.style.position = 'fixed';
     document.body.classList.add('catalog-modal-open');
+    for(const e of document.body.children){if(e!==modal&&!e.contains(modal)&&!['SCRIPT','STYLE','LINK'].includes(e.tagName)){backgroundState.push([e,e.inert]);e.inert=true;}}
     if(trigger.matches('.catalog-sticky__callback'))dialog.querySelector('[data-channel="Звонок"],[data-channel="call"]')?.click();
     listen(modal,'click',e=>{if(e.target===dialog||e.target.closest('[data-catalog-modal-close]'))closeModal();});
     listen(modal,'keydown',e=>{
@@ -54,7 +58,7 @@ export function initNode(root, options = {}) {
       if(e.shiftKey&&document.activeElement===first){e.preventDefault();last?.focus();}
       else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first?.focus();}
     });
-    dialog.querySelector('input:not([type=hidden])')?.focus();
+    if(quiz.active)quiz.focus();else dialog.querySelector('input:not([type=hidden])')?.focus();
   }
   root.querySelectorAll('input[placeholder],textarea[placeholder]').forEach(el=>{
     if(!el.getAttribute('aria-label')&&!el.labels?.length)el.setAttribute('aria-label',el.placeholder);
@@ -108,7 +112,7 @@ export function initNode(root, options = {}) {
     }
     if(trigger.matches('.site-header__search-btn')){e.preventDefault();options.onSearch?.({trigger,root});emit('search',{trigger});return;}
     if(trigger.matches('.site-header__menu-btn,.site-header__icon-btn')){options.onMenu?.({trigger,root});emit('menu',{trigger});return;}
-    if(trigger.matches('.catalog-sticky__request,.catalog-header-request,.catalog-contact__card-submit,.floating-expert__card,.apartment-card__call-btn,.site-header__callback-btn,.site-footer__callback-btn')){e.preventDefault();await request(trigger);}
+    if(trigger.matches('[data-expert-quiz],.catalog-sticky__request,.catalog-header-request,.catalog-contact__card-submit,.floating-expert__card,.apartment-card__call-btn,.site-header__callback-btn,.site-footer__callback-btn')){e.preventDefault();await request(trigger);}
   });
   listen(root,'change',e=>{if(e.target.matches('.catalog-grid__sort-select')){options.onSort?.({value:e.target.value,root});emit('sort',{value:e.target.value});}});
   if(options.referenceFilters)listen(document,'barnes:filters-apply',()=>{
@@ -119,7 +123,8 @@ export function initNode(root, options = {}) {
   root.querySelectorAll('form').forEach(form=>listen(form,'submit',async e=>{
     e.preventDefault();
     if(form.closest('.catalog-hero')){options.onSearch?.({form,root});emit('search',{form});return;}
-    let status=form.querySelector('[role=status]');if(!status){status=document.createElement('p');status.className='node-status';status.setAttribute('role','status');status.setAttribute('aria-live','polite');form.append(status);}
+    let status=form.querySelector('[role=status],[role=alert]');if(!status){status=document.createElement('p');status.className='node-status';status.setAttribute('role','status');status.setAttribute('aria-live','polite');form.append(status);}
+    if(form.matches('.feedback-modal__form')&&!window.BarnEstateExpertQuiz.validate(form,status))return;
     const inputs=[...form.querySelectorAll('input,textarea')].filter(el=>el.type!=='hidden'&&el.tabIndex!==-1&&!el.closest('[aria-hidden=true]'));
     const phone=inputs.find(el=>el.type==='tel'),consent=inputs.find(el=>el.type==='checkbox');
     if(phone&&!phone.value.trim()){status.textContent='Укажи номер телефона.';phone.focus();return;}
