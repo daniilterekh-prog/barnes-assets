@@ -3,47 +3,47 @@
   "checks": [
     {
       "width": 320,
-      "headerBottom": 145,
+      "headerBottom": 93,
       "crumbBottom": 93,
-      "navTop": 101,
-      "h1Top": 302.40625,
-      "navScroll": true,
+      "navTop": 0,
+      "h1Top": 276.40625,
+      "navScroll": false,
       "overflow": false
     },
     {
       "width": 390,
-      "headerBottom": 145,
+      "headerBottom": 93,
       "crumbBottom": 93,
-      "navTop": 101,
-      "h1Top": 319.203125,
-      "navScroll": true,
+      "navTop": 0,
+      "h1Top": 293.203125,
+      "navScroll": false,
       "overflow": false
     },
     {
       "width": 540,
-      "headerBottom": 145,
+      "headerBottom": 93,
       "crumbBottom": 93,
-      "navTop": 101,
-      "h1Top": 319.203125,
-      "navScroll": true,
+      "navTop": 0,
+      "h1Top": 293.203125,
+      "navScroll": false,
       "overflow": false
     },
     {
       "width": 768,
-      "headerBottom": 167.1875,
+      "headerBottom": 115.1875,
       "crumbBottom": 115.1875,
-      "navTop": 123.1875,
-      "h1Top": 327.546875,
-      "navScroll": true,
+      "navTop": 0,
+      "h1Top": 301.546875,
+      "navScroll": false,
       "overflow": false
     },
     {
       "width": 1024,
-      "headerBottom": 168.59375,
+      "headerBottom": 116.59375,
       "crumbBottom": 116.59375,
-      "navTop": 124.59375,
-      "h1Top": 326.5,
-      "navScroll": true,
+      "navTop": 0,
+      "h1Top": 300.5,
+      "navScroll": false,
       "overflow": false
     },
     {
