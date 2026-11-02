@@ -1,0 +1,51 @@
+{
+  "source": "https://daniilterekh-prog.github.io/barn-estate-homepage-clone/exact-2026-10-21/",
+  "checked": "2026-11-02",
+  "links": [
+    {
+      "text": "Москва",
+      "href": "https://barn-estate.ru/gorodskaya-nedvizhimost/"
+    },
+    {
+      "text": "Загородная",
+      "href": "https://barn-estate.ru/zagorodnaya-nedvizhimost/"
+    },
+    {
+      "text": "Коммерческая",
+      "href": "https://barn-estate.ru/kommercheskaya-nedvizhimost/"
+    },
+    {
+      "text": "Курортная",
+      "href": "https://barn-estate.ru/kurortnaya/"
+    },
+    {
+      "text": "Зарубежная",
+      "href": "https://barn-estate.ru/mezhdunarodnaya-nedvizhimost/"
+    },
+    {
+      "text": "Санкт-Петербург",
+      "href": "https://barnes-spb.ru/"
+    },
+    {
+      "text": "Медиа",
+      "href": "https://barn-estate.ru/media/"
+    },
+    {
+      "text": "О BARN Estate",
+      "href": "https://barn-estate.ru/mir-barnes/"
+    },
+    {
+      "text": "Собственникам",
+      "href": "https://barn-estate.ru/sobstvennikam/"
+    }
+  ],
+  "style": {
+    "font": "300 18px / 18px \"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+    "fontSize": "18px",
+    "fontWeight": "300",
+    "lineHeight": "18px",
+    "gap": "36px",
+    "padding": "0px",
+    "color": "rgb(255, 255, 255)"
+  }
+}
