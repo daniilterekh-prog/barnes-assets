@@ -1,0 +1,59 @@
+{
+  "reference": "https://daniilterekh-prog.github.io/barn-estate-homepage-clone/exact-2026-10-21/",
+  "checks": [
+    {
+      "width": 320,
+      "contacts": true,
+      "request": true,
+      "referenceParity": true
+    },
+    {
+      "width": 390,
+      "contacts": true,
+      "request": true,
+      "referenceParity": true
+    },
+    {
+      "width": 540,
+      "contacts": true,
+      "request": true,
+      "referenceParity": true
+    },
+    {
+      "width": 768,
+      "contacts": true,
+      "request": true,
+      "referenceParity": true
+    },
+    {
+      "width": 1024,
+      "contacts": true,
+      "request": true,
+      "referenceParity": true
+    },
+    {
+      "width": 1440,
+      "contacts": true,
+      "request": true,
+      "referenceParity": true
+    },
+    {
+      "width": 1920,
+      "contacts": true,
+      "request": true,
+      "referenceParity": true
+    },
+    {
+      "width": 2560,
+      "contacts": true,
+      "request": true,
+      "referenceParity": true
+    },
+    {
+      "width": 3840,
+      "contacts": true,
+      "request": true,
+      "referenceParity": true
+    }
+  ]
+}
