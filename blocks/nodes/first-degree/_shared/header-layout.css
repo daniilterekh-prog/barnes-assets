@@ -30,7 +30,7 @@ html body .layout > .layout__header + .layout__content .catalog-hero__inner {
 }
 @media(max-width:1024px) {
   html body .catalog-header-breadcrumbs { margin-top:8px; padding-bottom:8px; }
-  html body .site-header .catalog-site-nav { margin-top:8px!important; }
+  html body .site-header .catalog-site-nav { display:none!important; }
   html body .catalog-site-nav .site-header__nav-list { column-gap:20px!important; }
   html body .catalog-site-nav .site-header__nav-link { font-size:16px!important; min-height:44px; }
   html body .catalog-hero--with-header .catalog-hero__inner,

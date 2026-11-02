@@ -1,0 +1,215 @@
+{
+  "reference": "https://daniilterekh-prog.github.io/barn-estate-homepage-clone/exact-2026-10-21/",
+  "checks": [
+    {
+      "width": 320,
+      "heroMatchesHomepage": true,
+      "button": {
+        "x": 171.75,
+        "y": 16,
+        "width": 126.25,
+        "height": 36
+      },
+      "toggle": {
+        "x": 119.75,
+        "y": 12,
+        "width": 44,
+        "height": 44
+      },
+      "svg": {
+        "x": 124.75,
+        "y": 17,
+        "width": 34,
+        "height": 34
+      },
+      "first": {
+        "x": 22,
+        "y": 12,
+        "width": 49.59375,
+        "height": 44
+      },
+      "contacts": true,
+      "callback": true
+    },
+    {
+      "width": 360,
+      "heroMatchesHomepage": true,
+      "button": {
+        "x": 211.75,
+        "y": 16,
+        "width": 126.25,
+        "height": 36
+      },
+      "toggle": {
+        "x": 159.75,
+        "y": 12,
+        "width": 44,
+        "height": 44
+      },
+      "svg": {
+        "x": 164.75,
+        "y": 17,
+        "width": 34,
+        "height": 34
+      },
+      "first": {
+        "x": 22,
+        "y": 12,
+        "width": 49.59375,
+        "height": 44
+      },
+      "contacts": true,
+      "callback": true
+    },
+    {
+      "width": 390,
+      "heroMatchesHomepage": true,
+      "button": {
+        "x": 241.75,
+        "y": 16,
+        "width": 126.25,
+        "height": 36
+      },
+      "toggle": {
+        "x": 189.75,
+        "y": 12,
+        "width": 44,
+        "height": 44
+      },
+      "svg": {
+        "x": 194.75,
+        "y": 17,
+        "width": 34,
+        "height": 34
+      },
+      "first": {
+        "x": 22,
+        "y": 12,
+        "width": 49.59375,
+        "height": 44
+      },
+      "contacts": true,
+      "callback": true
+    },
+    {
+      "width": 540,
+      "heroMatchesHomepage": true,
+      "button": {
+        "x": 391.75,
+        "y": 16,
+        "width": 126.25,
+        "height": 36
+      },
+      "toggle": {
+        "x": 339.75,
+        "y": 12,
+        "width": 44,
+        "height": 44
+      },
+      "svg": {
+        "x": 344.75,
+        "y": 17,
+        "width": 34,
+        "height": 34
+      },
+      "first": {
+        "x": 22,
+        "y": 12,
+        "width": 49.59375,
+        "height": 44
+      },
+      "contacts": true,
+      "callback": true
+    },
+    {
+      "width": 541,
+      "heroMatchesHomepage": true,
+      "button": {
+        "x": 84,
+        "y": 31.5,
+        "width": 126.25,
+        "height": 36
+      },
+      "toggle": {
+        "x": 32,
+        "y": 27.5,
+        "width": 44,
+        "height": 44
+      },
+      "svg": {
+        "x": 37,
+        "y": 32.5,
+        "width": 34,
+        "height": 34
+      },
+      "first": {
+        "x": 24,
+        "y": 27.5,
+        "width": 53.40625,
+        "height": 44
+      },
+      "contacts": true,
+      "callback": true
+    },
+    {
+      "width": 768,
+      "heroMatchesHomepage": true,
+      "button": {
+        "x": 151.609375,
+        "y": 31.5,
+        "width": 126.25,
+        "height": 36
+      },
+      "toggle": {
+        "x": 99.609375,
+        "y": 27.5,
+        "width": 44,
+        "height": 44
+      },
+      "svg": {
+        "x": 104.609375,
+        "y": 32.5,
+        "width": 34,
+        "height": 34
+      },
+      "first": {
+        "x": 24,
+        "y": 27.5,
+        "width": 53.40625,
+        "height": 44
+      },
+      "contacts": true,
+      "callback": true
+    },
+    {
+      "width": 1024,
+      "heroMatchesHomepage": true,
+      "button": {
+        "x": 279.609375,
+        "y": 31.5,
+        "width": 126.25,
+        "height": 36
+      },
+      "toggle": {
+        "x": 227.609375,
+        "y": 27.5,
+        "width": 44,
+        "height": 44
+      },
+      "svg": {
+        "x": 232.609375,
+        "y": 32.5,
+        "width": 34,
+        "height": 34
+      },
+      "first": {
+        "x": 40.875,
+        "y": 27.5,
+        "width": 53.40625,
+        "height": 44
+      },
+      "contacts": true,
+      "callback": true
+    }
+  ]
+}
