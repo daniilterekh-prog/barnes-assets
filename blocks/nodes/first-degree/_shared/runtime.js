@@ -24,12 +24,13 @@ export function initNode(root, options = {}) {
   const closeHeaderPanels = (event, restoreFocus = false) => {
     root.querySelectorAll('.catalog-header-mobile-panel,.catalog-sticky__contact-panel').forEach(panel => {
       const toggle=root.querySelector('[aria-controls="'+panel.id+'"]');
-      if(panel.hidden||panel.contains(event.target)||toggle?.contains(event.target))return;
-      panel.hidden=true;toggle?.setAttribute('aria-expanded','false');if(restoreFocus)toggle?.focus();
+      if(panel.hidden||toggle?.contains(event.target)||(panel.contains(event.target)&&!event.target.closest('a')))return;
+      panel.hidden=true;toggle?.setAttribute('aria-expanded','false');toggle?.setAttribute('aria-label','Показать способы связи');if(restoreFocus)toggle?.focus();
     });
   };
   listen(document,'click',event=>closeHeaderPanels(event));
   listen(document,'keydown',event=>{if(event.key==='Escape')closeHeaderPanels({target:document.body},true);});
+  listen(window,'resize',()=>closeHeaderPanels({target:document.body}));
   let modal = null, previousFocus = null, modalCleanup = null;
   const closeModal = () => { modalCleanup?.(); modalCleanup = null; modal?.remove(); modal = null; document.body.classList.remove('catalog-modal-open'); previousFocus?.focus(); };
   async function request(trigger) {
@@ -73,10 +74,6 @@ export function initNode(root, options = {}) {
   }
   listen(root,'click',async e=>{
     const trigger=e.target.closest('button,a');if(!trigger)return;
-    if(trigger.matches('.catalog-sticky__contact-toggle')){
-      const panel=root.querySelector('.catalog-sticky__contact-panel');panel.hidden=!panel.hidden;
-      trigger.setAttribute('aria-expanded',String(!panel.hidden));return;
-    }
     if(trigger.matches('.catalog-mode-switch__button')){
       const mode=trigger.dataset.listingMode;
       root.querySelectorAll('.catalog-mode-switch__button').forEach(el=>{el.classList.toggle('is-active',el===trigger);el.setAttribute('aria-pressed',String(el===trigger));});
@@ -86,7 +83,7 @@ export function initNode(root, options = {}) {
     }
     if(trigger.matches('.catalog-quick-filters__button,.catalog-mode-detailed-filters,.catalog-hero-filters__filter-icon')){if(!options.referenceFilters)filter(trigger);return;}
     if(trigger.matches('.catalog-hero-filters__toggle')){
-      const panel=root.querySelector('.catalog-hero-filters__panel');if(panel){panel.hidden=!panel.hidden;trigger.setAttribute('aria-expanded',String(!panel.hidden));}return;
+      const panel=root.querySelector('.catalog-hero-filters__panel');if(panel){panel.hidden=!panel.hidden;trigger.setAttribute('aria-expanded',String(!panel.hidden));trigger.setAttribute('aria-label',panel.hidden?'Показать способы связи':'Скрыть способы связи');}return;
     }
     if(trigger.matches('.catalog-faq__question')){
       const item=trigger.closest('.catalog-faq__item'),answer=item.querySelector('.catalog-faq__answer'),open=trigger.getAttribute('aria-expanded')!=='true';
@@ -107,7 +104,7 @@ export function initNode(root, options = {}) {
     if(trigger.matches('.catalog-projects-map__fullscreen')){if(options.referenceFilters)return;const map=trigger.closest('.catalog-projects-map');if(document.fullscreenElement)await document.exitFullscreen();else await map.requestFullscreen();return;}
     if(trigger.matches('.catalog-header-mobile-toggle,.catalog-sticky__contact-toggle')){
       const panel=root.querySelector('#'+trigger.getAttribute('aria-controls'));
-      if(panel){panel.hidden=!panel.hidden;trigger.setAttribute('aria-expanded',String(!panel.hidden));}return;
+      if(panel){panel.hidden=!panel.hidden;trigger.setAttribute('aria-expanded',String(!panel.hidden));trigger.setAttribute('aria-label',panel.hidden?'Показать способы связи':'Скрыть способы связи');}return;
     }
     if(trigger.matches('.site-header__search-btn')){e.preventDefault();options.onSearch?.({trigger,root});emit('search',{trigger});return;}
     if(trigger.matches('.site-header__menu-btn,.site-header__icon-btn')){options.onMenu?.({trigger,root});emit('menu',{trigger});return;}

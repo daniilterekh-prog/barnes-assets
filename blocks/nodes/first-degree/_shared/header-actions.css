@@ -1,0 +1,73 @@
+/* Contact actions copied from approved homepage home-header-contacts.css.
+ * Source: exact-2026-10-21/ (01.11.2026); adaptation 02.11.2026.
+ * Resort keeps its own section links and separate mobile request button.
+ */
+html body.barnes-header-template :is(.catalog-header-contacts,.catalog-sticky__messengers) {
+  display:flex; align-items:center; gap:14px!important;
+}
+html body.barnes-header-template :is(.catalog-header-contact,.catalog-sticky__messenger,.catalog-sticky__phone) {
+  box-sizing:border-box; display:inline-flex!important; align-items:center; justify-content:center;
+  width:24px!important; height:24px!important; min-width:24px!important; padding:0!important;
+}
+html body.barnes-header-template :is(.catalog-header-contact,.catalog-sticky__messenger,.catalog-sticky__phone) img {
+  display:block; object-fit:contain; width:24px!important; height:24px!important;
+}
+html body.barnes-header-template :is(.catalog-header-contacts,.catalog-sticky__messengers) a[href^="tel:"] { order:4; }
+/* Hero order is the homepage's WA / Telegram / MAX / telephone. */
+html body.barnes-header-template .catalog-header-contacts a[href*="wa.me"] { order:1; }
+html body.barnes-header-template .catalog-header-contacts a[href*="t.me"] { order:2; }
+html body.barnes-header-template .catalog-header-contacts a[href*="max.ru"] { order:3; }
+html body.barnes-header-template .catalog-sticky__brand { gap:20px!important; }
+html body.barnes-header-template :is(.catalog-sticky__request,.catalog-header-request) {
+  box-sizing:border-box; height:44px!important; min-height:44px!important; padding:0 18px!important;
+  font-family:var(--kit-font); font-size:16px!important; font-weight:400!important; line-height:16px!important;
+  border:1px solid #8b1d25!important; border-radius:1px!important;
+  background:transparent!important; color:#8b1d25!important;
+}
+/* The homepage shows the outlined request only after the hero. */
+html body.barnes-header-template .catalog-header-request { display:none!important; }
+html body.barnes-header-template :is(.catalog-header-mobile-panel,.catalog-sticky__contact-panel)[hidden] { display:none!important; }
+html body.barnes-header-template :is(.catalog-header-mobile-panel,.catalog-sticky__contact-panel) {
+  box-sizing:border-box; align-items:center; background:#fff; border:1px solid #e4e4e4!important;
+  gap:14px!important; padding:12px 14px!important; z-index:10; color:#1e1e1e;
+  box-shadow:0 10px 30px rgb(30 30 30 / 12%);
+}
+html body.barnes-header-template :is(.catalog-header-mobile-panel,.catalog-sticky__contact-panel) a {
+  display:inline-flex!important; align-items:center; justify-content:center; flex:none;
+  width:24px!important; height:24px!important; min-width:24px!important; padding:0!important; color:#1e1e1e;
+}
+html body.barnes-header-template :is(.catalog-header-mobile-panel,.catalog-sticky__contact-panel) :is(img,svg) {
+  display:block; object-fit:contain; width:20px!important; height:20px!important;
+}
+html body.barnes-header-template :is(.catalog-header-mobile-toggle,.catalog-sticky__contact-toggle) {
+  box-sizing:border-box; width:44px!important; height:44px!important; min-width:44px!important;
+  min-height:44px!important; padding:0!important; border:0!important; border-radius:0!important;
+  background:transparent!important; box-shadow:none!important; color:inherit!important;
+  align-items:center; justify-content:center; cursor:pointer;
+}
+html body.barnes-header-template :is(.catalog-header-mobile-toggle,.catalog-sticky__contact-toggle) svg {
+  width:29px!important; height:29px!important; stroke-width:1.75!important;
+}
+html body.barnes-header-template :is(.catalog-header-mobile-toggle,.catalog-sticky__contact-toggle):focus-visible,
+html body.barnes-header-template :is(.catalog-header-mobile-panel,.catalog-sticky__contact-panel) a:focus-visible {
+  outline:2px solid #8b1d25; outline-offset:3px;
+}
+@media(hover:hover) and (pointer:fine) {
+  html body.barnes-header-template :is(.catalog-sticky__request,.catalog-header-request):hover {
+    background:#8b1d25!important; color:#fff!important;
+  }
+}
+@media(max-width:1024px) {
+  html body.barnes-header-template .catalog-header-ready .site-header__icon-btn {
+    grid-column:1!important; grid-row:1!important; justify-self:start!important;
+    width:44px!important; height:44px!important;
+  }
+  html body.barnes-header-template .catalog-header-ready .site-header__logo { grid-column:2!important; grid-row:1!important; }
+  html body.barnes-header-template .catalog-header-ready .catalog-header-mobile-toggle {
+    grid-column:3!important; grid-row:1!important; justify-self:end!important;
+  }
+  html body.barnes-header-template .catalog-header-contacts { display:none!important; }
+  html body.barnes-header-template .catalog-sticky { color:#1e1e1e!important; }
+  html body.barnes-header-template .catalog-sticky__contact-toggle { display:inline-flex!important; }
+  html body.barnes-header-template .catalog-sticky__contact-panel { right:var(--resort-gutter)!important; }
+}
