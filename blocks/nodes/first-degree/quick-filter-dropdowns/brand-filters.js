@@ -1,11 +1,30 @@
 (function () {
   'use strict';
-  if (document.querySelector('link[data-barnes-brand-filters]')) return;
-  var css = document.createElement('link');
-  css.rel = 'stylesheet';
-  css.dataset.barnesBrandFilters = '';
-  css.href = new URL('brand-filters.css?v=12', document.currentScript.src).href;
-  document.head.appendChild(css);
+  function hasStylesheet(url, sheets) {
+    return Array.from(sheets || document.styleSheets).some(function (sheet) {
+      if (sheet.href === url) return true;
+      try { return Array.from(sheet.cssRules).some(function (rule) { return rule.styleSheet && hasStylesheet(url, [rule.styleSheet]); }); }
+      catch (_) { return false; }
+    });
+  }
+  if (window.BarnEstateBrandFilters) return;
+  window.BarnEstateBrandFilters = true;
+  var cssURL = new URL('../_shared/brand-filters.css?v=20261103-clean-load-18', document.currentScript.src).href;
+  if (!hasStylesheet(cssURL)) {
+    var css = document.createElement('link'); css.rel = 'stylesheet'; css.href = cssURL; document.head.appendChild(css);
+  }
+  var boundInputs = new WeakSet();
+  function bindInputs() {
+    document.querySelectorAll('.barnes-brand-filters input').forEach(function (input) {
+      if (boundInputs.has(input)) return;
+      boundInputs.add(input);
+      input.addEventListener('change', function () {
+        var selected = flags().filter(function (value) { return value !== input.value; });
+        if (input.checked) selected.push(input.value);
+        window.BarnesFilters.patch({ brandFlags: selected });
+      });
+    });
+  }
   var choices = [['selection', 'Выбор BARN Estate'], ['exclusive', 'Эксклюзив BARN Estate']];
   function flags() { return window.BarnesFilters.getState().brandFlags || []; }
   function group(context) {
@@ -22,11 +41,6 @@
       input.type = 'checkbox';
       input.name = 'brandFlags';
       input.value = choice[0];
-      input.addEventListener('change', function () {
-        var selected = flags().filter(function (value) { return value !== input.value; });
-        if (input.checked) selected.push(input.value);
-        window.BarnesFilters.patch({ brandFlags: selected });
-      });
       var box = document.createElement('span');
       box.className = 'barnes-brand-filters__box';
       box.setAttribute('aria-hidden', 'true');
@@ -55,6 +69,7 @@
       if (refinements) refinements.append(group('map'));
       else reset.before(group('map'));
     }
+    bindInputs();
     update();
     if (document.querySelector('[data-brand-context=listing]') && document.querySelector('[data-brand-context=map]')) observer.disconnect();
   }
