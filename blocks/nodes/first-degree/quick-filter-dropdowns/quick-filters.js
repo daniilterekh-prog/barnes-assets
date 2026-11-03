@@ -126,6 +126,7 @@
     button.classList.add('is-open');
     button.setAttribute('aria-expanded','true');
     popup.setAttribute('aria-label',config.title);
+    popup.querySelector('.catalog-quick-filters__dropdown-header').hidden = !config.select;
     popup.querySelector('.catalog-quick-filters__dropdown-header > span').textContent = config.title;
     list.setAttribute('aria-label',config.title);
     list.replaceChildren();

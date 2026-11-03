@@ -150,6 +150,9 @@ html body.barnes-header-template .catalog-mode-toolbar .catalog-mode-filters .ca
 html body.barnes-header-template .catalog-toolbar__secondary .catalog-mode-filters .catalog-quick-filters__caption{height:auto;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2}
 html body.barnes-header-template .catalog-toolbar__secondary .catalog-mode-filters .catalog-quick-filters__chevron[class]{position:static;top:auto;right:auto;margin:0;transform:rotate(45deg);align-self:center}
 
+/* Quick choices do not repeat the field label. */
+html body.barnes-header-template .resort-quick-dropdown .catalog-quick-filters__dropdown-header[hidden]{display:none!important}
+
 /* Resort integration: same reference geometry, isolated from cards and headers. */
 html body.barnes-header-template .catalog-grid__inner { display:block!important; }
 html body.barnes-header-template .catalog-grid__header { margin-bottom:var(--resort-content-gap)!important; }

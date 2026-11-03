@@ -1,0 +1,23 @@
+{
+  "referenceCommit": "ecd79a5",
+  "checks": [
+    {
+      "entry": "page",
+      "width": 390,
+      "quickHeaderVisible": false,
+      "marketHeaderVisible": true,
+      "market": "secondary",
+      "deal": "buy",
+      "passed": true
+    },
+    {
+      "entry": "canonical listing",
+      "width": 390,
+      "quickHeaderVisible": false,
+      "marketHeaderVisible": true,
+      "market": "secondary",
+      "deal": "buy",
+      "passed": true
+    }
+  ]
+}
