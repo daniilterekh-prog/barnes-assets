@@ -1,0 +1,24 @@
+{
+  "date": "2026-11-03",
+  "generator": "Built-in image_gen; no CLI/API fallback",
+  "useCase": "photorealistic-natural",
+  "article": "Элитная недвижимость Москвы в I квартале2026года: рынок остыл, но цены держатся",
+  "description": "Сдержанный архитектурный кадр центральной Москвы: светлый камень, бронзовые детали, мягкий позднезимний свет и следы снега.",
+  "dimensions": [
+    1672,
+    941
+  ],
+  "conversion": "Installed codex-toolkit ctk images / Sharp, WebP, original preserved; no resizing",
+  "provenance": "Сгенерировано по прямому поручению пользователя. Иллюстративная вымышленная архитектурная композиция; не документальная фотография конкретного ЖК и не предложение объекта.",
+  "prompt": "PROMPT.txt",
+  "files": {
+    "moscow-q1-2026-editorial.webp": {
+      "bytes": 307902,
+      "sha256": "3e049fd5db0781dc6af516c8ef6b57f4c0fd87a5c07b0d922d056bbb1481d249"
+    },
+    "moscow-q1-original.png": {
+      "bytes": 3164234,
+      "sha256": "311f763873f4dc3d302560f79db986232f85594c7b23f47c5a067fc004309b88"
+    }
+  }
+}
