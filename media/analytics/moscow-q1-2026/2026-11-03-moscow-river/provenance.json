@@ -1,0 +1,25 @@
+{
+  "date": "2026-11-03",
+  "generator": "Built-in image_gen; no CLI/API fallback",
+  "useCase": "photorealistic-natural",
+  "article": "Элитная недвижимость Москвы в I квартале2026года: рынок остыл, но цены держатся",
+  "description": "Узнаваемая московская набережная, Храм Христа Спасителя и городская архитектура, чистый свет и свежая зелень; без осенней листвы и голых деревьев на переднем плане.",
+  "dimensions": [
+    1672,
+    941
+  ],
+  "conversion": "Installed codex-toolkit ctk images / Sharp, WebP, no resizing or upscaling",
+  "provenance": "Сгенерировано по прямому поручению пользователя вместо предыдущего слишком осеннего и неузнаваемого кадра. Иллюстративная композиция с московскими ориентирами; не документальная фотография, не подтверждение точной географии и не предложение конкретного объекта.",
+  "supersedes": "../2026-11-03/",
+  "prompt": "PROMPT.txt",
+  "files": {
+    "moscow-river-original.png": {
+      "bytes": 2826328,
+      "sha256": "8cc694504317c3b05c3be0da03bf3ec0a842c06e26719ff16afa14981b9cafc3"
+    },
+    "moscow-q1-2026-river.webp": {
+      "bytes": 258858,
+      "sha256": "6d8dd68c445f0fdd152bf5e6400bee97346057352967eadb808e76e47ac923b4"
+    }
+  }
+}
