@@ -1,13 +1,20 @@
 (function () {
   'use strict';
+  function hasStylesheet(url, sheets) {
+    return Array.from(sheets || document.styleSheets).some(function (sheet) {
+      if (sheet.href === url) return true;
+      try { return Array.from(sheet.cssRules).some(function (rule) { return rule.styleSheet && hasStylesheet(url, [rule.styleSheet]); }); }
+      catch (_) { return false; }
+    });
+  }
   var trigger = document.querySelector('.catalog-projects-map__fullscreen') || document.querySelector('[data-open-resort-map]');
   var source = document.querySelector('.catalog-projects-map');
   if (!trigger || document.querySelector('.map-browser')) return;
   var assetsBase = new URL('.', document.currentScript.src);
   var style = document.createElement('link');
   style.rel = 'stylesheet';
-  style.href = new URL('map-fullscreen.css?v=20261103-map-controls-17', assetsBase).href;
-  document.head.appendChild(style);
+  style.href = new URL('map-fullscreen.css?v=20261103-clean-load-18', assetsBase).href;
+  if (!hasStylesheet(style.href)) document.head.appendChild(style);
   var icon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">';
   var parameterIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">';
   var priceIcon = parameterIcon + '<circle cx="12" cy="12" r="9"/><path d="M9 16V7.5h3.4a2.75 2.75 0 1 1 0 5.5H9m0 0h5.6m-5.6 2h4.6"/></svg>';

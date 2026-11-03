@@ -10,33 +10,6 @@
     var grid = toolbar.closest('.catalog-grid'), list = grid.querySelector('.catalog-grid__list');
     var controller = new AbortController(), signal = controller.signal;
     function listen(el,type,fn) { el.addEventListener(type,fn,{signal:signal}); }
-    if (!toolbar.querySelector('.catalog-toolbar__primary')) {
-      var quick = toolbar.querySelector('.catalog-mode-filters');
-      var sort = toolbar.querySelector('.catalog-grid__sort'), details = toolbar.querySelector('.catalog-mode-detailed-filters');
-      var primary = document.createElement('div'), secondary = document.createElement('div');
-      primary.className='catalog-toolbar__primary'; secondary.className='catalog-toolbar__secondary';
-      primary.innerHTML='<label class="catalog-direction catalog-department"><span class="visually-hidden">Департамент недвижимости</span><select aria-label="Департамент недвижимости"><option value="city">Городская</option><option value="country">Загородная</option><option value="commercial">Коммерческая</option><option value="resort" selected>Курортная</option><option value="international">Зарубежная</option></select><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m3 6 5 5 5-5" stroke="currentColor" stroke-width="1.2"/></svg></label>';
-      var search = document.createElement('div'); search.className='catalog-search-row';
-      search.innerHTML='<label class="catalog-text-search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.5" cy="10.5" r="7" stroke="currentColor" stroke-width="1.35"/><path d="m16 16 5 5" stroke="currentColor" stroke-width="1.35"/></svg><span class="visually-hidden">Поиск по названию, адресу или ID</span><input type="search" placeholder="Название ЖК, адрес или ID" autocomplete="off" data-catalog-search></label>';
-      primary.append(search); secondary.append(quick,details);
-      var count=document.createElement('span');count.className='catalog-filter-count';count.hidden=true;count.setAttribute('aria-hidden','true');count.dataset.filterCount='';details.append(count);details.setAttribute('aria-label','Все фильтры');
-      var collections=document.createElement('div'); collections.className='catalog-collections-row';
-      collections.innerHTML='<div class="catalog-active-filters" role="group" aria-label="Выбранные фильтры"></div><button class="catalog-reset-all" type="button" data-catalog-reset hidden>Сбросить фильтры</button>';
-      var brands=toolbar.querySelector('.barnes-brand-filters');if(brands)collections.prepend(brands);
-      var summary=document.createElement('div');summary.className='catalog-result-summary';
-      summary.innerHTML='<p class="catalog-result-count" role="status" aria-live="polite"></p><div class="catalog-result-actions"><button type="button" class="catalog-map-trigger" data-open-resort-map aria-haspopup="dialog" aria-expanded="false"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3V6Z M9 3v15 M15 6v15"/></svg><span>На карте</span></button></div>';
-      summary.querySelector('.catalog-result-actions').append(sort);
-      toolbar.replaceChildren(primary,secondary);toolbar.after(collections,summary);
-      var empty=document.createElement('div');empty.className='catalog-filter-empty';empty.hidden=true;
-      empty.innerHTML='<p>Ничего не найдено. Попробуй изменить параметры.</p><button type="button" data-catalog-reset>Сбросить фильтры</button>';list.before(empty);
-    }
-    // This resort node only offers purchase. Market remains one mandatory choice.
-    toolbar.querySelector('.catalog-mode-switch')?.remove();
-    if(!toolbar.querySelector('.catalog-market')) {
-      var market=document.createElement('label');market.className='catalog-direction catalog-market';
-      market.innerHTML='<span class="visually-hidden">Рынок недвижимости</span><select aria-label="Рынок недвижимости"><option value="new-build">Новостройки</option><option value="secondary">Вторичная</option></select><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m3 6 5 5 5-5" stroke="currentColor" stroke-width="1.2"/></svg>';
-      toolbar.querySelector('.catalog-department').after(market);
-    }
     var primary=toolbar.querySelector('.catalog-toolbar__primary'),secondary=toolbar.querySelector('.catalog-toolbar__secondary');
     var search=toolbar.querySelector('.catalog-search-row'),input=search.querySelector('input');
     var details=toolbar.querySelector('.catalog-mode-detailed-filters'),sort=grid.querySelector('.catalog-grid__sort select');

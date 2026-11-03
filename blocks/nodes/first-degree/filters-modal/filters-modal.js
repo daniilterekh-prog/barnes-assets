@@ -1,11 +1,18 @@
 (function () {
   'use strict';
+  function hasStylesheet(url, sheets) {
+    return Array.from(sheets || document.styleSheets).some(function (sheet) {
+      if (sheet.href === url) return true;
+      try { return Array.from(sheet.cssRules).some(function (rule) { return rule.styleSheet && hasStylesheet(url, [rule.styleSheet]); }); }
+      catch (_) { return false; }
+    });
+  }
   if (window.BarnesFilters || !window.BarnesFilterTemplate) return;
   var base = new URL('.', document.currentScript.src);
   var css = document.createElement('link');
   css.rel = 'stylesheet';
-  css.href = new URL('filters-modal.css?v=2', base).href;
-  document.head.appendChild(css);
+  css.href = new URL('filters-modal.css?v=20261103-clean-load-18', base).href;
+  if (!hasStylesheet(css.href)) document.head.appendChild(css);
   var template = document.createElement('template');
   template.innerHTML = window.BarnesFilterTemplate;
   var modal = template.content.firstElementChild;

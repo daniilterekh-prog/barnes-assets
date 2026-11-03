@@ -1,0 +1,53 @@
+{
+  "base": "http://127.0.0.1:8875/kurortnaya/",
+  "checks": [
+    {
+      "width": 390,
+      "currentSource": true,
+      "delayedRuntime": true,
+      "uniqueStyles": true,
+      "warmReload": true,
+      "checkboxes": true,
+      "separatedMarkets": true,
+      "noOverflow": true
+    },
+    {
+      "width": 900,
+      "currentSource": true,
+      "delayedRuntime": true,
+      "uniqueStyles": true,
+      "warmReload": true,
+      "checkboxes": true,
+      "separatedMarkets": true,
+      "noOverflow": true
+    },
+    {
+      "width": 1440,
+      "currentSource": true,
+      "delayedRuntime": true,
+      "uniqueStyles": true,
+      "warmReload": true,
+      "checkboxes": true,
+      "separatedMarkets": true,
+      "noOverflow": true
+    },
+    {
+      "width": 2560,
+      "currentSource": true,
+      "delayedRuntime": true,
+      "uniqueStyles": true,
+      "warmReload": true,
+      "checkboxes": true,
+      "separatedMarkets": true,
+      "noOverflow": true
+    },
+    {
+      "view": "index.html",
+      "currentSourceWithoutJavaScript": true
+    },
+    {
+      "view": "mobile.html",
+      "currentSourceWithoutJavaScript": true
+    }
+  ]
+}

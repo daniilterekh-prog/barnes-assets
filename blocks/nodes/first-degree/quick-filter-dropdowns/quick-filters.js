@@ -1,11 +1,18 @@
 (function () {
   'use strict';
+  function hasStylesheet(url, sheets) {
+    return Array.from(sheets || document.styleSheets).some(function (sheet) {
+      if (sheet.href === url) return true;
+      try { return Array.from(sheet.cssRules).some(function (rule) { return rule.styleSheet && hasStylesheet(url, [rule.styleSheet]); }); }
+      catch (_) { return false; }
+    });
+  }
   if (document.querySelector('.resort-quick-dropdown')) return;
   var base = new URL('.', document.currentScript.src);
   var stylesheet = document.createElement('link');
   stylesheet.rel = 'stylesheet';
-  stylesheet.href = new URL('quick-filters.css?v=4', base).href;
-  document.head.appendChild(stylesheet);
+  stylesheet.href = new URL('quick-filters.css?v=20261103-clean-load-18', base).href;
+  if (!hasStylesheet(stylesheet.href)) document.head.appendChild(stylesheet);
   var configs = [
     { title:'Локация', key:'directions', reset:'Все направления', choices:['Сочи','Анапа','Алтай','Архыз'] },
     { title:'Тип', key:'propertyTypes', reset:'Любой тип', choices:['Апартаменты','Квартира','Квартира в новостройке','Пентхаус'], values:['apartment','flat','new_build','penthouse'] },

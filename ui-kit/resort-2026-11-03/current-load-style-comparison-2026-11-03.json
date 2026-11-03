@@ -1,0 +1,42 @@
+{
+  "base": "http://127.0.0.1:8875/kurortnaya/",
+  "reference": "https://daniilterekh-prog.github.io/barn-estate-homepage-clone/kurortnaya/?before=clean-load-18",
+  "checks": [
+    {
+      "width": 390,
+      "referenceStyles": true,
+      "quickFields": 4,
+      "equalWidths": true,
+      "purchaseOnly": true,
+      "overflow": false,
+      "interactions": true
+    },
+    {
+      "width": 900,
+      "referenceStyles": true,
+      "quickFields": 4,
+      "equalWidths": true,
+      "purchaseOnly": true,
+      "overflow": false,
+      "interactions": false
+    },
+    {
+      "width": 1440,
+      "referenceStyles": true,
+      "quickFields": 4,
+      "equalWidths": true,
+      "purchaseOnly": true,
+      "overflow": false,
+      "interactions": true
+    },
+    {
+      "width": 2560,
+      "referenceStyles": true,
+      "quickFields": 4,
+      "equalWidths": true,
+      "purchaseOnly": true,
+      "overflow": false,
+      "interactions": false
+    }
+  ]
+}
