@@ -1,0 +1,26 @@
+{
+  "checked": "2026-11-03",
+  "mode": "Original photograph from official developer project gallery; no image generation or compositing",
+  "sourcePage": "https://capitaltowers.ru/gallery/",
+  "sourceImage": "https://capitaltowers.ru/upload/iblock/46b/46b8cdea7ed101036b53bac349986daa.jpg",
+  "sourceCategory": "Первый раздел галереи «Виды из окон»",
+  "publisher": "Capital Towers / Capital Group",
+  "subject": "Вечерняя панорама Москвы-реки, гостиница «Украина» и Новый Арбат",
+  "photographDate": "Источник не указывает дату съёмки и точный этаж/точку камеры; не заявляется, что снимок сделан вIквартале2026.",
+  "dimensions": [
+    1920,
+    1280
+  ],
+  "processing": "Original JPG retained byte-for-byte. Installed ctk images / Sharp conversion to WebP; no resizing, recolouring, retouching, generation or moving buildings. Runtime crop uses CSS object-fit/position only.",
+  "replaces": "../2026-11-03-moscow-river/ — rejected for invented geographical combinations",
+  "files": {
+    "moscow-view-original.jpg": {
+      "bytes": 497381,
+      "sha256": "ef4549faa1ff2fd7b5c0f6be42843cd7d0af4e4657aa39e01bf9bf6312cff030"
+    },
+    "moscow-q1-2026-photo.webp": {
+      "bytes": 479934,
+      "sha256": "03e90186522c6c3937fc40a87729e4b17118f3b643ad8036d8f0c8b0b53c6ed5"
+    }
+  }
+}
