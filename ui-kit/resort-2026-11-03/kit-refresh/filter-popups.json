@@ -1,0 +1,528 @@
+{
+  "checks": [
+    {
+      "width": 390,
+      "rows": [
+        {
+          "name": "resort",
+          "drop": {
+            "fontSize": "18px",
+            "fontWeight": "300",
+            "lineHeight": "23.4px",
+            "minHeight": "44px",
+            "borderRadius": "1px",
+            "color": "rgb(139, 29, 37)",
+            "after": "\"✓\"",
+            "display": "block",
+            "alignItems": "normal",
+            "justifyContent": "normal"
+          },
+          "alignment": 0,
+          "full": {
+            ".hero-filter-modal__title": {
+              "size": "20px",
+              "weight": "400",
+              "line": "24px",
+              "radius": "0px",
+              "color": "rgb(30, 30, 30)",
+              "padding": "0px",
+              "minHeight": "auto"
+            },
+            ".hero-filter-panel-content__range-input": {
+              "size": "17px",
+              "weight": "300",
+              "line": "23.8px",
+              "radius": "1px",
+              "color": "rgb(30, 30, 30)",
+              "padding": "0px 13px",
+              "minHeight": "44px"
+            },
+            ".ui-checkbox--chip .ui-checkbox__label": {
+              "size": "16px",
+              "weight": "400",
+              "line": "19.2px",
+              "radius": "0px",
+              "color": "rgb(30, 30, 30)",
+              "padding": "0px",
+              "minHeight": "auto"
+            },
+            ".hero-filter-modal__apply": {
+              "size": "18px",
+              "weight": "400",
+              "line": "19.8px",
+              "radius": "1px",
+              "color": "rgb(255, 255, 255)",
+              "padding": "0px 24px",
+              "minHeight": "58px"
+            },
+            ".hero-filter-modal__reset": {
+              "size": "18px",
+              "weight": "400",
+              "line": "19.8px",
+              "radius": "1px",
+              "color": "rgb(79, 77, 73)",
+              "padding": "0px 24px",
+              "minHeight": "58px"
+            }
+          }
+        },
+        {
+          "name": "catalog",
+          "drop": {
+            "fontSize": "18px",
+            "fontWeight": "300",
+            "lineHeight": "23.4px",
+            "minHeight": "44px",
+            "borderRadius": "1px",
+            "color": "rgb(139, 29, 37)",
+            "after": "\"✓\"",
+            "display": "block",
+            "alignItems": "normal",
+            "justifyContent": "normal"
+          },
+          "alignment": 0,
+          "full": {
+            ".hero-filter-modal__title": {
+              "size": "20px",
+              "weight": "400",
+              "line": "24px",
+              "radius": "0px",
+              "color": "rgb(30, 30, 30)",
+              "padding": "0px",
+              "minHeight": "auto"
+            },
+            ".hero-filter-panel-content__range-input": {
+              "size": "17px",
+              "weight": "300",
+              "line": "23.8px",
+              "radius": "1px",
+              "color": "rgb(30, 30, 30)",
+              "padding": "0px 13px",
+              "minHeight": "44px"
+            },
+            ".ui-checkbox--chip .ui-checkbox__label": {
+              "size": "16px",
+              "weight": "400",
+              "line": "19.2px",
+              "radius": "0px",
+              "color": "rgb(30, 30, 30)",
+              "padding": "0px",
+              "minHeight": "auto"
+            },
+            ".hero-filter-modal__apply": {
+              "size": "18px",
+              "weight": "400",
+              "line": "19.8px",
+              "radius": "1px",
+              "color": "rgb(255, 255, 255)",
+              "padding": "0px 24px",
+              "minHeight": "58px"
+            },
+            ".hero-filter-modal__reset": {
+              "size": "18px",
+              "weight": "400",
+              "line": "19.8px",
+              "radius": "1px",
+              "color": "rgb(79, 77, 73)",
+              "padding": "0px 24px",
+              "minHeight": "58px"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "width": 900,
+      "rows": [
+        {
+          "name": "resort",
+          "drop": {
+            "fontSize": "18px",
+            "fontWeight": "300",
+            "lineHeight": "23.4px",
+            "minHeight": "44px",
+            "borderRadius": "1px",
+            "color": "rgb(139, 29, 37)",
+            "after": "\"✓\"",
+            "display": "block",
+            "alignItems": "normal",
+            "justifyContent": "normal"
+          },
+          "alignment": 0,
+          "full": {
+            ".hero-filter-modal__title": {
+              "size": "20px",
+              "weight": "400",
+              "line": "24px",
+              "radius": "0px",
+              "color": "rgb(30, 30, 30)",
+              "padding": "0px",
+              "minHeight": "auto"
+            },
+            ".hero-filter-panel-content__range-input": {
+              "size": "18px",
+              "weight": "300",
+              "line": "25.2px",
+              "radius": "1px",
+              "color": "rgb(30, 30, 30)",
+              "padding": "0px 13px",
+              "minHeight": "44px"
+            },
+            ".ui-checkbox--chip .ui-checkbox__label": {
+              "size": "16px",
+              "weight": "400",
+              "line": "19.2px",
+              "radius": "0px",
+              "color": "rgb(30, 30, 30)",
+              "padding": "0px",
+              "minHeight": "auto"
+            },
+            ".hero-filter-modal__apply": {
+              "size": "17px",
+              "weight": "400",
+              "line": "18.7px",
+              "radius": "1px",
+              "color": "rgb(255, 255, 255)",
+              "padding": "0px 36px",
+              "minHeight": "70px"
+            },
+            ".hero-filter-modal__reset": {
+              "size": "17px",
+              "weight": "400",
+              "line": "18.7px",
+              "radius": "1px",
+              "color": "rgb(79, 77, 73)",
+              "padding": "0px 36px",
+              "minHeight": "70px"
+            }
+          }
+        },
+        {
+          "name": "catalog",
+          "drop": {
+            "fontSize": "18px",
+            "fontWeight": "300",
+            "lineHeight": "23.4px",
+            "minHeight": "44px",
+            "borderRadius": "1px",
+            "color": "rgb(139, 29, 37)",
+            "after": "\"✓\"",
+            "display": "block",
+            "alignItems": "normal",
+            "justifyContent": "normal"
+          },
+          "alignment": 0,
+          "full": {
+            ".hero-filter-modal__title": {
+              "size": "20px",
+              "weight": "400",
+              "line": "24px",
+              "radius": "0px",
+              "color": "rgb(30, 30, 30)",
+              "padding": "0px",
+              "minHeight": "auto"
+            },
+            ".hero-filter-panel-content__range-input": {
+              "size": "18px",
+              "weight": "300",
+              "line": "25.2px",
+              "radius": "1px",
+              "color": "rgb(30, 30, 30)",
+              "padding": "0px 13px",
+              "minHeight": "44px"
+            },
+            ".ui-checkbox--chip .ui-checkbox__label": {
+              "size": "16px",
+              "weight": "400",
+              "line": "19.2px",
+              "radius": "0px",
+              "color": "rgb(30, 30, 30)",
+              "padding": "0px",
+              "minHeight": "auto"
+            },
+            ".hero-filter-modal__apply": {
+              "size": "17px",
+              "weight": "400",
+              "line": "18.7px",
+              "radius": "1px",
+              "color": "rgb(255, 255, 255)",
+              "padding": "0px 36px",
+              "minHeight": "70px"
+            },
+            ".hero-filter-modal__reset": {
+              "size": "17px",
+              "weight": "400",
+              "line": "18.7px",
+              "radius": "1px",
+              "color": "rgb(79, 77, 73)",
+              "padding": "0px 36px",
+              "minHeight": "70px"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "rows": [
+        {
+          "name": "resort",
+          "drop": {
+            "fontSize": "18px",
+            "fontWeight": "300",
+            "lineHeight": "23.4px",
+            "minHeight": "44px",
+            "borderRadius": "1px",
+            "color": "rgb(139, 29, 37)",
+            "after": "\"✓\"",
+            "display": "block",
+            "alignItems": "normal",
+            "justifyContent": "normal"
+          },
+          "alignment": 0,
+          "full": {
+            ".hero-filter-modal__title": {
+              "size": "24px",
+              "weight": "400",
+              "line": "28.8px",
+              "radius": "0px",
+              "color": "rgb(30, 30, 30)",
+              "padding": "0px",
+              "minHeight": "auto"
+            },
+            ".hero-filter-panel-content__range-input": {
+              "size": "18px",
+              "weight": "300",
+              "line": "25.2px",
+              "radius": "1px",
+              "color": "rgb(30, 30, 30)",
+              "padding": "0px 13px",
+              "minHeight": "44px"
+            },
+            ".ui-checkbox--chip .ui-checkbox__label": {
+              "size": "16px",
+              "weight": "400",
+              "line": "19.2px",
+              "radius": "0px",
+              "color": "rgb(30, 30, 30)",
+              "padding": "0px",
+              "minHeight": "auto"
+            },
+            ".hero-filter-modal__apply": {
+              "size": "17px",
+              "weight": "400",
+              "line": "18.7px",
+              "radius": "1px",
+              "color": "rgb(255, 255, 255)",
+              "padding": "0px 36px",
+              "minHeight": "70px"
+            },
+            ".hero-filter-modal__reset": {
+              "size": "17px",
+              "weight": "400",
+              "line": "18.7px",
+              "radius": "1px",
+              "color": "rgb(79, 77, 73)",
+              "padding": "0px 36px",
+              "minHeight": "70px"
+            }
+          }
+        },
+        {
+          "name": "catalog",
+          "drop": {
+            "fontSize": "18px",
+            "fontWeight": "300",
+            "lineHeight": "23.4px",
+            "minHeight": "44px",
+            "borderRadius": "1px",
+            "color": "rgb(139, 29, 37)",
+            "after": "\"✓\"",
+            "display": "block",
+            "alignItems": "normal",
+            "justifyContent": "normal"
+          },
+          "alignment": 0,
+          "full": {
+            ".hero-filter-modal__title": {
+              "size": "24px",
+              "weight": "400",
+              "line": "28.8px",
+              "radius": "0px",
+              "color": "rgb(30, 30, 30)",
+              "padding": "0px",
+              "minHeight": "auto"
+            },
+            ".hero-filter-panel-content__range-input": {
+              "size": "18px",
+              "weight": "300",
+              "line": "25.2px",
+              "radius": "1px",
+              "color": "rgb(30, 30, 30)",
+              "padding": "0px 13px",
+              "minHeight": "44px"
+            },
+            ".ui-checkbox--chip .ui-checkbox__label": {
+              "size": "16px",
+              "weight": "400",
+              "line": "19.2px",
+              "radius": "0px",
+              "color": "rgb(30, 30, 30)",
+              "padding": "0px",
+              "minHeight": "auto"
+            },
+            ".hero-filter-modal__apply": {
+              "size": "17px",
+              "weight": "400",
+              "line": "18.7px",
+              "radius": "1px",
+              "color": "rgb(255, 255, 255)",
+              "padding": "0px 36px",
+              "minHeight": "70px"
+            },
+            ".hero-filter-modal__reset": {
+              "size": "17px",
+              "weight": "400",
+              "line": "18.7px",
+              "radius": "1px",
+              "color": "rgb(79, 77, 73)",
+              "padding": "0px 36px",
+              "minHeight": "70px"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "width": 2560,
+      "rows": [
+        {
+          "name": "resort",
+          "drop": {
+            "fontSize": "18px",
+            "fontWeight": "300",
+            "lineHeight": "23.4px",
+            "minHeight": "44px",
+            "borderRadius": "1px",
+            "color": "rgb(139, 29, 37)",
+            "after": "\"✓\"",
+            "display": "block",
+            "alignItems": "normal",
+            "justifyContent": "normal"
+          },
+          "alignment": 0,
+          "full": {
+            ".hero-filter-modal__title": {
+              "size": "24px",
+              "weight": "400",
+              "line": "28.8px",
+              "radius": "0px",
+              "color": "rgb(30, 30, 30)",
+              "padding": "0px",
+              "minHeight": "auto"
+            },
+            ".hero-filter-panel-content__range-input": {
+              "size": "20px",
+              "weight": "300",
+              "line": "28px",
+              "radius": "1px",
+              "color": "rgb(30, 30, 30)",
+              "padding": "0px 13px",
+              "minHeight": "44px"
+            },
+            ".ui-checkbox--chip .ui-checkbox__label": {
+              "size": "16px",
+              "weight": "400",
+              "line": "19.2px",
+              "radius": "0px",
+              "color": "rgb(30, 30, 30)",
+              "padding": "0px",
+              "minHeight": "auto"
+            },
+            ".hero-filter-modal__apply": {
+              "size": "19px",
+              "weight": "400",
+              "line": "20.9px",
+              "radius": "1px",
+              "color": "rgb(255, 255, 255)",
+              "padding": "0px 47px",
+              "minHeight": "70px"
+            },
+            ".hero-filter-modal__reset": {
+              "size": "19px",
+              "weight": "400",
+              "line": "20.9px",
+              "radius": "1px",
+              "color": "rgb(79, 77, 73)",
+              "padding": "0px 47px",
+              "minHeight": "70px"
+            }
+          }
+        },
+        {
+          "name": "catalog",
+          "drop": {
+            "fontSize": "18px",
+            "fontWeight": "300",
+            "lineHeight": "23.4px",
+            "minHeight": "44px",
+            "borderRadius": "1px",
+            "color": "rgb(139, 29, 37)",
+            "after": "\"✓\"",
+            "display": "block",
+            "alignItems": "normal",
+            "justifyContent": "normal"
+          },
+          "alignment": 0,
+          "full": {
+            ".hero-filter-modal__title": {
+              "size": "24px",
+              "weight": "400",
+              "line": "28.8px",
+              "radius": "0px",
+              "color": "rgb(30, 30, 30)",
+              "padding": "0px",
+              "minHeight": "auto"
+            },
+            ".hero-filter-panel-content__range-input": {
+              "size": "20px",
+              "weight": "300",
+              "line": "28px",
+              "radius": "1px",
+              "color": "rgb(30, 30, 30)",
+              "padding": "0px 13px",
+              "minHeight": "44px"
+            },
+            ".ui-checkbox--chip .ui-checkbox__label": {
+              "size": "16px",
+              "weight": "400",
+              "line": "19.2px",
+              "radius": "0px",
+              "color": "rgb(30, 30, 30)",
+              "padding": "0px",
+              "minHeight": "auto"
+            },
+            ".hero-filter-modal__apply": {
+              "size": "19px",
+              "weight": "400",
+              "line": "20.9px",
+              "radius": "1px",
+              "color": "rgb(255, 255, 255)",
+              "padding": "0px 47px",
+              "minHeight": "70px"
+            },
+            ".hero-filter-modal__reset": {
+              "size": "19px",
+              "weight": "400",
+              "line": "20.9px",
+              "radius": "1px",
+              "color": "rgb(79, 77, 73)",
+              "padding": "0px 47px",
+              "minHeight": "70px"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

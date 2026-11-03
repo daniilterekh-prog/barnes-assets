@@ -1,5 +1,6 @@
 /* BARN Estate home UI-kit v1.0.0, approved 2026-11-01.
- * Resort derivative 1.1.0. H1 hero and the entire FAQ retain their contracts.
+ * Resort derivative 1.5.0. H1 hero and the entire FAQ retain their contracts.
+ * Property cards retain their styling; filters follow the current catalogue independently.
  * One shared role layer for the page and standalone blocks; not a second theme.
  */
 body.barnes-header-template {
@@ -15,23 +16,24 @@ body.barnes-header-template {
   --resort-action-height: 70px;
   --resort-action-pad: 36px;
   --resort-channel: 17px;
+  --resort-field:18px; --resort-dialog-heading:24px; --resort-card-padding:32px;
 }
 html body.barnes-header-template .floating-expert[hidden] { display:none!important; }
 @media(min-width:1441px) {
-  body.barnes-header-template { --resort-heading:44px; --resort-action:19px; --resort-action-pad:47px; }
+  body.barnes-header-template { --resort-heading:44px; --resort-field:20px; --resort-action:19px; --resort-action-pad:47px; }
 }
 @media(min-width:1921px) {
   body.barnes-header-template { --resort-gutter:0px; }
 }
 @media(max-width:1024px) {
-  body.barnes-header-template { --resort-eyebrow:12px; --resort-eyebrow-line:14.4px; --resort-eyebrow-gap:12px; }
+  body.barnes-header-template { --resort-card-padding:24px; --resort-dialog-heading:20px; --resort-eyebrow:12px; --resort-eyebrow-line:14.4px; --resort-eyebrow-gap:12px; }
 }
 @media(max-width:540px) {
   body.barnes-header-template {
     --resort-section:48px; --resort-gutter:22px; --resort-heading:22px;
     --resort-content-gap:28px; --resort-copy-gap:16px;
     --resort-action:18px; --resort-action-height:58px; --resort-action-pad:24px;
-    --resort-channel:18px;
+    --resort-channel:18px; --resort-field:17px; --resort-card-padding:20px;
   }
 }
 /* The FAQ container is deliberately excluded as well as its text and spacing. */
@@ -118,7 +120,7 @@ html body.barnes-header-template .feedback-modal__channels button[aria-pressed=t
 }
 html body.barnes-header-template .feedback-modal__title { font-size:24px!important; font-weight:400!important; line-height:1.2!important; letter-spacing:normal!important; }
 html body.barnes-header-template :is(.catalog-consultation__consent-text,.catalog-contact__consent-text,.feedback-modal__consent-text) { font-size:13px!important; font-weight:300!important; line-height:18px!important; }
-html body.barnes-header-template :is(.catalog-consultation__input,.catalog-contact__input,.feedback-modal__input) { line-height:1.4!important; }
+html body.barnes-header-template :is(.catalog-consultation__input,.catalog-contact__input,.catalog-consultation__textarea,.catalog-contact__textarea,.feedback-modal__input) { line-height:1.4!important; }
 html body.barnes-header-template .resort-filters .hero-filter-modal__footer {
   flex-shrink:0; align-items:center;
 }
@@ -208,3 +210,20 @@ html body.barnes-header-template .catalog-intro__details[hidden] { display:none!
 
 /* Keyboard affordance only; approved FAQ text geometry stays unchanged. */
 html body.barnes-header-template .catalog-faq__question:focus-visible { outline:2px solid #8b1d25!important; outline-offset:3px; }
+
+/* Full-page role audit, 2026-11-03. Object cards, catalogue controls, hero H1 and FAQ are excluded. */
+html body.barnes-header-template .department-card__content { padding:var(--resort-card-padding)!important; gap:16px!important; }
+html body.barnes-header-template .news-section__content { padding-top:16px!important; gap:12px!important; }
+html body.barnes-header-template .catalog-consultation__lead { margin-top:var(--resort-copy-gap)!important; }
+html body.barnes-header-template .catalog-consultation__mobile-lead { margin-top:16px!important; }
+html body.barnes-header-template .catalog-feedback-modal:not(.resort-quiz-active) .feedback-modal__intro {
+ font-size:22px!important; font-weight:300!important; line-height:33px!important; color:#4f4d49!important;
+}
+html body.barnes-header-template .feedback-modal__input { padding-block:16px!important; }
+html body.barnes-header-template .resort-quiz__budget :is(input,select) {
+ font-size:var(--resort-field); font-weight:300; line-height:1.4;
+}
+@media(max-width:540px) {
+ html body.barnes-header-template .department-card__content { gap:12px!important; }
+ html body.barnes-header-template .catalog-feedback-modal:not(.resort-quiz-active) .feedback-modal__intro { font-size:15px!important; line-height:21px!important; }
+}

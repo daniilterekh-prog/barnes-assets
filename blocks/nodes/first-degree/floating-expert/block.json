@@ -1,10 +1,10 @@
 {
   "id": "first-degree-floating-expert",
   "title": "Плавающий эксперт",
-  "version": "1.1.0",
+  "version": "1.5.0",
   "source": {
     "repo": "daniilterekh-prog/barn-estate-homepage-clone",
-    "commit": "62aee9e62e2fae669028433ffe411e2f18a01d84",
+    "commit": "6a3f10a",
     "route": "kurortnaya",
     "selector": ".floating-expert"
   },
