@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-03",
+  "generator": "Built-in image_gen imagegen tool; no CLI/API fallback",
+  "useCase": "product-mockup / precise-object-edit",
+  "description": "Один мягкий журнал-каталог с чёрным названием BARN Estate, без анонсов; спокойная матовая обложка, архитектурная фотография и светлый фон слева.",
+  "provenance": "Создано по явному поручению пользователя для блока «Издания BARN Estate». Вымышленная иллюстративная обложка; не фотография реально выпущенного номера или конкретного объекта недвижимости.",
+  "prompt": "PROMPT.txt",
+  "conversion": "Installed codex-toolkit ctk images, Sharp, WebP; original preserved; no resizing (2046×768).",
+  "files": {
+    "library-editorial-original.png": {
+      "bytes": 2007595,
+      "sha256": "9433215d5e7daa9a51775abda9c80df56158bb3784d02d3f3a7451e0d2b78b2d"
+    },
+    "library-editorial-20261103.webp": {
+      "bytes": 76888,
+      "sha256": "dd5b332651ee40109a0cf796cc934e233adf58fbc238349b0c2b0b7850aea852"
+    }
+  }
+}
