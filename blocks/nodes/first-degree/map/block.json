@@ -33,13 +33,14 @@
   "assembly": true,
   "scripts": [],
   "filterReference": {
-    "version": "1.3.0",
-    "date": "2026-11-02",
-    "url": "https://daniilterekh-prog.github.io/barn-estate-homepage-clone/katalog-nedvizhimosti/?direction=international",
-    "state": "BarnesFilters",
-    "exceptions": [
-      "resort data",
-      "exclusive new-build/secondary"
-    ]
+    "version": "1.4.0",
+    "date": "2026-11-03",
+    "url": "https://daniilterekh-prog.github.io/barn-estate-homepage-clone/katalog-nedvizhimosti/?direction=resort",
+    "deal": "buy",
+    "market": [
+      "new-build",
+      "secondary"
+    ],
+    "scope": "listing UI; shared purchase-only state"
   }
 }

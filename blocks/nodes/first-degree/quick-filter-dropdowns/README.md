@@ -9,3 +9,5 @@
 `brand-filters.js` подключается после BarnesFilters, создаёт независимые checkbox selection/exclusive для BARN Estate, синхронизирует листинг и карту. Desktop — над итоговой строкой, mobile — под картой/сортировкой. Сброс снимает условия, сохраняет обязательный market. Два рынка никогда не смешиваются.
 
 Подключай `_shared/catalog-filters.js/css`, `_shared/runtime.js` и `_shared/reference-filters.js` через referenceFilters:true, как в [инструкции](../README.md). Не запускай listing-mode.js поверх готового fragment.html. Метаданные snapshot неполные: API каталога отдельно; неизвестные типы/спальни/подборки не выдумываются. Новых библиотек нет.
+
+Актуализация03.11.2026, фильтры1.4.0: рынок — отдельный обязательный dropdown, быстрых полей всегда4; аренда не поддерживается, deal фиксирован buy. Источник — свежая общая выдача. Сохраняй общий catalog-filters.js/css и загрузчик reference-filters с актуальным cache-key.

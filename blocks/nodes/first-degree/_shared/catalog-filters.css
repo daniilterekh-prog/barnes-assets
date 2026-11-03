@@ -23,7 +23,7 @@ html body.barnes-header-template .catalog-text-search input{width:100%;min-width
 html body.barnes-header-template .catalog-text-search input::placeholder{color:#656462;opacity:1}
 html body.barnes-header-template .catalog-text-search:focus-within{border-color:#8b1d25}
 /* One continuous strip echoes the homepage search bar; labels carry the hierarchy. */
-html body.barnes-header-template .catalog-toolbar__secondary .catalog-mode-filters{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;width:100%;height:64px;border:1px solid #8b8986;border-radius:1px;background:#fff;box-sizing:border-box}
+html body.barnes-header-template .catalog-toolbar__secondary .catalog-mode-filters{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;width:100%;height:64px;border:1px solid #8b8986;border-radius:1px;background:#fff;box-sizing:border-box}
 html body.barnes-header-template .catalog-toolbar__secondary .catalog-quick-filters__item[class]{min-width:0;height:62px;min-height:0;border:0}
 html body.barnes-header-template .catalog-toolbar__secondary .catalog-quick-filters__item+.catalog-quick-filters__item{border-left:1px solid #e4e4e4}
 html body.barnes-header-template .catalog-toolbar__secondary .catalog-quick-filters__button{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;height:62px;min-height:0;padding:0 20px;border:0;border-radius:0;background:transparent;color:#4f4d49;font:300 var(--catalog-filter-font-size)/1.2 'Tilda Sans',sans-serif;text-align:left}
@@ -98,7 +98,7 @@ html body.barnes-header-template .resort-quick-dropdown [role=option].is-selecte
 }
 
 /* Two quick choices; advanced criteria stay in the shared full form. */
-html body.barnes-header-template .catalog-mode-filters>.catalog-quick-filters__item:nth-child(even){display:none}
+html body.barnes-header-template .catalog-mode-filters>.catalog-quick-filters__item:nth-child(even){display:block}
 html body.barnes-header-template .catalog-mode-filters>.catalog-quick-filters__item:nth-child(3){border-left:1px solid #e4e4e4}
 html body.barnes-header-template .catalog-collections-row{min-height:0;padding:0;margin:0 0 20px;border:0;gap:12px;align-items:center;flex-wrap:wrap}
 .catalog-active-filters{display:flex;flex:1;flex-wrap:wrap;gap:8px;min-width:0;max-width:100%}
@@ -129,6 +129,27 @@ html body.barnes-header-template .resort-filters .ui-checkbox--chip:has(input:ch
  html body.barnes-header-template .catalog-mode-toolbar>.catalog-toolbar__secondary>.catalog-mode-detailed-filters[class][class]{grid-row:4}
 }
 
+/* Independent deal and market controls; all contextual quick fields stay visible. */
+html body.barnes-header-template .catalog-market[hidden],html body.barnes-header-template .catalog-result-summary [data-show-favorites]{display:none!important}
+@media(min-width:1024px){
+ html body.barnes-header-template[data-market-available=true] .catalog-toolbar__primary{grid-template-columns:minmax(200px,1.15fr) minmax(160px,1fr) minmax(180px,1fr) minmax(210px,1.65fr)}
+ html body.barnes-header-template .catalog-toolbar__secondary .catalog-quick-filters__button{padding-inline:14px}
+}
+@media(min-width:768px) and (max-width:1023px){
+ html body.barnes-header-template .catalog-mode-toolbar>.catalog-toolbar__primary>.catalog-market[class][class]{grid-column:1;grid-row:2}
+ html body.barnes-header-template[data-market-available=true] .catalog-mode-toolbar>.catalog-toolbar__primary>.catalog-search-row[class][class]{grid-column:2/4}
+}
+@media(max-width:767px){
+ html body.barnes-header-template .catalog-mode-toolbar>.catalog-toolbar__primary>.catalog-market[class][class]{grid-column:1/-1;height:58px}
+ html body.barnes-header-template .catalog-mode-toolbar>.catalog-toolbar__secondary>:is(.catalog-mode-filters,.catalog-search-row,.catalog-mode-detailed-filters)[class][class]{grid-row:auto}
+}
+
+/* Text and chevrons share the button's vertical center, including wrapped labels. */
+html body.barnes-header-template .catalog-toolbar__secondary .catalog-mode-filters .catalog-quick-filters__content{height:auto;top:0}
+html body.barnes-header-template .catalog-mode-toolbar .catalog-mode-filters .catalog-quick-filters__label[class]{height:auto;line-height:1.2}
+html body.barnes-header-template .catalog-toolbar__secondary .catalog-mode-filters .catalog-quick-filters__caption{height:auto;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2}
+html body.barnes-header-template .catalog-toolbar__secondary .catalog-mode-filters .catalog-quick-filters__chevron[class]{position:static;top:auto;right:auto;margin:0;transform:rotate(45deg);align-self:center}
+
 /* Resort integration: same reference geometry, isolated from cards and headers. */
 html body.barnes-header-template .catalog-grid__inner { display:block!important; }
 html body.barnes-header-template .catalog-grid__header { margin-bottom:var(--resort-content-gap)!important; }
@@ -143,10 +164,6 @@ html body.barnes-header-template .catalog-mode-switch__button { cursor:pointer; 
 html body.barnes-header-template .catalog-mode-switch__button::after { display:none!important; }
 html body.barnes-header-template .catalog-mode-toolbar .catalog-quick-filters__label { display:block; padding:0!important; }
 html body.barnes-header-template .catalog-mode-toolbar .catalog-quick-filters__content { position:static!important; padding:0!important; }
-html body.barnes-header-template .catalog-quick-filters__chevron { position:static!important; transform:none; }
-html body.barnes-header-template .catalog-quick-filters__chevron::before { position:static; display:block; width:10px; height:10px; border:0; border-right:1px solid currentColor; border-bottom:1px solid currentColor; transform:translateY(-3px) rotate(45deg); }
-html body.barnes-header-template .catalog-quick-filters__button.is-open .catalog-quick-filters__chevron::before { transform:translateY(2px) rotate(225deg); }
-html body.barnes-header-template .catalog-mode-filters > .catalog-quick-filters__item:nth-child(2),html body.barnes-header-template .catalog-mode-filters > .catalog-quick-filters__item:nth-child(4) { display:none; }
 html body.barnes-header-template .catalog-collections-row .barnes-brand-filters { grid-area:auto!important; justify-content:flex-start!important; margin:0!important; }
 html body.barnes-header-template .catalog-result-summary .catalog-grid__sort { grid-area:auto!important; border:0!important; }
 html body.barnes-header-template .catalog-map-trigger { display:inline-flex; align-items:center; gap:10px; min-height:44px; padding:0 16px; border:1px solid #8b1d25; border-radius:1px; background:#fff; color:#8b1d25; font:400 15px/1.1 'Tilda Sans',sans-serif; cursor:pointer; white-space:nowrap; }
@@ -252,3 +269,13 @@ html body.barnes-header-template .resort-filters .ui-checkbox--chip .ui-checkbox
 html body.barnes-header-template .catalog-result-summary .resort-sort-trigger { min-width:0!important; }
 html body.barnes-header-template .resort-filters .ui-checkbox.ui-checkbox--chip:hover { background:#8b1d25!important; border-color:#8b1d25!important; }
 html body.barnes-header-template .resort-filters .ui-checkbox.ui-checkbox--chip:hover .ui-checkbox__label { color:#fff!important; }
+
+/* Purchase-only node: no redundant deal switch, three primary fields. */
+html body.barnes-header-template .catalog-market select { width:100%;height:100%;border:0;color:inherit;font:inherit;background:transparent; }
+@media(min-width:768px) and (max-width:1023px) {
+ html body.barnes-header-template .catalog-mode-toolbar>.catalog-toolbar__primary>.catalog-department[class][class] { grid-column:1/3!important;grid-row:1!important; }
+ html body.barnes-header-template .catalog-mode-toolbar>.catalog-toolbar__primary>.catalog-market[class][class] { grid-column:3/5!important;grid-row:1!important; }
+ html body.barnes-header-template .catalog-mode-toolbar>.catalog-toolbar__primary>.catalog-search-row[class][class] { grid-column:1/4!important;grid-row:2!important; }
+ html body.barnes-header-template .catalog-mode-toolbar>.catalog-toolbar__secondary>.catalog-mode-filters[class][class] { grid-column:1/-1!important;grid-row:3!important; }
+ html body.barnes-header-template .catalog-mode-toolbar>.catalog-toolbar__secondary>.catalog-mode-detailed-filters[class][class] { grid-column:4!important;grid-row:2!important; }
+}

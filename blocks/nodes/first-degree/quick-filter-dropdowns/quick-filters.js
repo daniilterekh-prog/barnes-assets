@@ -26,7 +26,7 @@
   var selectConfigs = new Map();
   var boundSelects = new WeakSet();
   function mountSelectDropdowns() {
-    document.querySelectorAll('.catalog-grid__sort select, .catalog-department select, .map-browser select[data-filter]').forEach(function (select) {
+    document.querySelectorAll('.catalog-grid__sort select, .catalog-department select, .catalog-market select, .map-browser select[data-filter]').forEach(function (select) {
       if (boundSelects.has(select)) return;
       boundSelects.add(select);
       select.dataset.customDropdownReady = 'true';

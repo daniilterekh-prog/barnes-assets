@@ -1,0 +1,24 @@
+{
+  "base": "http://127.0.0.1:8875/kurortnaya/",
+  "reference": "https://daniilterekh-prog.github.io/barn-estate-homepage-clone/katalog-nedvizhimosti/?direction=resort",
+  "checks": [
+    {
+      "width": 390,
+      "referenceStyles": true,
+      "quickFields": 4,
+      "equalWidths": true,
+      "purchaseOnly": true,
+      "overflow": false,
+      "interactions": true
+    },
+    {
+      "width": 1440,
+      "referenceStyles": true,
+      "quickFields": 4,
+      "equalWidths": true,
+      "purchaseOnly": true,
+      "overflow": false,
+      "interactions": true
+    }
+  ]
+}
