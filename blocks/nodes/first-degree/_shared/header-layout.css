@@ -6,6 +6,18 @@ html body .layout__header .site-header:not(.site-header--menu-open) .site-header
 html body .catalog-hero .catalog-hero__breadcrumbs-wrap {
   top:calc(var(--catalog-hero-header-height,120px) + 16px);
 }
+/* Text scale shared by the current catalogue and Media breadcrumbs. */
+html body .catalog-hero .catalog-hero__breadcrumbs[class] .breadcrumbs__link {
+  font-size:17px;
+  font-weight:300;
+  line-height:18px;
+}
+@media(max-width:768px) {
+  html body .catalog-hero .catalog-hero__breadcrumbs[class] .breadcrumbs__link {font-size:13px;line-height:18px;}
+}
+@media(max-width:540px) {
+  html body .catalog-hero .catalog-hero__breadcrumbs[class] .breadcrumbs__link {font-size:12px;line-height:16px;}
+}
 /* Reserve the overlapping header and leave the search group slightly lower. */
 html body .catalog-hero--with-header .catalog-hero__inner,
 html body .layout > .layout__header + .layout__content .catalog-hero__inner {

@@ -1,0 +1,106 @@
+{
+  "checks": [
+    {
+      "base": "http://127.0.0.1:8875/kurortnaya/blocks/",
+      "width": 390,
+      "styles": [
+        {
+          "fontSize": "12px",
+          "fontWeight": "300",
+          "lineHeight": "16px"
+        },
+        {
+          "fontSize": "12px",
+          "fontWeight": "300",
+          "lineHeight": "16px"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "base": "http://127.0.0.1:8875/kurortnaya/blocks/",
+      "width": 900,
+      "styles": [
+        {
+          "fontSize": "17px",
+          "fontWeight": "300",
+          "lineHeight": "18px"
+        },
+        {
+          "fontSize": "17px",
+          "fontWeight": "300",
+          "lineHeight": "18px"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "base": "http://127.0.0.1:8875/kurortnaya/blocks/",
+      "width": 2560,
+      "styles": [
+        {
+          "fontSize": "17px",
+          "fontWeight": "300",
+          "lineHeight": "18px"
+        },
+        {
+          "fontSize": "17px",
+          "fontWeight": "300",
+          "lineHeight": "18px"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "base": "http://127.0.0.1:8876/blocks/nodes/first-degree/",
+      "width": 390,
+      "styles": [
+        {
+          "fontSize": "12px",
+          "fontWeight": "300",
+          "lineHeight": "16px"
+        },
+        {
+          "fontSize": "12px",
+          "fontWeight": "300",
+          "lineHeight": "16px"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "base": "http://127.0.0.1:8876/blocks/nodes/first-degree/",
+      "width": 900,
+      "styles": [
+        {
+          "fontSize": "17px",
+          "fontWeight": "300",
+          "lineHeight": "18px"
+        },
+        {
+          "fontSize": "17px",
+          "fontWeight": "300",
+          "lineHeight": "18px"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "base": "http://127.0.0.1:8876/blocks/nodes/first-degree/",
+      "width": 2560,
+      "styles": [
+        {
+          "fontSize": "17px",
+          "fontWeight": "300",
+          "lineHeight": "18px"
+        },
+        {
+          "fontSize": "17px",
+          "fontWeight": "300",
+          "lineHeight": "18px"
+        }
+      ],
+      "passed": true
+    }
+  ]
+}

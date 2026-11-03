@@ -9,7 +9,7 @@
   }
   if (window.BarnEstateBrandFilters) return;
   window.BarnEstateBrandFilters = true;
-  var cssURL = new URL('../_shared/brand-filters.css?v=20261103-clean-load-18', document.currentScript.src).href;
+  var cssURL = new URL('../_shared/brand-filters.css?v=20261103-breadcrumbs-19', document.currentScript.src).href;
   if (!hasStylesheet(cssURL)) {
     var css = document.createElement('link'); css.rel = 'stylesheet'; css.href = cssURL; document.head.appendChild(css);
   }
