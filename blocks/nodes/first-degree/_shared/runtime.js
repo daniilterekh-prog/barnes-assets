@@ -1,6 +1,6 @@
 import './catalog-filters.js?v=20261102-catalog-filters-12';
 import './start-sales.js?v=20261102-home-choice-9';
-import './header-layout.js?v=20261102-navigation-7';
+import './header-layout.js?v=20261103-hero-breadcrumbs-14';
 import './faq.js?v=20261102-faq-6';
 import './expert-quiz.js?v=20261102-expert-quiz-5';
 /** Reusable interactions. Production data arrives through options or bubbling events. */
