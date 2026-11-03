@@ -52,7 +52,27 @@
 .map-browser__handle { display: none; }
 .map-browser button:hover, .map-browser a:hover { color: #931f2b; }
 .map-browser :focus-visible { outline: 2px solid var(--map-filter-wine); outline-offset: 3px; }
-@media (min-width: 1441px) { .map-browser { --map-filter-size: 19px; } }
+/* Shared desktop row for the two collections and sorting; compact views retain their order. */
+.map-browser__refinements { display: contents; }
+@media (min-width: 768px) {
+  html body .map-browser .map-browser__panel { width: clamp(480px, calc(100% - 420px), 720px); }
+  html body .map-browser .map-browser__refinements {
+    display: grid; grid-column: 1 / -1; grid-row: 4;
+    grid-template-columns: minmax(0, 1fr) var(--map-refinements-sort-width,176px); gap: 16px; align-items: center;
+  }
+  html body .map-browser .map-browser__refinements .barnes-brand-filters {
+    grid-column: 1; grid-row: 1; gap: 16px; margin: 0;
+  }
+  html body .map-browser .map-browser__refinements .barnes-brand-filters label {
+    min-height: 58px; padding: 0;
+  }
+  html body .map-browser .map-browser__refinements .map-browser__extra {
+    grid-column: 2; grid-row: 1; width: 100%; min-width: 0;
+  }
+  html body .map-browser .map-browser__refinements .map-browser__field .resort-sort-trigger { font-size: var(--map-filter-size); }
+  html body .map-browser .map-browser__reset { grid-row: 5; }
+}
+@media (min-width: 1441px) { .map-browser { --map-filter-size: 19px; --map-refinements-sort-width:192px; } }
 @media (max-width: 540px) {
   .map-browser__close { top: 16px; right: 16px; }
   .map-browser__zoom { top: 16px; right: 72px; flex-direction: row; }

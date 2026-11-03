@@ -1,7 +1,7 @@
 {
-  "version": "1.4.0",
+  "version": "1.4.1",
   "reference": "kurortnaya",
-  "sourceCommit": "65b8fe7",
+  "sourceCommit": "2497960",
   "blocks": [
     {
       "id": "first-degree-header",
@@ -185,10 +185,10 @@
     {
       "id": "first-degree-map",
       "title": "Карта проектов",
-      "version": "1.3.0",
+      "version": "1.4.1",
       "source": {
         "repo": "daniilterekh-prog/barn-estate-homepage-clone",
-        "commit": "ee4176e",
+        "commit": "2497960",
         "route": "kurortnaya",
         "selector": "#catalog-map"
       },
@@ -226,6 +226,15 @@
           "secondary"
         ],
         "scope": "listing UI; shared purchase-only state"
+      },
+      "mapControlsRow": {
+        "date": "2026-11-03",
+        "desktopMin": 768,
+        "columns": [
+          "brandFlags",
+          "sort"
+        ],
+        "responsive": "compact layout below 768"
       }
     },
     {
