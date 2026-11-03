@@ -1,0 +1,24 @@
+{
+  "date": "2026-11-03",
+  "generator": "Built-in image_gen; no CLI/API fallback",
+  "useCase": "photorealistic-natural",
+  "purpose": "Новый цветной иллюстративный кадр для «В фокусе — Москва», по прямому поручению пользователя.",
+  "description": "Солнечная Москва: голубое небо, зелёная набережная и тёплый свет на башнях.",
+  "limitations": "Сгенерированная иллюстрация города; не документальная фотография точного вида или конкретного предлагаемого объекта.",
+  "dimensions": [
+    1536,
+    1024
+  ],
+  "conversion": "Installed codex-toolkit ctk images / Sharp, WebP, original preserved",
+  "prompt": "PROMPT.txt",
+  "files": {
+    "moscow-focus-original.png": {
+      "bytes": 2647380,
+      "sha256": "d319f401efcd9546d572cbd08bd1914e3472e8fe421392e4476212acf757b6e5"
+    },
+    "moscow-focus-sunlight-20261103.webp": {
+      "bytes": 246066,
+      "sha256": "b2dfe4922795e7d78bb2254c55b35e8587090b61f5b400ba8a237c38c39a5c25"
+    }
+  }
+}
