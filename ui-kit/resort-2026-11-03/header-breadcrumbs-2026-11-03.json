@@ -1,0 +1,653 @@
+{
+  "base": "local",
+  "checks": [
+    {
+      "width": 320,
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 305,
+        "height": 77,
+        "top": 0,
+        "right": 305,
+        "bottom": 77,
+        "left": 0
+      },
+      "crumb": {
+        "x": 0,
+        "y": 93,
+        "width": 305,
+        "height": 16,
+        "top": 93,
+        "right": 305,
+        "bottom": 109,
+        "left": 0
+      },
+      "h1": {
+        "x": 22,
+        "y": 292.40625,
+        "width": 261,
+        "height": 67.1875,
+        "top": 292.40625,
+        "right": 283,
+        "bottom": 359.59375,
+        "left": 22
+      },
+      "hero": {
+        "x": 0,
+        "y": 0,
+        "width": 305,
+        "height": 684,
+        "top": 0,
+        "right": 305,
+        "bottom": 684,
+        "left": 0
+      },
+      "search": {
+        "x": 22,
+        "y": 390.59375,
+        "width": 261,
+        "height": 126,
+        "top": 390.59375,
+        "right": 283,
+        "bottom": 516.59375,
+        "left": 22
+      },
+      "heroCrumbs": 1,
+      "headerCrumbs": 0,
+      "directions": 0,
+      "divider": "1px",
+      "overflow": false,
+      "links": [
+        "Главная",
+        "Курортная недвижимость"
+      ],
+      "pass": true
+    },
+    {
+      "width": 390,
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 375,
+        "height": 77,
+        "top": 0,
+        "right": 375,
+        "bottom": 77,
+        "left": 0
+      },
+      "crumb": {
+        "x": 0,
+        "y": 93,
+        "width": 375,
+        "height": 16,
+        "top": 93,
+        "right": 375,
+        "bottom": 109,
+        "left": 0
+      },
+      "h1": {
+        "x": 35.859375,
+        "y": 309.203125,
+        "width": 303.265625,
+        "height": 33.59375,
+        "top": 309.203125,
+        "right": 339.125,
+        "bottom": 342.796875,
+        "left": 35.859375
+      },
+      "hero": {
+        "x": 0,
+        "y": 0,
+        "width": 375,
+        "height": 684,
+        "top": 0,
+        "right": 375,
+        "bottom": 684,
+        "left": 0
+      },
+      "search": {
+        "x": 22,
+        "y": 373.796875,
+        "width": 331,
+        "height": 126,
+        "top": 373.796875,
+        "right": 353,
+        "bottom": 499.796875,
+        "left": 22
+      },
+      "heroCrumbs": 1,
+      "headerCrumbs": 0,
+      "directions": 0,
+      "divider": "1px",
+      "overflow": false,
+      "links": [
+        "Главная",
+        "Курортная недвижимость"
+      ],
+      "pass": true
+    },
+    {
+      "width": 540,
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 525,
+        "height": 77,
+        "top": 0,
+        "right": 525,
+        "bottom": 77,
+        "left": 0
+      },
+      "crumb": {
+        "x": 0,
+        "y": 93,
+        "width": 525,
+        "height": 16,
+        "top": 93,
+        "right": 525,
+        "bottom": 109,
+        "left": 0
+      },
+      "h1": {
+        "x": 110.859375,
+        "y": 309.203125,
+        "width": 303.265625,
+        "height": 33.59375,
+        "top": 309.203125,
+        "right": 414.125,
+        "bottom": 342.796875,
+        "left": 110.859375
+      },
+      "hero": {
+        "x": 0,
+        "y": 0,
+        "width": 525,
+        "height": 684,
+        "top": 0,
+        "right": 525,
+        "bottom": 684,
+        "left": 0
+      },
+      "search": {
+        "x": 22,
+        "y": 373.796875,
+        "width": 481,
+        "height": 126,
+        "top": 373.796875,
+        "right": 503,
+        "bottom": 499.796875,
+        "left": 22
+      },
+      "heroCrumbs": 1,
+      "headerCrumbs": 0,
+      "directions": 0,
+      "divider": "1px",
+      "overflow": false,
+      "links": [
+        "Главная",
+        "Курортная недвижимость"
+      ],
+      "pass": true
+    },
+    {
+      "width": 768,
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 753,
+        "height": 111,
+        "top": 0,
+        "right": 753,
+        "bottom": 111,
+        "left": 0
+      },
+      "crumb": {
+        "x": 0,
+        "y": 127,
+        "width": 753,
+        "height": 18.1875,
+        "top": 127,
+        "right": 753,
+        "bottom": 145.1875,
+        "left": 0
+      },
+      "h1": {
+        "x": 196.421875,
+        "y": 323.046875,
+        "width": 360.140625,
+        "height": 39.890625,
+        "top": 323.046875,
+        "right": 556.5625,
+        "bottom": 362.9375,
+        "left": 196.421875
+      },
+      "hero": {
+        "x": 0,
+        "y": 0,
+        "width": 753,
+        "height": 644,
+        "top": 0,
+        "right": 753,
+        "bottom": 644,
+        "left": 0
+      },
+      "search": {
+        "x": 24,
+        "y": 401.9375,
+        "width": 705,
+        "height": 70,
+        "top": 401.9375,
+        "right": 729,
+        "bottom": 471.9375,
+        "left": 24
+      },
+      "heroCrumbs": 1,
+      "headerCrumbs": 0,
+      "directions": 0,
+      "divider": "1px",
+      "overflow": false,
+      "links": [
+        "Главная",
+        "Курортная недвижимость"
+      ],
+      "pass": true
+    },
+    {
+      "width": 1024,
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 1009,
+        "height": 111,
+        "top": 0,
+        "right": 1009,
+        "bottom": 111,
+        "left": 0
+      },
+      "crumb": {
+        "x": 0,
+        "y": 127,
+        "width": 1009,
+        "height": 19.59375,
+        "top": 127,
+        "right": 1009,
+        "bottom": 146.59375,
+        "left": 0
+      },
+      "h1": {
+        "x": 310.4375,
+        "y": 321.5,
+        "width": 388.109375,
+        "height": 43,
+        "top": 321.5,
+        "right": 698.546875,
+        "bottom": 364.5,
+        "left": 310.4375
+      },
+      "hero": {
+        "x": 0,
+        "y": 0,
+        "width": 1009,
+        "height": 644,
+        "top": 0,
+        "right": 1009,
+        "bottom": 644,
+        "left": 0
+      },
+      "search": {
+        "x": 40.875,
+        "y": 403.5,
+        "width": 927.25,
+        "height": 70,
+        "top": 403.5,
+        "right": 968.125,
+        "bottom": 473.5,
+        "left": 40.875
+      },
+      "heroCrumbs": 1,
+      "headerCrumbs": 0,
+      "directions": 0,
+      "divider": "1px",
+      "overflow": false,
+      "links": [
+        "Главная",
+        "Курортная недвижимость"
+      ],
+      "pass": true
+    },
+    {
+      "width": 1280,
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 1265,
+        "height": 111,
+        "top": 0,
+        "right": 1265,
+        "bottom": 111,
+        "left": 0
+      },
+      "crumb": {
+        "x": 0,
+        "y": 127,
+        "width": 1265,
+        "height": 22.390625,
+        "top": 127,
+        "right": 1265,
+        "bottom": 149.390625,
+        "left": 0
+      },
+      "h1": {
+        "x": 389.953125,
+        "y": 224,
+        "width": 485.09375,
+        "height": 53.75,
+        "top": 224,
+        "right": 875.046875,
+        "bottom": 277.75,
+        "left": 389.953125
+      },
+      "hero": {
+        "x": 0,
+        "y": 0,
+        "width": 1265,
+        "height": 644,
+        "top": 0,
+        "right": 1265,
+        "bottom": 644,
+        "left": 0
+      },
+      "search": {
+        "x": 141.5,
+        "y": 316.75,
+        "width": 982,
+        "height": 70,
+        "top": 316.75,
+        "right": 1123.5,
+        "bottom": 386.75,
+        "left": 141.5
+      },
+      "heroCrumbs": 1,
+      "headerCrumbs": 0,
+      "directions": 0,
+      "divider": "1px",
+      "overflow": false,
+      "links": [
+        "Главная",
+        "Курортная недвижимость"
+      ],
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 1425,
+        "height": 111,
+        "top": 0,
+        "right": 1425,
+        "bottom": 111,
+        "left": 0
+      },
+      "crumb": {
+        "x": 0,
+        "y": 127,
+        "width": 1425,
+        "height": 22.390625,
+        "top": 127,
+        "right": 1425,
+        "bottom": 149.390625,
+        "left": 0
+      },
+      "h1": {
+        "x": 439.59375,
+        "y": 224,
+        "width": 545.8125,
+        "height": 60.46875,
+        "top": 224,
+        "right": 985.40625,
+        "bottom": 284.46875,
+        "left": 439.59375
+      },
+      "hero": {
+        "x": 0,
+        "y": 0,
+        "width": 1425,
+        "height": 644,
+        "top": 0,
+        "right": 1425,
+        "bottom": 644,
+        "left": 0
+      },
+      "search": {
+        "x": 221.5,
+        "y": 323.46875,
+        "width": 982,
+        "height": 70,
+        "top": 323.46875,
+        "right": 1203.5,
+        "bottom": 393.46875,
+        "left": 221.5
+      },
+      "heroCrumbs": 1,
+      "headerCrumbs": 0,
+      "directions": 0,
+      "divider": "1px",
+      "overflow": false,
+      "links": [
+        "Главная",
+        "Курортная недвижимость"
+      ],
+      "pass": true
+    },
+    {
+      "width": 1920,
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 1905,
+        "height": 111,
+        "top": 0,
+        "right": 1905,
+        "bottom": 111,
+        "left": 0
+      },
+      "crumb": {
+        "x": 0,
+        "y": 127,
+        "width": 1905,
+        "height": 29.390625,
+        "top": 127,
+        "right": 1905,
+        "bottom": 156.390625,
+        "left": 0
+      },
+      "h1": {
+        "x": 677.65625,
+        "y": 231,
+        "width": 549.671875,
+        "height": 60.890625,
+        "top": 231,
+        "right": 1227.328125,
+        "bottom": 291.890625,
+        "left": 677.65625
+      },
+      "hero": {
+        "x": 0,
+        "y": 0,
+        "width": 1905,
+        "height": 694,
+        "top": 0,
+        "right": 1905,
+        "bottom": 694,
+        "left": 0
+      },
+      "search": {
+        "x": 461.5,
+        "y": 330.890625,
+        "width": 982,
+        "height": 70,
+        "top": 330.890625,
+        "right": 1443.5,
+        "bottom": 400.890625,
+        "left": 461.5
+      },
+      "heroCrumbs": 1,
+      "headerCrumbs": 0,
+      "directions": 0,
+      "divider": "1px",
+      "overflow": false,
+      "links": [
+        "Главная",
+        "Курортная недвижимость"
+      ],
+      "pass": true
+    },
+    {
+      "width": 2560,
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 2545,
+        "height": 111,
+        "top": 0,
+        "right": 2545,
+        "bottom": 111,
+        "left": 0
+      },
+      "crumb": {
+        "x": 312.5,
+        "y": 127,
+        "width": 1920,
+        "height": 29.390625,
+        "top": 127,
+        "right": 2232.5,
+        "bottom": 156.390625,
+        "left": 312.5
+      },
+      "h1": {
+        "x": 997.65625,
+        "y": 231,
+        "width": 549.671875,
+        "height": 60.890625,
+        "top": 231,
+        "right": 1547.328125,
+        "bottom": 291.890625,
+        "left": 997.65625
+      },
+      "hero": {
+        "x": 0,
+        "y": 0,
+        "width": 2545,
+        "height": 694,
+        "top": 0,
+        "right": 2545,
+        "bottom": 694,
+        "left": 0
+      },
+      "search": {
+        "x": 781.5,
+        "y": 330.890625,
+        "width": 982,
+        "height": 70,
+        "top": 330.890625,
+        "right": 1763.5,
+        "bottom": 400.890625,
+        "left": 781.5
+      },
+      "heroCrumbs": 1,
+      "headerCrumbs": 0,
+      "directions": 0,
+      "divider": "1px",
+      "overflow": false,
+      "links": [
+        "Главная",
+        "Курортная недвижимость"
+      ],
+      "pass": true
+    },
+    {
+      "width": 3840,
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 3825,
+        "height": 111,
+        "top": 0,
+        "right": 3825,
+        "bottom": 111,
+        "left": 0
+      },
+      "crumb": {
+        "x": 952.5,
+        "y": 127,
+        "width": 1920,
+        "height": 29.390625,
+        "top": 127,
+        "right": 2872.5,
+        "bottom": 156.390625,
+        "left": 952.5
+      },
+      "h1": {
+        "x": 1637.65625,
+        "y": 231,
+        "width": 549.671875,
+        "height": 60.890625,
+        "top": 231,
+        "right": 2187.328125,
+        "bottom": 291.890625,
+        "left": 1637.65625
+      },
+      "hero": {
+        "x": 0,
+        "y": 0,
+        "width": 3825,
+        "height": 694,
+        "top": 0,
+        "right": 3825,
+        "bottom": 694,
+        "left": 0
+      },
+      "search": {
+        "x": 1421.5,
+        "y": 330.890625,
+        "width": 982,
+        "height": 70,
+        "top": 330.890625,
+        "right": 2403.5,
+        "bottom": 400.890625,
+        "left": 1421.5
+      },
+      "heroCrumbs": 1,
+      "headerCrumbs": 0,
+      "directions": 0,
+      "divider": "1px",
+      "overflow": false,
+      "links": [
+        "Главная",
+        "Курортная недвижимость"
+      ],
+      "pass": true
+    },
+    {
+      "width": 390,
+      "height": 640,
+      "shortViewport": true,
+      "overflow": false,
+      "searchBottom": 499.796875,
+      "heroBottom": 684,
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "height": 720,
+      "shortViewport": true,
+      "overflow": false,
+      "searchBottom": 393.46875,
+      "heroBottom": 644,
+      "pass": true
+    }
+  ]
+}

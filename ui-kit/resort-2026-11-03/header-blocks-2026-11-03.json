@@ -1,0 +1,76 @@
+{
+  "checks": [
+    {
+      "base": "http://127.0.0.1:8875/kurortnaya/blocks/",
+      "width": 390,
+      "block": "header",
+      "pass": true
+    },
+    {
+      "base": "http://127.0.0.1:8875/kurortnaya/blocks/",
+      "width": 390,
+      "block": "hero",
+      "pass": true
+    },
+    {
+      "base": "http://127.0.0.1:8875/kurortnaya/blocks/",
+      "width": 390,
+      "block": "assembly",
+      "pass": true
+    },
+    {
+      "base": "http://127.0.0.1:8875/kurortnaya/blocks/",
+      "width": 1920,
+      "block": "header",
+      "pass": true
+    },
+    {
+      "base": "http://127.0.0.1:8875/kurortnaya/blocks/",
+      "width": 1920,
+      "block": "hero",
+      "pass": true
+    },
+    {
+      "base": "http://127.0.0.1:8875/kurortnaya/blocks/",
+      "width": 1920,
+      "block": "assembly",
+      "pass": true
+    },
+    {
+      "base": "http://127.0.0.1:8876/blocks/nodes/first-degree/",
+      "width": 390,
+      "block": "header",
+      "pass": true
+    },
+    {
+      "base": "http://127.0.0.1:8876/blocks/nodes/first-degree/",
+      "width": 390,
+      "block": "hero",
+      "pass": true
+    },
+    {
+      "base": "http://127.0.0.1:8876/blocks/nodes/first-degree/",
+      "width": 390,
+      "block": "assembly",
+      "pass": true
+    },
+    {
+      "base": "http://127.0.0.1:8876/blocks/nodes/first-degree/",
+      "width": 1920,
+      "block": "header",
+      "pass": true
+    },
+    {
+      "base": "http://127.0.0.1:8876/blocks/nodes/first-degree/",
+      "width": 1920,
+      "block": "hero",
+      "pass": true
+    },
+    {
+      "base": "http://127.0.0.1:8876/blocks/nodes/first-degree/",
+      "width": 1920,
+      "block": "assembly",
+      "pass": true
+    }
+  ]
+}
