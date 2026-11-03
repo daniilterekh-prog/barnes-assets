@@ -1,0 +1,23 @@
+{
+  "date": "2026-11-03",
+  "generator": "Built-in image_gen; no CLI/API fallback",
+  "useCase": "photorealistic-natural",
+  "description": "Спокойная архитектурная Москва: каменные фасады, мягкий свет, сдержанные цвета; взамен отвергнутого пользователем солнечного вида Москва-Сити.",
+  "limitations": "Сгенерированная иллюстрация атмосферы центральной Москвы, не документальный точный вид или предложение конкретного объекта.",
+  "dimensions": [
+    1774,
+    887
+  ],
+  "conversion": "Installed codex-toolkit ctk images / Sharp, WebP, no resizing; original preserved",
+  "prompt": "PROMPT.txt",
+  "files": {
+    "moscow-editorial-original.png": {
+      "bytes": 2795693,
+      "sha256": "6beb2c93f82347466e9f16cfba1b59d51daf2afa01ffe998dccf325bd1a1797a"
+    },
+    "moscow-editorial-20261103.webp": {
+      "bytes": 245642,
+      "sha256": "0cfbd127a45fb4d0f51d9595fc98ba8333c7033ecf527cb001fe10605ee38889"
+    }
+  }
+}
