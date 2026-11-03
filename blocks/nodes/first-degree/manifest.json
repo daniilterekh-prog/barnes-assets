@@ -1,5 +1,5 @@
 {
-  "version": "1.5.0",
+  "version": "1.5.1",
   "reference": "kurortnaya",
   "sourceCommit": "6a3f10a",
   "blocks": [
@@ -533,7 +533,7 @@
     {
       "id": "first-degree-floating-expert",
       "title": "Плавающий эксперт",
-      "version": "1.5.0",
+      "version": "1.5.1",
       "source": {
         "repo": "daniilterekh-prog/barn-estate-homepage-clone",
         "commit": "6a3f10a",
@@ -579,13 +579,15 @@
           "floating-expert",
           "data-expert-quiz"
         ],
-        "directFormPreserved": true
+        "directFormPreserved": true,
+        "questionList": "../request-modal/questions.json",
+        "layoutReference": "homepage 17-quiz; 2026-11-03"
       }
     },
     {
       "id": "first-degree-request-modal",
       "title": "Попап заявки",
-      "version": "1.5.0",
+      "version": "1.5.1",
       "source": {
         "repo": "daniilterekh-prog/barn-estate-homepage-clone",
         "commit": "6a3f10a",
@@ -631,7 +633,9 @@
           "floating-expert",
           "data-expert-quiz"
         ],
-        "directFormPreserved": true
+        "directFormPreserved": true,
+        "questionList": "questions.json",
+        "layoutReference": "homepage 17-quiz; 2026-11-03"
       }
     },
     {
@@ -748,7 +752,7 @@
   ],
   "updated": "2026-11-03",
   "loadingContract": {
-    "release": "20261103-kit-filters-20",
+    "release": "20261103-home-quiz-21",
     "staticListing": true,
     "legacyListingBuilder": false
   }

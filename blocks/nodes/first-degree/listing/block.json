@@ -45,7 +45,7 @@
     "scope": "listing UI; shared purchase-only state"
   },
   "loadingContract": {
-    "release": "20261103-kit-filters-20",
+    "release": "20261103-home-quiz-21",
     "staticListing": true,
     "legacyListingBuilder": false
   }

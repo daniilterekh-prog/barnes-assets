@@ -1,6 +1,13 @@
 /* Small adaptation of the approved homepage 17-quiz; no framework or transport. */
 (function () {
   if (window.BarnEstateExpertQuiz) return;
+  // Resort-only questionnaire. It deliberately differs from the homepage's task/direction branches.
+  var questions = {
+    goal: { title:'Для чего вы выбираете недвижимость?', intro:'Несколько ответов помогут Денису подготовиться к разговору.', options:['Для отдыха и жизни','Для инвестиций','Для отдыха и дохода','Нужна консультация'] },
+    location: { title:'Какой курорт вас интересует?', intro:'Выберите курорт. Если ещё не определились, поможем сравнить варианты.', options:['Сочи','Анапа','Алтай','Архыз','Шерегеш','Санкт-Петербург','Пока выбираю'] },
+    budget: { title:'На какой бюджет вы ориентируетесь?', intro:'Осталось одно уточнение перед знакомством с экспертом.' },
+    contact: { title:'Как с вами связаться?', intro:'Выберите удобный способ связи — продолжим общение лично.' }
+  };
   var sequence = 0;
   function mount(modal) {
     if (modal.expertQuiz) return modal.expertQuiz;
@@ -11,6 +18,8 @@
     var content = modal.querySelector('.modal__content');
     var submit = form.querySelector('[type="submit"]');
     var comment = form.querySelector('[name=comment]');
+    var commentField = comment && comment.closest('.feedback-modal__field');
+    var initialComment = { disabled:comment && comment.disabled, hidden:commentField && commentField.hidden };
     var initial = { title: title.textContent, intro: intro.textContent, submit: submit.textContent, comment: comment ? comment.placeholder : '' };
     var id = 'resort-expert-quiz-' + (++sequence);
     title.id = id + '-title';
@@ -33,8 +42,8 @@
     payload.type = 'hidden'; payload.name = 'quizAnswers'; payload.disabled = true;
     form.append(payload);
     var active = false, step = 'goal', answers;
-    var goals = ['Для отдыха и жизни', 'Для инвестиций', 'Для отдыха и дохода', 'Нужна консультация'];
-    var locations = ['Сочи', 'Анапа', 'Алтай', 'Архыз', 'Шерегеш', 'Санкт-Петербург', 'Пока выбираю'];
+    var goals = questions.goal.options;
+    var locations = questions.location.options;
     var back = top.querySelector('button');
     function focus() { if (active) title.focus({ preventScroll: true }); }
     function move(next) {
@@ -92,17 +101,15 @@
       var index = { goal: 1, location: 2, budget: 3, contact: 4 }[step];
       top.querySelector('.resort-quiz__progress').textContent = step === 'contact' ? 'Контакт с экспертом' : 'Вопрос ' + index + ' из 3 · затем контакты';
       top.querySelector('.resort-quiz__track span').style.width = index * 25 + '%';
-      intro.textContent = step === 'goal' ? 'Несколько ответов помогут Денису подготовиться к разговору.' : step === 'location' ? 'Выберите курорт. Если ещё не определились, поможем сравнить варианты.' : step === 'budget' ? 'Осталось одно уточнение перед знакомством с экспертом.' : 'Выберите удобный способ связи — продолжим общение лично.';
+      title.textContent = questions[step].title;
+      intro.textContent = questions[step].intro;
       if (step === 'goal') {
-        title.textContent = 'Для чего вы выбираете недвижимость?';
         options(goals, 'goal'); next(function () { move(answers.goal === 'Нужна консультация' ? 'contact' : 'location'); }, !answers.goal);
       }
       if (step === 'location') {
-        title.textContent = 'Какой курорт вас интересует?';
         options(locations, 'location'); next(function () { move('budget'); }, !answers.location);
       }
       if (step === 'budget') {
-        title.textContent = 'На какой бюджет вы ориентируетесь?';
         var fields = document.createElement('div'); fields.className = 'resort-quiz__budget';
         fields.innerHTML = '<label>Бюджет или диапазон<input name="quizBudget" type="text" maxlength="60" autocomplete="off" placeholder="Например, 30–50 млн"></label><label>Валюта<select name="quizCurrency"><option>₽</option><option>$</option><option>€</option></select></label>';
         var input = fields.querySelector('input'), currency = fields.querySelector('select');
@@ -116,7 +123,7 @@
         unsure.addEventListener('click', function () { input.value = ''; answers.budget = unsure.textContent; unsure.setAttribute('aria-pressed', 'true'); advance.disabled = false; sync(); });
       }
       if (step === 'contact') {
-        title.textContent = 'Как с вами связаться?'; submit.textContent = 'Обсудить мою задачу';if(comment)comment.placeholder='Ваш вопрос или пожелания';
+        submit.textContent = 'Обсудить мою задачу';if(comment)comment.placeholder='Ваш вопрос или пожелания';
         var text = document.createElement('p');
         text.textContent = [answers.goal, answers.location, answers.budget && (answers.budget === 'Пока не определился' ? answers.budget : answers.budget + ' ' + answers.currency)].filter(Boolean).join(' · ');
         var edit = document.createElement('button'); edit.type = 'button'; edit.textContent = 'Изменить ответы'; edit.addEventListener('click', function () { move('goal'); });
@@ -130,11 +137,15 @@
     modal.expertQuiz = {
       start: function () {
         active = true; step = 'goal'; answers = { goal: '', location: '', budget: '', currency: '₽' };
+        if (commentField) commentField.hidden = true;
+        if (comment) comment.disabled = true;
         modal.classList.add('resort-quiz-active'); top.hidden = false; payload.disabled = false;
         clearStatus();
         render();
       },
       stop: function () {
+        if (commentField) commentField.hidden = initialComment.hidden;
+        if (comment) comment.disabled = initialComment.disabled;
         clearStatus();active = false; modal.classList.remove('resort-quiz-active'); delete modal.dataset.quizStep;
         top.hidden = panel.hidden = summary.hidden = true; form.hidden = false; payload.disabled = true; payload.value = '';
         title.textContent = initial.title; intro.textContent = initial.intro; submit.textContent = initial.submit;if(comment)comment.placeholder=initial.comment;
@@ -161,5 +172,5 @@
     if (consent && !consent.checked) return error(consent, 'Подтвердите согласие на обработку персональных данных.');
     status.setAttribute('role', 'status'); return true;
   }
-  window.BarnEstateExpertQuiz = { mount: mount, validate: validate };
+  window.BarnEstateExpertQuiz = { mount: mount, validate: validate, getQuestions:function () { return JSON.parse(JSON.stringify(questions)); } };
 }());

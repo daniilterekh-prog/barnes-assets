@@ -1,0 +1,54 @@
+{
+  "reference": "https://daniilterekh-prog.github.io/barn-estate-homepage-clone/exact-2026-10-21/",
+  "checks": [
+    {
+      "width": 390,
+      "height": 844,
+      "homepageRolesMatch": true,
+      "contactFormHeight": 398.375
+    },
+    {
+      "width": 540,
+      "height": 900,
+      "homepageRolesMatch": true,
+      "contactFormHeight": 380.1875
+    },
+    {
+      "width": 768,
+      "height": 900,
+      "homepageRolesMatch": true,
+      "contactFormHeight": 398.1875
+    },
+    {
+      "width": 900,
+      "height": 1000,
+      "homepageRolesMatch": true,
+      "contactFormHeight": 398.1875
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "homepageRolesMatch": true,
+      "contactFormHeight": 344.1875
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "homepageRolesMatch": true,
+      "contactFormHeight": 344.1875
+    },
+    {
+      "width": 2560,
+      "height": 1440,
+      "homepageRolesMatch": true,
+      "contactFormHeight": 344.1875
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "homepageRolesMatch": true,
+      "contactFormHeight": 398.1875
+    }
+  ],
+  "errors": []
+}
