@@ -1,0 +1,741 @@
+{
+  "checks": [
+    {
+      "width": 320,
+      "styles": {
+        ".department-card__content": {
+          "size": "16px",
+          "weight": "400",
+          "line": "16px",
+          "padding": "20px",
+          "gap": "12px",
+          "margin": "0px"
+        },
+        ".news-section__content": {
+          "size": "16px",
+          "weight": "400",
+          "line": "16px",
+          "padding": "16px 0px 0px",
+          "gap": "12px",
+          "margin": "0px"
+        },
+        ".catalog-consultation__lead": {
+          "size": "15px",
+          "weight": "300",
+          "line": "21px",
+          "padding": "0px",
+          "gap": "normal",
+          "margin": "16px 0px 0px"
+        },
+        ".catalog-consultation__textarea": {
+          "size": "17px",
+          "weight": "300",
+          "line": "23.8px",
+          "padding": "12px 14px",
+          "gap": "normal",
+          "margin": "0px"
+        },
+        ".catalog-contact__textarea": {
+          "size": "17px",
+          "weight": "300",
+          "line": "23.8px",
+          "padding": "12px 14px",
+          "gap": "normal",
+          "margin": "0px"
+        },
+        ".site-footer__column-title": {
+          "size": "14px",
+          "weight": "400",
+          "line": "16.8px",
+          "padding": "0px",
+          "gap": "normal",
+          "margin": "0px 0px 16px"
+        },
+        ".site-footer__link": {
+          "size": "13px",
+          "weight": "400",
+          "line": "18.2px",
+          "padding": "0px",
+          "gap": "normal",
+          "margin": "0px"
+        }
+      },
+      "popup": {
+        "size": "15px",
+        "line": "21px",
+        "color": "rgb(79, 77, 73)"
+      },
+      "keyboard": true
+    },
+    {
+      "width": 390,
+      "styles": {
+        ".department-card__content": {
+          "size": "16px",
+          "weight": "400",
+          "line": "16px",
+          "padding": "20px",
+          "gap": "12px",
+          "margin": "0px"
+        },
+        ".news-section__content": {
+          "size": "16px",
+          "weight": "400",
+          "line": "16px",
+          "padding": "16px 0px 0px",
+          "gap": "12px",
+          "margin": "0px"
+        },
+        ".catalog-consultation__lead": {
+          "size": "15px",
+          "weight": "300",
+          "line": "21px",
+          "padding": "0px",
+          "gap": "normal",
+          "margin": "16px 0px 0px"
+        },
+        ".catalog-consultation__textarea": {
+          "size": "17px",
+          "weight": "300",
+          "line": "23.8px",
+          "padding": "12px 14px",
+          "gap": "normal",
+          "margin": "0px"
+        },
+        ".catalog-contact__textarea": {
+          "size": "17px",
+          "weight": "300",
+          "line": "23.8px",
+          "padding": "12px 14px",
+          "gap": "normal",
+          "margin": "0px"
+        },
+        ".site-footer__column-title": {
+          "size": "14px",
+          "weight": "400",
+          "line": "16.8px",
+          "padding": "0px",
+          "gap": "normal",
+          "margin": "0px 0px 16px"
+        },
+        ".site-footer__link": {
+          "size": "13px",
+          "weight": "400",
+          "line": "18.2px",
+          "padding": "0px",
+          "gap": "normal",
+          "margin": "0px"
+        }
+      },
+      "popup": {
+        "size": "15px",
+        "line": "21px",
+        "color": "rgb(79, 77, 73)"
+      },
+      "keyboard": true
+    },
+    {
+      "width": 540,
+      "styles": {
+        ".department-card__content": {
+          "size": "16px",
+          "weight": "400",
+          "line": "16px",
+          "padding": "20px",
+          "gap": "12px",
+          "margin": "0px"
+        },
+        ".news-section__content": {
+          "size": "16px",
+          "weight": "400",
+          "line": "16px",
+          "padding": "16px 0px 0px",
+          "gap": "12px",
+          "margin": "0px"
+        },
+        ".catalog-consultation__lead": {
+          "size": "15px",
+          "weight": "300",
+          "line": "21px",
+          "padding": "0px",
+          "gap": "normal",
+          "margin": "16px 0px 0px"
+        },
+        ".catalog-consultation__textarea": {
+          "size": "17px",
+          "weight": "300",
+          "line": "23.8px",
+          "padding": "12px 14px",
+          "gap": "normal",
+          "margin": "0px"
+        },
+        ".catalog-contact__textarea": {
+          "size": "17px",
+          "weight": "300",
+          "line": "23.8px",
+          "padding": "12px 14px",
+          "gap": "normal",
+          "margin": "0px"
+        },
+        ".site-footer__column-title": {
+          "size": "14px",
+          "weight": "400",
+          "line": "16.8px",
+          "padding": "0px",
+          "gap": "normal",
+          "margin": "0px 0px 16px"
+        },
+        ".site-footer__link": {
+          "size": "13px",
+          "weight": "400",
+          "line": "18.2px",
+          "padding": "0px",
+          "gap": "normal",
+          "margin": "0px"
+        }
+      },
+      "popup": {
+        "size": "15px",
+        "line": "21px",
+        "color": "rgb(79, 77, 73)"
+      },
+      "keyboard": true
+    },
+    {
+      "width": 768,
+      "styles": {
+        ".department-card__content": {
+          "size": "16px",
+          "weight": "400",
+          "line": "16px",
+          "padding": "24px",
+          "gap": "16px",
+          "margin": "0px"
+        },
+        ".news-section__content": {
+          "size": "16px",
+          "weight": "400",
+          "line": "16px",
+          "padding": "16px 0px 0px",
+          "gap": "12px",
+          "margin": "0px"
+        },
+        ".catalog-consultation__lead": {
+          "size": "22px",
+          "weight": "300",
+          "line": "33px",
+          "padding": "0px",
+          "gap": "normal",
+          "margin": "24px 0px 0px"
+        },
+        ".catalog-consultation__textarea": {
+          "size": "18px",
+          "weight": "300",
+          "line": "25.2px",
+          "padding": "14px 16px",
+          "gap": "normal",
+          "margin": "0px"
+        },
+        ".catalog-contact__textarea": {
+          "size": "18px",
+          "weight": "300",
+          "line": "25.2px",
+          "padding": "14px 16px",
+          "gap": "normal",
+          "margin": "0px"
+        },
+        ".site-footer__column-title": {
+          "size": "18px",
+          "weight": "400",
+          "line": "18px",
+          "padding": "0px",
+          "gap": "normal",
+          "margin": "0px 0px 30px"
+        },
+        ".site-footer__link": {
+          "size": "16px",
+          "weight": "300",
+          "line": "16px",
+          "padding": "0px",
+          "gap": "normal",
+          "margin": "0px"
+        }
+      },
+      "popup": {
+        "size": "22px",
+        "line": "33px",
+        "color": "rgb(79, 77, 73)"
+      },
+      "keyboard": true
+    },
+    {
+      "width": 900,
+      "styles": {
+        ".department-card__content": {
+          "size": "16px",
+          "weight": "400",
+          "line": "16px",
+          "padding": "24px",
+          "gap": "16px",
+          "margin": "0px"
+        },
+        ".news-section__content": {
+          "size": "16px",
+          "weight": "400",
+          "line": "16px",
+          "padding": "16px 0px 0px",
+          "gap": "12px",
+          "margin": "0px"
+        },
+        ".catalog-consultation__lead": {
+          "size": "22px",
+          "weight": "300",
+          "line": "33px",
+          "padding": "0px",
+          "gap": "normal",
+          "margin": "24px 0px 0px"
+        },
+        ".catalog-consultation__textarea": {
+          "size": "18px",
+          "weight": "300",
+          "line": "25.2px",
+          "padding": "14px 16px",
+          "gap": "normal",
+          "margin": "0px"
+        },
+        ".catalog-contact__textarea": {
+          "size": "18px",
+          "weight": "300",
+          "line": "25.2px",
+          "padding": "14px 16px",
+          "gap": "normal",
+          "margin": "0px"
+        },
+        ".site-footer__column-title": {
+          "size": "18px",
+          "weight": "400",
+          "line": "18px",
+          "padding": "0px",
+          "gap": "normal",
+          "margin": "0px 0px 30px"
+        },
+        ".site-footer__link": {
+          "size": "16px",
+          "weight": "300",
+          "line": "16px",
+          "padding": "0px",
+          "gap": "normal",
+          "margin": "0px"
+        }
+      },
+      "popup": {
+        "size": "22px",
+        "line": "33px",
+        "color": "rgb(79, 77, 73)"
+      },
+      "keyboard": true
+    },
+    {
+      "width": 1024,
+      "styles": {
+        ".department-card__content": {
+          "size": "16px",
+          "weight": "400",
+          "line": "16px",
+          "padding": "24px",
+          "gap": "16px",
+          "margin": "0px"
+        },
+        ".news-section__content": {
+          "size": "16px",
+          "weight": "400",
+          "line": "16px",
+          "padding": "16px 0px 0px",
+          "gap": "12px",
+          "margin": "0px"
+        },
+        ".catalog-consultation__lead": {
+          "size": "22px",
+          "weight": "300",
+          "line": "33px",
+          "padding": "0px",
+          "gap": "normal",
+          "margin": "24px 0px 0px"
+        },
+        ".catalog-consultation__textarea": {
+          "size": "18px",
+          "weight": "300",
+          "line": "25.2px",
+          "padding": "14px 16px",
+          "gap": "normal",
+          "margin": "0px"
+        },
+        ".catalog-contact__textarea": {
+          "size": "18px",
+          "weight": "300",
+          "line": "25.2px",
+          "padding": "14px 16px",
+          "gap": "normal",
+          "margin": "0px"
+        },
+        ".site-footer__column-title": {
+          "size": "18px",
+          "weight": "400",
+          "line": "18px",
+          "padding": "0px",
+          "gap": "normal",
+          "margin": "0px 0px 30px"
+        },
+        ".site-footer__link": {
+          "size": "16px",
+          "weight": "300",
+          "line": "16px",
+          "padding": "0px",
+          "gap": "normal",
+          "margin": "0px"
+        }
+      },
+      "popup": {
+        "size": "22px",
+        "line": "33px",
+        "color": "rgb(79, 77, 73)"
+      },
+      "keyboard": true
+    },
+    {
+      "width": 1440,
+      "styles": {
+        ".department-card__content": {
+          "size": "16px",
+          "weight": "400",
+          "line": "16px",
+          "padding": "32px",
+          "gap": "16px",
+          "margin": "0px"
+        },
+        ".news-section__content": {
+          "size": "16px",
+          "weight": "400",
+          "line": "16px",
+          "padding": "16px 0px 0px",
+          "gap": "12px",
+          "margin": "0px"
+        },
+        ".catalog-consultation__lead": {
+          "size": "22px",
+          "weight": "300",
+          "line": "33px",
+          "padding": "0px",
+          "gap": "normal",
+          "margin": "24px 0px 0px"
+        },
+        ".catalog-consultation__textarea": {
+          "size": "18px",
+          "weight": "300",
+          "line": "25.2px",
+          "padding": "14px 16px",
+          "gap": "normal",
+          "margin": "0px"
+        },
+        ".catalog-contact__textarea": {
+          "size": "18px",
+          "weight": "300",
+          "line": "25.2px",
+          "padding": "14px 16px",
+          "gap": "normal",
+          "margin": "0px"
+        },
+        ".site-footer__column-title": {
+          "size": "18px",
+          "weight": "400",
+          "line": "18px",
+          "padding": "0px",
+          "gap": "normal",
+          "margin": "0px 0px 30px"
+        },
+        ".site-footer__link": {
+          "size": "16px",
+          "weight": "300",
+          "line": "16px",
+          "padding": "0px",
+          "gap": "normal",
+          "margin": "0px"
+        }
+      },
+      "popup": {
+        "size": "22px",
+        "line": "33px",
+        "color": "rgb(79, 77, 73)"
+      },
+      "keyboard": true
+    },
+    {
+      "width": 1441,
+      "styles": {
+        ".department-card__content": {
+          "size": "16px",
+          "weight": "400",
+          "line": "16px",
+          "padding": "32px",
+          "gap": "16px",
+          "margin": "0px"
+        },
+        ".news-section__content": {
+          "size": "16px",
+          "weight": "400",
+          "line": "16px",
+          "padding": "16px 0px 0px",
+          "gap": "12px",
+          "margin": "0px"
+        },
+        ".catalog-consultation__lead": {
+          "size": "22px",
+          "weight": "300",
+          "line": "33px",
+          "padding": "0px",
+          "gap": "normal",
+          "margin": "24px 0px 0px"
+        },
+        ".catalog-consultation__textarea": {
+          "size": "20px",
+          "weight": "300",
+          "line": "28px",
+          "padding": "14px 16px",
+          "gap": "normal",
+          "margin": "0px"
+        },
+        ".catalog-contact__textarea": {
+          "size": "20px",
+          "weight": "300",
+          "line": "28px",
+          "padding": "14px 16px",
+          "gap": "normal",
+          "margin": "0px"
+        },
+        ".site-footer__column-title": {
+          "size": "20px",
+          "weight": "400",
+          "line": "20px",
+          "padding": "0px",
+          "gap": "normal",
+          "margin": "0px 0px 30px"
+        },
+        ".site-footer__link": {
+          "size": "18px",
+          "weight": "300",
+          "line": "18px",
+          "padding": "0px",
+          "gap": "normal",
+          "margin": "0px"
+        }
+      },
+      "popup": {
+        "size": "22px",
+        "line": "33px",
+        "color": "rgb(79, 77, 73)"
+      },
+      "keyboard": true
+    },
+    {
+      "width": 1920,
+      "styles": {
+        ".department-card__content": {
+          "size": "16px",
+          "weight": "400",
+          "line": "16px",
+          "padding": "32px",
+          "gap": "16px",
+          "margin": "0px"
+        },
+        ".news-section__content": {
+          "size": "16px",
+          "weight": "400",
+          "line": "16px",
+          "padding": "16px 0px 0px",
+          "gap": "12px",
+          "margin": "0px"
+        },
+        ".catalog-consultation__lead": {
+          "size": "22px",
+          "weight": "300",
+          "line": "33px",
+          "padding": "0px",
+          "gap": "normal",
+          "margin": "24px 0px 0px"
+        },
+        ".catalog-consultation__textarea": {
+          "size": "20px",
+          "weight": "300",
+          "line": "28px",
+          "padding": "14px 16px",
+          "gap": "normal",
+          "margin": "0px"
+        },
+        ".catalog-contact__textarea": {
+          "size": "20px",
+          "weight": "300",
+          "line": "28px",
+          "padding": "14px 16px",
+          "gap": "normal",
+          "margin": "0px"
+        },
+        ".site-footer__column-title": {
+          "size": "20px",
+          "weight": "400",
+          "line": "20px",
+          "padding": "0px",
+          "gap": "normal",
+          "margin": "0px 0px 30px"
+        },
+        ".site-footer__link": {
+          "size": "18px",
+          "weight": "300",
+          "line": "18px",
+          "padding": "0px",
+          "gap": "normal",
+          "margin": "0px"
+        }
+      },
+      "popup": {
+        "size": "22px",
+        "line": "33px",
+        "color": "rgb(79, 77, 73)"
+      },
+      "keyboard": true
+    },
+    {
+      "width": 2560,
+      "styles": {
+        ".department-card__content": {
+          "size": "16px",
+          "weight": "400",
+          "line": "16px",
+          "padding": "32px",
+          "gap": "16px",
+          "margin": "0px"
+        },
+        ".news-section__content": {
+          "size": "16px",
+          "weight": "400",
+          "line": "16px",
+          "padding": "16px 0px 0px",
+          "gap": "12px",
+          "margin": "0px"
+        },
+        ".catalog-consultation__lead": {
+          "size": "22px",
+          "weight": "300",
+          "line": "33px",
+          "padding": "0px",
+          "gap": "normal",
+          "margin": "24px 0px 0px"
+        },
+        ".catalog-consultation__textarea": {
+          "size": "20px",
+          "weight": "300",
+          "line": "28px",
+          "padding": "14px 16px",
+          "gap": "normal",
+          "margin": "0px"
+        },
+        ".catalog-contact__textarea": {
+          "size": "20px",
+          "weight": "300",
+          "line": "28px",
+          "padding": "14px 16px",
+          "gap": "normal",
+          "margin": "0px"
+        },
+        ".site-footer__column-title": {
+          "size": "20px",
+          "weight": "400",
+          "line": "20px",
+          "padding": "0px",
+          "gap": "normal",
+          "margin": "0px 0px 30px"
+        },
+        ".site-footer__link": {
+          "size": "18px",
+          "weight": "300",
+          "line": "18px",
+          "padding": "0px",
+          "gap": "normal",
+          "margin": "0px"
+        }
+      },
+      "popup": {
+        "size": "22px",
+        "line": "33px",
+        "color": "rgb(79, 77, 73)"
+      },
+      "keyboard": true
+    },
+    {
+      "width": 3840,
+      "styles": {
+        ".department-card__content": {
+          "size": "16px",
+          "weight": "400",
+          "line": "16px",
+          "padding": "32px",
+          "gap": "16px",
+          "margin": "0px"
+        },
+        ".news-section__content": {
+          "size": "16px",
+          "weight": "400",
+          "line": "16px",
+          "padding": "16px 0px 0px",
+          "gap": "12px",
+          "margin": "0px"
+        },
+        ".catalog-consultation__lead": {
+          "size": "22px",
+          "weight": "300",
+          "line": "33px",
+          "padding": "0px",
+          "gap": "normal",
+          "margin": "24px 0px 0px"
+        },
+        ".catalog-consultation__textarea": {
+          "size": "20px",
+          "weight": "300",
+          "line": "28px",
+          "padding": "14px 16px",
+          "gap": "normal",
+          "margin": "0px"
+        },
+        ".catalog-contact__textarea": {
+          "size": "20px",
+          "weight": "300",
+          "line": "28px",
+          "padding": "14px 16px",
+          "gap": "normal",
+          "margin": "0px"
+        },
+        ".site-footer__column-title": {
+          "size": "20px",
+          "weight": "400",
+          "line": "20px",
+          "padding": "0px",
+          "gap": "normal",
+          "margin": "0px 0px 30px"
+        },
+        ".site-footer__link": {
+          "size": "18px",
+          "weight": "300",
+          "line": "18px",
+          "padding": "0px",
+          "gap": "normal",
+          "margin": "0px"
+        }
+      },
+      "popup": {
+        "size": "22px",
+        "line": "33px",
+        "color": "rgb(79, 77, 73)"
+      },
+      "keyboard": true
+    }
+  ]
+}

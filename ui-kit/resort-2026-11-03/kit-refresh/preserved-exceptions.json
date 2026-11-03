@@ -1,0 +1,1308 @@
+{
+  "checks": [
+    {
+      "width": 390,
+      "unchanged": true,
+      "roles": {
+        ".catalog-hero__title": [
+          {
+            "class": "catalog-hero__title",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "32px",
+            "weight": "300",
+            "line": "33.6px",
+            "spacing": "-1.44px",
+            "color": "rgb(255, 255, 255)",
+            "padding": "0px",
+            "margin": "0px 0px 31px",
+            "radius": "0px",
+            "width": "303.266px",
+            "height": "33.5938px"
+          }
+        ],
+        ".catalog-faq": [
+          {
+            "class": "catalog-faq",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "16px",
+            "weight": "400",
+            "line": "16px",
+            "spacing": "normal",
+            "color": "rgb(30, 30, 30)",
+            "padding": "40px 0px 43px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "375px",
+            "height": "1151.3px"
+          }
+        ],
+        ".catalog-faq__title": [
+          {
+            "class": "catalog-faq__title",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "22px",
+            "weight": "300",
+            "line": "26.4px",
+            "spacing": "normal",
+            "color": "rgb(30, 30, 30)",
+            "padding": "0px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "341.844px",
+            "height": "52.7812px"
+          }
+        ],
+        ".catalog-faq__question": [
+          {
+            "class": "catalog-faq__question",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "16px",
+            "weight": "400",
+            "line": "16px",
+            "spacing": "normal",
+            "color": "rgb(30, 30, 30)",
+            "padding": "20px 0px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "341.844px",
+            "height": "90.375px"
+          }
+        ],
+        ".catalog-faq__answer": [
+          {
+            "class": "catalog-faq__answer",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "16px",
+            "weight": "400",
+            "line": "16px",
+            "spacing": "normal",
+            "color": "rgb(30, 30, 30)",
+            "padding": "0px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "341.844px",
+            "height": "0px"
+          }
+        ],
+        ".catalog-grid .apartment-card__name-text": [
+          {
+            "class": "apartment-card__name-text",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "22px",
+            "weight": "400",
+            "line": "24.64px",
+            "spacing": "-0.44px",
+            "color": "rgb(30, 30, 30)",
+            "padding": "0px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "271px",
+            "height": "24.625px"
+          }
+        ],
+        ".catalog-grid .apartment-card__price": [
+          {
+            "class": "apartment-card__price",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "26px",
+            "weight": "500",
+            "line": "31.2px",
+            "spacing": "-0.52px",
+            "color": "rgb(30, 30, 30)",
+            "padding": "14px 0px 0px",
+            "margin": "18px 0px 0px",
+            "radius": "0px",
+            "width": "271px",
+            "height": "46.1875px"
+          }
+        ],
+        ".catalog-grid .apartment-card__address": [
+          {
+            "class": "apartment-card__address",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "13px",
+            "weight": "300",
+            "line": "18px",
+            "spacing": "normal",
+            "color": "rgb(101, 100, 98)",
+            "padding": "0px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "271px",
+            "height": "18px"
+          }
+        ],
+        ".listing-card-fact__label": [
+          {
+            "class": "listing-card-fact__label",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "10px",
+            "weight": "400",
+            "line": "12px",
+            "spacing": "0.8px",
+            "color": "rgb(101, 100, 98)",
+            "padding": "0px",
+            "margin": "0px 0px 5px",
+            "radius": "0px",
+            "width": "83.6562px",
+            "height": "12px"
+          }
+        ],
+        ".listing-card-fact__value": [
+          {
+            "class": "listing-card-fact__value",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "13px",
+            "weight": "400",
+            "line": "16.25px",
+            "spacing": "normal",
+            "color": "rgb(30, 30, 30)",
+            "padding": "0px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "83.6562px",
+            "height": "16.25px"
+          }
+        ],
+        ".catalog-grid .apartment-card__call-btn": [
+          {
+            "class": "ui-button ui-button--secondary ui-button--medium apartment-card__call-btn",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "15px",
+            "weight": "400",
+            "line": "15px",
+            "spacing": "normal",
+            "color": "rgb(30, 30, 30)",
+            "padding": "9px 8px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "131.5px",
+            "height": "54px"
+          }
+        ],
+        ".catalog-grid .apartment-card__detail-btn": [
+          {
+            "class": "ui-button ui-button--primary ui-button--medium apartment-card__detail-btn",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "15px",
+            "weight": "400",
+            "line": "15px",
+            "spacing": "normal",
+            "color": "rgb(255, 255, 255)",
+            "padding": "9px 8px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "131.5px",
+            "height": "54px"
+          }
+        ],
+        ".catalog-best-offers .launch-card": [
+          {
+            "class": "apartment-card launch-card",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "16px",
+            "weight": "400",
+            "line": "16px",
+            "spacing": "normal",
+            "color": "rgb(255, 255, 255)",
+            "padding": "0px",
+            "margin": "0px",
+            "radius": "1px",
+            "width": "331px",
+            "height": "410px"
+          },
+          {
+            "class": "apartment-card__link",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "16px",
+            "weight": "400",
+            "line": "16px",
+            "spacing": "normal",
+            "color": "rgb(255, 255, 255)",
+            "padding": "22px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "331px",
+            "height": "410px"
+          },
+          {
+            "class": "apartment-card__image",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "16px",
+            "weight": "400",
+            "line": "16px",
+            "spacing": "normal",
+            "color": "rgb(255, 255, 255)",
+            "padding": "0px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "331px",
+            "height": "410px"
+          },
+          {
+            "class": "apartment-card__delivery",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "11px",
+            "weight": "400",
+            "line": "15.4px",
+            "spacing": "0.495px",
+            "color": "rgb(51, 51, 51)",
+            "padding": "8px 10px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "102.188px",
+            "height": "31.3906px"
+          },
+          {
+            "class": "apartment-card__address launch-card__region",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "13px",
+            "weight": "500",
+            "line": "15.6px",
+            "spacing": "1.04px",
+            "color": "rgba(255, 255, 255, 0.96)",
+            "padding": "0px",
+            "margin": "0px 0px 9px",
+            "radius": "0px",
+            "width": "68.5938px",
+            "height": "15.5938px"
+          },
+          {
+            "class": "",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "13px",
+            "weight": "500",
+            "line": "15.6px",
+            "spacing": "1.04px",
+            "color": "rgba(255, 255, 255, 0.96)",
+            "padding": "0px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "46.5938px",
+            "height": "15.5938px"
+          },
+          {
+            "class": "apartment-card__name",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "29px",
+            "weight": "400",
+            "line": "32.48px",
+            "spacing": "-0.6px",
+            "color": "rgb(255, 255, 255)",
+            "padding": "0px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "287px",
+            "height": "35px"
+          },
+          {
+            "class": "apartment-card__price",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "21px",
+            "weight": "400",
+            "line": "26.25px",
+            "spacing": "-0.5px",
+            "color": "rgb(255, 255, 255)",
+            "padding": "0px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "131.328px",
+            "height": "26.25px"
+          },
+          {
+            "class": "launch-card__favorite",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "16px",
+            "weight": "400",
+            "line": "16px",
+            "spacing": "normal",
+            "color": "rgb(51, 51, 51)",
+            "padding": "0px",
+            "margin": "0px",
+            "radius": "50%",
+            "width": "44px",
+            "height": "44px"
+          }
+        ]
+      }
+    },
+    {
+      "width": 900,
+      "unchanged": true,
+      "roles": {
+        ".catalog-hero__title": [
+          {
+            "class": "catalog-hero__title",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "38px",
+            "weight": "300",
+            "line": "39.9px",
+            "spacing": "-1.71px",
+            "color": "rgb(255, 255, 255)",
+            "padding": "0px",
+            "margin": "0px 0px 39px",
+            "radius": "0px",
+            "width": "360.141px",
+            "height": "39.8906px"
+          }
+        ],
+        ".catalog-faq": [
+          {
+            "class": "catalog-faq",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "16px",
+            "weight": "400",
+            "line": "16px",
+            "spacing": "normal",
+            "color": "rgb(30, 30, 30)",
+            "padding": "60px 0px 120px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "885px",
+            "height": "827.344px"
+          }
+        ],
+        ".catalog-faq__title": [
+          {
+            "class": "catalog-faq__title",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "38px",
+            "weight": "300",
+            "line": "45.6px",
+            "spacing": "normal",
+            "color": "rgb(30, 30, 30)",
+            "padding": "0px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "819.594px",
+            "height": "91.1875px"
+          }
+        ],
+        ".catalog-faq__question": [
+          {
+            "class": "catalog-faq__question",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "16px",
+            "weight": "400",
+            "line": "16px",
+            "spacing": "normal",
+            "color": "rgb(30, 30, 30)",
+            "padding": "20px 0px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "385.797px",
+            "height": "90.375px"
+          }
+        ],
+        ".catalog-faq__answer": [
+          {
+            "class": "catalog-faq__answer",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "16px",
+            "weight": "400",
+            "line": "16px",
+            "spacing": "normal",
+            "color": "rgb(30, 30, 30)",
+            "padding": "0px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "385.797px",
+            "height": "0px"
+          }
+        ],
+        ".catalog-grid .apartment-card__name-text": [
+          {
+            "class": "apartment-card__name-text",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "22px",
+            "weight": "400",
+            "line": "24.64px",
+            "spacing": "-0.44px",
+            "color": "rgb(30, 30, 30)",
+            "padding": "0px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "337.797px",
+            "height": "24.625px"
+          }
+        ],
+        ".catalog-grid .apartment-card__price": [
+          {
+            "class": "apartment-card__price",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "26px",
+            "weight": "500",
+            "line": "31.2px",
+            "spacing": "-0.52px",
+            "color": "rgb(30, 30, 30)",
+            "padding": "14px 0px 0px",
+            "margin": "18px 0px 0px",
+            "radius": "0px",
+            "width": "337.797px",
+            "height": "46.1875px"
+          }
+        ],
+        ".catalog-grid .apartment-card__address": [
+          {
+            "class": "apartment-card__address",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "13px",
+            "weight": "300",
+            "line": "18px",
+            "spacing": "normal",
+            "color": "rgb(101, 100, 98)",
+            "padding": "0px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "337.797px",
+            "height": "18px"
+          }
+        ],
+        ".listing-card-fact__label": [
+          {
+            "class": "listing-card-fact__label",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "10px",
+            "weight": "400",
+            "line": "12px",
+            "spacing": "0.8px",
+            "color": "rgb(101, 100, 98)",
+            "padding": "0px",
+            "margin": "0px 0px 5px",
+            "radius": "0px",
+            "width": "105.922px",
+            "height": "12px"
+          }
+        ],
+        ".listing-card-fact__value": [
+          {
+            "class": "listing-card-fact__value",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "16px",
+            "weight": "400",
+            "line": "20px",
+            "spacing": "normal",
+            "color": "rgb(30, 30, 30)",
+            "padding": "0px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "105.922px",
+            "height": "20px"
+          }
+        ],
+        ".catalog-grid .apartment-card__call-btn": [
+          {
+            "class": "ui-button ui-button--secondary ui-button--medium apartment-card__call-btn",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "15px",
+            "weight": "400",
+            "line": "15px",
+            "spacing": "normal",
+            "color": "rgb(30, 30, 30)",
+            "padding": "9px 8px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "164.891px",
+            "height": "54px"
+          }
+        ],
+        ".catalog-grid .apartment-card__detail-btn": [
+          {
+            "class": "ui-button ui-button--primary ui-button--medium apartment-card__detail-btn",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "15px",
+            "weight": "400",
+            "line": "15px",
+            "spacing": "normal",
+            "color": "rgb(255, 255, 255)",
+            "padding": "9px 8px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "164.906px",
+            "height": "54px"
+          }
+        ],
+        ".catalog-best-offers .launch-card": [
+          {
+            "class": "apartment-card launch-card",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "16px",
+            "weight": "400",
+            "line": "16px",
+            "spacing": "normal",
+            "color": "rgb(255, 255, 255)",
+            "padding": "0px",
+            "margin": "0px",
+            "radius": "1px",
+            "width": "413.984px",
+            "height": "500px"
+          },
+          {
+            "class": "apartment-card__link",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "16px",
+            "weight": "400",
+            "line": "16px",
+            "spacing": "normal",
+            "color": "rgb(255, 255, 255)",
+            "padding": "24px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "413.984px",
+            "height": "500px"
+          },
+          {
+            "class": "apartment-card__image",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "16px",
+            "weight": "400",
+            "line": "16px",
+            "spacing": "normal",
+            "color": "rgb(255, 255, 255)",
+            "padding": "0px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "413.984px",
+            "height": "500px"
+          },
+          {
+            "class": "apartment-card__delivery",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "11px",
+            "weight": "400",
+            "line": "15.4px",
+            "spacing": "0.495px",
+            "color": "rgb(51, 51, 51)",
+            "padding": "8px 10px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "102.188px",
+            "height": "31.3906px"
+          },
+          {
+            "class": "apartment-card__address launch-card__region",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "14px",
+            "weight": "500",
+            "line": "16.8px",
+            "spacing": "1.12px",
+            "color": "rgba(255, 255, 255, 0.96)",
+            "padding": "0px",
+            "margin": "0px 0px 10px",
+            "radius": "0px",
+            "width": "74.1719px",
+            "height": "16.7969px"
+          },
+          {
+            "class": "",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "14px",
+            "weight": "500",
+            "line": "16.8px",
+            "spacing": "1.12px",
+            "color": "rgba(255, 255, 255, 0.96)",
+            "padding": "0px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "50.1719px",
+            "height": "16.7969px"
+          },
+          {
+            "class": "apartment-card__name",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "31px",
+            "weight": "400",
+            "line": "34.72px",
+            "spacing": "-0.6px",
+            "color": "rgb(255, 255, 255)",
+            "padding": "0px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "365.984px",
+            "height": "35px"
+          },
+          {
+            "class": "apartment-card__price",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "21px",
+            "weight": "400",
+            "line": "26.25px",
+            "spacing": "-0.5px",
+            "color": "rgb(255, 255, 255)",
+            "padding": "0px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "131.328px",
+            "height": "26.25px"
+          },
+          {
+            "class": "launch-card__favorite",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "16px",
+            "weight": "400",
+            "line": "16px",
+            "spacing": "normal",
+            "color": "rgb(51, 51, 51)",
+            "padding": "0px",
+            "margin": "0px",
+            "radius": "50%",
+            "width": "44px",
+            "height": "44px"
+          }
+        ]
+      }
+    },
+    {
+      "width": 1440,
+      "unchanged": true,
+      "roles": {
+        ".catalog-hero__title": [
+          {
+            "class": "catalog-hero__title",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "57.6px",
+            "weight": "300",
+            "line": "60.48px",
+            "spacing": "-2.592px",
+            "color": "rgb(255, 255, 255)",
+            "padding": "0px",
+            "margin": "0px 0px 39px",
+            "radius": "0px",
+            "width": "545.812px",
+            "height": "60.4688px"
+          }
+        ],
+        ".catalog-faq": [
+          {
+            "class": "catalog-faq",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "16px",
+            "weight": "400",
+            "line": "16px",
+            "spacing": "normal",
+            "color": "rgb(30, 30, 30)",
+            "padding": "75px 0px 94px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "1425px",
+            "height": "735.688px"
+          }
+        ],
+        ".catalog-faq__title": [
+          {
+            "class": "catalog-faq__title",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "38px",
+            "weight": "300",
+            "line": "45.6px",
+            "spacing": "normal",
+            "color": "rgb(30, 30, 30)",
+            "padding": "0px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "1288.34px",
+            "height": "45.5938px"
+          }
+        ],
+        ".catalog-faq__question": [
+          {
+            "class": "catalog-faq__question",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "16px",
+            "weight": "400",
+            "line": "16px",
+            "spacing": "normal",
+            "color": "rgb(30, 30, 30)",
+            "padding": "24px 0px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "620.172px",
+            "height": "78px"
+          }
+        ],
+        ".catalog-faq__answer": [
+          {
+            "class": "catalog-faq__answer",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "16px",
+            "weight": "400",
+            "line": "16px",
+            "spacing": "normal",
+            "color": "rgb(30, 30, 30)",
+            "padding": "0px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "620.172px",
+            "height": "0px"
+          }
+        ],
+        ".catalog-grid .apartment-card__name-text": [
+          {
+            "class": "apartment-card__name-text",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "22px",
+            "weight": "400",
+            "line": "24.64px",
+            "spacing": "-0.44px",
+            "color": "rgb(30, 30, 30)",
+            "padding": "0px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "353.438px",
+            "height": "24.625px"
+          }
+        ],
+        ".catalog-grid .apartment-card__price": [
+          {
+            "class": "apartment-card__price",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "26px",
+            "weight": "500",
+            "line": "31.2px",
+            "spacing": "-0.52px",
+            "color": "rgb(30, 30, 30)",
+            "padding": "14px 0px 0px",
+            "margin": "18px 0px 0px",
+            "radius": "0px",
+            "width": "353.438px",
+            "height": "46.1875px"
+          }
+        ],
+        ".catalog-grid .apartment-card__address": [
+          {
+            "class": "apartment-card__address",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "13px",
+            "weight": "300",
+            "line": "18px",
+            "spacing": "normal",
+            "color": "rgb(101, 100, 98)",
+            "padding": "0px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "353.438px",
+            "height": "18px"
+          }
+        ],
+        ".listing-card-fact__label": [
+          {
+            "class": "listing-card-fact__label",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "12px",
+            "weight": "400",
+            "line": "14.4px",
+            "spacing": "0.96px",
+            "color": "rgb(101, 100, 98)",
+            "padding": "0px",
+            "margin": "0px 0px 5px",
+            "radius": "0px",
+            "width": "111.141px",
+            "height": "14.3906px"
+          }
+        ],
+        ".listing-card-fact__value": [
+          {
+            "class": "listing-card-fact__value",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "16px",
+            "weight": "400",
+            "line": "20px",
+            "spacing": "normal",
+            "color": "rgb(30, 30, 30)",
+            "padding": "0px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "111.141px",
+            "height": "20px"
+          }
+        ],
+        ".catalog-grid .apartment-card__call-btn": [
+          {
+            "class": "ui-button ui-button--secondary ui-button--medium apartment-card__call-btn",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "15px",
+            "weight": "400",
+            "line": "15px",
+            "spacing": "normal",
+            "color": "rgb(30, 30, 30)",
+            "padding": "9px 8px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "172.719px",
+            "height": "54px"
+          }
+        ],
+        ".catalog-grid .apartment-card__detail-btn": [
+          {
+            "class": "ui-button ui-button--primary ui-button--medium apartment-card__detail-btn",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "15px",
+            "weight": "400",
+            "line": "15px",
+            "spacing": "normal",
+            "color": "rgb(255, 255, 255)",
+            "padding": "9px 8px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "172.719px",
+            "height": "54px"
+          }
+        ],
+        ".catalog-best-offers .launch-card": [
+          {
+            "class": "apartment-card launch-card",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "16px",
+            "weight": "400",
+            "line": "16px",
+            "spacing": "normal",
+            "color": "rgb(255, 255, 255)",
+            "padding": "0px",
+            "margin": "0px",
+            "radius": "1px",
+            "width": "413.438px",
+            "height": "500px"
+          },
+          {
+            "class": "apartment-card__link",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "16px",
+            "weight": "400",
+            "line": "16px",
+            "spacing": "normal",
+            "color": "rgb(255, 255, 255)",
+            "padding": "24px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "413.438px",
+            "height": "500px"
+          },
+          {
+            "class": "apartment-card__image",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "16px",
+            "weight": "400",
+            "line": "16px",
+            "spacing": "normal",
+            "color": "rgb(255, 255, 255)",
+            "padding": "0px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "413.438px",
+            "height": "500px"
+          },
+          {
+            "class": "apartment-card__delivery",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "11px",
+            "weight": "400",
+            "line": "15.4px",
+            "spacing": "0.495px",
+            "color": "rgb(51, 51, 51)",
+            "padding": "8px 10px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "102.188px",
+            "height": "31.3906px"
+          },
+          {
+            "class": "apartment-card__address launch-card__region",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "14px",
+            "weight": "500",
+            "line": "16.8px",
+            "spacing": "1.12px",
+            "color": "rgba(255, 255, 255, 0.96)",
+            "padding": "0px",
+            "margin": "0px 0px 10px",
+            "radius": "0px",
+            "width": "74.1719px",
+            "height": "16.7969px"
+          },
+          {
+            "class": "",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "14px",
+            "weight": "500",
+            "line": "16.8px",
+            "spacing": "1.12px",
+            "color": "rgba(255, 255, 255, 0.96)",
+            "padding": "0px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "50.1719px",
+            "height": "16.7969px"
+          },
+          {
+            "class": "apartment-card__name",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "31px",
+            "weight": "400",
+            "line": "34.72px",
+            "spacing": "-0.6px",
+            "color": "rgb(255, 255, 255)",
+            "padding": "0px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "365.438px",
+            "height": "35px"
+          },
+          {
+            "class": "apartment-card__price",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "21px",
+            "weight": "400",
+            "line": "26.25px",
+            "spacing": "-0.5px",
+            "color": "rgb(255, 255, 255)",
+            "padding": "0px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "131.328px",
+            "height": "26.25px"
+          },
+          {
+            "class": "launch-card__favorite",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "16px",
+            "weight": "400",
+            "line": "16px",
+            "spacing": "normal",
+            "color": "rgb(51, 51, 51)",
+            "padding": "0px",
+            "margin": "0px",
+            "radius": "50%",
+            "width": "44px",
+            "height": "44px"
+          }
+        ]
+      }
+    },
+    {
+      "width": 2560,
+      "unchanged": true,
+      "roles": {
+        ".catalog-hero__title": [
+          {
+            "class": "catalog-hero__title",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "58px",
+            "weight": "300",
+            "line": "60.9px",
+            "spacing": "-2.61px",
+            "color": "rgb(255, 255, 255)",
+            "padding": "0px",
+            "margin": "0px 0px 39px",
+            "radius": "0px",
+            "width": "549.672px",
+            "height": "60.8906px"
+          }
+        ],
+        ".catalog-faq": [
+          {
+            "class": "catalog-faq",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "16px",
+            "weight": "400",
+            "line": "16px",
+            "spacing": "normal",
+            "color": "rgb(30, 30, 30)",
+            "padding": "75px 0px 94px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "2545px",
+            "height": "741.672px"
+          }
+        ],
+        ".catalog-faq__title": [
+          {
+            "class": "catalog-faq__title",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "44px",
+            "weight": "300",
+            "line": "52.8px",
+            "spacing": "normal",
+            "color": "rgb(30, 30, 30)",
+            "padding": "0px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "1720px",
+            "height": "52.7969px"
+          }
+        ],
+        ".catalog-faq__question": [
+          {
+            "class": "catalog-faq__question",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "16px",
+            "weight": "400",
+            "line": "16px",
+            "spacing": "normal",
+            "color": "rgb(30, 30, 30)",
+            "padding": "24px 0px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "820px",
+            "height": "78.7969px"
+          }
+        ],
+        ".catalog-faq__answer": [
+          {
+            "class": "catalog-faq__answer",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "16px",
+            "weight": "400",
+            "line": "16px",
+            "spacing": "normal",
+            "color": "rgb(30, 30, 30)",
+            "padding": "0px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "820px",
+            "height": "0px"
+          }
+        ],
+        ".catalog-grid .apartment-card__name-text": [
+          {
+            "class": "apartment-card__name-text",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "22px",
+            "weight": "400",
+            "line": "24.64px",
+            "spacing": "-0.44px",
+            "color": "rgb(30, 30, 30)",
+            "padding": "0px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "564px",
+            "height": "24.625px"
+          }
+        ],
+        ".catalog-grid .apartment-card__price": [
+          {
+            "class": "apartment-card__price",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "26px",
+            "weight": "500",
+            "line": "31.2px",
+            "spacing": "-0.52px",
+            "color": "rgb(30, 30, 30)",
+            "padding": "14px 0px 0px",
+            "margin": "18px 0px 0px",
+            "radius": "0px",
+            "width": "564px",
+            "height": "46.1875px"
+          }
+        ],
+        ".catalog-grid .apartment-card__address": [
+          {
+            "class": "apartment-card__address",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "13px",
+            "weight": "300",
+            "line": "18px",
+            "spacing": "normal",
+            "color": "rgb(101, 100, 98)",
+            "padding": "0px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "564px",
+            "height": "18px"
+          }
+        ],
+        ".listing-card-fact__label": [
+          {
+            "class": "listing-card-fact__label",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "12px",
+            "weight": "400",
+            "line": "14.4px",
+            "spacing": "0.96px",
+            "color": "rgb(101, 100, 98)",
+            "padding": "0px",
+            "margin": "0px 0px 5px",
+            "radius": "0px",
+            "width": "181.328px",
+            "height": "14.3906px"
+          }
+        ],
+        ".listing-card-fact__value": [
+          {
+            "class": "listing-card-fact__value",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "16px",
+            "weight": "400",
+            "line": "20px",
+            "spacing": "normal",
+            "color": "rgb(30, 30, 30)",
+            "padding": "0px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "181.328px",
+            "height": "20px"
+          }
+        ],
+        ".catalog-grid .apartment-card__call-btn": [
+          {
+            "class": "ui-button ui-button--secondary ui-button--medium apartment-card__call-btn",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "15px",
+            "weight": "400",
+            "line": "15px",
+            "spacing": "normal",
+            "color": "rgb(30, 30, 30)",
+            "padding": "9px 8px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "278px",
+            "height": "54px"
+          }
+        ],
+        ".catalog-grid .apartment-card__detail-btn": [
+          {
+            "class": "ui-button ui-button--primary ui-button--medium apartment-card__detail-btn",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "15px",
+            "weight": "400",
+            "line": "15px",
+            "spacing": "normal",
+            "color": "rgb(255, 255, 255)",
+            "padding": "9px 8px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "278px",
+            "height": "54px"
+          }
+        ],
+        ".catalog-best-offers .launch-card": [
+          {
+            "class": "apartment-card launch-card",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "16px",
+            "weight": "400",
+            "line": "16px",
+            "spacing": "normal",
+            "color": "rgb(255, 255, 255)",
+            "padding": "0px",
+            "margin": "0px",
+            "radius": "1px",
+            "width": "579.984px",
+            "height": "500px"
+          },
+          {
+            "class": "apartment-card__link",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "16px",
+            "weight": "400",
+            "line": "16px",
+            "spacing": "normal",
+            "color": "rgb(255, 255, 255)",
+            "padding": "24px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "579.984px",
+            "height": "500px"
+          },
+          {
+            "class": "apartment-card__image",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "16px",
+            "weight": "400",
+            "line": "16px",
+            "spacing": "normal",
+            "color": "rgb(255, 255, 255)",
+            "padding": "0px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "579.984px",
+            "height": "500px"
+          },
+          {
+            "class": "apartment-card__delivery",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "11px",
+            "weight": "400",
+            "line": "15.4px",
+            "spacing": "0.495px",
+            "color": "rgb(51, 51, 51)",
+            "padding": "8px 10px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "102.188px",
+            "height": "31.3906px"
+          },
+          {
+            "class": "apartment-card__address launch-card__region",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "14px",
+            "weight": "500",
+            "line": "16.8px",
+            "spacing": "1.12px",
+            "color": "rgba(255, 255, 255, 0.96)",
+            "padding": "0px",
+            "margin": "0px 0px 10px",
+            "radius": "0px",
+            "width": "74.1719px",
+            "height": "16.7969px"
+          },
+          {
+            "class": "",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "14px",
+            "weight": "500",
+            "line": "16.8px",
+            "spacing": "1.12px",
+            "color": "rgba(255, 255, 255, 0.96)",
+            "padding": "0px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "50.1719px",
+            "height": "16.7969px"
+          },
+          {
+            "class": "apartment-card__name",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "31px",
+            "weight": "400",
+            "line": "34.72px",
+            "spacing": "-0.6px",
+            "color": "rgb(255, 255, 255)",
+            "padding": "0px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "531.984px",
+            "height": "35px"
+          },
+          {
+            "class": "apartment-card__price",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "21px",
+            "weight": "400",
+            "line": "26.25px",
+            "spacing": "-0.5px",
+            "color": "rgb(255, 255, 255)",
+            "padding": "0px",
+            "margin": "0px",
+            "radius": "0px",
+            "width": "131.328px",
+            "height": "26.25px"
+          },
+          {
+            "class": "launch-card__favorite",
+            "font": "\"Tilda Sans\", \"Tilda Sans Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+            "size": "16px",
+            "weight": "400",
+            "line": "16px",
+            "spacing": "normal",
+            "color": "rgb(51, 51, 51)",
+            "padding": "0px",
+            "margin": "0px",
+            "radius": "50%",
+            "width": "44px",
+            "height": "44px"
+          }
+        ]
+      }
+    }
+  ]
+}

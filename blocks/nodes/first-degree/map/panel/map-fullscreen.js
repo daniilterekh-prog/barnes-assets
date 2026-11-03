@@ -13,7 +13,7 @@
   var assetsBase = new URL('.', document.currentScript.src);
   var style = document.createElement('link');
   style.rel = 'stylesheet';
-  style.href = new URL('map-fullscreen.css?v=20261103-breadcrumbs-19', assetsBase).href;
+  style.href = new URL('map-fullscreen.css?v=20261103-kit-filters-20', assetsBase).href;
   if (!hasStylesheet(style.href)) document.head.appendChild(style);
   var icon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">';
   var parameterIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">';

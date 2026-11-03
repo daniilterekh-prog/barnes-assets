@@ -36,7 +36,7 @@
       ['finishing','lift','trophy'].forEach(function(k){if((value[k]||[]).length){var fields={};fields[k]=[];add(k,{finishing:'Отделка',lift:'Лифт',trophy:'Трофейная недвижимость'}[k],fields);}});
       if(value.query)add('query','Поиск: '+value.query,{query:''});
       chips.replaceChildren();groups.forEach(function(group){var b=document.createElement('button');b.type='button';b.className='catalog-active-filter';b.setAttribute('aria-label','Убрать фильтр: '+group.label);var text=document.createElement('span');text.textContent=group.label;var close=document.createElement('span');close.textContent='×';close.setAttribute('aria-hidden','true');b.append(text,close);b.onclick=function(){patch(group.fields);};chips.append(b);});
-      collections.querySelector('[data-catalog-reset]').hidden=!groups.length;
+      collections.querySelector('[data-catalog-reset]').hidden=false;
       var badge=details.querySelector('[data-filter-count]'),n=new Set(groups.map(function(g){return g.key;})).size;badge.textContent=String(n);badge.hidden=!n;details.setAttribute('aria-label',n?'Все фильтры: выбрано '+n:'Все фильтры');
       var term=(value.query||'').trim().toLocaleLowerCase('ru'),visible=0;
       list.querySelectorAll(':scope > .catalog-grid__item[data-listing-mode]').forEach(function(item){var show=item.dataset.listingMode===value.market;var text=item.textContent.toLocaleLowerCase('ru');show=show&&(!term||text.includes(term));

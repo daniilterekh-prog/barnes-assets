@@ -1,7 +1,7 @@
 {
-  "version": "1.4.3",
+  "version": "1.5.0",
   "reference": "kurortnaya",
-  "sourceCommit": "e5c3ad3",
+  "sourceCommit": "6a3f10a",
   "blocks": [
     {
       "id": "first-degree-header",
@@ -185,10 +185,10 @@
     {
       "id": "first-degree-map",
       "title": "Карта проектов",
-      "version": "1.4.2",
+      "version": "1.5.0",
       "source": {
         "repo": "daniilterekh-prog/barn-estate-homepage-clone",
-        "commit": "e5c3ad3",
+        "commit": "6a3f10a",
         "route": "kurortnaya",
         "selector": "#catalog-map"
       },
@@ -240,10 +240,10 @@
     {
       "id": "first-degree-listing",
       "title": "Фильтры и листинг ЖК / лотов",
-      "version": "1.4.2",
+      "version": "1.5.0",
       "source": {
         "repo": "daniilterekh-prog/barn-estate-homepage-clone",
-        "commit": "e5c3ad3",
+        "commit": "6a3f10a",
         "route": "kurortnaya",
         "selector": "#catalog-grid"
       },
@@ -320,10 +320,10 @@
     {
       "id": "first-degree-cta-central",
       "title": "Центральный CTA с экспертом",
-      "version": "1.1.0",
+      "version": "1.5.0",
       "source": {
         "repo": "daniilterekh-prog/barn-estate-homepage-clone",
-        "commit": "62aee9e62e2fae669028433ffe411e2f18a01d84",
+        "commit": "6a3f10a",
         "route": "kurortnaya",
         "selector": "#catalog-consultation"
       },
@@ -356,10 +356,10 @@
     {
       "id": "first-degree-directions",
       "title": "Направления",
-      "version": "1.1.0",
+      "version": "1.5.0",
       "source": {
         "repo": "daniilterekh-prog/barn-estate-homepage-clone",
-        "commit": "62aee9e62e2fae669028433ffe411e2f18a01d84",
+        "commit": "6a3f10a",
         "route": "kurortnaya",
         "selector": "#catalog-departments"
       },
@@ -389,10 +389,10 @@
     {
       "id": "first-degree-news",
       "title": "Новости",
-      "version": "1.1.0",
+      "version": "1.5.0",
       "source": {
         "repo": "daniilterekh-prog/barn-estate-homepage-clone",
-        "commit": "62aee9e62e2fae669028433ffe411e2f18a01d84",
+        "commit": "6a3f10a",
         "route": "kurortnaya",
         "selector": "#catalog-news"
       },
@@ -464,10 +464,10 @@
     {
       "id": "first-degree-cta-bottom",
       "title": "Нижний CTA",
-      "version": "1.1.0",
+      "version": "1.5.0",
       "source": {
         "repo": "daniilterekh-prog/barn-estate-homepage-clone",
-        "commit": "62aee9e62e2fae669028433ffe411e2f18a01d84",
+        "commit": "6a3f10a",
         "route": "kurortnaya",
         "selector": "#catalog-contact"
       },
@@ -533,10 +533,10 @@
     {
       "id": "first-degree-floating-expert",
       "title": "Плавающий эксперт",
-      "version": "1.1.0",
+      "version": "1.5.0",
       "source": {
         "repo": "daniilterekh-prog/barn-estate-homepage-clone",
-        "commit": "62aee9e62e2fae669028433ffe411e2f18a01d84",
+        "commit": "6a3f10a",
         "route": "kurortnaya",
         "selector": ".floating-expert"
       },
@@ -585,10 +585,10 @@
     {
       "id": "first-degree-request-modal",
       "title": "Попап заявки",
-      "version": "1.1.0",
+      "version": "1.5.0",
       "source": {
         "repo": "daniilterekh-prog/barn-estate-homepage-clone",
-        "commit": "62aee9e62e2fae669028433ffe411e2f18a01d84",
+        "commit": "6a3f10a",
         "route": "kurortnaya",
         "selector": ".catalog-feedback-modal"
       },
@@ -748,7 +748,7 @@
   ],
   "updated": "2026-11-03",
   "loadingContract": {
-    "release": "20261103-breadcrumbs-19",
+    "release": "20261103-kit-filters-20",
     "staticListing": true,
     "legacyListingBuilder": false
   }
