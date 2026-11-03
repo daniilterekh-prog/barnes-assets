@@ -53,7 +53,7 @@
     "responsive": "compact layout below 768"
   },
   "loadingContract": {
-    "release": "20261103-kit-filters-20",
+    "release": "20261103-home-quiz-21",
     "staticListing": true,
     "legacyListingBuilder": false
   }

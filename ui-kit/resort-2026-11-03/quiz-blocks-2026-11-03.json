@@ -1,0 +1,93 @@
+{
+  "checks": [
+    {
+      "base": "http://127.0.0.1:8875/kurortnaya/blocks/",
+      "block": "request-modal",
+      "width": 359,
+      "height": 828,
+      "form": 398.375,
+      "portrait": true,
+      "alt": "Денис Перковский — руководитель департамента курортной недвижимости BARN Estate",
+      "title": "31px",
+      "comment": true
+    },
+    {
+      "base": "http://127.0.0.1:8875/kurortnaya/blocks/",
+      "block": "request-modal",
+      "width": 1040,
+      "height": 820,
+      "form": 344.1875,
+      "portrait": true,
+      "alt": "Денис Перковский — руководитель департамента курортной недвижимости BARN Estate",
+      "title": "34px",
+      "comment": true
+    },
+    {
+      "base": "http://127.0.0.1:8875/kurortnaya/blocks/",
+      "block": "floating-expert",
+      "width": 359,
+      "height": 828,
+      "form": 398.375,
+      "portrait": true,
+      "alt": "Денис Перковский — руководитель департамента курортной недвижимости BARN Estate",
+      "title": "31px",
+      "comment": true
+    },
+    {
+      "base": "http://127.0.0.1:8875/kurortnaya/blocks/",
+      "block": "floating-expert",
+      "width": 1040,
+      "height": 820,
+      "form": 344.1875,
+      "portrait": true,
+      "alt": "Денис Перковский — руководитель департамента курортной недвижимости BARN Estate",
+      "title": "34px",
+      "comment": true
+    },
+    {
+      "base": "http://127.0.0.1:8876/blocks/nodes/first-degree/",
+      "block": "request-modal",
+      "width": 359,
+      "height": 828,
+      "form": 398.375,
+      "portrait": true,
+      "alt": "Денис Перковский — руководитель департамента курортной недвижимости BARN Estate",
+      "title": "31px",
+      "comment": true
+    },
+    {
+      "base": "http://127.0.0.1:8876/blocks/nodes/first-degree/",
+      "block": "request-modal",
+      "width": 1040,
+      "height": 820,
+      "form": 344.1875,
+      "portrait": true,
+      "alt": "Денис Перковский — руководитель департамента курортной недвижимости BARN Estate",
+      "title": "34px",
+      "comment": true
+    },
+    {
+      "base": "http://127.0.0.1:8876/blocks/nodes/first-degree/",
+      "block": "floating-expert",
+      "width": 359,
+      "height": 828,
+      "form": 398.375,
+      "portrait": true,
+      "alt": "Денис Перковский — руководитель департамента курортной недвижимости BARN Estate",
+      "title": "31px",
+      "comment": true
+    },
+    {
+      "base": "http://127.0.0.1:8876/blocks/nodes/first-degree/",
+      "block": "floating-expert",
+      "width": 1040,
+      "height": 820,
+      "form": 344.1875,
+      "portrait": true,
+      "alt": "Денис Перковский — руководитель департамента курортной недвижимости BARN Estate",
+      "title": "34px",
+      "comment": true
+    }
+  ],
+  "errors": []
+}

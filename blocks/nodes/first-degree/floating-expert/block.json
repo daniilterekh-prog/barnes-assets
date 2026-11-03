@@ -1,7 +1,7 @@
 {
   "id": "first-degree-floating-expert",
   "title": "Плавающий эксперт",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "source": {
     "repo": "daniilterekh-prog/barn-estate-homepage-clone",
     "commit": "6a3f10a",
@@ -47,6 +47,8 @@
       "floating-expert",
       "data-expert-quiz"
     ],
-    "directFormPreserved": true
+    "directFormPreserved": true,
+    "questionList": "../request-modal/questions.json",
+    "layoutReference": "homepage 17-quiz; 2026-11-03"
   }
 }

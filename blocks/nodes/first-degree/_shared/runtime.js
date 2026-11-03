@@ -1,8 +1,8 @@
-import './catalog-filters.js?v=20261103-kit-filters-20';
-import './start-sales.js?v=20261103-kit-filters-20';
-import './header-layout.js?v=20261103-kit-filters-20';
-import './faq.js?v=20261103-kit-filters-20';
-import './expert-quiz.js?v=20261103-kit-filters-20';
+import './catalog-filters.js?v=20261103-home-quiz-21';
+import './start-sales.js?v=20261103-home-quiz-21';
+import './header-layout.js?v=20261103-home-quiz-21';
+import './faq.js?v=20261103-home-quiz-21';
+import './expert-quiz.js?v=20261103-home-quiz-21';
 /** Reusable interactions. Production data arrives through options or bubbling events. */
 export async function mountNode(host, folder, options = {}) {
   const base = new URL(folder, location.href);
