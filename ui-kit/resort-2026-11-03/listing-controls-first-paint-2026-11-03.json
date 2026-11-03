@@ -1,0 +1,24 @@
+{
+  "checks": [
+    {
+      "view": "index.html",
+      "width": 390,
+      "staticCurrentRow": true
+    },
+    {
+      "view": "index.html",
+      "width": 1440,
+      "staticCurrentRow": true
+    },
+    {
+      "view": "mobile.html",
+      "width": 390,
+      "staticCurrentRow": true
+    },
+    {
+      "view": "mobile.html",
+      "width": 1440,
+      "staticCurrentRow": true
+    }
+  ]
+}
