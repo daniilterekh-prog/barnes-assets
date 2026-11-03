@@ -1,0 +1,96 @@
+{
+  "base": "http://127.0.0.1:8875/kurortnaya/",
+  "reference": "https://daniilterekh-prog.github.io/barn-estate-homepage-clone/katalog-nedvizhimosti/?direction=resort",
+  "checks": [
+    {
+      "width": 320,
+      "referenceStyles": true,
+      "quickFields": 4,
+      "equalWidths": true,
+      "purchaseOnly": true,
+      "overflow": false,
+      "interactions": false
+    },
+    {
+      "width": 390,
+      "referenceStyles": true,
+      "quickFields": 4,
+      "equalWidths": true,
+      "purchaseOnly": true,
+      "overflow": false,
+      "interactions": true
+    },
+    {
+      "width": 540,
+      "referenceStyles": true,
+      "quickFields": 4,
+      "equalWidths": true,
+      "purchaseOnly": true,
+      "overflow": false,
+      "interactions": false
+    },
+    {
+      "width": 768,
+      "referenceStyles": true,
+      "quickFields": 4,
+      "equalWidths": true,
+      "purchaseOnly": true,
+      "overflow": false,
+      "interactions": false
+    },
+    {
+      "width": 900,
+      "referenceStyles": true,
+      "quickFields": 4,
+      "equalWidths": true,
+      "purchaseOnly": true,
+      "overflow": false,
+      "interactions": false
+    },
+    {
+      "width": 1024,
+      "referenceStyles": true,
+      "quickFields": 4,
+      "equalWidths": true,
+      "purchaseOnly": true,
+      "overflow": false,
+      "interactions": false
+    },
+    {
+      "width": 1440,
+      "referenceStyles": true,
+      "quickFields": 4,
+      "equalWidths": true,
+      "purchaseOnly": true,
+      "overflow": false,
+      "interactions": true
+    },
+    {
+      "width": 1920,
+      "referenceStyles": true,
+      "quickFields": 4,
+      "equalWidths": true,
+      "purchaseOnly": true,
+      "overflow": false,
+      "interactions": false
+    },
+    {
+      "width": 2560,
+      "referenceStyles": true,
+      "quickFields": 4,
+      "equalWidths": true,
+      "purchaseOnly": true,
+      "overflow": false,
+      "interactions": false
+    },
+    {
+      "width": 3840,
+      "referenceStyles": true,
+      "quickFields": 4,
+      "equalWidths": true,
+      "purchaseOnly": true,
+      "overflow": false,
+      "interactions": false
+    }
+  ]
+}

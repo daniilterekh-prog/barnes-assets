@@ -1,10 +1,10 @@
 {
   "id": "first-degree-listing",
   "title": "Фильтры и листинг ЖК / лотов",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "source": {
     "repo": "daniilterekh-prog/barn-estate-homepage-clone",
-    "commit": "ee4176e",
+    "commit": "65b8fe7",
     "route": "kurortnaya",
     "selector": "#catalog-grid"
   },
@@ -34,13 +34,14 @@
   "assembly": true,
   "scripts": [],
   "filterReference": {
-    "version": "1.3.0",
-    "date": "2026-11-02",
-    "url": "https://daniilterekh-prog.github.io/barn-estate-homepage-clone/katalog-nedvizhimosti/?direction=international",
-    "state": "BarnesFilters",
-    "exceptions": [
-      "resort data",
-      "exclusive new-build/secondary"
-    ]
+    "version": "1.4.0",
+    "date": "2026-11-03",
+    "url": "https://daniilterekh-prog.github.io/barn-estate-homepage-clone/katalog-nedvizhimosti/?direction=resort",
+    "deal": "buy",
+    "market": [
+      "new-build",
+      "secondary"
+    ],
+    "scope": "listing UI; shared purchase-only state"
   }
 }
