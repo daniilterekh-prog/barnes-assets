@@ -1,7 +1,7 @@
 {
   "id": "first-degree-hero",
   "title": "Первый экран и поиск",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "source": {
     "repo": "daniilterekh-prog/barn-estate-homepage-clone",
     "commit": "77eb2a2",
@@ -51,5 +51,12 @@
     ],
     "scope": "listing UI; shared purchase-only state"
   },
-  "headerRevision": "hero-breadcrumbs-2026-11-03"
+  "headerRevision": "hero-breadcrumbs-2026-11-03",
+  "breadcrumbTypography": {
+    "desktop": 17,
+    "tabletMax768": 13,
+    "mobileMax540": 12,
+    "fontWeight": 300,
+    "reference": "katalog-nedvizhimosti"
+  }
 }

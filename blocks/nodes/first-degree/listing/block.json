@@ -45,7 +45,7 @@
     "scope": "listing UI; shared purchase-only state"
   },
   "loadingContract": {
-    "release": "20261103-clean-load-18",
+    "release": "20261103-breadcrumbs-19",
     "staticListing": true,
     "legacyListingBuilder": false
   }

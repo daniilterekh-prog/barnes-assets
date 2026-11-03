@@ -1,0 +1,675 @@
+{
+  "base": "http://127.0.0.1:8875/kurortnaya/",
+  "checks": [
+    {
+      "width": 320,
+      "matchesCatalog": true,
+      "mediaMatchesCatalog": true,
+      "rows": [
+        {
+          "name": "resort",
+          "data": [
+            {
+              "fontSize": "12px",
+              "fontWeight": "300",
+              "lineHeight": "16px",
+              "color": "rgba(255, 255, 255, 0.72)"
+            },
+            {
+              "fontSize": "12px",
+              "fontWeight": "300",
+              "lineHeight": "16px",
+              "color": "rgb(255, 255, 255)"
+            }
+          ],
+          "layout": {
+            "overflow": false,
+            "h1": "Курортная недвижимость",
+            "crumbs": 1
+          }
+        },
+        {
+          "name": "catalog",
+          "data": [
+            {
+              "fontSize": "12px",
+              "fontWeight": "300",
+              "lineHeight": "16px",
+              "color": "rgb(101, 100, 98)"
+            }
+          ],
+          "layout": {
+            "overflow": false,
+            "h1": "Каталог недвижимости",
+            "crumbs": 0
+          }
+        },
+        {
+          "name": "media",
+          "data": [
+            {
+              "fontSize": "12px",
+              "fontWeight": "300",
+              "lineHeight": "16px",
+              "color": "rgba(255, 255, 255, 0.72)"
+            },
+            {
+              "fontSize": "12px",
+              "fontWeight": "300",
+              "lineHeight": "16px",
+              "color": "rgb(255, 255, 255)"
+            }
+          ],
+          "layout": {
+            "overflow": false,
+            "h1": "Медиа BARN Estate",
+            "crumbs": 0
+          }
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "matchesCatalog": true,
+      "mediaMatchesCatalog": true,
+      "rows": [
+        {
+          "name": "resort",
+          "data": [
+            {
+              "fontSize": "12px",
+              "fontWeight": "300",
+              "lineHeight": "16px",
+              "color": "rgba(255, 255, 255, 0.72)"
+            },
+            {
+              "fontSize": "12px",
+              "fontWeight": "300",
+              "lineHeight": "16px",
+              "color": "rgb(255, 255, 255)"
+            }
+          ],
+          "layout": {
+            "overflow": false,
+            "h1": "Курортная недвижимость",
+            "crumbs": 1
+          }
+        },
+        {
+          "name": "catalog",
+          "data": [
+            {
+              "fontSize": "12px",
+              "fontWeight": "300",
+              "lineHeight": "16px",
+              "color": "rgb(101, 100, 98)"
+            }
+          ],
+          "layout": {
+            "overflow": false,
+            "h1": "Каталог недвижимости",
+            "crumbs": 0
+          }
+        },
+        {
+          "name": "media",
+          "data": [
+            {
+              "fontSize": "12px",
+              "fontWeight": "300",
+              "lineHeight": "16px",
+              "color": "rgba(255, 255, 255, 0.72)"
+            },
+            {
+              "fontSize": "12px",
+              "fontWeight": "300",
+              "lineHeight": "16px",
+              "color": "rgb(255, 255, 255)"
+            }
+          ],
+          "layout": {
+            "overflow": false,
+            "h1": "Медиа BARN Estate",
+            "crumbs": 0
+          }
+        }
+      ]
+    },
+    {
+      "width": 540,
+      "matchesCatalog": true,
+      "mediaMatchesCatalog": true,
+      "rows": [
+        {
+          "name": "resort",
+          "data": [
+            {
+              "fontSize": "12px",
+              "fontWeight": "300",
+              "lineHeight": "16px",
+              "color": "rgba(255, 255, 255, 0.72)"
+            },
+            {
+              "fontSize": "12px",
+              "fontWeight": "300",
+              "lineHeight": "16px",
+              "color": "rgb(255, 255, 255)"
+            }
+          ],
+          "layout": {
+            "overflow": false,
+            "h1": "Курортная недвижимость",
+            "crumbs": 1
+          }
+        },
+        {
+          "name": "catalog",
+          "data": [
+            {
+              "fontSize": "12px",
+              "fontWeight": "300",
+              "lineHeight": "16px",
+              "color": "rgb(101, 100, 98)"
+            }
+          ],
+          "layout": {
+            "overflow": false,
+            "h1": "Каталог недвижимости",
+            "crumbs": 0
+          }
+        },
+        {
+          "name": "media",
+          "data": [
+            {
+              "fontSize": "12px",
+              "fontWeight": "300",
+              "lineHeight": "16px",
+              "color": "rgba(255, 255, 255, 0.72)"
+            },
+            {
+              "fontSize": "12px",
+              "fontWeight": "300",
+              "lineHeight": "16px",
+              "color": "rgb(255, 255, 255)"
+            }
+          ],
+          "layout": {
+            "overflow": false,
+            "h1": "Медиа BARN Estate",
+            "crumbs": 0
+          }
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "matchesCatalog": true,
+      "mediaMatchesCatalog": true,
+      "rows": [
+        {
+          "name": "resort",
+          "data": [
+            {
+              "fontSize": "13px",
+              "fontWeight": "300",
+              "lineHeight": "18px",
+              "color": "rgba(255, 255, 255, 0.72)"
+            },
+            {
+              "fontSize": "13px",
+              "fontWeight": "300",
+              "lineHeight": "18px",
+              "color": "rgb(255, 255, 255)"
+            }
+          ],
+          "layout": {
+            "overflow": false,
+            "h1": "Курортная недвижимость",
+            "crumbs": 1
+          }
+        },
+        {
+          "name": "catalog",
+          "data": [
+            {
+              "fontSize": "13px",
+              "fontWeight": "300",
+              "lineHeight": "18px",
+              "color": "rgb(101, 100, 98)"
+            }
+          ],
+          "layout": {
+            "overflow": false,
+            "h1": "Каталог недвижимости",
+            "crumbs": 0
+          }
+        },
+        {
+          "name": "media",
+          "data": [
+            {
+              "fontSize": "13px",
+              "fontWeight": "300",
+              "lineHeight": "18px",
+              "color": "rgba(255, 255, 255, 0.72)"
+            },
+            {
+              "fontSize": "13px",
+              "fontWeight": "300",
+              "lineHeight": "18px",
+              "color": "rgb(255, 255, 255)"
+            }
+          ],
+          "layout": {
+            "overflow": false,
+            "h1": "Медиа BARN Estate",
+            "crumbs": 0
+          }
+        }
+      ]
+    },
+    {
+      "width": 769,
+      "matchesCatalog": true,
+      "mediaMatchesCatalog": false,
+      "rows": [
+        {
+          "name": "resort",
+          "data": [
+            {
+              "fontSize": "17px",
+              "fontWeight": "300",
+              "lineHeight": "18px",
+              "color": "rgba(255, 255, 255, 0.72)"
+            },
+            {
+              "fontSize": "17px",
+              "fontWeight": "300",
+              "lineHeight": "18px",
+              "color": "rgb(255, 255, 255)"
+            }
+          ],
+          "layout": {
+            "overflow": false,
+            "h1": "Курортная недвижимость",
+            "crumbs": 1
+          }
+        },
+        {
+          "name": "catalog",
+          "data": [
+            {
+              "fontSize": "17px",
+              "fontWeight": "300",
+              "lineHeight": "18px",
+              "color": "rgb(101, 100, 98)"
+            }
+          ],
+          "layout": {
+            "overflow": false,
+            "h1": "Каталог недвижимости",
+            "crumbs": 0
+          }
+        },
+        {
+          "name": "media",
+          "data": [
+            {
+              "fontSize": "13px",
+              "fontWeight": "300",
+              "lineHeight": "18px",
+              "color": "rgba(255, 255, 255, 0.72)"
+            },
+            {
+              "fontSize": "13px",
+              "fontWeight": "300",
+              "lineHeight": "18px",
+              "color": "rgb(255, 255, 255)"
+            }
+          ],
+          "layout": {
+            "overflow": false,
+            "h1": "Медиа BARN Estate",
+            "crumbs": 0
+          }
+        }
+      ]
+    },
+    {
+      "width": 1024,
+      "matchesCatalog": true,
+      "mediaMatchesCatalog": false,
+      "rows": [
+        {
+          "name": "resort",
+          "data": [
+            {
+              "fontSize": "17px",
+              "fontWeight": "300",
+              "lineHeight": "18px",
+              "color": "rgba(255, 255, 255, 0.72)"
+            },
+            {
+              "fontSize": "17px",
+              "fontWeight": "300",
+              "lineHeight": "18px",
+              "color": "rgb(255, 255, 255)"
+            }
+          ],
+          "layout": {
+            "overflow": false,
+            "h1": "Курортная недвижимость",
+            "crumbs": 1
+          }
+        },
+        {
+          "name": "catalog",
+          "data": [
+            {
+              "fontSize": "17px",
+              "fontWeight": "300",
+              "lineHeight": "18px",
+              "color": "rgb(101, 100, 98)"
+            }
+          ],
+          "layout": {
+            "overflow": false,
+            "h1": "Каталог недвижимости",
+            "crumbs": 0
+          }
+        },
+        {
+          "name": "media",
+          "data": [
+            {
+              "fontSize": "13px",
+              "fontWeight": "300",
+              "lineHeight": "18px",
+              "color": "rgba(255, 255, 255, 0.72)"
+            },
+            {
+              "fontSize": "13px",
+              "fontWeight": "300",
+              "lineHeight": "18px",
+              "color": "rgb(255, 255, 255)"
+            }
+          ],
+          "layout": {
+            "overflow": false,
+            "h1": "Медиа BARN Estate",
+            "crumbs": 0
+          }
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "matchesCatalog": true,
+      "mediaMatchesCatalog": true,
+      "rows": [
+        {
+          "name": "resort",
+          "data": [
+            {
+              "fontSize": "17px",
+              "fontWeight": "300",
+              "lineHeight": "18px",
+              "color": "rgba(255, 255, 255, 0.72)"
+            },
+            {
+              "fontSize": "17px",
+              "fontWeight": "300",
+              "lineHeight": "18px",
+              "color": "rgb(255, 255, 255)"
+            }
+          ],
+          "layout": {
+            "overflow": false,
+            "h1": "Курортная недвижимость",
+            "crumbs": 1
+          }
+        },
+        {
+          "name": "catalog",
+          "data": [
+            {
+              "fontSize": "17px",
+              "fontWeight": "300",
+              "lineHeight": "18px",
+              "color": "rgb(101, 100, 98)"
+            }
+          ],
+          "layout": {
+            "overflow": false,
+            "h1": "Каталог недвижимости",
+            "crumbs": 0
+          }
+        },
+        {
+          "name": "media",
+          "data": [
+            {
+              "fontSize": "17px",
+              "fontWeight": "300",
+              "lineHeight": "18px",
+              "color": "rgba(255, 255, 255, 0.72)"
+            },
+            {
+              "fontSize": "17px",
+              "fontWeight": "300",
+              "lineHeight": "18px",
+              "color": "rgb(255, 255, 255)"
+            }
+          ],
+          "layout": {
+            "overflow": false,
+            "h1": "Медиа BARN Estate",
+            "crumbs": 0
+          }
+        }
+      ]
+    },
+    {
+      "width": 1920,
+      "matchesCatalog": true,
+      "mediaMatchesCatalog": true,
+      "rows": [
+        {
+          "name": "resort",
+          "data": [
+            {
+              "fontSize": "17px",
+              "fontWeight": "300",
+              "lineHeight": "18px",
+              "color": "rgba(255, 255, 255, 0.72)"
+            },
+            {
+              "fontSize": "17px",
+              "fontWeight": "300",
+              "lineHeight": "18px",
+              "color": "rgb(255, 255, 255)"
+            }
+          ],
+          "layout": {
+            "overflow": false,
+            "h1": "Курортная недвижимость",
+            "crumbs": 1
+          }
+        },
+        {
+          "name": "catalog",
+          "data": [
+            {
+              "fontSize": "17px",
+              "fontWeight": "300",
+              "lineHeight": "18px",
+              "color": "rgb(101, 100, 98)"
+            }
+          ],
+          "layout": {
+            "overflow": false,
+            "h1": "Каталог недвижимости",
+            "crumbs": 0
+          }
+        },
+        {
+          "name": "media",
+          "data": [
+            {
+              "fontSize": "17px",
+              "fontWeight": "300",
+              "lineHeight": "18px",
+              "color": "rgba(255, 255, 255, 0.72)"
+            },
+            {
+              "fontSize": "17px",
+              "fontWeight": "300",
+              "lineHeight": "18px",
+              "color": "rgb(255, 255, 255)"
+            }
+          ],
+          "layout": {
+            "overflow": false,
+            "h1": "Медиа BARN Estate",
+            "crumbs": 0
+          }
+        }
+      ]
+    },
+    {
+      "width": 2560,
+      "matchesCatalog": true,
+      "mediaMatchesCatalog": true,
+      "rows": [
+        {
+          "name": "resort",
+          "data": [
+            {
+              "fontSize": "17px",
+              "fontWeight": "300",
+              "lineHeight": "18px",
+              "color": "rgba(255, 255, 255, 0.72)"
+            },
+            {
+              "fontSize": "17px",
+              "fontWeight": "300",
+              "lineHeight": "18px",
+              "color": "rgb(255, 255, 255)"
+            }
+          ],
+          "layout": {
+            "overflow": false,
+            "h1": "Курортная недвижимость",
+            "crumbs": 1
+          }
+        },
+        {
+          "name": "catalog",
+          "data": [
+            {
+              "fontSize": "17px",
+              "fontWeight": "300",
+              "lineHeight": "18px",
+              "color": "rgb(101, 100, 98)"
+            }
+          ],
+          "layout": {
+            "overflow": false,
+            "h1": "Каталог недвижимости",
+            "crumbs": 0
+          }
+        },
+        {
+          "name": "media",
+          "data": [
+            {
+              "fontSize": "17px",
+              "fontWeight": "300",
+              "lineHeight": "18px",
+              "color": "rgba(255, 255, 255, 0.72)"
+            },
+            {
+              "fontSize": "17px",
+              "fontWeight": "300",
+              "lineHeight": "18px",
+              "color": "rgb(255, 255, 255)"
+            }
+          ],
+          "layout": {
+            "overflow": false,
+            "h1": "Медиа BARN Estate",
+            "crumbs": 0
+          }
+        }
+      ]
+    },
+    {
+      "width": 3840,
+      "matchesCatalog": true,
+      "mediaMatchesCatalog": true,
+      "rows": [
+        {
+          "name": "resort",
+          "data": [
+            {
+              "fontSize": "17px",
+              "fontWeight": "300",
+              "lineHeight": "18px",
+              "color": "rgba(255, 255, 255, 0.72)"
+            },
+            {
+              "fontSize": "17px",
+              "fontWeight": "300",
+              "lineHeight": "18px",
+              "color": "rgb(255, 255, 255)"
+            }
+          ],
+          "layout": {
+            "overflow": false,
+            "h1": "Курортная недвижимость",
+            "crumbs": 1
+          }
+        },
+        {
+          "name": "catalog",
+          "data": [
+            {
+              "fontSize": "17px",
+              "fontWeight": "300",
+              "lineHeight": "18px",
+              "color": "rgb(101, 100, 98)"
+            }
+          ],
+          "layout": {
+            "overflow": false,
+            "h1": "Каталог недвижимости",
+            "crumbs": 0
+          }
+        },
+        {
+          "name": "media",
+          "data": [
+            {
+              "fontSize": "17px",
+              "fontWeight": "300",
+              "lineHeight": "18px",
+              "color": "rgba(255, 255, 255, 0.72)"
+            },
+            {
+              "fontSize": "17px",
+              "fontWeight": "300",
+              "lineHeight": "18px",
+              "color": "rgb(255, 255, 255)"
+            }
+          ],
+          "layout": {
+            "overflow": false,
+            "h1": "Медиа BARN Estate",
+            "crumbs": 0
+          }
+        }
+      ]
+    }
+  ]
+}
