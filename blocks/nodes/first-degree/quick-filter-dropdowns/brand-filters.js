@@ -51,7 +51,9 @@
     }
     var reset = document.querySelector('.map-browser__reset');
     if (reset && !document.querySelector('[data-brand-context=map]')) {
-      reset.before(group('map'));
+      var refinements = reset.parentElement.querySelector('.map-browser__refinements');
+      if (refinements) refinements.append(group('map'));
+      else reset.before(group('map'));
     }
     update();
     if (document.querySelector('[data-brand-context=listing]') && document.querySelector('[data-brand-context=map]')) observer.disconnect();

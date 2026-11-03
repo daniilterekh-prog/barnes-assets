@@ -5,11 +5,11 @@ export async function bootReferenceFilters() {
   const base=new URL('../',import.meta.url);
   async function script(file){await new Promise((resolve,reject)=>{const el=document.createElement('script');el.src=new URL(file,base);el.onload=resolve;el.onerror=()=>reject(new Error(`Cannot load ${file}`));document.body.append(el);});}
   await script('filters-modal/filters-template.js?v=20261102-catalog-filters-12');
-  await script('filters-modal/filters-modal.js?v=20261103-current-listing-16');
+  await script('filters-modal/filters-modal.js?v=20261103-map-controls-17');
   if(document.querySelector('.catalog-projects-map__fullscreen,[data-open-resort-map]')){
     await script('map/panel/map-projects.js?v=20261102-catalog-filters-12');
-    await script('map/panel/map-fullscreen.js?v=20261102-catalog-filters-12');
+    await script('map/panel/map-fullscreen.js?v=20261103-map-controls-17');
   }
-  await script('quick-filter-dropdowns/quick-filters.js?v=20261103-current-listing-16');
-  await script('quick-filter-dropdowns/brand-filters.js?v=20261102-catalog-filters-12');
+  await script('quick-filter-dropdowns/quick-filters.js?v=20261103-map-controls-17');
+  await script('quick-filter-dropdowns/brand-filters.js?v=20261103-map-controls-17');
 }

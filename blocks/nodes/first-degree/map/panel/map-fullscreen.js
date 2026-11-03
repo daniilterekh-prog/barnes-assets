@@ -6,7 +6,7 @@
   var assetsBase = new URL('.', document.currentScript.src);
   var style = document.createElement('link');
   style.rel = 'stylesheet';
-  style.href = new URL('map-fullscreen.css?v=4', assetsBase).href;
+  style.href = new URL('map-fullscreen.css?v=20261103-map-controls-17', assetsBase).href;
   document.head.appendChild(style);
   var icon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">';
   var parameterIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">';
@@ -35,8 +35,8 @@
     '<label class="map-browser__field"><span class="map-browser__sr-only">Цена до, ₽</span>' + priceIcon + '<input aria-label="Цена до, ₽" type="number" min="0" step="1000000" data-filter="price" placeholder="Стоимость"></label>' +
     '<label class="map-browser__field map-browser__field--select"><span class="map-browser__sr-only">Локация</span>' + locationIcon + '<select aria-label="Локация" data-filter="location"><option value="">Локация</option><option>Сочи</option><option>Анапа</option><option>Алтай</option><option>Архыз</option></select><span class="map-browser__chevron" aria-hidden="true"></span></label>' +
     '<label class="map-browser__field map-browser__field--select"><span class="map-browser__sr-only">Спальни</span>' + bedroomsIcon + '<select aria-label="Спальни" data-filter="bedrooms"><option value="">Спальни</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4+">Более 3</option></select><span class="map-browser__chevron" aria-hidden="true"></span></label>' +
-    '<label class="map-browser__field map-browser__field--select map-browser__extra"><span class="map-browser__sr-only">Сортировка</span><select aria-label="Сортировка" data-filter="sort"><option value="">По релевантности</option><option value="asc">Сначала дешевле</option><option value="desc">Сначала дороже</option></select><span class="map-browser__chevron" aria-hidden="true"></span></label>' +
-    '<button class="map-browser__reset">Сбросить фильтры</button></div><p class="map-browser__metadata-notice" role="status" hidden></p><div class="map-browser__list"></div></div>';
+    '<div class="map-browser__refinements"><label class="map-browser__field map-browser__field--select map-browser__extra"><span class="map-browser__sr-only">Сортировка</span><select aria-label="Сортировка" data-filter="sort"><option value="">По релевантности</option><option value="asc">Сначала дешевле</option><option value="desc">Сначала дороже</option></select><span class="map-browser__chevron" aria-hidden="true"></span></label>' +
+    '</div><button class="map-browser__reset">Сбросить фильтры</button></div><p class="map-browser__metadata-notice" role="status" hidden></p><div class="map-browser__list"></div></div>';
   document.body.appendChild(dialog);
   var panel = dialog.querySelector('.map-browser__panel');
   var handle = dialog.querySelector('.map-browser__handle');
