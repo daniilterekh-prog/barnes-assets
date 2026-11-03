@@ -1,5 +1,5 @@
 {
-  "version": "1.5.1",
+  "version": "1.5.2",
   "reference": "kurortnaya",
   "sourceCommit": "6a3f10a",
   "blocks": [
@@ -240,7 +240,7 @@
     {
       "id": "first-degree-listing",
       "title": "Фильтры и листинг ЖК / лотов",
-      "version": "1.5.0",
+      "version": "1.5.2",
       "source": {
         "repo": "daniilterekh-prog/barn-estate-homepage-clone",
         "commit": "6a3f10a",
@@ -752,7 +752,7 @@
   ],
   "updated": "2026-11-03",
   "loadingContract": {
-    "release": "20261103-home-quiz-21",
+    "release": "20261103-controls-row-22",
     "staticListing": true,
     "legacyListingBuilder": false
   }

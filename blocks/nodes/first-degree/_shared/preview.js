@@ -1,5 +1,5 @@
-import { mountNode } from './runtime.js?v=20261103-home-quiz-21';
-import { bootReferenceFilters } from './reference-filters.js?v=20261103-home-quiz-21';
+import { mountNode } from './runtime.js?v=20261103-controls-row-22';
+import { bootReferenceFilters } from './reference-filters.js?v=20261103-controls-row-22';
 const host = document.querySelector('.node-preview');
 const base = new URL('../',import.meta.url);
 if(host.dataset.node)await mountNode(host,new URL(`${host.dataset.node}/`,base),{referenceFilters:true});

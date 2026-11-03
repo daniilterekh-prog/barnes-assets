@@ -9,7 +9,7 @@
   }
   if (window.BarnEstateBrandFilters) return;
   window.BarnEstateBrandFilters = true;
-  var cssURL = new URL('../_shared/brand-filters.css?v=20261103-home-quiz-21', document.currentScript.src).href;
+  var cssURL = new URL('../_shared/brand-filters.css?v=20261103-controls-row-22', document.currentScript.src).href;
   if (!hasStylesheet(cssURL)) {
     var css = document.createElement('link'); css.rel = 'stylesheet'; css.href = cssURL; document.head.appendChild(css);
   }
@@ -25,7 +25,7 @@
       });
     });
   }
-  var choices = [['selection', 'Выбор BARN Estate'], ['exclusive', 'Эксклюзив BARN Estate']];
+  var choices = [['selection', 'Выбор BARN Estate'], ['exclusive', 'exclusive']];
   function flags() { return window.BarnesFilters.getState().brandFlags || []; }
   function group(context) {
     var fieldset = document.createElement('fieldset');
@@ -61,7 +61,9 @@
     var toolbar = document.querySelector('.catalog-mode-toolbar');
     if (toolbar && !document.querySelector('[data-brand-context=listing]')) {
       var row = group('listing');
-      (toolbar.closest('.catalog-grid').querySelector('.catalog-collections-row') || toolbar).prepend(row);
+      var summary = toolbar.closest('.catalog-grid').querySelector('.catalog-result-summary');
+      if (summary) summary.insertBefore(row, summary.querySelector('.catalog-result-actions'));
+      else toolbar.after(row);
     }
     var reset = document.querySelector('.map-browser__reset');
     if (reset && !document.querySelector('[data-brand-context=map]')) {
