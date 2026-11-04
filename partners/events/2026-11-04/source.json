@@ -1,0 +1,22 @@
+[
+  {
+    "file": "investment-meeting.webp",
+    "sourcePage": "https://barn-estate.ru/media/meropriyatiya/public-talk-investitsii-i-lizing-v-barnes-business-club/",
+    "sourceImage": "https://barn-estate.ru/images/vistuplenie.jpg",
+    "originalSha256": "a8b63e9b9494d5c02375046c172a3a9eae8c511824fd79b3605fb493b5b8cbd4",
+    "width": 1280,
+    "height": 853,
+    "sha256": "21df3c41d339a23f70e9c6f4295921137818efe8134004f8b19d9d79c7989c9b",
+    "processing": "EXIF orientation, resize to max1280px, WebP q86; no generative edits or retouching"
+  },
+  {
+    "file": "petrovka-club.webp",
+    "sourcePage": "https://barn-estate.ru/barnes-club/",
+    "sourceImage": "https://barn-estate.ru/images/sb_pic1.png",
+    "originalSha256": "5964813ea4f738370502c4e21a89cc1e3ad677c3247ec3c292226aefe105a729",
+    "width": 1280,
+    "height": 860,
+    "sha256": "c2697471f8634fcaf6697ceec5dbb022b3383bb0507173c20a259daa462bfaed",
+    "processing": "EXIF orientation, resize to max1280px, WebP q86; no generative edits or retouching"
+  }
+]
