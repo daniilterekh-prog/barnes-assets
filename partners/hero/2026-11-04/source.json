@@ -1,0 +1,12 @@
+{
+  "date": "2026-11-04",
+  "purpose": "Replacement hero image for the ambassadors page requested by the user",
+  "generator": "OpenAI built-in image generation",
+  "original": "original.png",
+  "web": "ambassadors-premium-residence.webp",
+  "width": 1672,
+  "height": 941,
+  "sha256": "7d1227a5cde755bf05e2f8eba5f22da7063ba8250aa3f87683e2f7772b011acd",
+  "prompt": "Premium photoreal private residence salon; monumental bronze and walnut architecture, marble, collectible furniture, warm natural light, calm darker left half for white hero text. No people, lettering or identifiable skyline.",
+  "target": "barnes-sites/main-site/pages/partners/assets/ambassadors-premium-residence-20261104.webp"
+}
