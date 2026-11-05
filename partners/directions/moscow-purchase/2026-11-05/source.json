@@ -1,0 +1,25 @@
+{
+  "date": "2026-11-05",
+  "use": "Ambassador directions / Buying in Moscow",
+  "kind": "AI-generated illustrative category interior, not an actual named property",
+  "tool": "image_gen.imagegen built-in",
+  "promptFile": "prompt.txt",
+  "files": {
+    "original": {
+      "path": "original.png",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 2934402,
+      "sha256": "0eb8ce9fbb9dcaef1a2a254b64156157a8aaf35628623f8d4ef4ab47174a1ef4"
+    },
+    "web": {
+      "path": "image.webp",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 259736,
+      "sha256": "024039f7b4e2f106a291789f759a306f0b88e29963d9a55bfc35ab6f15302ae7"
+    }
+  },
+  "optimization": "Codex Toolkit ctk images / Sharp, fit width 1600 without upscaling",
+  "runtime": "for-partners/assets/directions/moscow-purchase-20261105.webp"
+}
