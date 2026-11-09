@@ -1,0 +1,22 @@
+{
+  "date": "2026-11-09",
+  "name": "Людмила Белоусова",
+  "source": "https://daniilterekh-prog.github.io/barnes-assets/fontanka-130/images/expert-ludmila-belousova.webp",
+  "sourceDimensions": [
+    383,
+    383
+  ],
+  "sourceSha256": "56877c32c50ce013241889dbf3f497962cee9d83fac36d2fd55c362bec5f83db",
+  "file": "ludmila-belousova-enhanced-v1.png",
+  "dimensions": [
+    1254,
+    1254
+  ],
+  "sha256": "8c17d9092a62de2331cd684668d6a80035d4cd3192860dd768f7ec864027967c",
+  "method": "Built-in image_gen, identity-preserve restoration",
+  "prompt": "prompt.txt",
+  "userConstraint": "Очень сильное улучшение качества, не менять лицо",
+  "transparency": false,
+  "review": "Портрет визуально сопоставлен с исходником. Сохранены композиция, поза, выражение, одежда и фон. Это генеративное восстановление деталей по сжатому исходнику; точное восстановление утраченных микродеталей не подтверждается.",
+  "deployment": "Отдельная версия; существующие изображения и страницы не заменены."
+}

@@ -1,5 +1,7 @@
 # BARNES Assets
 
+- [Людмила Белоусова: улучшенный портрет1254×1254, исходник и промпт ·09.11.2026](portraits/ludmila-belousova/2026-11-09/README.md).
+
 - [BARN Estate Club: самостоятельная иллюстрация особняка, вариант2 ·09.11.2026](club/about/2026-11-09/v2/README.md).
 
 - [Мероприятия главной — чистый пакет HTML/CSS/JS для разработчика ·09.11.2026](blocks/events/home/developer/README.md).
