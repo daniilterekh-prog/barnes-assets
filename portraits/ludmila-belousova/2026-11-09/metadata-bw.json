@@ -1,0 +1,17 @@
+{
+  "date": "2026-11-09",
+  "name": "Людмила Белоусова",
+  "file": "ludmila-belousova-bw-v1.png",
+  "dimensions": [
+    1254,
+    1254
+  ],
+  "sha256": "72e3f7db7443eb0cb572dbbf2912296638a8f961eed939444844f4a952d4dcff",
+  "method": "Built-in image_gen: minimal monochrome edit from ORIGINAL photograph",
+  "source": "https://daniilterekh-prog.github.io/barnes-assets/fontanka-130/images/expert-ludmila-belousova.webp",
+  "styleReference": "barnes-sites/main-site/pages/home-spb/assets/4346a828fbae5e179c5006b4.jpg — чёрно-белый портрет главной",
+  "prompt": "prompt-bw.txt",
+  "status": "Новый вариант для просмотра; принятие пользователем не подтверждено",
+  "constraints": "Чёрно-белый портрет по оригиналу, без усиления деталей и бьюти-ретуши; сохранение лица, позы, одежды, фона и кадра.",
+  "previousVariant": "ludmila-belousova-enhanced-v1.png отклонён пользователем. Не использовать как утверждённый портрет."
+}
