@@ -1,0 +1,37 @@
+{
+  "created": "2026-11-09",
+  "kind": "AI-regenerated architectural illustration",
+  "tool": "built-in image_gen",
+  "prompt": "prompt.md",
+  "input_image": "reference-original.webp",
+  "input_origin": "https://barn-estate.ru/images/barners_p1.png",
+  "brand_reference": "https://github.com/daniilterekh-prog/barnes-assets/tree/main/brand/barn-estate",
+  "usage": "BARN Estate Club, section about; not documentary evidence of installed signs",
+  "files": [
+    {
+      "file": "about-mansion.webp",
+      "sha256": "f09b2bf702dc3e6ac6e5e49303d05d6774fd40fa15debeeba97ce7420aff19aa",
+      "bytes": 438194
+    },
+    {
+      "file": "original.png",
+      "sha256": "6dd2aaa7e58a64d8a48e617ecfbe1cb63c9710a4a242a30932390a127f4e7223",
+      "bytes": 2487875
+    },
+    {
+      "file": "prompt.md",
+      "sha256": "e25afb2d387696b6fcd9e65a745370d88550e4905a4d0c5ab171b65652eb3d90",
+      "bytes": 2210
+    },
+    {
+      "file": "reference-logo.png",
+      "sha256": "f0ae677fd7cea0f8ebe91125fd024852407add130e0d164670cbc682f8346639",
+      "bytes": 24260
+    },
+    {
+      "file": "reference-original.webp",
+      "sha256": "45a0027a5d0a49d8a93df812d79e93d0a8a02acfbbdbcf50cfb64ea3ba1cc788",
+      "bytes": 27076
+    }
+  ]
+}
