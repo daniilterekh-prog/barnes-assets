@@ -23,6 +23,50 @@
       "width": 380,
       "height": 253,
       "imageSha256": "bbd31b3de051539fc125c290d3f19b3f68369ee9cfb570ab43275d8a451dd8fc"
+    },
+    {
+      "title": "BARN Estate x PADEL: благотворительный турнир",
+      "date": "2026-04-29",
+      "url": "https://barn-estate.ru/media/meropriyatiya/barnes-x-padel-blagotvoritelnyy-turnir-obedinivshiy-sport-kulturu-i-delovoe-obshchenie/",
+      "imageSource": "https://c15d3839-d361-4fb8-9615-0c7a980d0169.selstorage.ru/resize_cache/11238785/681a02c8a94a83f605c53671afcd24a3/iblock/3c6/3c69ba669e572ef37d11921d0674b1e4/f537594a98096a1ab0c6582b7b92cc5a.jpg",
+      "source": "https://barn-estate.ru/media/meropriyatiya/",
+      "image": "assets/event-93081aba4b1a.webp",
+      "width": 380,
+      "height": 285,
+      "imageSha256": "b019a19b6bde58e2d5130df4c4a2a3b980faf71ab8163f77bdb54fc01b341c7b"
+    },
+    {
+      "title": "Арт-лекторий в BARN Estate: погружение в современное искусство",
+      "date": "2026-03-06",
+      "url": "https://barn-estate.ru/media/meropriyatiya/art-lektoriy-v-barnes-pogruzhenie-v-sovremennoe-iskusstvo-/",
+      "imageSource": "https://c15d3839-d361-4fb8-9615-0c7a980d0169.selstorage.ru/resize_cache/11239942/681a02c8a94a83f605c53671afcd24a3/iblock/246/246c1406bd98296e5e177eb3316b00f1/c46fabae1a87a744a5820a6e490b5682.jpg",
+      "source": "https://barn-estate.ru/media/meropriyatiya/",
+      "image": "assets/event-e4a12c83b3b5.webp",
+      "width": 380,
+      "height": 253,
+      "imageSha256": "a21d20039ea5e5cd6b1b457779572d6f11c4eb6ed0a7601265430fbcc7a7b3cf"
+    },
+    {
+      "title": "Искусство жить в Санкт-Петербурге вместе с BARN Estate",
+      "date": "2025-09-26",
+      "url": "https://barn-estate.ru/media/meropriyatiya/iskusstvo-zhit-v-sankt-peterburge-vmeste-s-barnes/",
+      "imageSource": "https://c15d3839-d361-4fb8-9615-0c7a980d0169.selstorage.ru/resize_cache/11239948/681a02c8a94a83f605c53671afcd24a3/iblock/ffa/ffac47769c3df9617348ed8a8519ace1/f2c7a17f7b6b27c4b95c55d0fbc40dcf.png",
+      "source": "https://barn-estate.ru/media/meropriyatiya/",
+      "image": "assets/event-24944571ba82.webp",
+      "width": 380,
+      "height": 214,
+      "imageSha256": "28328c095aa99ec92f846996fe00d4e102a85de7e6e88332f936a73e8d527f55"
+    },
+    {
+      "title": "День Петровки: путешествие сквозь время и эстетику",
+      "date": "2025-09-22",
+      "url": "https://barn-estate.ru/media/meropriyatiya/den-petrovki-puteshestvie-skvoz-vremya-i-estetiku/",
+      "imageSource": "https://c15d3839-d361-4fb8-9615-0c7a980d0169.selstorage.ru/resize_cache/11239949/681a02c8a94a83f605c53671afcd24a3/iblock/245/24519b1ad1211f1838cfa26842207ce0/46fbda18e2eb601616cbaca8fdff9fc3.jpg",
+      "source": "https://barn-estate.ru/media/meropriyatiya/",
+      "image": "assets/event-65c1f8619ad1.webp",
+      "width": 380,
+      "height": 214,
+      "imageSha256": "35b753a3b28c2336c2ef3e26c7c0d71a4b5496daf57051110c6457461cea0d5e"
     }
   ],
   "photos": [
@@ -45,6 +89,46 @@
       "file": "assets/home-event-2026-07-26.webp",
       "width": 1600,
       "height": 1066
+    },
+    {
+      "date": "2026-04-29",
+      "title": "BARN Estate x PADEL: благотворительный турнир",
+      "eventUrl": "https://barn-estate.ru/media/meropriyatiya/barnes-x-padel-blagotvoritelnyy-turnir-obedinivshiy-sport-kulturu-i-delovoe-obshchenie/",
+      "source": "https://c15d3839-d361-4fb8-9615-0c7a980d0169.selstorage.ru/iblock/3c6/3c69ba669e572ef37d11921d0674b1e4/f537594a98096a1ab0c6582b7b92cc5a.jpg",
+      "originalSha256": "fa0259ffb5d2e466bb9f78b0abd392548af2b8801ff59f6213392ddd00de5b22",
+      "file": "assets/home-event-2026-04-29.webp",
+      "width": 1600,
+      "height": 1200
+    },
+    {
+      "date": "2026-03-06",
+      "title": "Арт-лекторий в BARN Estate: погружение в современное искусство",
+      "eventUrl": "https://barn-estate.ru/media/meropriyatiya/art-lektoriy-v-barnes-pogruzhenie-v-sovremennoe-iskusstvo-/",
+      "source": "https://c15d3839-d361-4fb8-9615-0c7a980d0169.selstorage.ru/iblock/246/246c1406bd98296e5e177eb3316b00f1/c46fabae1a87a744a5820a6e490b5682.jpg",
+      "originalSha256": "b7ddac2b47c907d5f5caee7dd59ac0c5409db70bc4ff7cf78aefe8ebb3511cfc",
+      "file": "assets/home-event-2026-03-06.webp",
+      "width": 1600,
+      "height": 1066
+    },
+    {
+      "date": "2025-09-26",
+      "title": "Искусство жить в Санкт-Петербурге вместе с BARN Estate",
+      "eventUrl": "https://barn-estate.ru/media/meropriyatiya/iskusstvo-zhit-v-sankt-peterburge-vmeste-s-barnes/",
+      "source": "https://c15d3839-d361-4fb8-9615-0c7a980d0169.selstorage.ru/iblock/ffa/ffac47769c3df9617348ed8a8519ace1/f2c7a17f7b6b27c4b95c55d0fbc40dcf.png",
+      "originalSha256": "be9dc58d2cbd580dca3ba2a9d9679d7ec2319d3f3a7a958ef4175657049a63d0",
+      "file": "assets/home-event-2025-09-26.webp",
+      "width": 1600,
+      "height": 900
+    },
+    {
+      "date": "2025-09-22",
+      "title": "День Петровки: путешествие сквозь время и эстетику",
+      "eventUrl": "https://barn-estate.ru/media/meropriyatiya/den-petrovki-puteshestvie-skvoz-vremya-i-estetiku/",
+      "source": "https://c15d3839-d361-4fb8-9615-0c7a980d0169.selstorage.ru/iblock/245/24519b1ad1211f1838cfa26842207ce0/46fbda18e2eb601616cbaca8fdff9fc3.jpg",
+      "originalSha256": "534414a7ae3b55308011fcfdbb25a6c36b5c383a6edb5c2228d3ef23b46f2e7b",
+      "file": "assets/home-event-2025-09-22.webp",
+      "width": 1600,
+      "height": 900
     }
   ]
 }

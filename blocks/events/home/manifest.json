@@ -1,15 +1,19 @@
 {
   "id": "18-events",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "source": "main-site/pages/partners/#partner-community",
   "files": [
     {
       "file": "block.html",
-      "sha256": "d0e69f7eb2a799f5acfa78eaeab90ac0944d3c0b9c18fadd0fdf229c6ce82be9"
+      "sha256": "52ad0a143760af17e4ab6e976babe3ea9935941b213ee91dd730b84facdf419e"
     },
     {
       "file": "block.css",
-      "sha256": "4f09e136a56e2efcdc9be428107b8e8db538a8a873ecd040e3a449968d849fff"
+      "sha256": "5579ae111fe6057066954aa1022c2c46577249991e9a1d0393b1e6bdf361eb87"
+    },
+    {
+      "file": "block.js",
+      "sha256": "7bd5e313d15afdca3da45fba34faa0d37d8b26440fd452059572bc46d5b987cc"
     },
     {
       "file": "fonts.css",
@@ -17,15 +21,15 @@
     },
     {
       "file": "index.html",
-      "sha256": "e29e1a53950f91a3fffbf112fffd42a64e674af413b595bed9cba8c4bdd01abb"
+      "sha256": "59a65d509d920badeee3132786eac20089e467659d26b2ba59d9c40ab4427a55"
     },
     {
       "file": "paste.html",
-      "sha256": "82698e9167c6260e38b2c833bde681670c62a874d4475d917e21d49454544f14"
+      "sha256": "656280e7add309ccae8484bb4ee09c854da5883f7ab231932927f8d612527b65"
     },
     {
       "file": "content.json",
-      "sha256": "a3c9b8834927d5b2947a69cedd58316cc1dd67e4443de0aba9128aa6df51712a"
+      "sha256": "67b2ec951772a647f3a81cb19b85ffb13cd2d93e75b7961027b48176a1d7f15e"
     },
     {
       "file": "assets/home-event-2026-10-05.webp",
@@ -34,6 +38,22 @@
     {
       "file": "assets/home-event-2026-07-26.webp",
       "sha256": "9b0c83c77278a003afb40bf9337483ee6e49f4e809d3bdef81dae48653923c67"
+    },
+    {
+      "file": "assets/home-event-2026-04-29.webp",
+      "sha256": "e412d01d888007137020a659087d619f057d3d164ad4d81138ff082556a29b66"
+    },
+    {
+      "file": "assets/home-event-2026-03-06.webp",
+      "sha256": "90dc37acdca415caf607a3ed100157e1f094475104acbdb284febe09e5c2f412"
+    },
+    {
+      "file": "assets/home-event-2025-09-26.webp",
+      "sha256": "92db52f7ca2d8fd403cd0e193c008825c95a44b84bb1a8cc2a54b5e796389475"
+    },
+    {
+      "file": "assets/home-event-2025-09-22.webp",
+      "sha256": "36e34a6c4a50c636569f5cac49581a023ddeaacfc237b77ae690dac310867802"
     },
     {
       "file": "assets/TildaSans-Light.woff2",
