@@ -1,19 +1,19 @@
 {
   "id": "18-events",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "source": "main-site/pages/partners/#partner-community",
   "files": [
     {
       "file": "block.html",
-      "sha256": "52ad0a143760af17e4ab6e976babe3ea9935941b213ee91dd730b84facdf419e"
+      "sha256": "ff4288680de8d00a72dbb5aa306a8be21ed37e767dcd7c30ba101d34d5880dc6"
     },
     {
       "file": "block.css",
-      "sha256": "5579ae111fe6057066954aa1022c2c46577249991e9a1d0393b1e6bdf361eb87"
+      "sha256": "142d09640ea81f11b6cbb83ac05a7e45281e1477ee912ea930ad7affbc5eb22f"
     },
     {
       "file": "block.js",
-      "sha256": "7bd5e313d15afdca3da45fba34faa0d37d8b26440fd452059572bc46d5b987cc"
+      "sha256": "6f3a8d1722e72a8871939c88f49acfea62f4c3880d361875ef26434bdefa4006"
     },
     {
       "file": "fonts.css",
@@ -21,11 +21,11 @@
     },
     {
       "file": "index.html",
-      "sha256": "59a65d509d920badeee3132786eac20089e467659d26b2ba59d9c40ab4427a55"
+      "sha256": "db9d248257f66a2441c99a4201ba88897f191bc2ebba556bc733b71896feacf5"
     },
     {
       "file": "paste.html",
-      "sha256": "656280e7add309ccae8484bb4ee09c854da5883f7ab231932927f8d612527b65"
+      "sha256": "8e14f22db2933944ade1097e41c8ce9cb369d12101e9796767ef9bd17b5ca26c"
     },
     {
       "file": "content.json",
