@@ -17,15 +17,17 @@
 .home-events h2 {font-size:var(--home-heading,var(--events-heading));line-height:1.2;font-weight:300;letter-spacing:0;text-transform:uppercase;text-wrap:balance}
 .home-events__grid {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:40px}
 .home-events__card {min-width:0}
-.home-events__media {position:relative}
+.home-events__card-link {display:flex;flex-direction:column;align-items:flex-start;height:100%;color:inherit;text-decoration:none}
+.home-events__media {position:relative;width:100%}
 .home-events__image {display:block;width:100%;height:auto;aspect-ratio:1.5;object-fit:cover;object-position:center;border-radius:1px;background:#edeae6}
-.home-events__copy {padding-top:32px}
+.home-events__copy {width:100%;padding-top:32px}
 .home-events__date {position:absolute;top:16px;left:16px;max-width:calc(100% - 32px);padding:10px 14px;border-radius:1px;background:#fff;color:#1e1e1e;font-size:13px;line-height:18px;font-weight:400;letter-spacing:normal}
 /* Same headline role as .event-card__title in the events archive. */
 .home-events h3 {font-size:18px;line-height:1.35;font-weight:400;letter-spacing:normal;text-transform:uppercase;overflow-wrap:anywhere}
 .home-events__link {display:inline-flex;align-items:center;gap:20px;max-width:100%;min-height:44px;padding:8px 0;border-bottom:1px solid #8b1d25;border-radius:0;color:#8b1d25;font-size:14px;line-height:1.2;font-weight:400;letter-spacing:.12em;text-transform:uppercase;text-decoration:none}
-/* Same text role as .news-section__read-more, including phones. */
-.home-events__card .home-events__link {margin-top:16px;font-family:"Tilda Sans","Tilda Sans Fallback",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;font-size:14px;line-height:1.2;font-weight:400;letter-spacing:normal;text-transform:none}
+/* Full .news-section__read-more presentation: the surrounding card is the link. */
+.home-events__read-more {display:block;width:fit-content;margin-top:16px;padding:0;border:0;color:#1e1e1e;font-family:"Tilda Sans","Tilda Sans Fallback",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;font-size:14px;line-height:1.2;font-weight:400;letter-spacing:normal;text-transform:none;text-decoration:underline;text-underline-offset:4px;transition:color .3s ease}
+.home-events__card-link:focus-visible {outline:2px solid #8b1d25;outline-offset:5px}
 .home-events__link svg {flex:0 0 16px;width:16px;height:16px;fill:none}
 .home-events__link:hover {text-decoration:underline;text-underline-offset:6px}
 .home-events__link:focus-visible {outline:2px solid #8b1d25;outline-offset:5px}
