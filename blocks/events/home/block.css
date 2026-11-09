@@ -15,13 +15,14 @@
 .home-events__header {max-width:1000px;margin:0 0 var(--events-content-gap)}
 .home-events__eyebrow {display:block;margin:0 0 var(--events-brow-gap)!important;font-size:var(--events-eyebrow);line-height:var(--events-brow-line);font-weight:400;letter-spacing:.12em;text-transform:uppercase;color:#4f4d49}
 .home-events h2 {font-size:var(--home-heading,var(--events-heading));line-height:1.2;font-weight:300;letter-spacing:0;text-transform:uppercase;text-wrap:balance}
-.home-events__lead {margin-top:var(--events-copy-gap)!important;max-width:74ch;font-size:var(--home-lead,var(--events-lead));line-height:var(--home-lead-line,var(--events-lead-line));font-weight:300;color:#4f4d49}
 .home-events__grid {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:40px}
 .home-events__card {min-width:0}
+.home-events__media {position:relative}
 .home-events__image {display:block;width:100%;height:auto;aspect-ratio:1.5;object-fit:cover;object-position:center;border-radius:1px;background:#edeae6}
 .home-events__copy {padding-top:32px}
-.home-events__date {margin-bottom:var(--events-brow-gap)!important}
-.home-events h3 {font-size:var(--home-card,var(--events-card));line-height:1.2;font-weight:400;letter-spacing:0;text-wrap:pretty}
+.home-events__date {position:absolute;top:16px;left:16px;max-width:calc(100% - 32px);padding:10px 14px;border-radius:1px;background:#fff;color:#1e1e1e;font-size:13px;line-height:18px;font-weight:400;letter-spacing:normal}
+/* Same headline role as .event-card__title in the events archive. */
+.home-events h3 {font-size:18px;line-height:1.35;font-weight:400;letter-spacing:normal;text-transform:uppercase;overflow-wrap:anywhere}
 .home-events__link {display:inline-flex;align-items:center;gap:20px;max-width:100%;min-height:44px;padding:8px 0;border-bottom:1px solid #8b1d25;border-radius:0;color:#8b1d25;font-size:14px;line-height:1.2;font-weight:400;letter-spacing:.12em;text-transform:uppercase;text-decoration:none}
 /* Same text role as .news-section__read-more, including phones. */
 .home-events__card .home-events__link {margin-top:16px;font-family:"Tilda Sans","Tilda Sans Fallback",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;font-size:14px;line-height:1.2;font-weight:400;letter-spacing:normal;text-transform:none}
@@ -36,5 +37,6 @@
 @media(max-width:540px){
   .home-events{--events-heading:22px;--events-lead:15px;--events-lead-line:21px;--events-space:48px;--events-gutter:22px;--events-content-gap:28px;--events-copy-gap:16px;scroll-margin-top:90px}
   .home-events__copy{padding-top:24px}
+  .home-events__date{top:12px;left:12px;max-width:calc(100% - 24px);padding:8px 12px}
   .home-events__link{font-size:12px}
 }

@@ -5,11 +5,11 @@
   "files": [
     {
       "file": "block.html",
-      "sha256": "4639a443e400505b8d560b2d9f66b42de3705d3e48734920fb0d47bcc9523d11"
+      "sha256": "f4ded2bc8345caf63c2f2a487ef7d9fb0823cbba0ef2230dd3fda9009d1b9b9c"
     },
     {
       "file": "block.css",
-      "sha256": "ae0ca7585f1ef501e57e587e7d82e713124aadbd4bc57ccbb83fe61490ab651b"
+      "sha256": "fcd63a9eccca08d8a8048c4676c802ec7f84fdf6143fb2a3975ddad644195b81"
     },
     {
       "file": "fonts.css",
@@ -17,11 +17,11 @@
     },
     {
       "file": "index.html",
-      "sha256": "68ded1c2c67295cf55c9ff81b00982311850b26acb56b4364ef1ed07377a21f9"
+      "sha256": "8c4689ba23c1c26be53a009c5938b74c67b02af1367f8669e2733ca4315502d3"
     },
     {
       "file": "paste.html",
-      "sha256": "17b938775b4b79bc98169634b90090c8b6a4faa4e389710d4dc34103e5f8c19c"
+      "sha256": "8c26f373284eb4bbf6bd96b5383a36846b06a9fdaf271d45cb387e51dcfc5f00"
     },
     {
       "file": "content.json",
