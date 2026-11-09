@@ -1,6 +1,6 @@
 # BARNES — библиотека блоков собственников
 
-- [Мероприятия главной по амбассадорам ·09.11.2026](events/home/README.md).
+- [Мероприятия главной — HTML/CSS/JS для разработчика ·09.11.2026](events/home/developer/README.md).
 
 Отдельная коллекция: [узлы первой степени / Курортная](nodes/first-degree/README.md) — 15 блоков и 3 актуальные карточки, [превью](nodes/first-degree/catalog.html).
 
