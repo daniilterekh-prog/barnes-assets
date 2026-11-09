@@ -1,0 +1,47 @@
+{
+  "id": "18-events",
+  "version": "1.0.0",
+  "source": "main-site/pages/partners/#partner-community",
+  "files": [
+    {
+      "file": "block.html",
+      "sha256": "4639a443e400505b8d560b2d9f66b42de3705d3e48734920fb0d47bcc9523d11"
+    },
+    {
+      "file": "block.css",
+      "sha256": "ca15f2b82f68c82b3ad8fbd7d05fd3e1596b5d728a7de57d4acdb47952608c8c"
+    },
+    {
+      "file": "fonts.css",
+      "sha256": "74d5a652e9b854496f162cec8140490da126d0c0bed49e7053e3188a44266db9"
+    },
+    {
+      "file": "index.html",
+      "sha256": "68ded1c2c67295cf55c9ff81b00982311850b26acb56b4364ef1ed07377a21f9"
+    },
+    {
+      "file": "paste.html",
+      "sha256": "d0d6ab4ec34a066debfe6bb7a0d1b230d48d9e98032d99882fe8ac5dd8b0c842"
+    },
+    {
+      "file": "content.json",
+      "sha256": "a3c9b8834927d5b2947a69cedd58316cc1dd67e4443de0aba9128aa6df51712a"
+    },
+    {
+      "file": "assets/home-event-2026-10-05.webp",
+      "sha256": "c8728c05273c4b48bfbc1194f9cc58bf13e7143134327fc0deb1379d2e4f8087"
+    },
+    {
+      "file": "assets/home-event-2026-07-26.webp",
+      "sha256": "9b0c83c77278a003afb40bf9337483ee6e49f4e809d3bdef81dae48653923c67"
+    },
+    {
+      "file": "assets/TildaSans-Light.woff2",
+      "sha256": "f0f2c165784c72343618a7c2cbde00e45dbb9b09af5149984792f280cac9642e"
+    },
+    {
+      "file": "assets/TildaSans-Regular.woff2",
+      "sha256": "2670dad44ca6c2a1b9bbdbf1af6d8db9173f2dbe31604e80bdf9599b55047d41"
+    }
+  ]
+}

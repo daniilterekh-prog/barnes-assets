@@ -1,0 +1,50 @@
+{
+  "editorialSource": "main-site/pages/events/data/events.json",
+  "checkedAt": "2026-11-09",
+  "events": [
+    {
+      "title": "Осенний падел в парке Горького: новый турнир для друзей BARN Estate",
+      "date": "2026-10-05",
+      "url": "https://barn-estate.ru/media/meropriyatiya/osenniy-padel-v-parke-gorkogo-novyy-turnir-dlya-druzey-barn-estate/",
+      "imageSource": "https://c15d3839-d361-4fb8-9615-0c7a980d0169.selstorage.ru/resize_cache/11245482/681a02c8a94a83f605c53671afcd24a3/iblock/0b5/0b51583c8595014e4faaca0cfc241e8e/81cb41c65431c221c0a1308769d56424.jpg",
+      "source": "https://barn-estate.ru/media/meropriyatiya/",
+      "image": "assets/event-47d33d865947.webp",
+      "width": 380,
+      "height": 197,
+      "imageSha256": "0a686a640dc657df3623725c6143ab2e8a2771ab66885707757b688e356d61d6"
+    },
+    {
+      "title": "BARN Estate & FRIENDLY PADEL: главный падел-турнир этого лета",
+      "date": "2026-07-26",
+      "url": "https://barn-estate.ru/media/meropriyatiya/barnes-friendly-padel-glavnyy-padel-turnir-leta-2026/",
+      "imageSource": "https://c15d3839-d361-4fb8-9615-0c7a980d0169.selstorage.ru/resize_cache/11238614/681a02c8a94a83f605c53671afcd24a3/iblock/c98/c98f7394a9e365c89d3f952755dbf873/84e8369e8ed6ad3faddfe23b05b261e8.jpg",
+      "source": "https://barn-estate.ru/media/meropriyatiya/",
+      "image": "assets/event-9b4d598910de.webp",
+      "width": 380,
+      "height": 253,
+      "imageSha256": "bbd31b3de051539fc125c290d3f19b3f68369ee9cfb570ab43275d8a451dd8fc"
+    }
+  ],
+  "photos": [
+    {
+      "date": "2026-10-05",
+      "title": "Осенний падел в парке Горького: новый турнир для друзей BARN Estate",
+      "eventUrl": "https://barn-estate.ru/media/meropriyatiya/osenniy-padel-v-parke-gorkogo-novyy-turnir-dlya-druzey-barn-estate/",
+      "source": "https://c15d3839-d361-4fb8-9615-0c7a980d0169.selstorage.ru/iblock/0b5/0b51583c8595014e4faaca0cfc241e8e/81cb41c65431c221c0a1308769d56424.jpg",
+      "originalSha256": "165d5bddcd52d71023f80f8851af67ad2e7154fb141b1586b7809e32d40ec9ba",
+      "file": "assets/home-event-2026-10-05.webp",
+      "width": 1600,
+      "height": 827
+    },
+    {
+      "date": "2026-07-26",
+      "title": "BARN Estate & FRIENDLY PADEL: главный падел-турнир этого лета",
+      "eventUrl": "https://barn-estate.ru/media/meropriyatiya/barnes-friendly-padel-glavnyy-padel-turnir-leta-2026/",
+      "source": "https://c15d3839-d361-4fb8-9615-0c7a980d0169.selstorage.ru/iblock/c98/c98f7394a9e365c89d3f952755dbf873/84e8369e8ed6ad3faddfe23b05b261e8.jpg",
+      "originalSha256": "45584ca374cdfef7fcf8170544116c1b074bc4e79cfadf089f34313c6f4e1996",
+      "file": "assets/home-event-2026-07-26.webp",
+      "width": 1600,
+      "height": 1066
+    }
+  ]
+}
