@@ -1,0 +1,35 @@
+{
+  "created": "2026-11-09",
+  "tool": "built-in image_gen",
+  "kind": "AI architectural illustration, independently recomposed variant",
+  "input_scene": "../about-mansion.webp",
+  "input_brand": "../reference-logo.png",
+  "changes": [
+    "dark green four-door car at lower left",
+    "new man and woman at entrance, new poses and clothes",
+    "three-quarter facade view",
+    "street lamp at right",
+    "balcony, planting, paving and storefront details"
+  ],
+  "width": 1254,
+  "height": 1254,
+  "transform": "Sharp WebP quality94; no resizing",
+  "prompt": "prompt.md",
+  "files": [
+    {
+      "file": "about-mansion-v2.webp",
+      "bytes": 532574,
+      "sha256": "a0748dde42134321d45a55fe8debe92774f6ef2e88e2b08037780b5e1e81ff39"
+    },
+    {
+      "file": "original.png",
+      "bytes": 2785722,
+      "sha256": "fa01c0b8ea4c4030ded5591ceb6c805354cb5b665838cb8ec2f2c2ebf5aeccbe"
+    },
+    {
+      "file": "prompt.md",
+      "bytes": 2777,
+      "sha256": "e2448832fa1a9fddb7ad89a5d646a8f3b634aa640a759b12e0a0c74868e67e0a"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 # BARNES Assets
 
-- [BARN Estate Club: новая иллюстрация особняка с логотипами BARN Estate ·09.11.2026](club/about/2026-11-09/README.md).
+- [BARN Estate Club: самостоятельная иллюстрация особняка, вариант2 ·09.11.2026](club/about/2026-11-09/v2/README.md).
 
 - [Мероприятия главной — чистый пакет HTML/CSS/JS для разработчика ·09.11.2026](blocks/events/home/developer/README.md).
 
