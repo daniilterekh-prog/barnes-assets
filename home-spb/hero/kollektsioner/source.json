@@ -1,0 +1,29 @@
+{
+  "project": "Коллекционер",
+  "checked": "2026-11-10",
+  "sourcePage": "https://kollektsioner.rbi.ru/",
+  "sourceImage": "https://kollektsioner.rbi.ru/storage/b6/0a/697/b60a2b90c2b4d86dca8b4e5b9f57fe16319a6662.jpg",
+  "sourceRole": "Официальный og:image проекта RBI",
+  "use": "Примерка херо главной СПб по поручению пользователя",
+  "treatment": "Детерминированная оптимизация WebP через установленный Sharp (ctk images); без генерации и изменения архитектуры. Кадрирование выполняется CSS background-size:cover.",
+  "files": {
+    "hero-desktop.webp": {
+      "width": 1920,
+      "height": 1080,
+      "bytes": 246572,
+      "sha256": "6bfbc82dfcffc51512033fd6a3d669e7bfee0c50edf4a2cd84679cc6fc0ed90b"
+    },
+    "hero-mobile.webp": {
+      "width": 960,
+      "height": 540,
+      "bytes": 73700,
+      "sha256": "eacb3411ad073bb18e4dfb3e31622118b676066446be0089c7c3077ca92e4c2e"
+    },
+    "original.jpg": {
+      "width": 1920,
+      "height": 1080,
+      "bytes": 433193,
+      "sha256": "197b01fe1d1eb361999ec55701d5309ab24d1302cd3ae1130c5147365a9c46aa"
+    }
+  }
+}

@@ -1,5 +1,7 @@
 # BARNES Assets
 
+- [Главная СПб: херо «Коллекционер», официальный кадр и WebP ·10.11.2026](home-spb/hero/kollektsioner/README.md).
+
 - [Людмила Белоусова: чёрно-белый портрет, исходник и история вариантов ·09.11.2026](portraits/ludmila-belousova/2026-11-09/README.md).
 
 - [BARN Estate Club: самостоятельная иллюстрация особняка, вариант2 ·09.11.2026](club/about/2026-11-09/v2/README.md).
