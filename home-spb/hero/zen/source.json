@@ -1,0 +1,29 @@
+{
+  "project": "ZEN",
+  "checked": "2026-11-10",
+  "sourcePage": "https://zen.yard.ru/",
+  "sourceImage": "https://zen.yard.ru/img/main.jpg",
+  "sourceRole": "Главный официальный кадр проекта YARD: терраса и панорама Петербурга",
+  "use": "Примерка варианта №10 в херо главной СПб по поручению пользователя",
+  "treatment": "Оптимизация WebP установленным Sharp через Codex Toolkit без генерации и ретуши; CSS cover для адаптива.",
+  "files": {
+    "hero-desktop.webp": {
+      "width": 2880,
+      "height": 1620,
+      "bytes": 466628,
+      "sha256": "ce13e7a725ed3205f3d91167fe4670420cd32e67baf4d3de6a70996dfb171bd3"
+    },
+    "hero-mobile.webp": {
+      "width": 1280,
+      "height": 720,
+      "bytes": 110824,
+      "sha256": "bae40133f9214b32e1d482fd887ff6a7eaef5133b61d5ef101ec10fd86207e21"
+    },
+    "original.jpg": {
+      "width": 4800,
+      "height": 2700,
+      "bytes": 7273556,
+      "sha256": "09b9a3875d603a5fca170295e0099282ed651f0305e24b0272780714489b723f"
+    }
+  }
+}
