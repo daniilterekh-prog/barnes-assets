@@ -1,0 +1,277 @@
+{
+  "date": "2026-11-10",
+  "purpose": "Вернуть карточки курортной и зарубежной недвижимости в рекомендации главной СПб по просьбе пользователя",
+  "sourceResort": "https://barn-estate.ru/kurortnaya/",
+  "sourceInternational": "Восстановлены пять карточек московской главной из barnes-sites@87adf4f; индивидуальные страницы и цены проверены 10.11.2026",
+  "records": [
+    {
+      "id": 55594,
+      "name": "LIVINGSTON SOCHI GRAND RESORT & SPA",
+      "url": "https://barn-estate.ru/zhilye-kompleksy/livingston-sochi-grand-resort-spa/",
+      "isPriceFrom": true,
+      "type": "rc",
+      "picture": "https://c15d3839-d361-4fb8-9615-0c7a980d0169.selstorage.ru/resize_cache/11013906/f99d2b1b617691c5172eff67d495aca4/iblock/20b/20b9740b79addd5588e7da3f63bc187f/84527d750ce1343da72a85160a80393e.jpg",
+      "city": "Сочи",
+      "priceUsd": 382721.099175,
+      "priceRub": 32000000,
+      "priceEur": 327592.61401503,
+      "coordinates": [
+        43.631362,
+        39.693739
+      ],
+      "group": "resort",
+      "sourceImage": "https://c15d3839-d361-4fb8-9615-0c7a980d0169.selstorage.ru/resize_cache/11013906/f99d2b1b617691c5172eff67d495aca4/iblock/20b/20b9740b79addd5588e7da3f63bc187f/84527d750ce1343da72a85160a80393e.jpg",
+      "httpStatus": 200,
+      "checked": "2026-11-10",
+      "originalFile": "resort-55594-original.jpg",
+      "originalSha256": "5cce88ebea3175531f00a370f3994b039a18f417ac100688490e7b614534f7e5",
+      "file": "resort-55594.webp",
+      "dimensions": [
+        1280,
+        793
+      ],
+      "sourceDimensions": [
+        1400,
+        867
+      ],
+      "sha256": "a36ecf4e404928bb87f6e2277116dd43f5f121733024a1541d8eb35261365f26"
+    },
+    {
+      "id": 58118,
+      "name": "MANTERA RESIDENCE",
+      "url": "https://barn-estate.ru/zhilye-kompleksy/mantera-residence/",
+      "isPriceFrom": true,
+      "type": "rc",
+      "picture": "https://c15d3839-d361-4fb8-9615-0c7a980d0169.selstorage.ru/resize_cache/11021086/f99d2b1b617691c5172eff67d495aca4/iblock/a34/a34d05dc43aaf771b7ef752fa82d7b77/778e566d822b3a8506459ca55f2f73fe.jpg",
+      "city": "Сочи",
+      "priceUsd": 1961445.6332719,
+      "priceRub": 164000000,
+      "priceEur": 1678912.146827,
+      "coordinates": [
+        43.400593,
+        39.961658
+      ],
+      "group": "resort",
+      "sourceImage": "https://c15d3839-d361-4fb8-9615-0c7a980d0169.selstorage.ru/resize_cache/11021086/f99d2b1b617691c5172eff67d495aca4/iblock/a34/a34d05dc43aaf771b7ef752fa82d7b77/778e566d822b3a8506459ca55f2f73fe.jpg",
+      "httpStatus": 200,
+      "checked": "2026-11-10",
+      "originalFile": "resort-58118-original.jpg",
+      "originalSha256": "5d84b5717ea9ea5312c2383783fb79a0bf05c56763c8a0e6f05fa1b2a9a383fb",
+      "file": "resort-58118.webp",
+      "dimensions": [
+        1280,
+        853
+      ],
+      "sourceDimensions": [
+        1400,
+        933
+      ],
+      "sha256": "adaaa4a2148dbc163ad7ad6307229964fb288278711460a92f5b1181ec527ef2"
+    },
+    {
+      "id": 57515,
+      "name": "СКАЙВИЛЬ КРАСНАЯ ПОЛЯНА",
+      "url": "https://barn-estate.ru/zhilye-kompleksy/skayvil-krasnaya-polyana/",
+      "isPriceFrom": true,
+      "type": "rc",
+      "picture": "https://c15d3839-d361-4fb8-9615-0c7a980d0169.selstorage.ru/resize_cache/11025829/f99d2b1b617691c5172eff67d495aca4/iblock/4ac/4ac3a068a41ea7c212c8388705c65b05/5bd43c0a24d0f975a00b4993996d1c0d.jpg",
+      "city": "Сочи",
+      "priceUsd": 275080.79003203,
+      "priceRub": 23000000,
+      "priceEur": 235457.1913233,
+      "coordinates": [
+        43.68683001872488,
+        40.21922173069013
+      ],
+      "group": "resort",
+      "sourceImage": "https://c15d3839-d361-4fb8-9615-0c7a980d0169.selstorage.ru/resize_cache/11025829/f99d2b1b617691c5172eff67d495aca4/iblock/4ac/4ac3a068a41ea7c212c8388705c65b05/5bd43c0a24d0f975a00b4993996d1c0d.jpg",
+      "httpStatus": 200,
+      "checked": "2026-11-10",
+      "originalFile": "resort-57515-original.jpg",
+      "originalSha256": "a61c7449a6bd07fc4bdbb93502a7f1fbd9c081dc2205d0cbb61e135939f77929",
+      "file": "resort-57515.webp",
+      "dimensions": [
+        1280,
+        957
+      ],
+      "sourceDimensions": [
+        1400,
+        1047
+      ],
+      "sha256": "a71410e9791a343db2d69a75ff13b8311a97b82063241f0bb63af17adf175f89"
+    },
+    {
+      "id": 37445,
+      "name": "VERVE CITY WALK Пентхаус с 5 спальнями",
+      "url": "https://barn-estate.ru/mezhdunarodnaya-nedvizhimost/562771/",
+      "picture": "https://c15d3839-d361-4fb8-9615-0c7a980d0169.selstorage.ru/resize_cache/10993427/d13733056f669deb3558a833a5d4f8f4/iblock/517/517a6897e6fe87dff7216edf937b07e1/05c6508929b6037898331059e40d6130.jpg",
+      "lotid": 562771,
+      "square": 857,
+      "address": "Вся инфраструктура",
+      "priceRub": 668894400,
+      "priceUsd": 8000000,
+      "priceEur": 6847652.0311,
+      "rooms": 7,
+      "bedrooms": 5,
+      "bathrooms": 5,
+      "floor": null,
+      "isExclusive": false,
+      "coordinates": [
+        25.206032,
+        55.266701
+      ],
+      "group": "international",
+      "sourceImage": "https://c15d3839-d361-4fb8-9615-0c7a980d0169.selstorage.ru/resize_cache/10993427/d13733056f669deb3558a833a5d4f8f4/iblock/517/517a6897e6fe87dff7216edf937b07e1/05c6508929b6037898331059e40d6130.jpg",
+      "httpStatus": 200,
+      "checked": "2026-11-10",
+      "originalFile": "international-37445-original.jpg",
+      "originalSha256": "c8014ce8b28c0da21aefa15cf18fcb2b3c32459cef5dc17daab306a8ec57cbfb",
+      "file": "international-37445.webp",
+      "dimensions": [
+        860,
+        416
+      ],
+      "sourceDimensions": [
+        860,
+        416
+      ],
+      "sha256": "3dd3259dfc2cc799da9625459ace72e19b1a15eccdca3b37f9da11296f3865ef"
+    },
+    {
+      "id": 95031,
+      "name": "Above Element Villas: Вилла 3BR | Пространство мечты на Пхукете",
+      "url": "https://barn-estate.ru/mezhdunarodnaya-nedvizhimost/586471/",
+      "picture": "https://c15d3839-d361-4fb8-9615-0c7a980d0169.selstorage.ru/resize_cache/11056929/d13733056f669deb3558a833a5d4f8f4/iblock/3ac/3ac3d964d1b6bb95535ed1b5334c6854/98f4978adf81e2750cc824bb5032abd5.jpg",
+      "lotid": 586471,
+      "square": 370,
+      "address": "Вся инфраструктура",
+      "priceRub": 101910744.1008,
+      "priceUsd": 1218856,
+      "priceEur": 1043287.7205,
+      "rooms": null,
+      "bedrooms": 3,
+      "bathrooms": null,
+      "floor": null,
+      "isExclusive": false,
+      "coordinates": [
+        8.002061,
+        98.310365
+      ],
+      "group": "international",
+      "sourceImage": "https://c15d3839-d361-4fb8-9615-0c7a980d0169.selstorage.ru/resize_cache/11056929/d13733056f669deb3558a833a5d4f8f4/iblock/3ac/3ac3d964d1b6bb95535ed1b5334c6854/98f4978adf81e2750cc824bb5032abd5.jpg",
+      "httpStatus": 200,
+      "checked": "2026-11-10",
+      "originalFile": "international-95031-original.jpg",
+      "originalSha256": "1ee7a69fdcfc95231793720b690561d643ac61d65f7d8a1d958f08c73d130ef1",
+      "file": "international-95031.webp",
+      "dimensions": [
+        860,
+        538
+      ],
+      "sourceDimensions": [
+        860,
+        538
+      ],
+      "sha256": "acda569721164ea856bb71c8c116300a1b4cda5d8f498722d39233dfaed48fa8"
+    },
+    {
+      "id": 17364,
+      "name": "Апартаменты в финансовом центре стамбула",
+      "url": "https://barn-estate.ru/mezhdunarodnaya-nedvizhimost/557235/",
+      "picture": "https://c15d3839-d361-4fb8-9615-0c7a980d0169.selstorage.ru/resize_cache/10881134/d13733056f669deb3558a833a5d4f8f4/iblock/cd9/cd9bdfb842ff8fe1f7d46e6f3b189077/a0f8f512d7339c168c51f6fa2c0e8cbe.jpg",
+      "lotid": 557235,
+      "square": 69,
+      "address": "Турция, Стамбул",
+      "priceRub": 61036614,
+      "priceUsd": 730000,
+      "priceEur": 624848.2478,
+      "rooms": 2,
+      "bedrooms": 1,
+      "bathrooms": 1,
+      "floor": null,
+      "isExclusive": false,
+      "group": "international",
+      "sourceImage": "https://c15d3839-d361-4fb8-9615-0c7a980d0169.selstorage.ru/resize_cache/10881134/d13733056f669deb3558a833a5d4f8f4/iblock/cd9/cd9bdfb842ff8fe1f7d46e6f3b189077/a0f8f512d7339c168c51f6fa2c0e8cbe.jpg",
+      "httpStatus": 200,
+      "checked": "2026-11-10",
+      "originalFile": "international-17364-original.jpg",
+      "originalSha256": "457006c74015c833af3b3659e987f43f39a0ff90bdd0f312eb0eea366e233a9d",
+      "file": "international-17364.webp",
+      "dimensions": [
+        860,
+        577
+      ],
+      "sourceDimensions": [
+        860,
+        577
+      ],
+      "sha256": "1743b26e54cdcd4e9baac7779f6b58d6cdf858b269562a5d459aa82a20023850"
+    },
+    {
+      "id": 8985,
+      "name": "Benahavís",
+      "url": "https://barn-estate.ru/mezhdunarodnaya-nedvizhimost/prodazha_benahav_s_5012/",
+      "picture": "https://c15d3839-d361-4fb8-9615-0c7a980d0169.selstorage.ru/resize_cache/63996/d13733056f669deb3558a833a5d4f8f4/iblock/f36/13663541075de87d2e8e8800.53576959_bd601d2555_1920.jpg",
+      "lotid": 3477411,
+      "square": 1340,
+      "address": "Впечатляющая вилла в Лос-Фламингосе.",
+      "priceRub": 407476000,
+      "priceUsd": 4411536.7126,
+      "priceEur": 4094005.9218,
+      "rooms": 22,
+      "bedrooms": 5,
+      "bathrooms": 6,
+      "floor": 3,
+      "isExclusive": false,
+      "group": "international",
+      "sourceImage": "https://c15d3839-d361-4fb8-9615-0c7a980d0169.selstorage.ru/resize_cache/63996/d13733056f669deb3558a833a5d4f8f4/iblock/f36/13663541075de87d2e8e8800.53576959_bd601d2555_1920.jpg",
+      "httpStatus": 200,
+      "checked": "2026-11-10",
+      "originalFile": "international-8985-original.jpg",
+      "originalSha256": "7fedbac6a7cffe053d5903bf1248d93a68511fccd813e37096d72af831bbdfb9",
+      "file": "international-8985.webp",
+      "dimensions": [
+        860,
+        515
+      ],
+      "sourceDimensions": [
+        860,
+        515
+      ],
+      "sha256": "a49106ae21b7d504059dac83d302f0b1d0109f696d7d25add843e3a55fbea5b2"
+    },
+    {
+      "id": 8981,
+      "name": "Elviria",
+      "url": "https://barn-estate.ru/mezhdunarodnaya-nedvizhimost/prodazha_elviria_5008/",
+      "picture": "https://c15d3839-d361-4fb8-9615-0c7a980d0169.selstorage.ru/resize_cache/63914/d13733056f669deb3558a833a5d4f8f4/iblock/bcc/19898235385dfa48164daba7.00734888_6c1684377a_1200.jpg",
+      "lotid": 3525465,
+      "square": 1054,
+      "address": "ВИЛЛА С 8 СПАЛЬНЯМИ В ЭЛЬВИРИИ",
+      "priceRub": 417663000,
+      "priceUsd": 4521826.2131,
+      "priceEur": 4196357.0746,
+      "rooms": 15,
+      "bedrooms": 8,
+      "bathrooms": 8,
+      "floor": null,
+      "isExclusive": false,
+      "group": "international",
+      "sourceImage": "https://c15d3839-d361-4fb8-9615-0c7a980d0169.selstorage.ru/resize_cache/63914/d13733056f669deb3558a833a5d4f8f4/iblock/bcc/19898235385dfa48164daba7.00734888_6c1684377a_1200.jpg",
+      "httpStatus": 200,
+      "checked": "2026-11-10",
+      "originalFile": "international-8981-original.jpg",
+      "originalSha256": "6c6485eeba255d91f466d1054526e562dff113b90cd26b3582d9ba6b8002d039",
+      "file": "international-8981.webp",
+      "dimensions": [
+        860,
+        570
+      ],
+      "sourceDimensions": [
+        860,
+        570
+      ],
+      "sha256": "99b0dfd0481ffa344af2feeaaca183f832e20a2afcec6878f32f8ef333eb41e2"
+    }
+  ]
+}
