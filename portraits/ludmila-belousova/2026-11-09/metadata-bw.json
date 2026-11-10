@@ -11,7 +11,16 @@
   "source": "https://daniilterekh-prog.github.io/barnes-assets/fontanka-130/images/expert-ludmila-belousova.webp",
   "styleReference": "barnes-sites/main-site/pages/home-spb/assets/4346a828fbae5e179c5006b4.jpg — чёрно-белый портрет главной",
   "prompt": "prompt-bw.txt",
-  "status": "Новый вариант для просмотра; принятие пользователем не подтверждено",
+  "status": "10.11.2026: пользователь попросил установить Людмилу в виджет и первой в команду главной СПб; вариант использован в изолированной странице home-spb.",
   "constraints": "Чёрно-белый портрет по оригиналу, без усиления деталей и бьюти-ретуши; сохранение лица, позы, одежды, фона и кадра.",
-  "previousVariant": "ludmila-belousova-enhanced-v1.png отклонён пользователем. Не использовать как утверждённый портрет."
+  "previousVariant": "ludmila-belousova-enhanced-v1.png отклонён пользователем. Не использовать как утверждённый портрет.",
+  "webp": {
+    "file": "ludmila-belousova-bw.webp",
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "sha256": "661029caca3e9388ab3057df1535a68610b3ff9285d63214be2292a04520998b",
+    "method": "Installed Sharp via Codex Toolkit; format conversion only"
+  }
 }
