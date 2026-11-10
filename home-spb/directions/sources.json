@@ -1,0 +1,44 @@
+{
+  "date": "2026-11-10",
+  "records": [
+    {
+      "key": "secondary",
+      "original": "secondary-original.png",
+      "file": "secondary.webp",
+      "dimensions": [
+        1448,
+        1086
+      ],
+      "sha256": "b93c99a5ba7b85d3c6ae15149a2381f48b79374ae04c74485887908f9e4dd21b",
+      "originalSha256": "add867a3c30e885f81f33b34e16180b98230a01355db17c60c2b20ac9b547237"
+    },
+    {
+      "key": "commercial",
+      "original": "commercial-original.png",
+      "file": "commercial.webp",
+      "dimensions": [
+        1448,
+        1086
+      ],
+      "sha256": "e02e08236cb611e4ac0ec178fb4fb4214e955557283feeecca5bf3df6e6e4415",
+      "originalSha256": "538e3db67605b1e844d426b7fe83364c267b0f8b04c9b140bd36d9b3c2cad353"
+    },
+    {
+      "key": "ldm",
+      "original": "ldm-original.jpg",
+      "file": "ldm.webp",
+      "dimensions": [
+        1600,
+        1000
+      ],
+      "sha256": "b0e957136dfcb1dfaf055f0976558eb5b5443e6c4f431da9a2e37f5f04e20358",
+      "originalSha256": "e9db4fdfffbe29f6b56b459e687fa7d10588c8490779a363231eaf3d7f5c9e42"
+    }
+  ],
+  "prompts": "prompts.json",
+  "method": "secondary/commercial: built-in image_gen, new generation without reference image. ldm: downloaded official developer render. All WebP: installed Sharp, maximum width1600, no upscaling.",
+  "scope": "Иллюстрации карточек направлений главной СПб. Сгенерированные изображения не используются как фотографии конкретных лотов.",
+  "ldmSourcePage": "https://aurix-development.ru/projects/ldm",
+  "ldmSourceImage": "https://api.aurix-development.ru/upload/iblock/165/mji2muarvo2twxzoopbh8ke54nypgoix/ldm_konts_arkh_01d.jpg",
+  "ldmHttpStatus": 200
+}

@@ -1,5 +1,7 @@
 # BARNES Assets
 
+- [Главная СПб: новые изображения направлений и ЛДМ ·10.11.2026](home-spb/directions/README.md).
+
 - [Главная СПб: курортные и зарубежные рекомендации ·10.11.2026](home-spb/recommendations-central/README.md).
 
 - [Главная СПб: проекты и лоты с петербургского домена ·10.11.2026](home-spb/catalog/README.md).
