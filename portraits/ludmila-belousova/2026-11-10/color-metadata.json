@@ -1,0 +1,33 @@
+{
+  "date": "2026-11-10",
+  "tool": "built-in image_gen",
+  "mode": "identity-preserve / natural colourisation",
+  "editTarget": "ludmila-belousova-hq.png",
+  "lightingReference": "owner-sale-spb/editorial/webp/cta-residence.webp",
+  "prompt": "color-prompt.txt",
+  "width": 1122,
+  "height": 1402,
+  "transparent": true,
+  "avatarCrop": {
+    "left": 100,
+    "top": 0,
+    "width": 920,
+    "height": 920
+  },
+  "files": [
+    {
+      "file": "ludmila-belousova-color-hq.png",
+      "sha256": "ea7a8a7b298332cdcb6fd699ca180b90dd896e75435e20830b1a4a901fc4131b"
+    },
+    {
+      "file": "ludmila-belousova-color-hq.webp",
+      "sha256": "ce4bb977f89ee04f3036bd93efe589b64caea495f693d09f569792d5dd4be121"
+    },
+    {
+      "file": "ludmila-belousova-color-hq-avatar.webp",
+      "sha256": "208a9913dbefc0c6a7bc9d069c779c1cd2d0b0cd5d720f4ed7965ae653134dd2"
+    }
+  ],
+  "note": "Генеративная колоризация согласованного ЧБ-портрета. Цвет восстановлен приблизительно; не исходная цветная фотография.",
+  "usedOn": "prodazha_sobstvennikam_spb"
+}
