@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-10",
+  "tool": "built-in image_gen",
+  "mode": "identity-preserve",
+  "request": "Сгенерировать фото Людмилы в хорошем качестве и переделать CTA страницы собственников СПб.",
+  "references": [
+    "https://github.com/daniilterekh-prog/barnes-assets/blob/main/fontanka-130/images/expert-ludmila-belousova.webp",
+    "https://github.com/daniilterekh-prog/barnes-assets/blob/main/portraits/ludmila-belousova/2026-11-09/ludmila-belousova-bw-v1.png"
+  ],
+  "output": {
+    "width": 1122,
+    "height": 1402,
+    "alpha": true,
+    "sha256": "dab8fa196edf65fd523fb20583854b1fadfaec91fe700d30637660744de5b48e"
+  },
+  "note": "Новый генеративный вариант по фотографии. Детали восстановлены приблизительно; это не исходная фотография высокого разрешения. Предыдущие варианты и референсы сохранены.",
+  "usedOn": "prodazha_sobstvennikam_spb",
+  "prompt": "prompt.txt"
+}

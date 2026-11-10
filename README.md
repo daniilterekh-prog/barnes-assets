@@ -1,5 +1,7 @@
 # BARNES Assets
 
+- [Людмила Белоусова: новый портрет с прозрачным фоном для CTA СПб · 10.11.2026](portraits/ludmila-belousova/2026-11-10/README.md).
+
 - [Главная СПб: новые изображения направлений и ЛДМ ·10.11.2026](home-spb/directions/README.md).
 
 - [Главная СПб: курортные и зарубежные рекомендации ·10.11.2026](home-spb/recommendations-central/README.md).
