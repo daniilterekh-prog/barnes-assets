@@ -1,0 +1,79 @@
+{
+  "createdAt": "2026-11-11",
+  "method": "built-in image_gen",
+  "purpose": "exclusive generated editorial set for owners hub",
+  "notice": "Illustrative generated scenes; not photographs of actual listed properties or agency offices.",
+  "images": [
+    {
+      "id": "hero",
+      "original": "originals/hero.png",
+      "file": "hero.webp",
+      "width": 1672,
+      "height": 941,
+      "bytes": 172540,
+      "sha256": "a5273ab51dc83c3eaedabe8ed2d7ecf5fcedc66859fb3047ba9a8df2e0a291c6",
+      "originalSha256": "c203946bf6d5cd2f4ac9efc256d6990a97ec738e8292a944bf1ab1a124306141"
+    },
+    {
+      "id": "service-city",
+      "original": "originals/service-city.png",
+      "file": "service-city.webp",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 99170,
+      "sha256": "ed9dcf05b37513db963ea49b59588a6b5f0a4127913df385c8403c584338ece1",
+      "originalSha256": "c11a073a0b9850718532b565ae979b18ec7c72c2738b81ad067ecabc984a8009"
+    },
+    {
+      "id": "service-country",
+      "original": "originals/service-country.png",
+      "file": "service-country.webp",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 288882,
+      "sha256": "8d5e96001f2d07f6b7bf99e0739a824c980b2d937c0689ee9702c9316d5f7a3a",
+      "originalSha256": "972129f59d5d76dc69b833f4d14d9b7303bdbd5db84468bfaec9f07164926f0b"
+    },
+    {
+      "id": "service-commercial",
+      "original": "originals/service-commercial.png",
+      "file": "service-commercial.webp",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 201874,
+      "sha256": "8d302ab9570ab38d0f4e04163381730eebcb49a1d7eb6cc3e20b69ac9c279fe2",
+      "originalSha256": "b9822676866d77f5ba5fc953b8718b07040432fb91e5a14edcaaf06b147b1bae"
+    },
+    {
+      "id": "service-rent",
+      "original": "originals/service-rent.png",
+      "file": "service-rent.webp",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 179398,
+      "sha256": "6618f0f5d98c4b09bb5bba13cebbcf1ad7cbb363ec36e3727456f75871f7d5a5",
+      "originalSha256": "875603241266d38d2d2fcc4592a9319683213c10b1064353b1966fe1da95e335"
+    },
+    {
+      "id": "advantages-panorama",
+      "original": "originals/advantages-panorama.png",
+      "file": "advantages-panorama.webp",
+      "width": 1817,
+      "height": 866,
+      "bytes": 246498,
+      "sha256": "c5b57dc1ef040749a6ecf363b3cc6a19fe81ed68abad4be38e52e31e1c5f8ab1",
+      "originalSha256": "01026434780a9316d55334e671277cea58147467ebf6418cec2fa22c88f70493"
+    },
+    {
+      "id": "strategy",
+      "original": "originals/strategy.png",
+      "file": "strategy.webp",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 182676,
+      "sha256": "bb1e8af3249843e2760562027648702a32224a926d492cfa001ddd65ebcc35e6",
+      "originalSha256": "028d3f426ca3c7e2ca1abb3833a34d4955cab776bef8edc00750123ea872b022"
+    }
+  ],
+  "totalWebpBytes": 1371038
+}
