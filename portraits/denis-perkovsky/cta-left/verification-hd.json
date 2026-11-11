@@ -1,0 +1,25 @@
+{
+  "source": "https://daniilterekh-prog.github.io/barn-estate-homepage-clone/kurortnaya/",
+  "date": "2026-11-11",
+  "method": "Native browser render from original portrait and interior; uniform scene scaling with added dark space on the right; no face regeneration",
+  "original": {
+    "x": 0,
+    "y": 137.46875,
+    "width": 1536,
+    "height": 825.796875
+  },
+  "scale": 1.0414183269947588,
+  "image": {
+    "src": "https://daniilterekh-prog.github.io/barn-estate-homepage-clone/kurortnaya/assets/denis-perkovsky-cutout.png",
+    "naturalWidth": 1024,
+    "naturalHeight": 1536,
+    "complete": true
+  },
+  "output": {
+    "file": "denis-cta-left-1800x860.png",
+    "width": 1800,
+    "height": 860,
+    "bytes": 1287315,
+    "sha256": "c05b59d08fe6a42cf272e7edb4fe8c7f13a5432152d181770ecfe0aa3006b913"
+  }
+}

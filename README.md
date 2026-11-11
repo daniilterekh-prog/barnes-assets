@@ -1,6 +1,6 @@
 # BARNES Assets
 
-- [Денис Перковский: точный экспорт фона CTA Курортной · 11.11.2026](portraits/denis-perkovsky/cta-left/README.md).
+- [Денис Перковский: точный экспорт фона CTA Курортной, включая 1800 × 860 · 11.11.2026](portraits/denis-perkovsky/cta-left/README.md).
 
 - [Собственникам СПб: 11 новых изображений для всех визуальных блоков · 10.11.2026](owner-sale-spb/editorial/README.md).
 
