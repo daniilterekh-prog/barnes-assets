@@ -1,5 +1,7 @@
 # BARNES Assets
 
+- [Денис Перковский: готовое изображение CTA с портретом слева · 11.11.2026](portraits/denis-perkovsky/cta-left/README.md).
+
 - [Собственникам СПб: 11 новых изображений для всех визуальных блоков · 10.11.2026](owner-sale-spb/editorial/README.md).
 
 - [Людмила Белоусова: цветной портрет с прозрачным фоном для CTA СПб · 10.11.2026](portraits/ludmila-belousova/2026-11-10/README.md).
