@@ -1,11 +1,19 @@
-# Денис Перковский: композиция CTA с портретом слева
+# Денис Перковский: точный фон CTA «Курортной»
 
-По поручению пользователя от 11.11.2026 соединены существующие портрет и фон из CTA зарубежной и курортной страниц. Денис расположен слева и закреплён по нижнему краю, справа оставлено пространство под текст. Это отдельный экспорт изображения; страницы сайта не менялись.
+По уточнению пользователя от 11.11.2026 сохранена исходная композиция CTA с [опубликованной Курортной](https://daniilterekh-prog.github.io/barn-estate-homepage-clone/kurortnaya/): положение и масштаб Дениса, интерьер и все слои затемнения.
 
-- [Скачать PNG](denis-cta-left.png), 1536 × 1024.
-- Фон: https://daniilterekh-prog.github.io/barn-estate-homepage-clone/mezhdunarodnaya-nedvizhimost/assets/cta-consultation-interior.webp
-- Портрет: https://daniilterekh-prog.github.io/barn-estate-homepage-clone/mezhdunarodnaya-nedvizhimost/assets/denis-perkovsky-cutout.png
-- Инструмент: встроенный imagegen, композиция двух исходных изображений.
-- [Задание на композицию](prompt.txt).
+[Скачать PNG · 1536 × 825](denis-cta-left.png).
 
-Проверка: PNG открывается, размер подтверждён, композиция просмотрена. SHA-256: `d733247d9fa6b5ab52deb60f32d13eb88805b8d525308f5cdab448b1de66f031`.
+Экспорт выполнен браузером из существующего HTML/CSS: временно скрыта только текстовая сетка с формой через `visibility:hidden`, её место в раскладке сохранено. Исходная фотография Дениса не перерисовывалась. Это экспорт изображения; файлы и публикация самой страницы не менялись. Предыдущая генеративная склейка заменена на месте; история сохранена в Git.
+
+## Воспроизведение
+
+[export.cjs](export.cjs) использует Playwright и Google Chrome. Перед запуском укажи `PLAYWRIGHT_PATH` на установленный пакет Playwright; необязательный `CHROME_PATH` задаёт браузер. Экран 1536 × 1100, deviceScaleFactor 1. Снимок берётся по целым внутренним координатам секции, чтобы убрать субпиксельные полосы за её границами. Размер исходной секции не меняется.
+
+## Проверка
+
+[verification.json](verification.json): геометрия до/после скрытия формы совпадает. Левая область шириной 691 пиксель, включающая Дениса, побайтно совпадает с исходной сценой: 0 изменённых пикселей. Проверены формат/размер PNG, композиция просмотрена.
+
+Исходные ассеты страницы:
+- [Портрет](https://daniilterekh-prog.github.io/barn-estate-homepage-clone/kurortnaya/assets/denis-perkovsky-cutout.png).
+- [Интерьер](https://daniilterekh-prog.github.io/barn-estate-homepage-clone/kurortnaya/assets/cta-consultation-interior.webp).

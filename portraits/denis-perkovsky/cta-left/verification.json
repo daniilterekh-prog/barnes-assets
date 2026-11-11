@@ -1,0 +1,63 @@
+{
+  "source": "https://daniilterekh-prog.github.io/barn-estate-homepage-clone/kurortnaya/",
+  "date": "2026-11-11",
+  "method": "Original browser-rendered scene; only the text/form grid is hidden with visibility:hidden",
+  "viewport": {
+    "width": 1536,
+    "height": 1100
+  },
+  "deviceScaleFactor": 1,
+  "before": {
+    "x": 0,
+    "y": 137.46875,
+    "width": 1536,
+    "height": 825.796875
+  },
+  "after": {
+    "x": 0,
+    "y": 137.46875,
+    "width": 1536,
+    "height": 825.796875
+  },
+  "clip": {
+    "x": 0,
+    "y": 138,
+    "width": 1536,
+    "height": 825
+  },
+  "unchangedGeometry": true,
+  "layers": [
+    {
+      "class": "catalog-consultation__image",
+      "x": 0,
+      "y": 25.796875,
+      "width": 768,
+      "height": 800,
+      "objectFit": "contain",
+      "objectPosition": "50% 100%",
+      "background": "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box",
+      "src": "assets/denis-perkovsky-cutout.png"
+    },
+    {
+      "class": "catalog-consultation__overlay",
+      "x": 0,
+      "y": 0,
+      "width": 1536,
+      "height": 825.796875,
+      "objectFit": "fill",
+      "objectPosition": "50% 50%",
+      "background": "rgba(0, 0, 0, 0) linear-gradient(90deg, rgba(5, 7, 10, 0.08) 0%, rgba(10, 12, 16, 0.18) 42%, rgba(10, 12, 16, 0.72) 62%, rgba(10, 12, 16, 0.88) 100%) repeat scroll 0% 0% / auto padding-box border-box",
+      "src": null
+    }
+  ],
+  "output": {
+    "width": 1536,
+    "height": 825,
+    "sha256": "92bb405a91dbddb332a5a3868ac54cf112270238536b357f5403f340a8de38c8"
+  },
+  "pixelCheck": {
+    "unchangedLeftWidth": 691,
+    "changedPixelsInLeftRegion": 0,
+    "changedPixelsTotal": 76519
+  }
+}
