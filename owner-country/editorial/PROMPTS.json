@@ -90,6 +90,14 @@
       "webp": "property-magazine.webp",
       "original_sha256": "c30f0554b12abe03dce3ee7adaffd278832ad3ee163c3b8291cfb7d83eeed6aa",
       "webp_sha256": "e86b2096e725b57448cf198816dc6f18ac1b2b7bb437beb2dfe07455b41d0c77"
+    },
+    {
+      "slug": "newsletter",
+      "prompt": "Use case: photorealistic-natural. Asset type: landscape editorial photo for a country-property email newsletter signup. A pair of elegantly printed architecture journals and a cream envelope on a slim warm walnut side table beside a window in a modern Moscow-region country house. The top journal has a full-bleed photographic cover of a limestone residence in a mature pine garden, without any lettering. A simple cup of coffee nearby, soft garden reflections in glass, fresh natural morning light, tactility of thick paper, calm refined premium photography. Distinct from an open magazine spread: keep the journals closed and show the whole small table in its environment. No legible words, no fake captions, no people, no brand logos, no watermarks.",
+      "original": "originals/newsletter.png",
+      "webp": "newsletter.webp",
+      "original_sha256": "bce2a5a39c52b2b36fb2eaa4fb255320e899784daca0cc09b945e5dd6d9488cd",
+      "webp_sha256": "9bf3552543f54a9c0a089ac8b542037cf3c178df4a24c9a4b66ebc3cb0a222f2"
     }
   ]
 }
