@@ -1,0 +1,168 @@
+{
+  "generated": "2026-11-13",
+  "tool": "built-in image_gen",
+  "illustrative": true,
+  "notRealListings": true,
+  "images": [
+    {
+      "slug": "hero",
+      "original": "originals/hero.png",
+      "webp": "hero.webp",
+      "originalDimensions": [
+        1672,
+        941
+      ],
+      "dimensions": [
+        1672,
+        941
+      ],
+      "originalSha256": "b44ea9c6f2cd18939f6c02087c4331c7867502e8189ddae0549c86c42ea2532f",
+      "sha256": "66b69abcd2b54fd3f5bf74f14fa2d8a17fb502ad7a9155afc0c963df7a139edf",
+      "bytes": 227374
+    },
+    {
+      "slug": "economics",
+      "original": "originals/economics.png",
+      "webp": "economics.webp",
+      "originalDimensions": [
+        1448,
+        1086
+      ],
+      "dimensions": [
+        1200,
+        900
+      ],
+      "originalSha256": "b846af893afa5f84a025026d67ec2cb800ed6cf97b92254a7802a8f0efe0f25e",
+      "sha256": "83c0a62f0eb260970838eb9318bd382bb981e2b60ae62f09dabe8afd4e0d25ca",
+      "bytes": 108938
+    },
+    {
+      "slug": "buyer",
+      "original": "originals/buyer.png",
+      "webp": "buyer.webp",
+      "originalDimensions": [
+        1448,
+        1086
+      ],
+      "dimensions": [
+        1200,
+        900
+      ],
+      "originalSha256": "351f62a343d52a5b8a83317c9db5e7584435044424128a6b2653bedb37953280",
+      "sha256": "2f8f49e9137f00a9e12ba5ca4398f98cac949d4e157cbd0065ed482345fb900e",
+      "bytes": 201358
+    },
+    {
+      "slug": "potential",
+      "original": "originals/potential.png",
+      "webp": "potential.webp",
+      "originalDimensions": [
+        1448,
+        1086
+      ],
+      "dimensions": [
+        1200,
+        900
+      ],
+      "originalSha256": "dadde8cd63c15e2f263d95f0c1dbe689c4e620d44a6d9131a2fcaa673bb9b02e",
+      "sha256": "c220206e7bfdae8b314a5c031dfe4525211eec657b7f9fe32d54743e567d39fb",
+      "bytes": 123770
+    },
+    {
+      "slug": "specialists",
+      "original": "originals/specialists.png",
+      "webp": "specialists.webp",
+      "originalDimensions": [
+        1448,
+        1086
+      ],
+      "dimensions": [
+        1200,
+        900
+      ],
+      "originalSha256": "74da2df873b6a33842a53d2e0231350ef9452ffe8c0a8b66ff8ae8c9060e1618",
+      "sha256": "4ec8b6b81177869cd4cc9c1bc254916dacb623e900479546384aed60d249e04e",
+      "bytes": 178414
+    },
+    {
+      "slug": "repositioning",
+      "original": "originals/repositioning.png",
+      "webp": "repositioning.webp",
+      "originalDimensions": [
+        1448,
+        1086
+      ],
+      "dimensions": [
+        1200,
+        900
+      ],
+      "originalSha256": "7ae7af97ff1889dfd4a587e65336abed1c8b9fb8d3ee4b889822f84d4c6cc89a",
+      "sha256": "1b7b137c3d0d987b0380ce095a4c076785fc441478872d8e986488d8ebbaf5de",
+      "bytes": 246498
+    },
+    {
+      "slug": "privacy",
+      "original": "originals/privacy.png",
+      "webp": "privacy.webp",
+      "originalDimensions": [
+        1448,
+        1086
+      ],
+      "dimensions": [
+        1200,
+        900
+      ],
+      "originalSha256": "8fc9f3284a3fdf95110be246e4e51b3f816c372907eb079a541c95389bf10b49",
+      "sha256": "98e374158d7b17116a33b63074c4c5357ab37ffc78bba1c434efe51518f12c08",
+      "bytes": 116102
+    },
+    {
+      "slug": "strategy",
+      "original": "originals/strategy.png",
+      "webp": "strategy.webp",
+      "originalDimensions": [
+        1672,
+        941
+      ],
+      "dimensions": [
+        1672,
+        941
+      ],
+      "originalSha256": "4ffe4188f3ca0f3128429867d24171afbf80400b12b16fce31eba1281db46e5b",
+      "sha256": "08adeaf2b91d00d0ea73f7ecbabea83034d3ccdf45dcccb75d15cbe721338967",
+      "bytes": 284024
+    },
+    {
+      "slug": "advantages-panorama",
+      "original": "originals/advantages-panorama.png",
+      "webp": "advantages-panorama.webp",
+      "originalDimensions": [
+        1672,
+        941
+      ],
+      "dimensions": [
+        1672,
+        941
+      ],
+      "originalSha256": "d53872129d8272c9b8fe3a16d9dbef925ae0392eaed8da8467350ae06e27b967",
+      "sha256": "cb76beaffda8406f5c85147586fe65c595996d3027f9f1a6a7a38120b7a4370b",
+      "bytes": 174160
+    },
+    {
+      "slug": "newsletter",
+      "original": "originals/newsletter.png",
+      "webp": "newsletter.webp",
+      "originalDimensions": [
+        1448,
+        1086
+      ],
+      "dimensions": [
+        1200,
+        900
+      ],
+      "originalSha256": "6db418f27f8454dd7ef0d9acfca88056c4a1325119dae8029bc97c18ca4b1777",
+      "sha256": "d51f35ecf6b488ef0d30e28a95ad45ec38175cf17553c2f25cdc54ecdc546743",
+      "bytes": 126950
+    }
+  ]
+}
