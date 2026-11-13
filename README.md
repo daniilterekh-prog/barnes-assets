@@ -1,5 +1,7 @@
 # BARNES Assets
 
+- [Собственники — загород: 11 собственных изображений ·13.11.2026](owner-country/editorial/README.md).
+
 - [Общий узел «Собственникам»: семь новых самостоятельных изображений ·11.11.2026](owner-hub/editorial/README.md).
 
 - [Денис Перковский: точный экспорт фона CTA Курортной, включая 1800 × 860 · 11.11.2026](portraits/denis-perkovsky/cta-left/README.md).

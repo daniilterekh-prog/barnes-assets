@@ -1,0 +1,95 @@
+{
+  "date": "2026-11-13",
+  "tool": "built-in image_gen",
+  "purpose": "Illustrative country property owner sales visuals; no actual listing or person generated",
+  "images": [
+    {
+      "slug": "hero",
+      "prompt": "Use case: photorealistic-natural. Asset type: wide cinematic website hero, landscape 16:9. Create a photorealistic editorial architectural photograph for a premium country property owner sales page in Moscow region. A refined contemporary two-storey limestone and warm oak house with large glass windows sits on a genuinely spacious, carefully landscaped plot, mature Scots pine and birch trees of the Moscow region. Early autumn, subtle golden leaves, soft morning sunlight, restrained luxury. Wide three-quarter exterior view from the lawn, entire house legible, believable engineering and crisp verticals. Keep centre upper part quiet enough for white page heading overlay. Natural photographic texture, no CGI sheen, no people, no tropical plants, no mountains, no luxury cars, no captions, no brands, no watermarks. This is an illustrative fictional residence, not a specific listed property.",
+      "original": "originals/hero.png",
+      "webp": "hero.webp",
+      "original_sha256": "be44ce696c82a84e13ff503bc426f89c8adf1d9e8f754bbd57e2e438bd2b0f1c",
+      "webp_sha256": "098429197fb5420a19b0241bf76811edf9ef4ba1cc13c49613b33c640ac4ead3"
+    },
+    {
+      "slug": "object-assessment",
+      "prompt": "Use case: photorealistic-natural. Asset type: landscape editorial photo for country home sales process. A professional property assessment scene: pale oak table on the covered stone terrace of a refined Moscow-region country house, an unbranded closed slim folder, house floorplan and site plan without readable labels, a simple pencil and measuring tape arranged naturally. Through open space beyond: a spacious green lawn and mature pine trees. Close environmental photograph, warm daylight, realistic quiet elegance, documentary not stock-photo handshake. No people, no fake readable text, no logos, no watermark.",
+      "original": "originals/object-assessment.png",
+      "webp": "object-assessment.webp",
+      "original_sha256": "c3b4c3b95249e84683a3ed11dcd8193167161b9d337e6143db7a2b9d5ce06d51",
+      "webp_sha256": "448af5faf4230da21256a1b8ef583dba19a6b22cbea3adf27cd5729019dec536"
+    },
+    {
+      "slug": "market-strategy",
+      "prompt": "Use case: photorealistic-natural. Asset type: wide landscape editorial photograph, Moscow region property sales strategy. Believable elevated drone view over a premium low-rise country settlement in the Moscow region: a few architecturally varied generous houses on private mature wooded plots, modest curving access road, dense green mixed pine/birch forest extending to the horizon. Early autumn, clear soft afternoon light, calm premium editorial feel. No urban skyscrapers, no mountains, no sea, no impossible symmetry, no words, no logos, no watermarks, no people. Fictional illustrative settlement.",
+      "original": "originals/market-strategy.png",
+      "webp": "market-strategy.webp",
+      "original_sha256": "79113bde1ad03024c8d34e395d5fbef60391d5128f98d18dff8166bf100347c4",
+      "webp_sha256": "0b516357d6ad0b35fd20031be7b8d2fe1891d9f7ae0f991694c07f1d2919bcff"
+    },
+    {
+      "slug": "whole-property",
+      "prompt": "Use case: photorealistic-natural. Asset type: landscape card photograph for country property sales. Elegant modern limestone country house and its landscaped plot presented as one coherent estate: house, broad lawn, stone garden path and a small detached timber garden pavilion within mature Moscow-region pines and birch. Wide garden-level perspective with clear spatial relationship, soft natural daylight, rich real materials, high-end architectural magazine photo. No words, logos, watermark, people, tropical plants or spectacular mountains. Fictional illustration.",
+      "original": "originals/whole-property.png",
+      "webp": "whole-property.webp",
+      "original_sha256": "c703986936977bb7703861f7cfd07f5e9f39b48072aa1780af9e406a6f6de929",
+      "webp_sha256": "88d7427d5856bf11a4ab6cd2345d325b9aee081dca458523383ed52512f1b70a"
+    },
+    {
+      "slug": "completed-home",
+      "prompt": "Use case: photorealistic-natural. Asset type: landscape card image for country property sales. Quiet completed living room inside a contemporary Moscow-region country house, pale oak floor, warm limestone fireplace, understated linen sofa, built-in walnut shelves, wide glazed doors opening to a private garden and mature pine trees. Human-scale tasteful architecture, natural overcast daylight, editorial architectural photography, subtle texture, no staged excessive luxury, no people, no text or logos, no watermarks.",
+      "original": "originals/completed-home.png",
+      "webp": "completed-home.webp",
+      "original_sha256": "f4dee935db2d31372afa9041564437b4d27e13a8625abff74ffdfb652fdf86af",
+      "webp_sha256": "b4bcac089ea787b33c389a6465480b81097aee42b29a201fb6a0eba242ad690f"
+    },
+    {
+      "slug": "positioning",
+      "prompt": "Use case: photorealistic-natural. Asset type: landscape card photograph for property positioning. Beautiful covered terrace of a premium Moscow-region country home: long limestone outdoor dining table with only a single simple ceramic vase, warm oak soffit and floor-to-ceiling glass on one side, spacious mature garden with pine and birch on the other. Soft late-afternoon daylight, refined warm neutrals, realistic architectural photography, communicates uniqueness and lifestyle of a house rather than city apartment. No people, no text, no brands, no watermarks.",
+      "original": "originals/positioning.png",
+      "webp": "positioning.webp",
+      "original_sha256": "ed7f601c7c27bf02e21033d899d3f7f1bbd7a9e0b9e08d4be6a89ae10d153cb2",
+      "webp_sha256": "00cd9914ab937b6058b8bfe169fc1c0dbe5f99a2d5f92ac988fc4de1e40b169d"
+    },
+    {
+      "slug": "market-analysis",
+      "prompt": "Use case: photorealistic-natural. Asset type: landscape editorial photograph for country property price analysis. A naturally arranged warm oak worktable beside a large country-house window looking onto Moscow-region birch garden. On the table: clean scale architectural model of a contemporary house, a minimal tablet with an abstract unlabeled neutral line chart, blank cream paper and black pen. Professional understated premium mood, authentic soft daylight and real materials, camera at table level, objects anatomically and architecturally plausible. No readable text, no logos, no watermarks, no people.",
+      "original": "originals/market-analysis.png",
+      "webp": "market-analysis.webp",
+      "original_sha256": "306ea15f2486a4d063dd9396dc688bc9f89dc7cc097f4649fbc28f3aa01884f6",
+      "webp_sha256": "f29a7072a85df1d668e981d6632fa6550bc219914861f339aeaaec5dd3b9f269"
+    },
+    {
+      "slug": "private-viewing",
+      "prompt": "Use case: photorealistic-natural. Asset type: landscape card photograph for discreet viewings of a country house. View through an open solid oak front door into the calm entrance hall of a beautiful Moscow-region modern country house; beyond the hall a generous window frames a private garden with mature pine trees. Limestone floor, restrained sculptural pendant, subtle warm daylight, inviting real architectural photography, quiet private atmosphere. No people, no security symbols, no text, no logo, no watermark.",
+      "original": "originals/private-viewing.png",
+      "webp": "private-viewing.webp",
+      "original_sha256": "c31e08decb82b996e10cf66c74c736a4d43ff6aa48da9b4356c335e74b77fda7",
+      "webp_sha256": "5adae6940fd735469d6f9aae723b57ad229255e992f31ca72e5fd24dcddf5c9c"
+    },
+    {
+      "slug": "negotiation",
+      "prompt": "Use case: photorealistic-natural. Asset type: landscape card photo about negotiating and closing a country house sale. Intimate realistic still life on a refined oak table in a country house: one thin unbranded closed legal folder, two elegant neutral cups, pen, a simple set of keys, with garden greenery softly out of focus through tall glazing. Restrained professional premium aesthetic, authentic daylight, believable ordinary keys and proportions. No readable words, no logos, no watermarks, no handshake, no people.",
+      "original": "originals/negotiation.png",
+      "webp": "negotiation.webp",
+      "original_sha256": "18582b92c297c98913f22eafdf99131436452e343d9215be76c428c671c43949",
+      "webp_sha256": "79973ed7535ace3d5521fc4603361057f0e47242ca2f19962d687a758c98d795"
+    },
+    {
+      "slug": "country-panorama",
+      "prompt": "Use case: photorealistic-natural. Asset type: extra-wide landscape website panorama for a Moscow-region country property owner sales page. Broad view across a tranquil landscaped private garden of an understated luxury country residence. Mature Scots pines and birches, delicate ornamental grasses, pale limestone terrace, low contemporary house partially visible at far right. Golden hour diffused daylight, authentic central Russian landscape, premium editorial architectural photo with restrained natural colours and ample horizontal rhythm. No sea, mountains, tropical trees, people, text, logos, watermarks. Fictional illustration.",
+      "original": "originals/country-panorama.png",
+      "webp": "country-panorama.webp",
+      "original_sha256": "0afdb49ef32a59392f0019a2f60056abfc9f68fde33b8646a36cdfe2318d084a",
+      "webp_sha256": "94801694dbbe2f5f8269728319f4e70a9f6bc38971709f743a21383a58c902c8"
+    },
+    {
+      "slug": "property-magazine",
+      "prompt": "Use case: photorealistic-natural. Asset type: landscape editorial photo for a real estate magazine publication service. On a pale limestone coffee table in a refined country-house lounge lies one beautifully printed large open architectural magazine, two pages showing high quality photographs of a contemporary limestone house in a Moscow-region pine garden. Pages are predominantly photography with small abstract unobtrusive grey print textures, absolutely no legible words, no brand, no masthead, no gibberish large title. Soft window daylight, tactile paper, realistic book binding and page geometry, close editorial still life, warm neutral palette. No people, no logos, no watermark.",
+      "original": "originals/property-magazine.png",
+      "webp": "property-magazine.webp",
+      "original_sha256": "c30f0554b12abe03dce3ee7adaffd278832ad3ee163c3b8291cfb7d83eeed6aa",
+      "webp_sha256": "e86b2096e725b57448cf198816dc6f18ac1b2b7bb437beb2dfe07455b41d0c77"
+    }
+  ]
+}
